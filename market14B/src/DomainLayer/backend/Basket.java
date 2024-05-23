@@ -25,7 +25,9 @@ public class Basket {
     public int getStoreID() {
         return storeID;
     }
-
+    //TODO
+    // if product exists increase quantitiy else add
+    // right now it says if contains return does not exist?
     public String addProduct(Product product, int quantity) throws Exception {
         if (!products.containsKey(product)) {
             if (quantity > 0) {
@@ -42,4 +44,36 @@ public class Basket {
         }
     }
 
+    public int getQuantity(Product product) {
+        if (products.containsKey(product))
+            return products.get(product);
+        else
+            return -1;
+    }
+
+    public StringBuilder inspectBasket() {
+        StringBuilder output = new StringBuilder();
+        output.append("Store ID: ").append(getStoreID()).append("\n");
+
+        if (products.isEmpty()) {
+            output.append("  No products in this store.\n");
+        } else {
+            for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+                Product product = entry.getKey();
+                Integer quantity = entry.getValue();
+                //TODO product.getName()
+                //output.append("  Product: ").append(product.getName()).append(", Quantity: ").append(quantity).append("\n");
+            }
+        }
+        return output;
+    }
+
+    public String removeItem(Product product) {
+        if (products.containsKey(product)) {
+            products.remove(product);
+            LOGGER.info("item removed successfully");
+            return "item removed successfully";
+        }
+        return "couldn't find item";
+    }
 }

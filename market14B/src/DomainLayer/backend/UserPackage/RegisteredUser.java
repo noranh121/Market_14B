@@ -13,12 +13,11 @@ public class RegisteredUser extends User{
     public RegisteredUser(String username, String password) {
         super(username, password);
     }
-
+//TODO
 //    public String openStore() {
 //        // new store
 //        return "";
 //    }
-
 //    public String AddProduct(int productId,int storeId,int price,String productName,int quantity) {
 //
 //    }

@@ -16,7 +16,7 @@ public abstract class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        shoppingCart = new ShoppingCart();
+        shoppingCart = new ShoppingCart(getUsername());
         LoggedIn = false;
     }
 
@@ -41,22 +41,34 @@ public abstract class User {
     }
 
     public String Buy() {
+        //TODO checkAvai.. in service
         //checks shopping cart, availability, discounts.... (all or none)
-        return "";
+//        if (!shoppingCart.checkAvailability()) {
+//            LOGGER.severe("some items are missing, cant perform checkout");
+//            return "some items are missing, cant perform checkout";
+//        }
+        //TODO
+        // shoppingCart.checkDiscounts(String username);
+        // should purchase be performed here?
+        shoppingCart = new ShoppingCart(getUsername());
+        LOGGER.info("Your purchase was successful");
+        return "Your purchase was successful";
     }
 
-    public String AddToCart(Product product, int storeId, int quantity) {
-        return "";
+    public String AddToCart(Product product, int storeId, int quantity) throws Exception {
+        shoppingCart.addToCart(product,storeId,quantity);
+        LOGGER.info("added to cart");
+        return "added to cart";
     }
 
     public String inspectCart() {
         //extract cart baskets and items ....
-        return "";
+        return shoppingCart.inspectCart();
     }
 
     public String removeCartItem(int storeId, Product product) {
         //remove item from cart
-        return "";
+        return shoppingCart.removeCartItem(storeId,product);
     }
 
 }

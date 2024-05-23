@@ -1,5 +1,7 @@
 package DomainLayer.backend.UserPackage;
 
+import DomainLayer.backend.ProductPackage.Product;
+
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -24,7 +26,7 @@ public class UserController {
 
     private String addToGuestMap(User guest) {
         if (GuestMap.put(guest.getUsername(), guest) == null) {
-            LOGGER.warning("guest user cannot be added");
+            LOGGER.severe("guest user cannot be added");
             return "guest user cannot be added";
         }
         else {
@@ -36,7 +38,7 @@ public class UserController {
 
     public String GuestExit(String username) {
         if (GuestMap.remove(username) == null ) {
-            LOGGER.warning("guest user cannot be deleted");
+            LOGGER.severe("guest user cannot be deleted");
             return "guest user cannot be deleted";
         }
         LOGGER.info("guest existed successfully");
@@ -46,7 +48,7 @@ public class UserController {
     public String Login(String guest, String username, String password) {
         User user = RegUserMap.get(username);
         if (user == null || !authenticate(username,password)) {
-            LOGGER.warning("username or password are incorrect");
+            LOGGER.severe("username or password are incorrect");
             return "username or password are incorrect";
         }
         else {
@@ -64,7 +66,7 @@ public class UserController {
     //Registered user
     private String addToRegUserMap(User reg) {
         if (RegUserMap.put(reg.getUsername(), reg) == null) {
-            LOGGER.warning("guest user cannot be added");
+            LOGGER.severe("guest user cannot be added");
             return "guest user cannot be added";
         }
         else return "guest user added successfully";
@@ -81,6 +83,34 @@ public class UserController {
         // encryption TODO
         User reg = new RegisteredUser(username,password);
         return addToRegUserMap(reg);
+    }
+
+    public String Buy(String username) {
+        User user = getUser(username);
+        if (user != null)
+            return user.Buy();
+        LOGGER.severe("user not found");
+        return "user not found";
+    }
+
+    public User getUser(String username) {
+        if (RegUserMap.containsKey(username))
+            return RegUserMap.get(username);
+        else if (GuestMap.containsKey(username))
+            return GuestMap.get(username);
+        LOGGER.severe("username not found");
+        return null;
+    }
+
+    public String AddToCart(String username, Product product, int storeId, int quantity) throws Exception {
+        return getUser(username).AddToCart(product, storeId, quantity);
+    }
+    public String inspectCart(String username) {
+        return getUser(username).inspectCart();
+    }
+
+    public String removeCartItem(String username, int storeId, Product product) {
+        return getUser(username).removeCartItem(storeId, product);
     }
 
 
