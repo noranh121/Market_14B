@@ -6,7 +6,10 @@ public class PurchaseHistory {
 
     private static PurchaseHistory instance;
 
-    public static PurchaseHistory getInstance() {
+    public static synchronized PurchaseHistory getInstance() {
+        if(instance == null){
+            instance = new PurchaseHistory();
+        }
         return instance;
     }
 }
