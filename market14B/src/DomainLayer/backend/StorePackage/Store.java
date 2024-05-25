@@ -1,9 +1,7 @@
 package DomainLayer.backend.StorePackage;
 
-import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import javax.swing.LookAndFeel;
 
 import DomainLayer.backend.ProductPackage.Inventory;
 
