@@ -69,13 +69,14 @@ public class ShoppingCart {
         return "no such item";
     }
 
-    public int Buy() throws Exception {
-        int sum = 0;
+    public double Buy() throws Exception {
+        double sum = 0;
         for (Basket basket : baskets) {
 //            Store store = StoreController.getInstance().getStore(basket.getStoreID());
 //            if (store.check(basket.getProducts())) {
 //                for (Map.Entry<Product,Integer> entry : basket.getProducts().entrySet()) {
-//                    sum += entry.getKey().getPrice() * entry.getValue();
+//                      double price = store.getProdPrice(entry.key());                    
+//                      sum += price * entry.getValue();
                         //LOGGER.info("Your purchase was successful");
 //                }
 //            }

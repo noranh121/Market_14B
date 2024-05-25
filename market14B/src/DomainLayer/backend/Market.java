@@ -32,7 +32,7 @@ public class Market {
     public String Register(String username, String password) throws Exception {
         return userController.Register(username, password);
     }
-    public int Buy(String username) throws Exception {
+    public double Buy(String username) throws Exception {
         return userController.Buy(username);
     }
 

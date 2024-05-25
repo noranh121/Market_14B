@@ -39,7 +39,7 @@ public abstract class User {
      * @return total sum
      * @throws Exception
      */
-    public int Buy() throws Exception {
+    public double Buy() throws Exception {
         return shoppingCart.Buy();
     }
 

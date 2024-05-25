@@ -90,7 +90,7 @@ public class UserController {
         return addToRegUserMap(reg);
     }
 
-    public int Buy(String username) throws Exception {
+    public double Buy(String username) throws Exception {
         User user = getUser(username);
         if (user != null)
             return user.Buy();
