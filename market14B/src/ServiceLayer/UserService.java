@@ -32,9 +32,9 @@ public class UserService {
         }
     }
 
-    public String Login(String username, String password) {
+    public String Login(String guest,String username, String password) {
         try {
-            String result =  market.Login(username,password);
+            String result =  market.Login(guest,username,password);
             LOGGER.info(result);
             return result;
         } catch (Exception e) {

@@ -8,6 +8,8 @@ public class Market {
     private UserController userController = UserController.getInstance();
     private static Market instance;
     public static Market getInstance() {
+        if (instance == null)
+            instance = new Market();
         return instance;
     }
 
@@ -15,12 +17,12 @@ public class Market {
         return userController.EnterAsGuest();
     }
 
-    public String GuestExit() throws Exception {
-        return userController.GuestExit();
+    public String GuestExit(String username) throws Exception {
+        return userController.GuestExit(username);
     }
 
-    public String Login(String username, String password) throws Exception {
-        return userController.Login(username, password);
+    public String Login(String guest, String username, String password) throws Exception {
+        return userController.Login(guest, username, password);
     }
 
     public String Logout(String username) throws Exception {

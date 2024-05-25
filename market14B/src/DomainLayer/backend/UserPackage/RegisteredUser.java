@@ -8,11 +8,19 @@ public class RegisteredUser extends User{
 
     private static final Logger LOGGER = Logger.getLogger(RegisteredUser.class.getName());
     private StoreController storeController = StoreController.getInstance();
+    private String password;
+
 
     private int currentStore; //storeId
     public RegisteredUser(String username, String password) {
-        super(username, password);
+        super(username);
+        this.password = password;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
 //TODO
 //    public String openStore() {
 //        // new store

@@ -8,24 +8,18 @@ public abstract class User {
 
     private static final Logger LOGGER = Logger.getLogger(User.class.getName());
     private String username;
-    private String password;
     private ShoppingCart shoppingCart;
     private boolean LoggedIn;
 
 
-    public User(String username, String password) {
+    public User(String username) {
         this.username = username;
-        this.password = password;
         shoppingCart = new ShoppingCart();
         LoggedIn = false;
     }
 
     public String getUsername() {
         return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public ShoppingCart getShoppingCart() {
@@ -40,9 +34,13 @@ public abstract class User {
         return LoggedIn;
     }
 
+    /**
+     * checks shopping cart, availability, discounts.... (all or none)
+     * @return total sum
+     * @throws Exception
+     */
     public int Buy() throws Exception {
         return shoppingCart.Buy();
-        //checks shopping cart, availability, discounts.... (all or none)
     }
 
     public String addToCart(Product product, int storeId, int quantity) throws Exception {
@@ -51,13 +49,22 @@ public abstract class User {
         return "added to cart";
     }
 
+    /**
+     * extract cart baskets and items ....
+     * @return String of cart contents
+     */
     public String inspectCart() {
-        //extract cart baskets and items ....
         return shoppingCart.inspectCart();
     }
 
+
+    /**
+     * remove item from cart
+     * @param storeId
+     * @param product
+     * @return whether the removal was successful
+     */
     public String removeCartItem(int storeId, Product product) {
-        //remove item from cart
         return shoppingCart.removeCartItem(storeId,product);
     }
 

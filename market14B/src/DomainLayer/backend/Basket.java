@@ -18,7 +18,7 @@ public class Basket {
         this.products = new HashMap<Product, Integer>();
     }
 
-    public String geUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -26,7 +26,17 @@ public class Basket {
         return storeID;
     }
 
+    public Map<Product,Integer> getProducts() {
+        return products;
+    }
 
+
+    public int getQuantity(Product product) {
+        if (products.containsKey(product))
+            return products.get(product);
+        else
+            return -1;
+    }
     public String addProduct(Product product, int quantity) throws Exception {
         if (quantity > 0) {
             products.put(product, quantity);
@@ -38,12 +48,6 @@ public class Basket {
         }
     }
 
-    public int getQuantity(Product product) {
-        if (products.containsKey(product))
-            return products.get(product);
-        else
-            return -1;
-    }
 
     public StringBuilder inspectBasket() {
         StringBuilder output = new StringBuilder();
@@ -70,9 +74,5 @@ public class Basket {
         }
         LOGGER.severe("couldn't find item");
         return "couldn't find item";
-    }
-
-    public Map<Product,Integer> getProducts() {
-        return products;
     }
 }

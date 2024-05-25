@@ -9,17 +9,19 @@ public class UserController {
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
     private static UserController instance;
     public static UserController getInstance() {
+        if (instance == null)
+            return new UserController();
         return instance;
     }
 
-    private HashMap<String,User> GuestMap = new HashMap<>();
+    private HashMap<String,User> GuestMap = new HashMap<>(); //?
     private int idCounter = 0;
     private HashMap<String,User> RegUserMap = new HashMap<>();
 
     // Guest
     public String EnterAsGuest() throws Exception {
         User guest = new GuestUser(idCounter);
-        idCounter++;
+        idCounter++; //TODO how to keep track of available ids
         return addToGuestMap(guest);
     }
 
@@ -35,16 +37,16 @@ public class UserController {
         }
     }
 
-    public String GuestExit() throws Exception{
-//        if (GuestMap.remove(username) == null ) { TODO
-//            LOGGER.severe("guest user cannot be deleted");
-//            throw new Exception ("guest user cannot be deleted");
-//        }
-//        LOGGER.info("guest existed successfully");
+    public String GuestExit(String username) throws Exception{
+        if (GuestMap.remove(username) == null ) {
+            LOGGER.severe("guest user cannot be deleted");
+            throw new Exception ("guest user cannot be deleted");
+        }
+        LOGGER.info("guest existed successfully");
         return "guest existed successfully";
     }
 
-    public String Login(String username, String password) throws Exception {
+    public String Login(String guest, String username, String password) throws Exception {
         User user = RegUserMap.get(username);
         if (user == null || !authenticate(username,password)) {
             LOGGER.severe("username or password are incorrect");
@@ -52,7 +54,7 @@ public class UserController {
         }
         else {
             LOGGER.info("logged in successfully");
-            GuestExit();
+            GuestExit(guest);
             return "logged in successfully";
         }
     }
@@ -71,16 +73,19 @@ public class UserController {
         else return "guest user added successfully";
     }
 
-    public String Logout(String username) {
+    public String Logout(String username) throws Exception {
         // save data - DATA SERVICE
         RegUserMap.get(username).setLoggedIn(false);
-        //return EnterAsGuest(); TODO
-        return null;
+        return EnterAsGuest();
     }
 
     // both
     public String Register(String username, String password) throws Exception {
         // encryption TODO
+        if (RegUserMap.containsKey(username)) {
+            LOGGER.severe("username already exists");
+            throw new Exception("username already exists");
+        }
         User reg = new RegisteredUser(username,password);
         return addToRegUserMap(reg);
     }

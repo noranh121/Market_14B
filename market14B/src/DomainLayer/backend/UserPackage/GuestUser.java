@@ -8,10 +8,8 @@ public class GuestUser extends User{
     private int Id;
 
     public GuestUser(int Id) {
-        super(Integer.toString(Id), "x");
+        super(Integer.toString(Id));
+        this.Id = Id;
     }
 
-    public void Login() {
-        this.setLoggedIn(false);
-    }
 }
