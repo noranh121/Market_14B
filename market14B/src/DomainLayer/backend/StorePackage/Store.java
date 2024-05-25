@@ -14,6 +14,7 @@ public class Store {
     private String firstOwnerName;
     private boolean active;
     private String description;
+    private double rating;
 
 
     public Store(String name, String Description,int id){
