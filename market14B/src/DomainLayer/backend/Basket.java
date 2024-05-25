@@ -25,22 +25,16 @@ public class Basket {
     public int getStoreID() {
         return storeID;
     }
-    //TODO
-    // if product exists increase quantitiy else add
-    // right now it says if contains return does not exist?
+
+
     public String addProduct(Product product, int quantity) throws Exception {
-        if (!products.containsKey(product)) {
-            if (quantity > 0) {
-                products.put(product, quantity);
-                LOGGER.info("product added successfully");
-                return "product added successfully";
-            } else {
-                LOGGER.severe("invalid quantity");
-                throw new Exception("invalid quantity");
-            }
+        if (quantity > 0) {
+            products.put(product, quantity);
+            LOGGER.info("product added successfully");
+            return "product added successfully";
         } else {
-            LOGGER.severe(product + " does not exist");
-            throw new Exception(product + " does not exist");
+            LOGGER.severe("invalid quantity");
+            throw new Exception("invalid quantity");
         }
     }
 
@@ -74,6 +68,11 @@ public class Basket {
             LOGGER.info("item removed successfully");
             return "item removed successfully";
         }
+        LOGGER.severe("couldn't find item");
         return "couldn't find item";
+    }
+
+    public Map<Product,Integer> getProducts() {
+        return products;
     }
 }

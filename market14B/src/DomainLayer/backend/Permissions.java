@@ -40,7 +40,7 @@ public class Permissions {
         Permission permission = new Permission(userName, storeOwner, storeManager, pType);
         Node permissionNode = new Node(permission);
         if (storeOwners.containsKey(storeID)) {
-            if (storeOwners.get(storeID).findNode(ownerUserName) != null) {
+            if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 if (storeOwners.get(storeID).findNode(userName) == null) {
                     storeOwners.get(storeID).findNode(ownerUserName).addChild(permissionNode);
                     LOGGER.info("Permission added to store");
@@ -51,8 +51,8 @@ public class Permissions {
                     throw new Exception(userName + " already exists");
                 }
             } else {
-                LOGGER.severe(ownerUserName + " does not exist");
-                throw new Exception(ownerUserName + " does not exist");
+                LOGGER.severe(ownerUserName + " not owner");
+                throw new Exception(ownerUserName + " not owner");
             }
         } else {
             LOGGER.severe(storeID + " does not exist");
@@ -62,12 +62,10 @@ public class Permissions {
 
     public String editPermission(int storeID, String ownerUserName, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception {
         Permission permission = new Permission(userName, storeOwner, storeManager, pType);
-        Node permissionNode = new Node(permission);
         if (storeOwners.containsKey(storeID)) {
-            if (storeOwners.get(storeID).findNode(ownerUserName) != null) {
-                if (storeOwners.get(storeID).findNode(ownerUserName).findNode(userName)!=null) {
-                    storeOwners.get(storeID).deleteNode(userName);
-                    storeOwners.get(storeID).findNode(ownerUserName).addChild(permissionNode);
+            if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
+                if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)) {
+                    storeOwners.get(storeID).findNode(userName).edit(permission);
                     LOGGER.info("Permission added to store");
                     return "Permission added to store";
                 } else {
@@ -86,9 +84,9 @@ public class Permissions {
 
     public String deletePermission(int storeID, String ownerUserName, String userName) throws Exception {
         if (storeOwners.containsKey(storeID)) {
-            if (storeOwners.get(storeID).findNode(ownerUserName) != null) {
+            if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 if (storeOwners.get(storeID).findNode(userName) != null) {
-                    if (storeOwners.get(storeID).findNode(ownerUserName).findNode(userName)!=null) {
+                    if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)) {
                         storeOwners.get(storeID).deleteNode(userName);
                         LOGGER.info("Permission deleted from store");
                         return "Permission deleted from store";

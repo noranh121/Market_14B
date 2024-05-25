@@ -17,17 +17,16 @@ public class UserController {
     private HashMap<String,User> RegUserMap = new HashMap<>();
 
     // Guest
-    public User EnterAsGuest() {
+    public String EnterAsGuest() throws Exception {
         User guest = new GuestUser(idCounter);
         idCounter++;
-        addToGuestMap(guest);
-        return guest;
+        return addToGuestMap(guest);
     }
 
-    private String addToGuestMap(User guest) {
+    private String addToGuestMap(User guest) throws Exception {
         if (GuestMap.put(guest.getUsername(), guest) == null) {
             LOGGER.severe("guest user cannot be added");
-            return "guest user cannot be added";
+            throw new Exception("guest user cannot be added");
         }
         else {
             guest.setLoggedIn(true);
@@ -36,24 +35,24 @@ public class UserController {
         }
     }
 
-    public String GuestExit(String username) {
-        if (GuestMap.remove(username) == null ) {
-            LOGGER.severe("guest user cannot be deleted");
-            return "guest user cannot be deleted";
-        }
-        LOGGER.info("guest existed successfully");
+    public String GuestExit() throws Exception{
+//        if (GuestMap.remove(username) == null ) { TODO
+//            LOGGER.severe("guest user cannot be deleted");
+//            throw new Exception ("guest user cannot be deleted");
+//        }
+//        LOGGER.info("guest existed successfully");
         return "guest existed successfully";
     }
 
-    public String Login(String guest, String username, String password) {
+    public String Login(String username, String password) throws Exception {
         User user = RegUserMap.get(username);
         if (user == null || !authenticate(username,password)) {
             LOGGER.severe("username or password are incorrect");
-            return "username or password are incorrect";
+            throw new Exception("username or password are incorrect");
         }
         else {
             LOGGER.info("logged in successfully");
-            GuestExit(guest);
+            GuestExit();
             return "logged in successfully";
         }
     }
@@ -64,36 +63,37 @@ public class UserController {
     }
 
     //Registered user
-    private String addToRegUserMap(User reg) {
+    private String addToRegUserMap(User reg) throws Exception {
         if (RegUserMap.put(reg.getUsername(), reg) == null) {
             LOGGER.severe("guest user cannot be added");
-            return "guest user cannot be added";
+            throw new Exception("guest user cannot be added");
         }
         else return "guest user added successfully";
     }
 
-    public User Logout(String username) {
+    public String Logout(String username) {
         // save data - DATA SERVICE
         RegUserMap.get(username).setLoggedIn(false);
-        return EnterAsGuest();
+        //return EnterAsGuest(); TODO
+        return null;
     }
 
     // both
-    public String Register(String username, String password) {
+    public String Register(String username, String password) throws Exception {
         // encryption TODO
         User reg = new RegisteredUser(username,password);
         return addToRegUserMap(reg);
     }
 
-    public String Buy(String username) {
+    public int Buy(String username) throws Exception {
         User user = getUser(username);
         if (user != null)
             return user.Buy();
         LOGGER.severe("user not found");
-        return "user not found";
+        throw new Exception("user not found");
     }
 
-    public User getUser(String username) {
+    private User getUser(String username) {
         if (RegUserMap.containsKey(username))
             return RegUserMap.get(username);
         else if (GuestMap.containsKey(username))
@@ -102,8 +102,8 @@ public class UserController {
         return null;
     }
 
-    public String AddToCart(String username, Product product, int storeId, int quantity) throws Exception {
-        return getUser(username).AddToCart(product, storeId, quantity);
+    public String addToCart(String username, Product product, int storeId, int quantity) throws Exception {
+        return getUser(username).addToCart(product, storeId, quantity);
     }
     public String inspectCart(String username) {
         return getUser(username).inspectCart();
@@ -112,6 +112,5 @@ public class UserController {
     public String removeCartItem(String username, int storeId, Product product) {
         return getUser(username).removeCartItem(storeId, product);
     }
-
 
 }

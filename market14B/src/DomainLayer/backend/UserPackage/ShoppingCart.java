@@ -5,14 +5,14 @@ import java.util.Map;
 import java.util.logging.Logger;
 import DomainLayer.backend.Basket;
 import DomainLayer.backend.ProductPackage.Product;
+import DomainLayer.backend.StorePackage.Store;
+import DomainLayer.backend.StorePackage.StoreController;
 
 public class ShoppingCart {
     private static final Logger LOGGER = Logger.getLogger(ShoppingCart.class.getName());
-    private String username;
-    List<Basket> baskets;
-    public ShoppingCart(String username) {
+    private List<Basket> baskets;
+    public ShoppingCart() {
         baskets = new LinkedList<>();
-        this.username = username;
     }
 
     public String addBasket(Basket basket) throws Exception {
@@ -31,13 +31,13 @@ public class ShoppingCart {
     }
 
 
-    public void addToCart(Product product, int storeId, int quantity) throws Exception {
-        Basket basket = getBasket(storeId);
+    public void addToCart(String username, Product product, int storeId, int quantity) throws Exception {
+        Basket basket = getBasket(username,storeId);
         basket.addProduct(product,quantity);
         LOGGER.info("added to cart");
     }
 
-    public Basket getBasket(int storeId) {
+    public Basket getBasket(String username, int storeId) {
         for (Basket basket : baskets) {
             if (basket.getStoreID() == storeId) {
                 return basket;
@@ -67,5 +67,21 @@ public class ShoppingCart {
         }
         LOGGER.severe("no such item");
         return "no such item";
+    }
+
+    public int Buy() throws Exception {
+        int sum = 0;
+        for (Basket basket : baskets) {
+//            Store store = StoreController.getInstance().getStore(basket.getStoreID());
+//            if (store.check(basket.getProducts())) {
+//                for (Map.Entry<Product,Integer> entry : basket.getProducts().entrySet()) {
+//                    sum += entry.getKey().getPrice() * entry.getValue();
+                        //LOGGER.info("Your purchase was successful");
+//                }
+//            }
+            LOGGER.severe("invalid cart");
+            throw new Exception("invalid cart");
+        }
+        return sum;
     }
 }
