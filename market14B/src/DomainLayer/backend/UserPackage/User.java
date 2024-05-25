@@ -40,7 +40,7 @@ public abstract class User {
         return LoggedIn;
     }
 
-    public int Buy() throws Exception {
+    public double Buy() throws Exception {
         return shoppingCart.Buy();
         //checks shopping cart, availability, discounts.... (all or none)
     }

@@ -63,7 +63,7 @@ public class UserService {
     }
     public String Buy(String username) {
         try {
-            int sum =  market.Buy(username);
+            double sum =  market.Buy(username);
             //result = payment method TODO
             //LOGGER.info(result);
             //return result;
