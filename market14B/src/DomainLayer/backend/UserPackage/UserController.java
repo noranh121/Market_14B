@@ -1,5 +1,6 @@
 package DomainLayer.backend.UserPackage;
 
+import DomainLayer.backend.Permissions;
 import DomainLayer.backend.ProductPackage.Product;
 
 import java.util.HashMap;
@@ -116,6 +117,38 @@ public class UserController {
 
     public String removeCartItem(String username, int storeId, Product product) {
         return getUser(username).removeCartItem(storeId, product);
+    }
+
+    public String EditPermissions(int storeID,String ownerUserName, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception {
+        if(RegUserMap.containsKey(ownerUserName)){
+            RegisteredUser owner= (RegisteredUser)(RegUserMap.get(ownerUserName));
+            return  owner.EditPermissions(storeID, userName, storeOwner, storeManager, pType);
+        }
+        else{
+            LOGGER.severe("ownerUserName not found");
+            throw new Exception("ownerUserName not found");
+        }
+    }
+
+    public String AssignStoreManager(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
+        if(RegUserMap.containsKey(ownerUserName)){
+            RegisteredUser owner= (RegisteredUser)(RegUserMap.get(ownerUserName));
+            return  owner.AssignStoreManager(storeId, username, pType);
+        }
+        else{
+            LOGGER.severe("ownerUserName not found");
+            throw new Exception("ownerUserName not found");
+        }
+    }
+    public String AssignStoreOwner(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
+        if(RegUserMap.containsKey(ownerUserName)){
+            RegisteredUser owner= (RegisteredUser)(RegUserMap.get(ownerUserName));
+            return  owner.AssignStoreOwner(storeId, username, pType);
+        }
+        else{
+            LOGGER.severe("ownerUserName not found");
+            throw new Exception("ownerUserName not found");
+        }
     }
 
 }
