@@ -20,9 +20,9 @@ public class Inventory {
         products.remove(productId);
     }
 
-//   public String EditProductName(int productId,int storeId,String newName) {
-//
-//    }
+    public double getPrice(int prodID){
+        return (products.containsKey(prodID)) ? products.get(prodID)[PRICE] : -1; 
+    }
 
     public void EditProductPrice(int productId,Double newPrice) {
         double[] details = products.get(productId);
