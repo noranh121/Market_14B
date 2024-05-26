@@ -1,11 +1,7 @@
 package DomainLayer.backend.AuthenticatorPackage;
 
 public class Authenticator {
-    private static IPasswordEncoder encoder;
-
-    public Authenticator(){
-        this.encoder = new BCryptEncoder();
-    }
+    private final static IPasswordEncoder encoder = new BCryptEncoder();
 
     public static String encodePassword(String password){
         return encoder.encodePassword(password);
