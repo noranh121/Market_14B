@@ -103,6 +103,33 @@ public class UserService {
         }
     }
 
+    public String EditPermissions(int storeID,String ownerUserName, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception {
+        try {
+            String result = market.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
+            LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 
+    public String AssignStoreManager(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
+        try {
+            String result = market.AssignStoreManager(storeId, ownerUserName, username, pType);
+            LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 
+    public String AssignStoreOnwer(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
+        try {
+            String result = market.AssignStoreOwner(storeId, ownerUserName, username, pType);
+            LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }
