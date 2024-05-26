@@ -5,7 +5,7 @@ public class Permission {
         editProducts(0),
         addOrEditPurchaseHistory(1),
         addOrEditDiscountHistory(2);
-        private int index;
+        public int index;
 
         permissionType(int index) {
             this.index = index;

@@ -1,11 +1,17 @@
 package DomainLayer.backend;
 
 import DomainLayer.backend.ProductPackage.Product;
+import DomainLayer.backend.StorePackage.StoreController;
 import DomainLayer.backend.UserPackage.UserController;
 
+import java.util.logging.Logger;
+
 public class Market {
+    private static final Logger LOGGER = Logger.getLogger(Market.class.getName());
 
     private UserController userController = UserController.getInstance();
+    private StoreController storeController= StoreController.getInstance();
+    private Permissions permissions = Permissions.getInstance();
     private static Market instance;
     public static Market getInstance() {
         if (instance == null)
@@ -58,5 +64,71 @@ public class Market {
 
     public String AssignStoreOwner(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
         return userController.AssignStoreOwner(storeId,ownerUserName,username,pType);
+    }
+
+    public String addProduct(int productId,int storeId,int price,String productName,int quantity,String username) throws Exception {
+        if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
+            return storeController.addProduct(productId,storeId);
+        }
+        else{
+            LOGGER.severe(username+" has no permission to add products");
+            throw new Exception(username+" has no permission to add products");
+        }
+    }
+
+    public String RemoveProduct(int productId,int storeId,String username) throws Exception {
+        if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
+            return storeController.removeProduct(productId,storeId);
+        }
+        else{
+            LOGGER.severe(username+" has no permission to edit products");
+            throw new Exception(username+" has no permission to edit products");
+        }
+    }
+    public String EditProductName(int productId,int storeId,String newName,String username) throws Exception {
+        if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
+            return storeController.EditProductName(productId,storeId,newName);
+        }
+        else{
+            LOGGER.severe(username+" has no permission to edit products");
+            throw new Exception(username+" has no permission to edit products");
+        }
+    }
+    public String EditProductPrice(int productId,int storeId,int newPrice,String username) throws Exception {
+        if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
+            return storeController.EditProducPrice(productId,storeId,newPrice);
+        }
+        else{
+            LOGGER.severe(username+" has no permission to edit products");
+            throw new Exception(username+" has no permission to edit products");
+        }
+    }
+    public String EditProductQuantity(int productId,int storeId,int newQuantity,String username) throws Exception {
+        if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
+            return storeController.EditProductQuantity(productId,storeId,newQuantity);
+        }
+        else{
+            LOGGER.severe(username+" has no permission to edit products");
+            throw new Exception(username+" has no permission to edit products");
+        }
+    }
+    public String CloseStore(int storeId,String username) throws Exception {
+        if(permissions.getPermission(storeId,username).getStoreOwner()){
+            return storeController.closeStore(storeId);
+        }
+        else{
+            LOGGER.severe(username+" has no permission to close the store");
+            throw new Exception(username+" has no permission to close the store");
+        }
+    }
+
+    public String OpenStore(int storeId,String username) throws Exception {
+        if(permissions.getPermission(storeId,username).getStoreOwner()){
+            return storeController.openStore(storeId);
+        }
+        else{
+            LOGGER.severe(username+" has no permission to open the store");
+            throw new Exception(username+" has no permission to open the store");
+        }
     }
 }

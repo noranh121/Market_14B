@@ -22,26 +22,6 @@ public class RegisteredUser extends User{
         return password;
     }
 
-//TODO
-//    public String openStore() {
-//        // new store
-//        return "";
-//    }
-//    public String AddProduct(int productId,int storeId,int price,String productName,int quantity) {
-//
-//    }
-//    public String RemoveProduct(int productId,int storeId) {
-//
-//    }
-//    public String EditProductName(int productId,int storeId,String newName) {
-//
-//    }
-//    public String EditProductPrice(int productId,int storeId,int newPrice) {
-//
-//    }
-//    public String EditProductQuantity(int productId,int storeId,int newQuantity) {
-//
-//    }
     public String AssignStoreOwner(int storeId,String username,Boolean[] pType) throws Exception {
         return Permissions.getInstance().addPermission(storeId,this.getUsername(),username,true,false,pType);
 
@@ -52,9 +32,6 @@ public class RegisteredUser extends User{
     public String EditPermissions(int storeID, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception {
         return Permissions.getInstance().editPermission(storeID,this.getUsername(),userName,storeOwner,storeManager,pType);
     }
-//    public String CloseStore(int storeId) {
-//
-//    }
 //    public String getInfo(int storeId) {
 //
 //    }
