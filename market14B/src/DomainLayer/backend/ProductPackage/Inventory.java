@@ -23,6 +23,9 @@ public class Inventory {
     public double getPrice(int prodID){
         return (products.containsKey(prodID)) ? products.get(prodID)[PRICE] : -1; 
     }
+    public int getQuantity(int prodID){
+        return (int) products.get(prodID)[QUANTITY];
+    }
 
     public void EditProductPrice(int productId,Double newPrice) {
         double[] details = products.get(productId);
@@ -37,5 +40,19 @@ public class Inventory {
             details[QUANTITY] = newQuantity;
         }
 
+    }
+
+    public String fetchInfo(){
+        StringBuilder description = new StringBuilder();
+        for (Map.Entry<Integer, double[]> entry : products.entrySet()) {
+            int productId = entry.getKey();
+            double[] details = entry.getValue();
+            int quantity = (int) details[QUANTITY];
+            double price = details[PRICE];
+            description.append("Product ID: ").append(productId)
+                       .append(", Quantity: ").append(quantity)
+                       .append(", Price: $").append(price).append("\n");
+        }
+        return description.toString();
     }
 }

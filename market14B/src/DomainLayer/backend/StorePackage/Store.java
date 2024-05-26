@@ -1,6 +1,7 @@
 package DomainLayer.backend.StorePackage;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import DomainLayer.backend.ProductPackage.Inventory;
@@ -22,7 +23,6 @@ public class Store {
         active = false;
         inventory = new Inventory();
     }
-
     // Getter and Setter for id
     public int getId() {
         return id;
@@ -107,8 +107,16 @@ public class Store {
         return price;
     }
 
-    public boolean check(List<Product> products){
-        return null;
+    public boolean check(Map<Product,Integer> products){
+        for(Map.Entry<Product,Integer> entry: products.entrySet()){
+            int quant = inventory.getQuantity(entry.getKey().getId());
+            if(quant > entry.getValue()){
+                 LOGGER.severe("one of the products's quantity exceeds the availiable stock");
+                 return false;
+            }
+        }
+        LOGGER.info("Basket's contents are available in the store");
+        return true;
     }
 
 
@@ -120,8 +128,8 @@ public class Store {
         this.active = true;
     }
 
-    public Inventory getInfo() { // inventory for now!
-        return this.inventory;
+    public String getInfo() {
+        return this.inventory.fetchInfo();
     }
 
 }
