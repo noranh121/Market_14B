@@ -32,8 +32,5 @@ public class RegisteredUser extends User{
     public String EditPermissions(int storeID, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception {
         return Permissions.getInstance().editPermission(storeID,this.getUsername(),userName,storeOwner,storeManager,pType);
     }
-//    public String getInfo(int storeId) {
-//
-//    }
 
 }

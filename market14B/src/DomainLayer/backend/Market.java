@@ -131,4 +131,14 @@ public class Market {
             throw new Exception(username+" has no permission to open the store");
         }
     }
+
+    public String getInfo(int storeId,String username) throws Exception {
+        if(userController.isRegistered(username)){
+            return storeController.getInfo(storeId);
+        }
+        else{
+            LOGGER.severe(username+" has no permission to open the store");
+            throw new Exception(username+" has no permission to open the store");
+        }
+    }
 }

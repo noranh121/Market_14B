@@ -151,4 +151,13 @@ public class UserController {
         }
     }
 
+    public Boolean isRegistered(String username) throws Exception {
+        if (RegUserMap.containsKey(username))
+            return true;
+        else{
+            LOGGER.severe(username + " is not registered");
+            throw new Exception(username + " is not registered");
+        }
+    }
+
 }
