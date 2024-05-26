@@ -66,9 +66,9 @@ public class Market {
         return userController.AssignStoreOwner(storeId,ownerUserName,username,pType);
     }
 
-    public String addProduct(int productId,int storeId,int price,String productName,int quantity,String username) throws Exception {
+    public String addProduct(int productId,int storeId,double price,int quantity,String username) throws Exception {
         if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
-            return storeController.addProduct(productId,storeId);
+            return storeController.addProduct(productId,storeId,price,quantity);
         }
         else{
             LOGGER.severe(username+" has no permission to add products");
@@ -85,6 +85,7 @@ public class Market {
             throw new Exception(username+" has no permission to edit products");
         }
     }
+
     public String EditProductName(int productId,int storeId,String newName,String username) throws Exception {
         if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
             return storeController.EditProductName(productId,storeId,newName);
@@ -94,7 +95,9 @@ public class Market {
             throw new Exception(username+" has no permission to edit products");
         }
     }
-    public String EditProductPrice(int productId,int storeId,int newPrice,String username) throws Exception {
+
+
+    public String EditProductPrice(int productId,int storeId,Double newPrice,String username) throws Exception {
         if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
             return storeController.EditProducPrice(productId,storeId,newPrice);
         }
