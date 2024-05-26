@@ -44,6 +44,7 @@ public class RegisteredUser extends User{
 //    }
     public String AssignStoreOwner(int storeId,String username,Boolean[] pType) throws Exception {
         return Permissions.getInstance().addPermission(storeId,this.getUsername(),username,true,false,pType);
+
     }
     public String AssignStoreManager(int storeId,String username,Boolean[] pType) throws Exception {
         return Permissions.getInstance().addPermission(storeId,this.getUsername(),username,false,true,pType);
