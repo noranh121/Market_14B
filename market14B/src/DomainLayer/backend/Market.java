@@ -48,4 +48,15 @@ public class Market {
         return userController.removeCartItem(username,storeId,product);
     }
 
+    public String EditPermissions(int storeID,String ownerUserName, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception {
+        return userController.EditPermissions(storeID,ownerUserName,userName,storeOwner,storeManager,pType);
+    }
+
+    public String AssignStoreManager(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
+        return userController.AssignStoreManager(storeId,ownerUserName,username,pType);
+    }
+
+    public String AssignStoreOwner(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
+        return userController.AssignStoreOwner(storeId,ownerUserName,username,pType);
+    }
 }
