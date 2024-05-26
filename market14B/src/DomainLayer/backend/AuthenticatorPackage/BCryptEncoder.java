@@ -5,14 +5,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class BCryptEncoder implements IPasswordEncoder {
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Override
-    public String encodePassword(String password) {
+    public static String encodePassword(String password) {
         return passwordEncoder.encode(password);
     }
 
     @Override
-    public boolean matches(String rawPassword, String encodedPassword) {
+    public static boolean matches(String rawPassword, String encodedPassword) {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 }

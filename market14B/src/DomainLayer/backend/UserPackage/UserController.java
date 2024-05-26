@@ -1,5 +1,6 @@
 package DomainLayer.backend.UserPackage;
 
+import DomainLayer.backend.AuthenticatorPackage.Authenticator;
 import DomainLayer.backend.Permissions;
 import DomainLayer.backend.ProductPackage.Product;
 
@@ -60,8 +61,13 @@ public class UserController {
         }
     }
 
-    private boolean authenticate(String username, String password) {
-        // send to authenticator TODO
+    private boolean authenticate(String username, String password) throws Exception {
+        if (isRegistered(username)) {
+            String pass = ((RegisteredUser)(RegUserMap.get(username))).getPassword();
+            LOGGER.info("authenticated");
+            return Authenticator.matches(password,pass);
+        }
+        LOGGER.severe("");
         return false;
     }
 
@@ -82,12 +88,12 @@ public class UserController {
 
     // both
     public String Register(String username, String password) throws Exception {
-        // encryption TODO
+        String newPass = Authenticator.encodePassword(password);
         if (RegUserMap.containsKey(username)) {
             LOGGER.severe("username already exists");
             throw new Exception("username already exists");
         }
-        User reg = new RegisteredUser(username,password);
+        User reg = new RegisteredUser(username,newPass);
         return addToRegUserMap(reg);
     }
 
