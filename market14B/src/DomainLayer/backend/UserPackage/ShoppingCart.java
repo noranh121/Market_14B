@@ -72,14 +72,14 @@ public class ShoppingCart {
     public double Buy() throws Exception {
         double sum = 0;
         for (Basket basket : baskets) {
-//            Store store = StoreController.getInstance().getStore(basket.getStoreID());
-//            if (store.check(basket.getProducts())) {
-//                for (Map.Entry<Product,Integer> entry : basket.getProducts().entrySet()) {
-//                      double price = store.getProdPrice(entry.key());                    
-//                      sum += price * entry.getValue();
-                        //LOGGER.info("Your purchase was successful");
-//                }
-//            }
+            Store store = StoreController.getInstance().getStore(basket.getStoreID());
+            if (store.check(basket.getProducts())) {
+                for (Map.Entry<Product,Integer> entry : basket.getProducts().entrySet()) {
+                      double price = store.getProdPrice(entry.getKey());
+                      sum += price * entry.getValue();
+                        LOGGER.info("Your purchase was successful");
+                }
+            }
             LOGGER.severe("invalid cart");
             throw new Exception("invalid cart");
         }
