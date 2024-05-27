@@ -50,7 +50,7 @@ public class Inventory {
             int quantity = (int) details[QUANTITY];
             double price = details[PRICE];
             description.append("Product ID: ").append(productId)
-                       .append(", Quantity: ").append(quantity)
+                       .append(", Quantity: ").append(quantity) //out of stock?
                        .append(", Price: $").append(price).append("\n");
         }
         return description.toString();

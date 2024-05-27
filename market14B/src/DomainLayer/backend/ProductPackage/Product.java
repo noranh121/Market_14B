@@ -10,7 +10,7 @@ public class Product {
     private String brand;
     private double rating; // 0 - 5
 
-
+    
     public Product(String name,String description, String brand,Category category){
         //id
         rating = 0;
