@@ -10,6 +10,7 @@ public class StoreController {
     
 
     private Map<Integer,Store> stores;
+    private int idCounter;
 
     public static synchronized StoreController getInstance() {
         if(instance == null){
@@ -19,6 +20,7 @@ public class StoreController {
     }
 
     private StoreController(){
+        idCounter = 0;
         stores = new HashMap<>();
     }
 
@@ -125,5 +127,17 @@ public class StoreController {
            }
            return "No such store!";
     }
+
+    public int initStore(String userName, String Description) {
+        int id = idCounter;
+        Store newStore = new Store(userName, userName, idCounter);
+        stores.put(id, newStore);
+        //database
+        idCounter++;
+        return id;
+    }
+
+    
+    //remove store ...
 
 }
