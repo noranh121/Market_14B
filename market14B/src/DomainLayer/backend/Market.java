@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 public class Market {
     private static final Logger LOGGER = Logger.getLogger(Market.class.getName());
 
+    //List<Users> SystemManagers;
+    //boolean ON/OFF
     private UserController userController = UserController.getInstance();
     private StoreController storeController= StoreController.getInstance();
     private Permissions permissions = Permissions.getInstance();
@@ -18,6 +20,21 @@ public class Market {
             instance = new Market();
         return instance;
     }
+
+
+    //while OFFLINE only the login function is reachable, if SystemManager ==> start market + add to list SystemManagers
+    //if not ==> "Market IS OFFLINE"
+    //checkAtLeastOne ==> checks if there is atleast one system manager in the system ===> list.size() >= 1;
+
+
+
+    public String initStore(String userName, String Description){
+        //user registered?
+        int storeID =  storeController.initStore(userName, Description);
+        //add to permissions
+        return "";
+    }
+    //viewsystemPurchaseHistory(username){return info;} ----> ONLY System Manager
 
     public String EnterAsGuest() throws Exception {
         return userController.EnterAsGuest();
@@ -66,9 +83,13 @@ public class Market {
         return userController.AssignStoreOwner(storeId,ownerUserName,username,pType);
     }
 
-    public String addProduct(int productId,int storeId,int price,String productName,int quantity,String username) throws Exception {
+
+    //unassign
+
+
+    public String addProduct(int productId,int storeId,double price,int quantity,String username) throws Exception {
         if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
-            return storeController.addProduct(productId,storeId);
+            return storeController.addProduct(productId,storeId,price,quantity);
         }
         else{
             LOGGER.severe(username+" has no permission to add products");
@@ -85,6 +106,7 @@ public class Market {
             throw new Exception(username+" has no permission to edit products");
         }
     }
+
     public String EditProductName(int productId,int storeId,String newName,String username) throws Exception {
         if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
             return storeController.EditProductName(productId,storeId,newName);
@@ -94,7 +116,9 @@ public class Market {
             throw new Exception(username+" has no permission to edit products");
         }
     }
-    public String EditProductPrice(int productId,int storeId,int newPrice,String username) throws Exception {
+
+
+    public String EditProductPrice(int productId,int storeId,Double newPrice,String username) throws Exception {
         if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
             return storeController.EditProducPrice(productId,storeId,newPrice);
         }

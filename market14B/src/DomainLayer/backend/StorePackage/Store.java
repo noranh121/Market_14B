@@ -78,7 +78,7 @@ public class Store {
         LOGGER.info("product removed successfully");
     }
 
-    public void EditProductPrice(int productId, int storeId, double newPrice) throws Exception {
+    public void EditProductPrice(int productId, double newPrice) throws Exception {
         if (newPrice <= 0) {
             LOGGER.severe("price is <=0 while trying to edit price");
             throw new Exception("Price cannot be zero or less!");
