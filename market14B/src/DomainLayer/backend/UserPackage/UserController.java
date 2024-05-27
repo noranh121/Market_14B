@@ -105,7 +105,7 @@ public class UserController {
         throw new Exception("user not found");
     }
 
-    private User getUser(String username) {
+    public User getUser(String username) {
         if (RegUserMap.containsKey(username))
             return RegUserMap.get(username);
         else if (GuestMap.containsKey(username))
