@@ -28,11 +28,15 @@ public class Market {
 
 
 
-    public String initStore(String userName, String Description){
-        //user registered?
-        int storeID =  storeController.initStore(userName, Description);
-        //add to permissions
-        return "";
+    public String initStore(String userName, String Description) throws Exception {
+        if(userController.isRegistered(userName)){
+            int storeID =  storeController.initStore(userName, Description);
+            return permissions.initStore(storeID,userName);
+        }
+        else{
+            LOGGER.severe(userName + " is not registered");
+            throw new Exception(userName + " is not registered");
+        }
     }
     //viewsystemPurchaseHistory(username){return info;} ----> ONLY System Manager
 
@@ -84,7 +88,9 @@ public class Market {
     }
 
 
-    //unassign
+    public  String unassignUser(int storeID, String ownerUserName,String userName) throws Exception {
+        return permissions.deletePermission(storeID, ownerUserName, userName);
+    }
 
 
     public String addProduct(int productId,int storeId,double price,int quantity,String username) throws Exception {

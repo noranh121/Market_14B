@@ -20,6 +20,22 @@ public class Permissions {
         return instance;
     }
 
+    public String initStore(int storeID,String userName) throws Exception {
+        if(!storeOwners.containsKey(storeID)){
+            Boolean[] pType=new Boolean[3];
+            pType[0]=true;pType[1]=true;pType[2]=true;
+            Permission fisrtOwner = new Permission(userName,true,false,pType);
+            Tree storeTree=new Tree(fisrtOwner);
+            storeOwners.put(storeID,storeTree);
+            LOGGER.info("store added successfully");
+            return "store added successfully";
+        }
+        else{
+            LOGGER.severe(storeID + " already exists");
+            throw new Exception(storeID + " already exists");
+        }
+    }
+
     public Permission getPermission(int storeID,String userName) throws Exception {
         if(storeOwners.containsKey(storeID)){
             Node permissionNode= storeOwners.get(storeID).findNode(userName);
@@ -86,13 +102,13 @@ public class Permissions {
         if (storeOwners.containsKey(storeID)) {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 if (storeOwners.get(storeID).findNode(userName) != null) {
-                    if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)) {
+                    if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName) || ownerUserName.equals(userName)) {
                         storeOwners.get(storeID).deleteNode(userName);
                         LOGGER.info("Permission deleted from store");
                         return "Permission deleted from store";
                     } else {
-                        LOGGER.severe(userName + " is no employed by " + ownerUserName);
-                        throw new Exception(userName + " is no employed by " + ownerUserName);
+                        LOGGER.severe(userName + " is not employed by " + ownerUserName);
+                        throw new Exception(userName + " is not employed by " + ownerUserName);
                     }
                 } else {
                     LOGGER.severe(userName + " already exists");

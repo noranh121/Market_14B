@@ -132,4 +132,14 @@ public class UserService {
             return e.getMessage();
         }
     }
+
+    public  String unassignUser(int storeID, String ownerUserName,String userName) throws Exception {
+        try {
+            String result = market.unassignUser(storeID, ownerUserName, userName);
+            LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }
