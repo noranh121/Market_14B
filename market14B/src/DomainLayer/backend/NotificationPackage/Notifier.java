@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 public class Notifier {
     private static final Logger LOGGER = Logger.getLogger(User.class.getName());
     private HashMap<String, ArrayList<String>> delayeduserNotifications;
+    //DECORATOR
 
     public Notifier(){
         delayeduserNotifications = new HashMap<String, ArrayList<String>>();
@@ -23,14 +24,15 @@ public class Notifier {
             ImmediateNotifier(username,message);
         }
         else {
-            if (delayeduserNotifications.containsKey(username)){
-                delayeduserNotifications.get(username).add(message);
-            }
-            else {
-                ArrayList<String> notifications = new ArrayList<String>();
-                notifications.add(message);
-                delayeduserNotifications.put(username, notifications);
-            }
+            delayeduserNotifications.computeIfAbsent(username, k -> new ArrayList<>()).add(message);
+            // if (delayeduserNotifications.containsKey(username)){
+            //     delayeduserNotifications.get(username).add(message);
+            // }
+            // else {
+            //     ArrayList<String> notifications = new ArrayList<String>();
+            //     notifications.add(message);
+            //     delayeduserNotifications.put(username, notifications);
+            // }
         }
     }
 
