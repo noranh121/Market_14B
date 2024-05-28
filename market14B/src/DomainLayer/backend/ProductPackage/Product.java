@@ -9,7 +9,7 @@ public class Product {
     private String description;
     private String brand;
     private double rating; // 0 - 5
-
+//    should be synchronized
 
     public Product(String name,String description, String brand,Category category){
         //id
