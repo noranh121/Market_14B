@@ -73,11 +73,11 @@ public class ShoppingCart {
         double sum = 0;
         for (Basket basket : baskets) {
             Store store = StoreController.getInstance().getStore(basket.getStoreID());
-            if (store.check(basket.getProducts())) {
+            if (store.check(basket.getProducts())) { //policies
                 for (Map.Entry<Product,Integer> entry : basket.getProducts().entrySet()) {
-                      double price = store.getProdPrice(entry.getKey());
+                      double price = store.getProdPrice(entry.getKey()); //discounts
                       sum += price * entry.getValue();
-                        LOGGER.info("Your purchase was successful");
+                    LOGGER.info("Your purchase was successful");
                 }
             }
             LOGGER.severe("invalid cart");
