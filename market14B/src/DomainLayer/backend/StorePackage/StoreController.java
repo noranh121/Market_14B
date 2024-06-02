@@ -2,7 +2,10 @@ package DomainLayer.backend.StorePackage;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class StoreController {
     private static StoreController instance;
@@ -22,6 +25,14 @@ public class StoreController {
     private StoreController(){
         idCounter = 0;
         stores = new HashMap<>();
+        try{
+            FileHandler fileHandler = new FileHandler("StorePackage", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            LOGGER.addHandler(fileHandler);
+            LOGGER.setLevel(Level.ALL);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Failed to set up logger handler.", e);
+        }
     }
 
 
