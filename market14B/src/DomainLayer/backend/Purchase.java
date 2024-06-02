@@ -1,6 +1,9 @@
 package DomainLayer.backend;
 
 
+import DomainLayer.backend.StorePackage.StoreController;
+import DomainLayer.backend.UserPackage.UserController;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -8,7 +11,6 @@ import java.util.logging.Logger;
 public class Purchase {
     public static final int QUANTITY = 0;
     public static final int PRICE = 1;
-    private static final Logger LOGGER = Logger.getLogger(Purchase.class.getName());
     private Map<Integer, double[]> purchases; //prodid ==> {quantity, price}
     private int storeId;
     private String username;
@@ -23,7 +25,7 @@ public class Purchase {
         this.storeId = basket.getStoreID(); //method in basket
         this.Ovlprice = calculatedPrice; //calculate price in basket!
         this.purchases = purchases;
-        LOGGER.info("Purchase captured!");
+        StoreController.LOGGER.info("Purchase captured!");
     }
 
     public void setID(int purchaseid){

@@ -4,7 +4,11 @@ import DomainLayer.backend.ProductPackage.Product;
 import DomainLayer.backend.StorePackage.StoreController;
 import DomainLayer.backend.UserPackage.UserController;
 
+import java.util.HashSet;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Market {
     private static final Logger LOGGER = Logger.getLogger(Market.class.getName());
@@ -14,13 +18,41 @@ public class Market {
     private UserController userController = UserController.getInstance();
     private StoreController storeController= StoreController.getInstance();
     private Permissions permissions = Permissions.getInstance();
+    private Boolean Online=false;
+    private HashSet<String> systemManagers=new HashSet<>();
     private static Market instance;
     public static Market getInstance() {
         if (instance == null)
             instance = new Market();
         return instance;
     }
+    private Market(){
+        try{
+            FileHandler fileHandler = new FileHandler("Market", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            LOGGER.addHandler(fileHandler);
+            LOGGER.setLevel(Level.ALL);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Failed to set up logger handler.", e);
+        }
+    }
 
+    public void setMarketOnline(String username) throws Exception {
+        if(!systemManagers.contains(username)){
+            LOGGER.severe("only system managers can change market's activity");
+            throw new Exception("only system managers can change market's activity");
+        }
+
+        Online=true;
+    }
+    public void setMarketOFFLINE(String username) throws Exception {
+        if(!systemManagers.contains(username)){
+            LOGGER.severe("only system managers can change market's activity");
+            throw new Exception("only system managers can change market's activity");
+        }
+
+        Online=false;
+    }
 
     //while OFFLINE only the login function is reachable, if SystemManager ==> start market + add to list SystemManagers
     //if not ==> "Market IS OFFLINE"
@@ -29,6 +61,7 @@ public class Market {
 
 
     public String initStore(String userName, String Description) throws Exception {
+        LOGGER.info("userName: " + userName+", Description: " + Description);
         if(userController.isRegistered(userName)){
             int storeID =  storeController.initStore(userName, Description);
             return permissions.initStore(storeID,userName);
@@ -49,6 +82,14 @@ public class Market {
     }
 
     public String Login(String guest, String username, String password) throws Exception {
+        if(!Online){
+            if(systemManagers.contains(username))
+                return userController.Login(guest, username, password);
+            else{
+                LOGGER.severe("Market IS OFFLINE");
+                throw new Exception("Market IS OFFLINE");
+            }
+        }
         return userController.Login(guest, username, password);
     }
 
@@ -63,7 +104,7 @@ public class Market {
         return userController.Buy(username);
     }
 
-    public String addToCart(String username, Product product, int storeId, int quantity) throws Exception {
+    public String addToCart(String username, Integer product, int storeId, int quantity) throws Exception {
         return userController.addToCart(username,product, storeId, quantity);
     }
 
@@ -71,7 +112,7 @@ public class Market {
         return userController.inspectCart(username);
     }
 
-    public String removeCartItem(String username, int storeId, Product product) throws Exception {
+    public String removeCartItem(String username, int storeId, int product) throws Exception {
         return userController.removeCartItem(username,storeId,product);
     }
 

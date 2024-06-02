@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 
 public abstract class User {
 
-    private static final Logger LOGGER = Logger.getLogger(User.class.getName());
     private String username;
     private ShoppingCart shoppingCart;
     private boolean LoggedIn;
@@ -43,9 +42,9 @@ public abstract class User {
         return shoppingCart.Buy();
     }
 
-    public String addToCart(Product product, int storeId, int quantity) throws Exception {
+    public String addToCart(Integer product, int storeId, int quantity) throws Exception {
         shoppingCart.addToCart(this.username,product,storeId,quantity);
-        LOGGER.info("added to cart");
+        UserController.LOGGER.info("added to cart");
         return "added to cart";
     }
 
@@ -64,7 +63,7 @@ public abstract class User {
      * @param product
      * @return whether the removal was successful
      */
-    public String removeCartItem(int storeId, Product product) {
+    public String removeCartItem(int storeId, int product) {
         return shoppingCart.removeCartItem(storeId,product);
     }
 
