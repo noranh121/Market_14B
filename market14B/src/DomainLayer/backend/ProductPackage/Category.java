@@ -6,15 +6,15 @@ import java.util.List;
 public class Category {
     private int id;
     private String name;
-    private Category parentCategory;
-    private List<Category> subCategories;
-    private List<Product> products;
+    private int parentCategoryID;
+    private List<Integer> subCategories;
+    private List<Integer> products;
 
 
-    public Category(int id, String name, Category parentCategory){
+    public Category(int id, String name, int parentCategoryID){
         this.id = id;
         this.name = name;
-        this.parentCategory = parentCategory;
+        this.parentCategoryID = parentCategoryID;
         subCategories = new ArrayList<>();
         products = new ArrayList<>();
     }
@@ -22,7 +22,7 @@ public class Category {
     public Category(int id, String name){
         this.id = id;
         this.name = name;
-        parentCategory = null;
+        parentCategoryID = -1;
         subCategories = new ArrayList<>();
         products = new ArrayList<>();
     }
@@ -44,45 +44,51 @@ public class Category {
         this.name = name;
     }
 
-    public Category getParentCategory() {
-        return parentCategory;
+    public int getParentCategory() {
+        return parentCategoryID;
     }
 
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
+    public void setParentCategory(int parentCategoryID) {
+        this.parentCategoryID = parentCategoryID;
     }
 
-    public List<Category> getSubCategories() {
+    public List<Integer> getSubCategories() {
         return subCategories;
     }
 
-    public void setSubCategories(List<Category> subCategories) {
+    public void setSubCategories(List<Integer> subCategories) {
         this.subCategories = subCategories;
     }
 
-    public List<Product> getProducts() {
+    public List<Integer> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<Integer> products) {
         this.products = products;
     }
 
 
-    public void addSubCategory(Category subCategory) {
-        subCategories.add(subCategory);
+    public void addSubCategory(int subCategoryID) {
+        subCategories.add(subCategoryID);
     }
 
-    public void removeSubCategory(Category subCategory) {
-        subCategories.remove(subCategory);
+    public void removeSubCategory(int subCategoryID) {
+        subCategories.remove(subCategoryID);
     }
 
-    public void addProduct(Product product) {
-        products.add(product);
+    public void addProduct(int productID) {
+        products.add(productID);
+        if(parentCategoryID != -1){
+            CategoryController.getinstance().getCategory(parentCategoryID).addProduct(productID);
+        }
     }
 
-    public void removeProduct(Product product) {
-        products.remove(product);
+    public void removeProduct(int productID) {
+        products.remove(productID);
+        for (Integer categoryID : subCategories) {
+            CategoryController.getinstance().getCategory(categoryID).removeProduct(productID);
+        }
     }
 
 
