@@ -1,12 +1,12 @@
 package DomainLayer.backend;
 
+import DomainLayer.backend.UserPackage.UserController;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
 public class Permissions {
-    private static final Logger LOGGER = Logger.getLogger(Permissions.class.getName());
-
     private Map<Integer, Tree> storeOwners = new HashMap<>();
 
     private static Permissions instance = null;
@@ -27,11 +27,11 @@ public class Permissions {
             Permission fisrtOwner = new Permission(userName,true,false,pType);
             Tree storeTree=new Tree(fisrtOwner);
             storeOwners.put(storeID,storeTree);
-            LOGGER.info("store added successfully");
+            UserController.LOGGER.info("store added successfully");
             return "store added successfully";
         }
         else{
-            LOGGER.severe(storeID + " already exists");
+            UserController.LOGGER.severe(storeID + " already exists");
             throw new Exception(storeID + " already exists");
         }
     }
@@ -40,14 +40,14 @@ public class Permissions {
         if(storeOwners.containsKey(storeID)){
             Node permissionNode= storeOwners.get(storeID).findNode(userName);
             if(permissionNode != null){
-                LOGGER.info("Permission found");
+                UserController.LOGGER.info("Permission found");
                 return permissionNode.getData();
             } else{
-                LOGGER.severe(userName + " does not exist");
+                UserController.LOGGER.severe(userName + " does not exist");
                 throw new Exception(userName + " does not exist");
             }
         } else{
-            LOGGER.severe(storeID + " does not exist");
+            UserController.LOGGER.severe(storeID + " does not exist");
             throw new Exception(storeID + " does not exist");
         }
     }
@@ -59,19 +59,19 @@ public class Permissions {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 if (storeOwners.get(storeID).findNode(userName) == null) {
                     storeOwners.get(storeID).findNode(ownerUserName).addChild(permissionNode);
-                    LOGGER.info("Permission added to store");
+                    UserController.LOGGER.info("Permission added to store");
                     return "Permission added to store";
 
                 } else {
-                    LOGGER.severe(userName + " already exists");
+                    UserController.LOGGER.severe(userName + " already exists");
                     throw new Exception(userName + " already exists");
                 }
             } else {
-                LOGGER.severe(ownerUserName + " not owner");
+                UserController.LOGGER.severe(ownerUserName + " not owner");
                 throw new Exception(ownerUserName + " not owner");
             }
         } else {
-            LOGGER.severe(storeID + " does not exist");
+            UserController.LOGGER.severe(storeID + " does not exist");
             throw new Exception(storeID + " does not exist");
         }
     }
@@ -82,18 +82,18 @@ public class Permissions {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)) {
                     storeOwners.get(storeID).findNode(userName).edit(permission);
-                    LOGGER.info("Permission added to store");
+                    UserController.LOGGER.info("Permission added to store");
                     return "Permission added to store";
                 } else {
-                    LOGGER.severe(userName + " is not employed by " + ownerUserName);
+                    UserController.LOGGER.severe(userName + " is not employed by " + ownerUserName);
                     throw new Exception(userName + " is not employed by " + ownerUserName);
                 }
             } else {
-                LOGGER.severe(ownerUserName + " does not exist");
+                UserController.LOGGER.severe(ownerUserName + " does not exist");
                 throw new Exception(ownerUserName + " does not exist");
             }
         } else {
-            LOGGER.severe(storeID + " does not exist");
+            UserController.LOGGER.severe(storeID + " does not exist");
             throw new Exception(storeID + " does not exist");
         }
     }
@@ -104,22 +104,22 @@ public class Permissions {
                 if (storeOwners.get(storeID).findNode(userName) != null) {
                     if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName) || ownerUserName.equals(userName)) {
                         storeOwners.get(storeID).deleteNode(userName);
-                        LOGGER.info("Permission deleted from store");
+                        UserController.LOGGER.info("Permission deleted from store");
                         return "Permission deleted from store";
                     } else {
-                        LOGGER.severe(userName + " is not employed by " + ownerUserName);
+                        UserController.LOGGER.severe(userName + " is not employed by " + ownerUserName);
                         throw new Exception(userName + " is not employed by " + ownerUserName);
                     }
                 } else {
-                    LOGGER.severe(userName + " already exists");
+                    UserController.LOGGER.severe(userName + " already exists");
                     throw new Exception(userName + " already exists");
                 }
             } else {
-                LOGGER.severe(ownerUserName + " does not exist");
+                UserController.LOGGER.severe(ownerUserName + " does not exist");
                 throw new Exception(ownerUserName + " does not exist");
             }
         } else {
-            LOGGER.severe(storeID + " does not exist");
+            UserController.LOGGER.severe(storeID + " does not exist");
             throw new Exception(storeID + " does not exist");
         }
     }

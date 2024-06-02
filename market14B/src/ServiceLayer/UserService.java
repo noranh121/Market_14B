@@ -8,14 +8,12 @@ import DomainLayer.backend.UserPackage.UserController;
 import java.util.logging.Logger;
 
 public class UserService {
-    private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
-
     private Market market = Market.getInstance();
 
     public String EnterAsGuest() {
         try {
             String result =  market.EnterAsGuest();
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -25,7 +23,7 @@ public class UserService {
     public String GuestExit() {
         try {
             String result =  market.EnterAsGuest();
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -35,7 +33,7 @@ public class UserService {
     public String Login(String guest,String username, String password) {
         try {
             String result =  market.Login(guest,username,password);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -45,7 +43,7 @@ public class UserService {
     public String Logout(String username) {
         try {
             String result =  market.Logout(username);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -55,7 +53,7 @@ public class UserService {
     public String Register(String username, String password) {
         try {
             String result =  market.Register(username, password);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -73,10 +71,10 @@ public class UserService {
         }
     }
 
-    public String addToCart(String username, Product product, int storeId, int quantity) {
+    public String addToCart(String username, Integer product, int storeId, int quantity) {
         try {
             String result = market.addToCart(username,product,storeId, quantity);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -86,17 +84,17 @@ public class UserService {
     public String inspectCart(String username) {
         try {
             String result = market.inspectCart(username);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
         }
     }
 
-    public String removeCartItem(String username, int storeId, Product product) {
+    public String removeCartItem(String username, int storeId, int product) {
         try {
             String result = market.removeCartItem(username,storeId, product);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -106,7 +104,7 @@ public class UserService {
     public String EditPermissions(int storeID,String ownerUserName, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception {
         try {
             String result = market.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -116,7 +114,7 @@ public class UserService {
     public String AssignStoreManager(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
         try {
             String result = market.AssignStoreManager(storeId, ownerUserName, username, pType);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -126,7 +124,7 @@ public class UserService {
     public String AssignStoreOnwer(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
         try {
             String result = market.AssignStoreOwner(storeId, ownerUserName, username, pType);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
@@ -136,7 +134,7 @@ public class UserService {
     public  String unassignUser(int storeID, String ownerUserName,String userName) throws Exception {
         try {
             String result = market.unassignUser(storeID, ownerUserName, userName);
-            LOGGER.info(result);
+            UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();

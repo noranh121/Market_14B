@@ -29,6 +29,7 @@ public class Market {
 
 
     public String initStore(String userName, String Description) throws Exception {
+        LOGGER.info("userName: " + userName+", Description: " + Description);
         if(userController.isRegistered(userName)){
             int storeID =  storeController.initStore(userName, Description);
             return permissions.initStore(storeID,userName);
@@ -63,7 +64,7 @@ public class Market {
         return userController.Buy(username);
     }
 
-    public String addToCart(String username, Product product, int storeId, int quantity) throws Exception {
+    public String addToCart(String username, Integer product, int storeId, int quantity) throws Exception {
         return userController.addToCart(username,product, storeId, quantity);
     }
 
@@ -71,7 +72,7 @@ public class Market {
         return userController.inspectCart(username);
     }
 
-    public String removeCartItem(String username, int storeId, Product product) throws Exception {
+    public String removeCartItem(String username, int storeId, int product) throws Exception {
         return userController.removeCartItem(username,storeId,product);
     }
 

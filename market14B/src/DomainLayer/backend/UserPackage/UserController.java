@@ -5,15 +5,28 @@ import DomainLayer.backend.Permissions;
 import DomainLayer.backend.ProductPackage.Product;
 
 import java.util.HashMap;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class UserController {
-    private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
+    public static final Logger LOGGER=Logger.getLogger(UserController.class.getName());
     private static UserController instance;
     public static UserController getInstance() {
         if (instance == null)
             return new UserController();
         return instance;
+    }
+    private UserController(){
+        try{
+            FileHandler fileHandler = new FileHandler("UserPackage", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            LOGGER.addHandler(fileHandler);
+            LOGGER.setLevel(Level.ALL);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Failed to set up logger handler.", e);
+        }
     }
 
     private HashMap<String,User> GuestMap = new HashMap<>(); //?
@@ -40,6 +53,7 @@ public class UserController {
     }
 
     public String GuestExit(String username) throws Exception{
+        LOGGER.info("username: "+username);
         if (GuestMap.remove(username) == null ) {
             LOGGER.severe("guest user cannot be deleted");
             throw new Exception ("guest user cannot be deleted");
@@ -49,6 +63,7 @@ public class UserController {
     }
 
     public String Login(String guest, String username, String password) throws Exception {
+        LOGGER.info("guest: "+guest+", username: "+username+", password: "+password);
         User user = RegUserMap.get(username);
         if (user == null || !authenticate(username,password)) {
             LOGGER.severe("username or password are incorrect");
@@ -62,6 +77,7 @@ public class UserController {
     }
 
     private boolean authenticate(String username, String password) throws Exception {
+        LOGGER.info("username: "+username+", password: "+password);
         if (isRegistered(username)) {
             String pass = ((RegisteredUser)(RegUserMap.get(username))).getPassword();
             LOGGER.info("authenticated");
@@ -88,6 +104,7 @@ public class UserController {
 
     // both
     public String Register(String username, String password) throws Exception {
+        LOGGER.info("username: "+username+", password: "+password);
         String newPass = Authenticator.encodePassword(password);
         if (RegUserMap.containsKey(username)) {
             LOGGER.severe("username already exists");
@@ -98,6 +115,7 @@ public class UserController {
     }
 
     public double Buy(String username) throws Exception {
+        LOGGER.info("username: "+username);
         User user = getUser(username);
         if (user != null)
             return user.Buy();
@@ -106,6 +124,7 @@ public class UserController {
     }
 
     public User getUser(String username) {
+        LOGGER.info("username: "+username);
         if (RegUserMap.containsKey(username))
             return RegUserMap.get(username);
         else if (GuestMap.containsKey(username))
@@ -114,18 +133,22 @@ public class UserController {
         return null;
     }
 
-    public String addToCart(String username, Product product, int storeId, int quantity) throws Exception {
+    public String addToCart(String username, Integer product, int storeId, int quantity) throws Exception {
+        LOGGER.info("username: "+username+", product: "+product+", quantity: "+quantity);
         return getUser(username).addToCart(product, storeId, quantity);
     }
     public String inspectCart(String username) {
+        LOGGER.info("username: "+username);
         return getUser(username).inspectCart();
     }
 
-    public String removeCartItem(String username, int storeId, Product product) {
+    public String removeCartItem(String username, int storeId, int product) {
+        LOGGER.info("username: "+username+", product: "+product+", storeId: "+storeId);
         return getUser(username).removeCartItem(storeId, product);
     }
 
     public String EditPermissions(int storeID,String ownerUserName, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception {
+        LOGGER.info("storeID: "+storeID+", ownerUserName: "+ownerUserName+", userName: "+userName+"storeOwner: "+storeOwner);
         if(RegUserMap.containsKey(ownerUserName)){
             RegisteredUser owner= (RegisteredUser)(RegUserMap.get(ownerUserName));
             return  owner.EditPermissions(storeID, userName, storeOwner, storeManager, pType);
@@ -137,6 +160,7 @@ public class UserController {
     }
 
     public String AssignStoreManager(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
+        LOGGER.info("ownerUserName: "+ownerUserName+", username: "+username+"storeOwner: "+storeId);
         if(RegUserMap.containsKey(ownerUserName)){
             RegisteredUser owner= (RegisteredUser)(RegUserMap.get(ownerUserName));
             return  owner.AssignStoreManager(storeId, username, pType);
@@ -147,6 +171,7 @@ public class UserController {
         }
     }
     public String AssignStoreOwner(int storeId,String ownerUserName,String username,Boolean[] pType) throws Exception {
+        LOGGER.info("ownerUserName: "+ownerUserName+", username: "+username+"storeOwner: "+storeId);
         if(RegUserMap.containsKey(ownerUserName)){
             RegisteredUser owner= (RegisteredUser)(RegUserMap.get(ownerUserName));
             return  owner.AssignStoreOwner(storeId, username, pType);
@@ -158,6 +183,7 @@ public class UserController {
     }
 
     public Boolean isRegistered(String username) throws Exception {
+        LOGGER.info("username: "+username);
         if (RegUserMap.containsKey(username))
             return true;
         else{
