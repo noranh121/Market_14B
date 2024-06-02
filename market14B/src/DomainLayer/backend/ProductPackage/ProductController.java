@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 public class ProductController {
     private static final Logger LOGGER = Logger.getLogger(ProductController.class.getName());
 
-    private ProductController instance;
+    private static ProductController instance;
 
     private Map<Integer, Product> products;
     private int idCounter;
 
-    public ProductController getInstance(){
+    public static synchronized ProductController getInstance(){
         if(instance == null){
             instance = new ProductController();
         }
@@ -24,6 +24,7 @@ public class ProductController {
     }
     public void addProduct(String name, Category category,String description, String brand){
         Product prod = new Product(name, description, brand, category);
+        //update categories
         prod.setId(idCounter++);
         products.put(prod.getId(), prod);
         LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() +" Added succeffuly to the system");

@@ -2,11 +2,14 @@ package DomainLayer.backend.StorePackage;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class StoreController {
     private static StoreController instance;
-    private static final Logger LOGGER = Logger.getLogger(StoreController.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(StoreController.class.getName());
     
 
     private Map<Integer,Store> stores;
@@ -22,6 +25,14 @@ public class StoreController {
     private StoreController(){
         idCounter = 0;
         stores = new HashMap<>();
+        try{
+            FileHandler fileHandler = new FileHandler("StorePackage", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            LOGGER.addHandler(fileHandler);
+            LOGGER.setLevel(Level.ALL);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Failed to set up logger handler.", e);
+        }
     }
 
 
@@ -36,6 +47,7 @@ public class StoreController {
     // }
 
     public Store getStore(int storeID) {
+        LOGGER.info("storeID: " + storeID);
         if(!stores.containsKey(storeID)){
             //check and get from dataBase
             //if exists add Store to Map and return Store;
@@ -56,6 +68,7 @@ public class StoreController {
 
     public String addProduct(int productId, int storeId, double price, int quantity) throws Exception {
         //checkStore(storeID)
+        LOGGER.info("productId: " + productId + ", storeId " + storeId+", price: "+price+", quantity: "+quantity);
         Store store = getStore(storeId);
         if(store != null){
             store.AddProduct(productId, price, quantity);
@@ -66,6 +79,7 @@ public class StoreController {
 
     public String removeProduct(int productId, int storeId) {
             //checkStore(storeID)
+        LOGGER.info("productId: " + productId + ", storeId "+storeId);
             Store store = getStore(storeId);
             if(store != null){
                 store.RemoveProduct(productId);
@@ -80,6 +94,7 @@ public class StoreController {
 
     public String EditProducPrice(int productId, int storeId, Double newPrice) throws Exception {
            //checkStore(storeID)
+        LOGGER.info("productId: " + productId + ", storeId "+storeId+", newPrice: "+newPrice);
            Store store = getStore(storeId);
            if(store != null){
                store.EditProductPrice(productId, newPrice);
@@ -90,6 +105,7 @@ public class StoreController {
 
     public String EditProductQuantity(int productId, int storeId, int newQuantity) throws Exception {
            //checkStore(storeID)
+        LOGGER.info("productId: " + productId + ", storeId "+storeId+", newQuantity: "+newQuantity);
            Store store = getStore(storeId);
            if(store != null){
                store.EditProductQuantity(productId, newQuantity);
@@ -100,6 +116,7 @@ public class StoreController {
 
     public String closeStore(int storeId) {
            //checkStore(storeID)
+        LOGGER.info("storeId: "+storeId);
            Store store = getStore(storeId);
            if(store != null){
                store.CloseStore();
@@ -110,6 +127,7 @@ public class StoreController {
 
     public String openStore(int storeId) {
            //checkStore(storeID)
+        LOGGER.info("storeId: "+storeId);
            Store store = getStore(storeId);
            if(store != null){
                store.OpenStore();
@@ -120,6 +138,7 @@ public class StoreController {
 
     public String getInfo(int storeId) {
            //checkStore(storeID)
+        LOGGER.info("storeId: "+storeId);
            Store store = getStore(storeId);
            if(store != null){
                LOGGER.info("Store Info fetched!");
@@ -129,6 +148,7 @@ public class StoreController {
     }
 
     public int initStore(String userName, String Description) {
+        LOGGER.info("userName: "+userName+", Description: "+Description);
         int id = idCounter;
         Store newStore = new Store(userName, userName, idCounter);
         stores.put(id, newStore);

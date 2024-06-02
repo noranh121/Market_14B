@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 public class RegisteredUser extends User{
 
-    private static final Logger LOGGER = Logger.getLogger(RegisteredUser.class.getName());
     private StoreController storeController = StoreController.getInstance();
     private String password;
 

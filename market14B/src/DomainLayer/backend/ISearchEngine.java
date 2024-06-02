@@ -1,4 +1,4 @@
 package DomainLayer.backend;
 
-public interface SearchEngine {
+public interface ISearchEngine {
 }
