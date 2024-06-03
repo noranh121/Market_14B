@@ -1,4 +1,4 @@
-package Tests;
+package Tests.UnitTest;
 import DomainLayer.backend.ProductPackage.Category;
 import DomainLayer.backend.ProductPackage.Product;
 import DomainLayer.backend.StorePackage.Store;

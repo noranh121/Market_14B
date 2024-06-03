@@ -1,4 +1,4 @@
-package Tests;
+package Tests.UnitTest;
 import DomainLayer.backend.Market;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
