@@ -218,4 +218,12 @@ public class Market {
             throw new Exception(username+" has no permission to open the store");
         }
     }
+
+    public HashSet<String> getSystemManagers(){
+        return systemManagers;
+    }
+
+    public boolean getOnline(){
+        return Online;
+    }
 }
