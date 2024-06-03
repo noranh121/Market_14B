@@ -93,7 +93,7 @@ public class StoreController {
     }
 
     public String EditProducPrice(int productId, int storeId, Double newPrice) throws Exception {
-           //checkStore(storeID)
+        //checkStore(storeID)
         LOGGER.info("productId: " + productId + ", storeId "+storeId+", newPrice: "+newPrice);
            Store store = getStore(storeId);
            if(store != null){
@@ -115,7 +115,7 @@ public class StoreController {
     }
 
     public String closeStore(int storeId) {
-           //checkStore(storeID)
+        //checkStore(storeID)
         LOGGER.info("storeId: "+storeId);
            Store store = getStore(storeId);
            if(store != null){
@@ -159,5 +159,9 @@ public class StoreController {
 
     
     //remove store ...
+
+    public Map<Integer,Store> GetStores(){
+        return stores;
+    }
 
 }

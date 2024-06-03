@@ -192,4 +192,12 @@ public class UserController {
         }
     }
 
+    public HashMap<String, User> getRegUserMap() {
+        return RegUserMap;
+    }
+
+    public HashMap<String, User> getGuestUserMap() {
+        return GuestMap;
+    }
+
 }
