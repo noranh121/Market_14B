@@ -71,4 +71,13 @@ public class PurchaseHistory {
         //         LOGGER.warning("Purchase not found in user history: User ID " + userId);
         //     }
         // }
+    public String viewPurchaseHistory() {
+        String info="";
+        for(Integer storeId : storeHistory.keySet()){
+            for(Purchase purchase : storeHistory.get(storeId)){
+                info+=purchase.FetchInfo()+"\n";
+            }
+        }
+        return info;
+    }
 }

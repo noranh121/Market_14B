@@ -71,7 +71,13 @@ public class Market {
             throw new Exception(userName + " is not registered");
         }
     }
-    //viewsystemPurchaseHistory(username){return info;} ----> ONLY System Manager
+    public String viewsystemPurchaseHistory(String username) throws Exception {
+        if(!systemManagers.contains(username)){
+            LOGGER.severe("only system managers can view purchaase history");
+            throw new Exception("only system managers can view purchaase history");
+        }
+        return PurchaseHistory.getInstance().viewPurchaseHistory();
+    }
 
     public String EnterAsGuest() throws Exception {
         return userController.EnterAsGuest();
