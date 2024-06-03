@@ -73,8 +73,8 @@ public class Market {
     }
     public String viewsystemPurchaseHistory(String username) throws Exception {
         if(!systemManagers.contains(username)){
-            LOGGER.severe("only system managers can view purchaase history");
-            throw new Exception("only system managers can view purchaase history");
+            LOGGER.severe("only system managers can view purchase history");
+            throw new Exception("only system managers can view purchase history");
         }
         return PurchaseHistory.getInstance().viewPurchaseHistory();
     }

@@ -31,7 +31,7 @@ public class UserUnitTests {
         String result = userController.EnterAsGuest();
         assertNotNull(result);
         assertTrue(result.contains("guest user added successfully"));
-        assertTrue(userController.getGuestUserMap().size()==1);
+        assertEquals(1, userController.getGuestUserMap().size());
     }
     @Test
     public void testEnterAsGuest2() throws Exception {
@@ -43,7 +43,7 @@ public class UserUnitTests {
         assertTrue(result2.contains("guest user added successfully"));
         assertTrue(result3.contains("guest user added successfully"));
         assertTrue(result4.contains("guest user added successfully"));
-        assertTrue(userController.getGuestUserMap().size()==4);
+        assertEquals(4, userController.getGuestUserMap().size());
     }
     @Test
     public void testGuestExit_Success() {
@@ -147,7 +147,6 @@ public class UserUnitTests {
 
     @Test
     public void testRegister_UsernameExists() {
-        // Register a user first
         String username = "existingUser";
         String password = "password123";
         try {
@@ -155,8 +154,6 @@ public class UserUnitTests {
         } catch (Exception e) {
             fail("Exception should not be thrown: " + e.getMessage());
         }
-
-        // Try registering the same username again
         try {
             userController.Register(username, password);
             fail("Exception should have been thrown");
