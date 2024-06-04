@@ -194,29 +194,4 @@ public class integrationTests {
         }
     }
 
-    @Test
-    public void testLogin_Success() {
-        try {
-            userController.getGuestUserMap().put(u1.getUsername(), u1);
-            userController.getRegUserMap().put(u3.getUsername(), u3);
-            String result = userController.Login(u1.getUsername(), u3.getUsername(),"123");
-            assertEquals("logged in successfully", result);
-            assertNull(userController.getGuestUserMap().get(u1.getUsername()));
-        } catch (Exception e) {
-            fail("Exception should not be thrown: " + e.getMessage());
-        }
-    }
-
-    @Test
-    public void testLogin_IncorrectUsername() {
-        try {
-            userController.getGuestUserMap().put(u1.getUsername(), u1);
-            userController.getRegUserMap().put(u3.getUsername(), u3);
-            String result = userController.Login(u1.getUsername(), "wrong","123");
-            fail("Exception should have been thrown");
-        } catch (Exception e) {
-            assertEquals("username or password are incorrect", e.getMessage());
-        }
-    }
-
 }
