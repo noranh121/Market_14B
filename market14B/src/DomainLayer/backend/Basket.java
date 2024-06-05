@@ -1,4 +1,78 @@
 package DomainLayer.backend;
 
+import DomainLayer.backend.ProductPackage.Product;
+import DomainLayer.backend.UserPackage.UserController;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
+
 public class Basket {
+    private String username;
+    private int storeID;
+    private Map<Integer, Integer> products;
+
+    public Basket(String username, int storeID) {
+        this.username = username;
+        this.storeID = storeID;
+        this.products = new HashMap<>();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getStoreID() {
+        return storeID;
+    }
+
+    public Map<Integer,Integer> getProducts() {
+        return products;
+    }
+
+
+    public int getQuantity(Integer product) {
+        if (products.containsKey(product))
+            return products.get(product);
+        else
+            return -1;
+    }
+    public String addProduct(Integer product, int quantity) throws Exception {
+        if (quantity > 0) {
+            products.put(product, quantity);
+            UserController.LOGGER.info("product added successfully");
+            return "product added successfully";
+        } else {
+            UserController.LOGGER.severe("invalid quantity");
+            throw new Exception("invalid quantity");
+        }
+    }
+
+
+    public StringBuilder inspectBasket() {
+        StringBuilder output = new StringBuilder();
+        output.append("Store ID: ").append(getStoreID()).append("\n");
+
+        if (products.isEmpty()) {
+            output.append("  No products in this store.\n");
+        } else {
+            for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
+                Integer product = entry.getKey();
+                Integer quantity = entry.getValue();
+                //TODO product.getName()
+                //output.append("  Product: ").append(product.getName()).append(", Quantity: ").append(quantity).append("\n");
+            }
+        }
+        return output;
+    }
+
+    public String removeItem(int product) {
+        if (products.containsKey(product)) {
+            products.remove(product);
+            UserController.LOGGER.info("item removed successfully");
+            return "item removed successfully";
+        }
+        UserController.LOGGER.severe("couldn't find item");
+        return "couldn't find item";
+    }
 }
