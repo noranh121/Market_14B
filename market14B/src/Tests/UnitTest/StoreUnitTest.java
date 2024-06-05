@@ -25,6 +25,11 @@ public class StoreUnitTest {
         p2=new Product("product2","desc2","brand2",c2);
     }
 
+    @AfterEach
+    void tearDown(){
+        storeController.setToNull();
+    }
+
     @Test
     public void testGetStore_StoreExists() {
         storeController.GetStores().put(0,s1);

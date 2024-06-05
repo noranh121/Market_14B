@@ -226,4 +226,13 @@ public class Market {
     public boolean getOnline(){
         return Online;
     }
+
+    //this is for testing
+    public void setToNull(){
+        instance=null;
+        permissions.setToNull();
+        userController.setToNull();
+        storeController.setToNull();
+        systemManagers=new HashSet<>();
+    }
 }

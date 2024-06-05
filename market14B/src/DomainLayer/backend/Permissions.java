@@ -124,4 +124,9 @@ public class Permissions {
         }
     }
 
+    //this is for testing
+    public void setToNull(){
+        instance=null;
+    }
+
 }

@@ -163,5 +163,9 @@ public class StoreController {
     public Map<Integer,Store> GetStores(){
         return stores;
     }
+    //this is for testing
+    public void setToNull(){
+        instance=null;
+    }
 
 }

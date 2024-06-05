@@ -8,6 +8,11 @@ public class MarketUnitTest {
     public void setUp() {
         market=Market.getInstance();
     }
+
+    @AfterEach
+    void tearDown() {
+        market.setToNull();
+    }
     @Test
     public void testSetMarketOnline_Success() throws Exception {
         String systemManager = "admin";
