@@ -193,7 +193,6 @@ public class integrationTests {
             assertEquals("username already exists", e.getMessage());
         }
     }
-
     @Test
     public void testLogin_Success() {
         try {
@@ -218,5 +217,6 @@ public class integrationTests {
             assertEquals("username or password are incorrect", e.getMessage());
         }
     }
+
 
 }

@@ -103,7 +103,7 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testEditProducPrice_Success() throws Exception {
+    public void testEditProductPrice_Success() throws Exception {
         storeController.GetStores().put(s1.getId(), s1);
         storeController.GetStores().put(s2.getId(), s2);
         s1.AddProduct(p1.getId(), 10.0, 5);
