@@ -38,6 +38,10 @@ public class integrationTests {
         p1=new Product("product1","desc1","brand1",c1);
         p2=new Product("product2","desc2","brand2",c2);
     }
+    @AfterEach
+    void tearDown() {
+        market.setToNull();
+    }
 
     @Test
     void buyTest1(){

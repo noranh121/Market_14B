@@ -200,4 +200,9 @@ public class UserController {
         return GuestMap;
     }
 
+    //this is for testing
+    public void setToNull(){
+        instance=null;
+    }
+
 }

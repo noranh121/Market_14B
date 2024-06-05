@@ -26,6 +26,11 @@ public class UserUnitTests {
         u4=new RegisteredUser("essa","456");
     }
 
+    @AfterEach
+    void tearDown(){
+        userController.setToNull();
+    }
+
     @Test
     public void testEnterAsGuest1() throws Exception {
         String result = userController.EnterAsGuest();
