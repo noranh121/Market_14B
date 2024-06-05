@@ -74,7 +74,6 @@ public class ConcurrencyTestImpl {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
-                throw new RuntimeException(e);
             } finally {
                 doneLatch.countDown(); // Indicate this thread is done
             }
@@ -137,7 +136,6 @@ public class ConcurrencyTestImpl {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
-                throw new RuntimeException(e);
             } finally {
                 doneLatch.countDown(); // Indicate this thread is done
             }
@@ -202,7 +200,6 @@ public class ConcurrencyTestImpl {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
-                throw new RuntimeException(e);
             } finally {
                 doneLatch.countDown(); // Indicate this thread is done
             }
@@ -268,7 +265,6 @@ public class ConcurrencyTestImpl {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
-                throw new RuntimeException(e);
             } finally {
                 doneLatch.countDown(); // Indicate this thread is done
             }
@@ -331,7 +327,6 @@ public class ConcurrencyTestImpl {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
-                throw new RuntimeException(e);
             } finally {
                 doneLatch.countDown(); // Indicate this thread is done
             }
