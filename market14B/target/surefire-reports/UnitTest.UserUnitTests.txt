@@ -1,0 +1,48 @@
+-------------------------------------------------------------------------------
+Test set: UnitTest.UserUnitTests
+-------------------------------------------------------------------------------
+Tests run: 23, Failures: 9, Errors: 2, Skipped: 0, Time elapsed: 0.32 s <<< FAILURE! - in UnitTest.UserUnitTests
+testLogin_Success  Time elapsed: 0.012 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Exception should not be thrown: username or password are incorrect
+	at UnitTest.UserUnitTests.testLogin_Success(UserUnitTests.java:85)
+
+testBuy_RegUserExists  Time elapsed: 0.011 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Exception should not be thrown: Cannot invoke "DomainLayer.backend.StorePackage.Store.check(java.util.Map)" because "store" is null
+	at UnitTest.UserUnitTests.testBuy_RegUserExists(UserUnitTests.java:198)
+
+testBuy_GuestUserExists  Time elapsed: 0.004 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Exception should not be thrown: Cannot invoke "DomainLayer.backend.StorePackage.Store.check(java.util.Map)" because "store" is null
+	at UnitTest.UserUnitTests.testBuy_GuestUserExists(UserUnitTests.java:182)
+
+testLogout_UserNotFound  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <guest user cannot be added> but was: <Cannot invoke "DomainLayer.backend.UserPackage.User.setLoggedIn(boolean)" because the return value of "java.util.HashMap.get(Object)" is null>
+	at UnitTest.UserUnitTests.testLogout_UserNotFound(UserUnitTests.java:134)
+
+removeCartItemTest2  Time elapsed: 0.004 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at UnitTest.UserUnitTests.removeCartItemTest2(UserUnitTests.java:272)
+
+testAddToCart  Time elapsed: 0.005 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at UnitTest.UserUnitTests.testAddToCart(UserUnitTests.java:244)
+
+testRegister_Success  Time elapsed: 0.121 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Exception should not be thrown: guest user cannot be added
+	at UnitTest.UserUnitTests.testRegister_Success(UserUnitTests.java:149)
+
+testEnterAsGuest1  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.Exception: guest user cannot be added
+	at UnitTest.UserUnitTests.testEnterAsGuest1(UserUnitTests.java:36)
+
+testEnterAsGuest2  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.Exception: guest user cannot be added
+	at UnitTest.UserUnitTests.testEnterAsGuest2(UserUnitTests.java:43)
+
+testLogout_Success  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Exception should not be thrown: guest user cannot be added
+	at UnitTest.UserUnitTests.testLogout_Success(UserUnitTests.java:123)
+
+testRegister_UsernameExists  Time elapsed: 0.078 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Exception should not be thrown: guest user cannot be added
+	at UnitTest.UserUnitTests.testRegister_UsernameExists(UserUnitTests.java:160)
+
