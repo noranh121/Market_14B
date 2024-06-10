@@ -1,0 +1,44 @@
+-------------------------------------------------------------------------------
+Test set: IntegrationTest.integrationTests
+-------------------------------------------------------------------------------
+Tests run: 15, Failures: 4, Errors: 6, Skipped: 0, Time elapsed: 0.221 s <<< FAILURE! - in IntegrationTest.integrationTests
+testAssignStoreOwner2  Time elapsed: 0.004 s  <<< ERROR!
+java.lang.Exception: ali is not registered
+	at IntegrationTest.integrationTests.testAssignStoreOwner2(integrationTests.java:114)
+
+testLogin_Success  Time elapsed: 0.005 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Exception should not be thrown: username or password are incorrect
+	at IntegrationTest.integrationTests.testLogin_Success(integrationTests.java:209)
+
+buyTest2  Time elapsed: 0.007 s  <<< ERROR!
+java.lang.Exception: invalid cart
+	at IntegrationTest.integrationTests.buyTest2(integrationTests.java:62)
+
+testEditPermissions2  Time elapsed: 0.005 s  <<< ERROR!
+java.lang.Exception: ali is not registered
+	at IntegrationTest.integrationTests.testEditPermissions2(integrationTests.java:135)
+
+testunassignUser1  Time elapsed: 0.004 s  <<< ERROR!
+java.lang.Exception: ali is not registered
+	at IntegrationTest.integrationTests.testunassignUser1(integrationTests.java:152)
+
+testunassignUser2  Time elapsed: 0.003 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <does not exist> but was: <0 does not exist>
+	at IntegrationTest.integrationTests.testunassignUser2(integrationTests.java:165)
+
+testviewsystemPurchaseHistory1  Time elapsed: 0.008 s  <<< ERROR!
+java.lang.Exception: invalid cart
+	at IntegrationTest.integrationTests.testviewsystemPurchaseHistory1(integrationTests.java:73)
+
+testRegister_Success  Time elapsed: 0.08 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Exception should not be thrown: guest user cannot be added
+	at IntegrationTest.integrationTests.testRegister_Success(integrationTests.java:180)
+
+testRegister_UsernameExists  Time elapsed: 0.08 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Exception should not be thrown: guest user cannot be added
+	at IntegrationTest.integrationTests.testRegister_UsernameExists(integrationTests.java:191)
+
+testAssignStoreManager2  Time elapsed: 0.004 s  <<< ERROR!
+java.lang.Exception: ali is not registered
+	at IntegrationTest.integrationTests.testAssignStoreManager2(integrationTests.java:94)
+
