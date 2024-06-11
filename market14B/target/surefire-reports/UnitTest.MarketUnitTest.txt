@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: UnitTest.MarketUnitTest
--------------------------------------------------------------------------------
-Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.007 s <<< FAILURE! - in UnitTest.MarketUnitTest
-testInitStore  Time elapsed: 0.002 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: Exception thrown: ali is not registered
-	at UnitTest.MarketUnitTest.testInitStore(MarketUnitTest.java:60)
-

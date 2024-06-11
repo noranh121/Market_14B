@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="UnitTest.StoreUnitTest" time="0.009" tests="11" errors="0" skipped="0" failures="6">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="UnitTest.StoreUnitTest" time="0.018" tests="11" errors="0" skipped="0" failures="6">
   <properties>
     <property name="java.specification.version" value="22"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IL"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/22.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter3917409430521349875.jar /Users/maged/Desktop/Market_14B/market14B/target/surefire 2024-06-10T18-09-54_450-jvmRun1 surefire10300108006100714708tmp surefire_03993552188908936176tmp"/>
+    <property name="sun.java.command" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter14232086227339376869.jar /Users/maged/Desktop/Market_14B/market14B/target/surefire 2024-06-11T22-04-18_287-jvmRun1 surefire6734178313698192015tmp surefire_06883228317712024971tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/test-classes:/Users/maged/Desktop/Market_14B/market14B/target/classes:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.3/junit-jupiter-engine-5.9.3.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-engine/1.9.3/junit-platform-engine-1.9.3.jar:/Users/maged/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.3/junit-jupiter-api-5.9.3.jar:/Users/maged/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-commons/1.9.3/junit-platform-commons-1.9.3.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-core/5.8.0/spring-security-core-5.8.0.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-crypto/5.8.0/spring-security-crypto-5.8.0.jar:/Users/maged/.m2/repository/org/springframework/spring-aop/5.3.24/spring-aop-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-beans/5.3.24/spring-beans-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-context/5.3.24/spring-context-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-core/5.3.24/spring-core-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-jcl/5.3.24/spring-jcl-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-expression/5.3.24/spring-expression-5.3.24.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.12.6.1/jackson-databind-2.12.6.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.12.6/jackson-annotations-2.12.6.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.12.6/jackson-core-2.12.6.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter3917409430521349875.jar"/>
+    <property name="surefire.real.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter14232086227339376869.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="22.0.1"/>
@@ -62,43 +62,43 @@
     <failure message="expected: &lt;150.0&gt; but was: &lt;20.0&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <150.0> but was: <20.0>
 	at UnitTest.StoreUnitTest.testEditProductPrice_Success(StoreUnitTest.java:118)
 ]]></failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store AddProduct
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.Store AddProduct
 INFO: product added successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store AddProduct
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.Store AddProduct
 INFO: product added successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController EditProducPrice
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController EditProducPrice
 INFO: productId: 0, storeId 0, newPrice: 150.0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store EditProductPrice
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.Store EditProductPrice
 INFO: Product's price edited successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController EditProducPrice
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController EditProducPrice
 INFO: Product's Price Modified in store Successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store getProdPrice
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.Store getProdPrice
 INFO: Price of Product fetched successfully
 ]]></system-err>
   </testcase>
   <testcase name="testRemoveProduct_StoreDoesNotExist" classname="UnitTest.StoreUnitTest" time="0"/>
-  <testcase name="testGetStore_StoreExists" classname="UnitTest.StoreUnitTest" time="0.001">
+  <testcase name="testGetStore_StoreExists" classname="UnitTest.StoreUnitTest" time="0">
     <failure message="expected: &lt;DomainLayer.backend.StorePackage.Store@6aba2b86&gt; but was: &lt;DomainLayer.backend.StorePackage.Store@158da8e&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <DomainLayer.backend.StorePackage.Store@6aba2b86> but was: <DomainLayer.backend.StorePackage.Store@158da8e>
 	at UnitTest.StoreUnitTest.testGetStore_StoreExists(StoreUnitTest.java:42)
 ]]></failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
 ]]></system-err>
   </testcase>
-  <testcase name="testOpenStore_Success" classname="UnitTest.StoreUnitTest" time="0"/>
+  <testcase name="testOpenStore_Success" classname="UnitTest.StoreUnitTest" time="0.001"/>
   <testcase name="testGetInfo" classname="UnitTest.StoreUnitTest" time="0">
     <failure message="expected: &lt;No such store!&gt; but was: &lt;&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <No such store!> but was: <>
 	at UnitTest.StoreUnitTest.testGetInfo(StoreUnitTest.java:153)
 ]]></failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getInfo
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getInfo
 INFO: storeId: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getInfo
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getInfo
 INFO: Store Info fetched!
 ]]></system-err>
   </testcase>
@@ -106,31 +106,31 @@ INFO: Store Info fetched!
     <failure message="Expected java.lang.Exception to be thrown, but nothing was thrown." type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Expected java.lang.Exception to be thrown, but nothing was thrown.
 	at UnitTest.StoreUnitTest.testAddProduct_StoreDoesNotExist(StoreUnitTest.java:71)
 </failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController addProduct
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController addProduct
 INFO: productId: 101, storeId 0, price: 19.99, quantity: 10
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store AddProduct
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.Store AddProduct
 INFO: product added successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController addProduct
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController addProduct
 INFO: Product added to store Successfully
 ]]></system-err>
   </testcase>
-  <testcase name="testEditProductQuantity_Success" classname="UnitTest.StoreUnitTest" time="0.001">
+  <testcase name="testEditProductQuantity_Success" classname="UnitTest.StoreUnitTest" time="0">
     <failure message="expected: &lt;20&gt; but was: &lt;10&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <20> but was: <10>
 	at UnitTest.StoreUnitTest.testEditProductQuantity_Success(StoreUnitTest.java:130)
 ]]></failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store AddProduct
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.Store AddProduct
 INFO: product added successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store AddProduct
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.Store AddProduct
 INFO: product added successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController EditProductQuantity
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController EditProductQuantity
 INFO: productId: 0, storeId 0, newQuantity: 20
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store EditProductQuantity
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.Store EditProductQuantity
 INFO: Product's price edited successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController EditProductQuantity
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController EditProductQuantity
 INFO: Product's Quantity Modified in store Successfully
 ]]></system-err>
   </testcase>
@@ -138,15 +138,15 @@ INFO: Product's Quantity Modified in store Successfully
     <failure message="expected: &lt;Store Closed Successfully&gt; but was: &lt;Store Closed Successfuly&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <Store Closed Successfully> but was: <Store Closed Successfuly>
 	at UnitTest.StoreUnitTest.testCloseStore_Success(StoreUnitTest.java:137)
 ]]></failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController closeStore
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController closeStore
 INFO: storeId: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController closeStore
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController closeStore
 INFO: Store Closed Successfuly
 ]]></system-err>
   </testcase>
-  <testcase name="testGetStore_StoreDoesNotExist" classname="UnitTest.StoreUnitTest" time="0.002"/>
-  <testcase name="testRemoveProduct_StoreExists" classname="UnitTest.StoreUnitTest" time="0.002"/>
-  <testcase name="testAddProduct_StoreExists" classname="UnitTest.StoreUnitTest" time="0.002"/>
+  <testcase name="testGetStore_StoreDoesNotExist" classname="UnitTest.StoreUnitTest" time="0"/>
+  <testcase name="testRemoveProduct_StoreExists" classname="UnitTest.StoreUnitTest" time="0.006"/>
+  <testcase name="testAddProduct_StoreExists" classname="UnitTest.StoreUnitTest" time="0.008"/>
 </testsuite>

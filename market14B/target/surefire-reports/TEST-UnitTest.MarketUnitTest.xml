@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="UnitTest.MarketUnitTest" time="0.007" tests="5" errors="0" skipped="0" failures="1">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="UnitTest.MarketUnitTest" time="0.002" tests="5" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="22"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IL"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/22.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter3917409430521349875.jar /Users/maged/Desktop/Market_14B/market14B/target/surefire 2024-06-10T18-09-54_450-jvmRun1 surefire10300108006100714708tmp surefire_03993552188908936176tmp"/>
+    <property name="sun.java.command" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter14232086227339376869.jar /Users/maged/Desktop/Market_14B/market14B/target/surefire 2024-06-11T22-04-18_287-jvmRun1 surefire6734178313698192015tmp surefire_06883228317712024971tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/test-classes:/Users/maged/Desktop/Market_14B/market14B/target/classes:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.3/junit-jupiter-engine-5.9.3.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-engine/1.9.3/junit-platform-engine-1.9.3.jar:/Users/maged/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.3/junit-jupiter-api-5.9.3.jar:/Users/maged/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-commons/1.9.3/junit-platform-commons-1.9.3.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-core/5.8.0/spring-security-core-5.8.0.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-crypto/5.8.0/spring-security-crypto-5.8.0.jar:/Users/maged/.m2/repository/org/springframework/spring-aop/5.3.24/spring-aop-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-beans/5.3.24/spring-beans-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-context/5.3.24/spring-context-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-core/5.3.24/spring-core-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-jcl/5.3.24/spring-jcl-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-expression/5.3.24/spring-expression-5.3.24.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.12.6.1/jackson-databind-2.12.6.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.12.6/jackson-annotations-2.12.6.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.12.6/jackson-core-2.12.6.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter3917409430521349875.jar"/>
+    <property name="surefire.real.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter14232086227339376869.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="22.0.1"/>
@@ -59,19 +59,19 @@
     <property name="java.class.version" value="66.0"/>
   </properties>
   <testcase name="testSetMarketOnline_NotSystemManager" classname="UnitTest.MarketUnitTest" time="0"/>
-  <testcase name="testSetMarketOFFLINE_Success" classname="UnitTest.MarketUnitTest" time="0.001"/>
-  <testcase name="testInitStore" classname="UnitTest.MarketUnitTest" time="0.002">
+  <testcase name="testSetMarketOFFLINE_Success" classname="UnitTest.MarketUnitTest" time="0"/>
+  <testcase name="testInitStore" classname="UnitTest.MarketUnitTest" time="0.001">
     <failure message="Exception thrown: ali is not registered" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Exception thrown: ali is not registered
 	at UnitTest.MarketUnitTest.testInitStore(MarketUnitTest.java:60)
 </failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.Market initStore
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.Market initStore
 INFO: userName: ali, Description: Store Description
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.UserController isRegistered
 INFO: username: ali
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.UserController isRegistered
 SEVERE: ali is not registered
 ]]></system-err>
   </testcase>
-  <testcase name="testSetMarketOnline_Success" classname="UnitTest.MarketUnitTest" time="0.001"/>
-  <testcase name="testSetMarketOFFLINE_NotSystemManager" classname="UnitTest.MarketUnitTest" time="0.002"/>
+  <testcase name="testSetMarketOnline_Success" classname="UnitTest.MarketUnitTest" time="0"/>
+  <testcase name="testSetMarketOFFLINE_NotSystemManager" classname="UnitTest.MarketUnitTest" time="0"/>
 </testsuite>

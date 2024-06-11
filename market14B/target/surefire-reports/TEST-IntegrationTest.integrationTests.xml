@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="IntegrationTest.integrationTests" time="0.221" tests="15" errors="6" skipped="0" failures="4">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="IntegrationTest.integrationTests" time="0.233" tests="15" errors="6" skipped="0" failures="4">
   <properties>
     <property name="java.specification.version" value="22"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IL"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/22.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter3917409430521349875.jar /Users/maged/Desktop/Market_14B/market14B/target/surefire 2024-06-10T18-09-54_450-jvmRun1 surefire10300108006100714708tmp surefire_03993552188908936176tmp"/>
+    <property name="sun.java.command" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter14232086227339376869.jar /Users/maged/Desktop/Market_14B/market14B/target/surefire 2024-06-11T22-04-18_287-jvmRun1 surefire6734178313698192015tmp surefire_06883228317712024971tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/test-classes:/Users/maged/Desktop/Market_14B/market14B/target/classes:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.3/junit-jupiter-engine-5.9.3.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-engine/1.9.3/junit-platform-engine-1.9.3.jar:/Users/maged/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.3/junit-jupiter-api-5.9.3.jar:/Users/maged/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-commons/1.9.3/junit-platform-commons-1.9.3.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-core/5.8.0/spring-security-core-5.8.0.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-crypto/5.8.0/spring-security-crypto-5.8.0.jar:/Users/maged/.m2/repository/org/springframework/spring-aop/5.3.24/spring-aop-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-beans/5.3.24/spring-beans-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-context/5.3.24/spring-context-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-core/5.3.24/spring-core-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-jcl/5.3.24/spring-jcl-5.3.24.jar:/Users/maged/.m2/repository/org/springframework/spring-expression/5.3.24/spring-expression-5.3.24.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.12.6.1/jackson-databind-2.12.6.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.12.6/jackson-annotations-2.12.6.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.12.6/jackson-core-2.12.6.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter3917409430521349875.jar"/>
+    <property name="surefire.real.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter14232086227339376869.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="22.0.1"/>
@@ -58,16 +58,16 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="66.0"/>
   </properties>
-  <testcase name="testAssignStoreOwner1" classname="IntegrationTest.integrationTests" time="0.005"/>
-  <testcase name="testAssignStoreOwner2" classname="IntegrationTest.integrationTests" time="0.004">
+  <testcase name="testAssignStoreOwner1" classname="IntegrationTest.integrationTests" time="0.001"/>
+  <testcase name="testAssignStoreOwner2" classname="IntegrationTest.integrationTests" time="0.002">
     <error message="ali is not registered" type="java.lang.Exception">java.lang.Exception: ali is not registered
 	at IntegrationTest.integrationTests.testAssignStoreOwner2(integrationTests.java:114)
 </error>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.Market initStore
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.Market initStore
 INFO: userName: ali, Description: description
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.UserController isRegistered
 INFO: username: ali
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.UserController isRegistered
 SEVERE: ali is not registered
 ]]></system-err>
   </testcase>
@@ -76,144 +76,144 @@ SEVERE: ali is not registered
     <failure message="Exception should not be thrown: username or password are incorrect" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Exception should not be thrown: username or password are incorrect
 	at IntegrationTest.integrationTests.testLogin_Success(integrationTests.java:209)
 </failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController Login
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.UserController Login
 INFO: guest: 0, username: malek, password: 123
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController authenticate
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.UserController authenticate
 INFO: username: malek, password: 123
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.UserController isRegistered
 INFO: username: malek
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController authenticate
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.UserController authenticate
 INFO: authenticated
-Jun 10, 2024 6:09:56 PM org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder matches
+Jun 11, 2024 10:04:18 PM org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder matches
 WARNING: Encoded password does not look like BCrypt
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController Login
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.UserController Login
 SEVERE: username or password are incorrect
 ]]></system-err>
   </testcase>
-  <testcase name="buyTest1" classname="IntegrationTest.integrationTests" time="0.004"/>
+  <testcase name="buyTest1" classname="IntegrationTest.integrationTests" time="0.003"/>
   <testcase name="buyTest2" classname="IntegrationTest.integrationTests" time="0.007">
     <error message="invalid cart" type="java.lang.Exception">java.lang.Exception: invalid cart
 	at IntegrationTest.integrationTests.buyTest2(integrationTests.java:62)
 </error>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController addProduct
+    <system-err><![CDATA[Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController addProduct
 INFO: productId: 0, storeId 0, price: 10.0, quantity: 15
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store AddProduct
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.Store AddProduct
 INFO: product added successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController addProduct
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.StorePackage.StoreController addProduct
 INFO: Product added to store Successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.Basket addProduct
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.Basket addProduct
 INFO: product added successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.ShoppingCart addToCart
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.ShoppingCart addToCart
 INFO: added to cart
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.User addToCart
+Jun 11, 2024 10:04:18 PM DomainLayer.backend.UserPackage.User addToCart
 INFO: added to cart
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController Buy
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController Buy
 INFO: username: ali
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController getUser
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController getUser
 INFO: username: ali
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store check
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.StorePackage.Store check
 SEVERE: one of the products's quantity exceeds the availiable stock
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.ShoppingCart Buy
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.ShoppingCart Buy
 SEVERE: invalid cart
 ]]></system-err>
   </testcase>
-  <testcase name="testEditPermissions1" classname="IntegrationTest.integrationTests" time="0.002"/>
-  <testcase name="testEditPermissions2" classname="IntegrationTest.integrationTests" time="0.005">
+  <testcase name="testEditPermissions1" classname="IntegrationTest.integrationTests" time="0.007"/>
+  <testcase name="testEditPermissions2" classname="IntegrationTest.integrationTests" time="0.007">
     <error message="ali is not registered" type="java.lang.Exception">java.lang.Exception: ali is not registered
 	at IntegrationTest.integrationTests.testEditPermissions2(integrationTests.java:135)
 </error>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.Market initStore
+    <system-err><![CDATA[Jun 11, 2024 10:04:19 PM DomainLayer.backend.Market initStore
 INFO: userName: ali, Description: description
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController isRegistered
 INFO: username: ali
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController isRegistered
 SEVERE: ali is not registered
 ]]></system-err>
   </testcase>
-  <testcase name="testunassignUser1" classname="IntegrationTest.integrationTests" time="0.004">
+  <testcase name="testunassignUser1" classname="IntegrationTest.integrationTests" time="0.003">
     <error message="ali is not registered" type="java.lang.Exception">java.lang.Exception: ali is not registered
 	at IntegrationTest.integrationTests.testunassignUser1(integrationTests.java:152)
 </error>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.Market initStore
+    <system-err><![CDATA[Jun 11, 2024 10:04:19 PM DomainLayer.backend.Market initStore
 INFO: userName: ali, Description: description
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController isRegistered
 INFO: username: ali
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController isRegistered
 SEVERE: ali is not registered
 ]]></system-err>
   </testcase>
-  <testcase name="testunassignUser2" classname="IntegrationTest.integrationTests" time="0.003">
+  <testcase name="testunassignUser2" classname="IntegrationTest.integrationTests" time="0">
     <failure message="expected: &lt;does not exist&gt; but was: &lt;0 does not exist&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <does not exist> but was: <0 does not exist>
 	at IntegrationTest.integrationTests.testunassignUser2(integrationTests.java:165)
 ]]></failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.Permissions deletePermission
+    <system-err><![CDATA[Jun 11, 2024 10:04:19 PM DomainLayer.backend.Permissions deletePermission
 SEVERE: 0 does not exist
 ]]></system-err>
   </testcase>
-  <testcase name="testviewsystemPurchaseHistory1" classname="IntegrationTest.integrationTests" time="0.008">
+  <testcase name="testviewsystemPurchaseHistory1" classname="IntegrationTest.integrationTests" time="0.007">
     <error message="invalid cart" type="java.lang.Exception">java.lang.Exception: invalid cart
 	at IntegrationTest.integrationTests.testviewsystemPurchaseHistory1(integrationTests.java:73)
 </error>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController addProduct
+    <system-err><![CDATA[Jun 11, 2024 10:04:19 PM DomainLayer.backend.StorePackage.StoreController addProduct
 INFO: productId: 0, storeId 0, price: 10.0, quantity: 15
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store AddProduct
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.StorePackage.Store AddProduct
 INFO: product added successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController addProduct
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.StorePackage.StoreController addProduct
 INFO: Product added to store Successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.Basket addProduct
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.Basket addProduct
 INFO: product added successfully
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.ShoppingCart addToCart
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.ShoppingCart addToCart
 INFO: added to cart
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.User addToCart
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.User addToCart
 INFO: added to cart
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController Buy
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController Buy
 INFO: username: ali
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController getUser
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController getUser
 INFO: username: ali
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.StoreController getStore
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 0
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.StorePackage.Store check
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.StorePackage.Store check
 SEVERE: one of the products's quantity exceeds the availiable stock
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.ShoppingCart Buy
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.ShoppingCart Buy
 SEVERE: invalid cart
 ]]></system-err>
   </testcase>
-  <testcase name="testRegister_Success" classname="IntegrationTest.integrationTests" time="0.08">
+  <testcase name="testRegister_Success" classname="IntegrationTest.integrationTests" time="0.087">
     <failure message="Exception should not be thrown: guest user cannot be added" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Exception should not be thrown: guest user cannot be added
 	at IntegrationTest.integrationTests.testRegister_Success(integrationTests.java:180)
 </failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController Register
+    <system-err><![CDATA[Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController Register
 INFO: username: newUser, password: password123
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController addToRegUserMap
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController addToRegUserMap
 SEVERE: guest user cannot be added
 ]]></system-err>
   </testcase>
-  <testcase name="testRegister_UsernameExists" classname="IntegrationTest.integrationTests" time="0.08">
+  <testcase name="testRegister_UsernameExists" classname="IntegrationTest.integrationTests" time="0.079">
     <failure message="Exception should not be thrown: guest user cannot be added" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: Exception should not be thrown: guest user cannot be added
 	at IntegrationTest.integrationTests.testRegister_UsernameExists(integrationTests.java:191)
 </failure>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController Register
+    <system-err><![CDATA[Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController Register
 INFO: username: existingUser, password: password123
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController addToRegUserMap
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController addToRegUserMap
 SEVERE: guest user cannot be added
 ]]></system-err>
   </testcase>
-  <testcase name="testAssignStoreManager1" classname="IntegrationTest.integrationTests" time="0.003"/>
+  <testcase name="testAssignStoreManager1" classname="IntegrationTest.integrationTests" time="0.002"/>
   <testcase name="testAssignStoreManager2" classname="IntegrationTest.integrationTests" time="0.004">
     <error message="ali is not registered" type="java.lang.Exception">java.lang.Exception: ali is not registered
 	at IntegrationTest.integrationTests.testAssignStoreManager2(integrationTests.java:94)
 </error>
-    <system-err><![CDATA[Jun 10, 2024 6:09:56 PM DomainLayer.backend.Market initStore
+    <system-err><![CDATA[Jun 11, 2024 10:04:19 PM DomainLayer.backend.Market initStore
 INFO: userName: ali, Description: description
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController isRegistered
 INFO: username: ali
-Jun 10, 2024 6:09:56 PM DomainLayer.backend.UserPackage.UserController isRegistered
+Jun 11, 2024 10:04:19 PM DomainLayer.backend.UserPackage.UserController isRegistered
 SEVERE: ali is not registered
 ]]></system-err>
   </testcase>
