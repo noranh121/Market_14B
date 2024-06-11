@@ -1,7 +1,5 @@
 package DomainLayer.backend.ProductPackage;
 
-import DomainLayer.backend.ProductPackage.Category;
-
 public class Product {
     private int id;
     private String name;
@@ -9,10 +7,10 @@ public class Product {
     private String description;
     private String brand;
     private double rating; // 0 - 5
-//    should be synchronized
+    // should be synchronized
 
-    public Product(String name,String description, String brand,Category category){
-        //id
+    public Product(String name, String description, String brand, Category category) {
+        // id
         rating = 0;
         this.name = name;
         this.description = description;
@@ -68,7 +66,7 @@ public class Product {
         this.rating = rating;
     }
 
-    public String getInfo(){
+    public String getInfo() {
         StringBuilder info = new StringBuilder();
         info.append("Product Information:\n");
         info.append("Name: ").append(name).append("\n");

@@ -1,9 +1,7 @@
 package DomainLayer.backend.NotificationPackage;
 
-import java.util.logging.Logger;
-
 class ImmediateNotifierDecorator extends NotifierDecorator {
-    private static final Logger LOGGER = Logger.getLogger(Notifier.class.getName());
+    
 
     public ImmediateNotifierDecorator(Notifier notifier) {
         super(notifier);

@@ -1,6 +1,8 @@
 package DomainLayer.backend.NotificationPackage;
 
+
 public abstract class NotifierDecorator implements Notifier {
+    
     protected Notifier wrappedNotifier;
 
     public NotifierDecorator(Notifier notifier) {

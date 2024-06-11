@@ -1,11 +1,8 @@
 package DomainLayer.backend.StorePackage;
 
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import DomainLayer.backend.ProductPackage.Inventory;
-import DomainLayer.backend.ProductPackage.Product;
 
 public class Store {
     private int id;
@@ -13,7 +10,7 @@ public class Store {
     private String firstOwnerName;
     private boolean active;
     private String description;
-    private double rating;
+    private double rating; // 0 - 5
 
     public Store(String name, String Description, int id) {
         this.id = id;
@@ -21,7 +18,18 @@ public class Store {
         this.description = Description;
         active = false;
         inventory = new Inventory();
+        this.rating = 0;
     }
+
+    // Getter and Setter for rating
+    public double getRating() {
+        return this.rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
     // Getter and Setter for id
     public int getId() {
         return id;
@@ -95,29 +103,27 @@ public class Store {
         StoreController.LOGGER.info("Product's price edited successfully");
     }
 
-
-    public double getProdPrice(Integer p){
+    public double getProdPrice(Integer p) {
         double price = inventory.getPrice(p);
-        if(price == -1){
+        if (price == -1) {
             StoreController.LOGGER.warning("Product doesn't appear to be the inventory of the store!");
-        }else{
+        } else {
             StoreController.LOGGER.info("Price of Product fetched successfully");
         }
         return price;
     }
 
-    public boolean check(Map<Integer,Integer> products){
-        for(Map.Entry<Integer,Integer> entry: products.entrySet()){
+    public boolean check(Map<Integer, Integer> products) {
+        for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
             int quant = inventory.getQuantity(entry.getKey());
-            if(quant > entry.getValue()){
+            if (quant > entry.getValue()) {
                 StoreController.LOGGER.severe("one of the products's quantity exceeds the availiable stock");
-                 return false;
+                return false;
             }
         }
         StoreController.LOGGER.info("Basket's contents are available in the store");
         return true;
     }
-
 
     public void CloseStore() {
         this.active = false;

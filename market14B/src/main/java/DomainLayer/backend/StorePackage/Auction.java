@@ -1,4 +1,4 @@
 package DomainLayer.backend.StorePackage;
 
-public class Auction implements PurchaseMethod{
+public class Auction implements PurchaseMethod {
 }
