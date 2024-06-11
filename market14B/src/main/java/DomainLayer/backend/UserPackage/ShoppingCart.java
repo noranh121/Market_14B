@@ -1,4 +1,5 @@
 package DomainLayer.backend.UserPackage;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -8,16 +9,17 @@ import DomainLayer.backend.StorePackage.StoreController;
 
 public class ShoppingCart {
     private List<Basket> baskets;
+
     public ShoppingCart() {
         baskets = new LinkedList<>();
     }
 
     public String addBasket(Basket basket) throws Exception {
-        if(basket!=null) {
+        if (basket != null) {
             baskets.add(basket);
             UserController.LOGGER.info("Basket added successfully");
             return "Basket added successfully";
-        }else{
+        } else {
             UserController.LOGGER.severe("Basket is null");
             throw new Exception("Basket is null");
         }
@@ -27,10 +29,9 @@ public class ShoppingCart {
         return baskets;
     }
 
-
     public void addToCart(String username, Integer product, int storeId, int quantity) throws Exception {
-        Basket basket = getBasket(username,storeId);
-        basket.addProduct(product,quantity);
+        Basket basket = getBasket(username, storeId);
+        basket.addProduct(product, quantity);
         UserController.LOGGER.info("added to cart");
     }
 
@@ -40,7 +41,7 @@ public class ShoppingCart {
                 return basket;
             }
         }
-        Basket b = new Basket(username,storeId);
+        Basket b = new Basket(username, storeId);
         baskets.add(b);
         return b;
     }
@@ -70,10 +71,10 @@ public class ShoppingCart {
         double sum = 0;
         for (Basket basket : baskets) {
             Store store = StoreController.getInstance().getStore(basket.getStoreID());
-            if (store.check(basket.getProducts())) { //policies
-                for (Map.Entry<Integer,Integer> entry : basket.getProducts().entrySet()) {
-                      double price = store.getProdPrice(entry.getKey()); //discounts
-                      sum += price * entry.getValue();
+            if (store.check(basket.getProducts())) { // policies
+                for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) {
+                    double price = store.getProdPrice(entry.getKey()); // discounts
+                    sum += price * entry.getValue();
                     UserController.LOGGER.info("Your purchase was successful");
                 }
             }

@@ -9,7 +9,7 @@ public class StoresService {
 
     public String initStore(String userName, String Description) throws Exception {
         try {
-            String result =  market.initStore(userName,Description);
+            String result = market.initStore(userName, Description);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -17,10 +17,9 @@ public class StoresService {
         }
     }
 
-
-    public String addProduct(int productId, int storeId, double price, int quantity,String username) throws Exception {
+    public String addProduct(int productId, int storeId, double price, int quantity, String username) throws Exception {
         try {
-            String result =  market.addProduct(productId,storeId,price,quantity,username);
+            String result = market.addProduct(productId, storeId, price, quantity, username);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -28,9 +27,9 @@ public class StoresService {
         }
     }
 
-    public String removeProduct(int productId, int storeId,String username)  {
+    public String removeProduct(int productId, int storeId, String username) {
         try {
-            String result =  market.RemoveProduct(productId, storeId,username);
+            String result = market.RemoveProduct(productId, storeId, username);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -38,13 +37,12 @@ public class StoresService {
         }
     }
     // public String EditProductName(int productId, int storeId, String newName) {
-    //     return null;
+    // return null;
     // }
 
-
-    public String EditProducPrice(int productId, int storeId, Double newPrice,String username) throws Exception {
+    public String EditProducPrice(int productId, int storeId, Double newPrice, String username) throws Exception {
         try {
-            String result =  market.EditProductPrice(productId, storeId, newPrice,username);
+            String result = market.EditProductPrice(productId, storeId, newPrice, username);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -52,20 +50,9 @@ public class StoresService {
         }
     }
 
-
-    public String EditProductQuantity(int productId, int storeId, int newQuantity,String username) throws Exception {
+    public String EditProductQuantity(int productId, int storeId, int newQuantity, String username) throws Exception {
         try {
-            String result =  market.EditProductQuantity(productId, storeId, newQuantity,username);
-            StoreController.LOGGER.info(result);
-            return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
-    
-    public String closeStore(int storeId,String username) {
-        try {
-            String result =  market.CloseStore(storeId,username);
+            String result = market.EditProductQuantity(productId, storeId, newQuantity, username);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -73,9 +60,9 @@ public class StoresService {
         }
     }
 
-    public String openStore(int storeId,String username) {
+    public String closeStore(int storeId, String username) {
         try {
-            String result =  market.OpenStore(storeId,username);
+            String result = market.CloseStore(storeId, username);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -83,14 +70,24 @@ public class StoresService {
         }
     }
 
-    public String getInfo(int storeId,String username){
+    public String openStore(int storeId, String username) {
         try {
-            String result =  market.getInfo(storeId,username);
+            String result = market.OpenStore(storeId, username);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
             return e.getMessage();
         }
     }
-    
+
+    public String getInfo(int storeId, String username) {
+        try {
+            String result = market.getInfo(storeId, username);
+            StoreController.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
 }

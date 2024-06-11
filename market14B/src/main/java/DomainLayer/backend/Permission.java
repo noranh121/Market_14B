@@ -5,6 +5,7 @@ public class Permission {
         editProducts(0),
         addOrEditPurchaseHistory(1),
         addOrEditDiscountHistory(2);
+
         public int index;
 
         permissionType(int index) {
@@ -23,7 +24,6 @@ public class Permission {
         this.storeManager = storeManager;
         this.PType = pType;
     }
-
 
     public String getUserName() {
         return userName;

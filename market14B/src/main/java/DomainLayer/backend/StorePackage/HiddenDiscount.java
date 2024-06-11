@@ -1,4 +1,4 @@
 package DomainLayer.backend.StorePackage;
 
-public class HiddenDiscount implements Discount{
+public class HiddenDiscount implements Discount {
 }

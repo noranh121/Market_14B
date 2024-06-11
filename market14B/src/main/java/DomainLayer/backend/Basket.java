@@ -25,10 +25,9 @@ public class Basket {
         return storeID;
     }
 
-    public Map<Integer,Integer> getProducts() {
+    public Map<Integer, Integer> getProducts() {
         return products;
     }
-
 
     public int getQuantity(Integer product) {
         if (products.containsKey(product))
@@ -36,6 +35,7 @@ public class Basket {
         else
             return -1;
     }
+
     public String addProduct(Integer product, int quantity) throws Exception {
         if (quantity > 0) {
             products.put(product, quantity);
@@ -47,7 +47,6 @@ public class Basket {
         }
     }
 
-
     public StringBuilder inspectBasket() {
         StringBuilder output = new StringBuilder();
         output.append("Store ID: ").append(getStoreID()).append("\n");
@@ -58,7 +57,7 @@ public class Basket {
             for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
                 Integer productId = entry.getKey();
                 Integer quantity = entry.getValue();
-                String name=ProductController.getInstance().getProductName(productId);
+                String name = ProductController.getInstance().getProductName(productId);
                 output.append("  Product: ").append(name).append(", Quantity: ").append(quantity).append("\n");
             }
         }
