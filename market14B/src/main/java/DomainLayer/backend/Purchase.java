@@ -2,11 +2,8 @@ package DomainLayer.backend;
 
 
 import DomainLayer.backend.StorePackage.StoreController;
-import DomainLayer.backend.UserPackage.UserController;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class Purchase {
     public static final int QUANTITY = 0;

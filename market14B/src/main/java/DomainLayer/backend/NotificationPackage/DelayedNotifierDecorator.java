@@ -3,10 +3,8 @@ package DomainLayer.backend.NotificationPackage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 class DelayedNotifierDecorator extends NotifierDecorator {
-    private static final Logger LOGGER = Logger.getLogger(Notifier.class.getName());
 
     private Map<String, ArrayList<String>> delayedMessages = new HashMap<>();
 

@@ -1,11 +1,10 @@
 package DomainLayer.backend;
 
-import DomainLayer.backend.ProductPackage.Product;
+import DomainLayer.backend.ProductPackage.ProductController;
 import DomainLayer.backend.UserPackage.UserController;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class Basket {
     private String username;
@@ -57,10 +56,10 @@ public class Basket {
             output.append("  No products in this store.\n");
         } else {
             for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
-                Integer product = entry.getKey();
+                Integer productId = entry.getKey();
                 Integer quantity = entry.getValue();
-                //TODO product.getName()
-                //output.append("  Product: ").append(product.getName()).append(", Quantity: ").append(quantity).append("\n");
+                String name=ProductController.getInstance().getProductName(productId);
+                output.append("  Product: ").append(name).append(", Quantity: ").append(quantity).append("\n");
             }
         }
         return output;

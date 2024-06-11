@@ -30,15 +30,32 @@ public class ProductController {
         LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() +" Added succeffuly to the system");
     }
 
-    public void removeProduct(int productID){
-        products.remove(productID);
+    public String removeProduct(int productID) throws Exception{
+        if(products.containsKey(productID)){
+            products.remove(productID);
+            LOGGER.info("product "+productID+" removed");
+            return "product "+productID+" removed";
+        }
+        else{
+            LOGGER.severe("product "+productID+" is not exist");
+            throw new Exception("product "+productID+" is not exist");
+        }
     }
 
 
-    public String getProductInfo(int productID){
-        return products.get(productID).getInfo();
+    public String getProductInfo(int productID) throws Exception{
+        if(products.containsKey(productID)){
+            return products.get(productID).getInfo();
+        }
+        else{
+            LOGGER.severe("product "+productID+" is not exist");
+            throw new Exception("product "+productID+" is not exist");
+        }
     }
 
+    public String getProductName(int productId){
+        return products.get(productId).getName();
+    }
 
      
 }

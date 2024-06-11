@@ -1,17 +1,12 @@
 package DomainLayer.backend.UserPackage;
 
 import DomainLayer.backend.Permissions;
-import DomainLayer.backend.StorePackage.StoreController;
-
-import java.util.logging.Logger;
 
 public class RegisteredUser extends User{
 
-    private StoreController storeController = StoreController.getInstance();
+    
     private String password;
-
-
-    private int currentStore; //storeId
+    // private int currentStore; //storeId
     public RegisteredUser(String username, String password) {
         super(username);
         this.password = password;

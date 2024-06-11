@@ -1,8 +1,6 @@
 package DomainLayer.backend.UserPackage;
 
 import DomainLayer.backend.AuthenticatorPackage.Authenticator;
-import DomainLayer.backend.Permissions;
-import DomainLayer.backend.ProductPackage.Product;
 
 import java.util.HashMap;
 import java.util.logging.FileHandler;
@@ -13,7 +11,7 @@ import java.util.logging.SimpleFormatter;
 public class UserController {
     public static final Logger LOGGER=Logger.getLogger(UserController.class.getName());
     private static UserController instance;
-    public static UserController getInstance() {
+    public static synchronized UserController getInstance() {
         if (instance == null)
             return new UserController();
         return instance;

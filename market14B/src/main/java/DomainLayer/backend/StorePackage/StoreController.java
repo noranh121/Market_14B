@@ -35,17 +35,6 @@ public class StoreController {
         }
     }
 
-
-    // public Store checkStore(int storeID){
-    //     if(!stores.containsKey(storeID)){
-    //         //check and get from dataBase
-    //         //if exists return Store;
-    //         //else:
-    //         LOGGER.severe("Trying to retrieve A non existing StoreID");
-    //     }
-    //     return null
-    // }
-
     public Store getStore(int storeID) {
         LOGGER.info("storeID: " + storeID);
         if(!stores.containsKey(storeID)){
@@ -58,13 +47,28 @@ public class StoreController {
         return stores.get(storeID);
     }
 
-    // public String addStore(){
+    public String addStore(String name, String Description){
+        // add to database
+            Store store=new Store(name, Description, idCounter);
+            stores.put(idCounter, store);
+            idCounter++;
+            LOGGER.info("store added");
+            return "store added";
+            
+    }
 
-    // }
-
-    // public String removeStore(){
-
-    // }
+    public String removeStore(int id) throws Exception{
+        // remove from database
+        if(!stores.containsKey(id)){
+            LOGGER.severe("store is not existed");
+            throw new Exception("store is not existed");
+        }
+        else{
+            stores.remove(id);
+            LOGGER.info("store removed");
+            return "store removed";
+        }
+    }
 
     public String addProduct(int productId, int storeId, double price, int quantity) throws Exception {
         //checkStore(storeID)

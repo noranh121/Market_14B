@@ -4,7 +4,6 @@ import DomainLayer.backend.UserPackage.UserController;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class Permissions {
     private Map<Integer, Tree> storeOwners = new HashMap<>();

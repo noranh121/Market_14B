@@ -2,7 +2,6 @@ package DomainLayer.backend.ProductPackage;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class CategoryController {
     private static CategoryController instance;

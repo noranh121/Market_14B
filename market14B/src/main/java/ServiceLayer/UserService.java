@@ -1,11 +1,7 @@
 package ServiceLayer;
 
 import DomainLayer.backend.Market;
-import DomainLayer.backend.ProductPackage.Product;
-import DomainLayer.backend.UserPackage.User;
 import DomainLayer.backend.UserPackage.UserController;
-
-import java.util.logging.Logger;
 
 public class UserService {
     private Market market = Market.getInstance();
@@ -20,9 +16,9 @@ public class UserService {
         }
     }
 
-    public String GuestExit() {
+    public String GuestExit(String username) {
         try {
-            String result =  market.EnterAsGuest();
+            String result =  market.GuestExit(username);
             UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {

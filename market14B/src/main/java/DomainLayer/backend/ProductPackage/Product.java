@@ -1,7 +1,5 @@
 package DomainLayer.backend.ProductPackage;
 
-import DomainLayer.backend.ProductPackage.Category;
-
 public class Product {
     private int id;
     private String name;

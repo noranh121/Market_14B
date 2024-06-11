@@ -1,9 +1,5 @@
 package DomainLayer.backend.UserPackage;
 
-import DomainLayer.backend.ProductPackage.Product;
-
-import java.util.logging.Logger;
-
 public abstract class User {
 
     private String username;

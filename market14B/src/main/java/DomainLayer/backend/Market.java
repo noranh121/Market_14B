@@ -1,10 +1,12 @@
 package DomainLayer.backend;
 
-import DomainLayer.backend.ProductPackage.Product;
+// import DomainLayer.backend.ProductPackage.CategoryController;
+// import DomainLayer.backend.ProductPackage.ProductController;
 import DomainLayer.backend.StorePackage.StoreController;
 import DomainLayer.backend.UserPackage.UserController;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,10 @@ public class Market {
     private UserController userController = UserController.getInstance();
     private StoreController storeController= StoreController.getInstance();
     private Permissions permissions = Permissions.getInstance();
+    private PurchaseHistory purchaseHistory=PurchaseHistory.getInstance();
+    // private ProductController productController=ProductController.getInstance();
+    // private CategoryController categoryController=CategoryController.getinstance();
+
     private Boolean Online=false;
     private HashSet<String> systemManagers=new HashSet<>();
     private static Market instance;
@@ -42,7 +48,7 @@ public class Market {
             LOGGER.severe("only system managers can change market's activity");
             throw new Exception("only system managers can change market's activity");
         }
-
+        LOGGER.info("market is Online");
         Online=true;
     }
     public void setMarketOFFLINE(String username) throws Exception {
@@ -50,35 +56,32 @@ public class Market {
             LOGGER.severe("only system managers can change market's activity");
             throw new Exception("only system managers can change market's activity");
         }
-
+        LOGGER.info("market is OFFLINE");
         Online=false;
+    }
+
+    public HashSet<String> getSystemManagers(){
+        return systemManagers;
+    }
+
+    public boolean getOnline(){
+        return Online;
+    }
+
+    //this is for testing
+    public void setToNull(){
+        instance=null;
+        permissions.setToNull();
+        userController.setToNull();
+        storeController.setToNull();
+        systemManagers=new HashSet<>();
     }
 
     //while OFFLINE only the login function is reachable, if SystemManager ==> start market + add to list SystemManagers
     //if not ==> "Market IS OFFLINE"
     //checkAtLeastOne ==> checks if there is atleast one system manager in the system ===> list.size() >= 1;
 
-
-
-    public String initStore(String userName, String Description) throws Exception {
-        LOGGER.info("userName: " + userName+", Description: " + Description);
-        if(userController.isRegistered(userName)){
-            int storeID =  storeController.initStore(userName, Description);
-            return permissions.initStore(storeID,userName);
-        }
-        else{
-            LOGGER.severe(userName + " is not registered");
-            throw new Exception(userName + " is not registered");
-        }
-    }
-    public String viewsystemPurchaseHistory(String username) throws Exception {
-        if(!systemManagers.contains(username)){
-            LOGGER.severe("only system managers can view purchase history");
-            throw new Exception("only system managers can view purchase history");
-        }
-        return PurchaseHistory.getInstance().viewPurchaseHistory();
-    }
-
+    // User
     public String EnterAsGuest() throws Exception {
         return userController.EnterAsGuest();
     }
@@ -122,6 +125,7 @@ public class Market {
         return userController.removeCartItem(username,storeId,product);
     }
 
+    // Permissions
     public String EditPermissions(int storeID,String ownerUserName, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception {
         return userController.EditPermissions(storeID,ownerUserName,userName,storeOwner,storeManager,pType);
     }
@@ -139,6 +143,18 @@ public class Market {
         return permissions.deletePermission(storeID, ownerUserName, userName);
     }
 
+    // Store
+    public String initStore(String userName, String Description) throws Exception {
+        LOGGER.info("userName: " + userName+", Description: " + Description);
+        if(userController.isRegistered(userName)){
+            int storeID =  storeController.initStore(userName, Description);
+            return permissions.initStore(storeID,userName);
+        }
+        else{
+            LOGGER.severe(userName + " is not registered");
+            throw new Exception(userName + " is not registered");
+        }
+    }
 
     public String addProduct(int productId,int storeId,double price,int quantity,String username) throws Exception {
         if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
@@ -160,15 +176,15 @@ public class Market {
         }
     }
 
-    public String EditProductName(int productId,int storeId,String newName,String username) throws Exception {
-        if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
-            return storeController.EditProductName(productId,storeId,newName);
-        }
-        else{
-            LOGGER.severe(username+" has no permission to edit products");
-            throw new Exception(username+" has no permission to edit products");
-        }
-    }
+    // public String EditProductName(int productId,int storeId,String newName,String username) throws Exception {
+    //     if(permissions.getPermission(storeId,username).getPType()[Permission.permissionType.editProducts.index]){
+    //         return storeController.EditProductName(productId,storeId,newName);
+    //     }
+    //     else{
+    //         LOGGER.severe(username+" has no permission to edit products");
+    //         throw new Exception(username+" has no permission to edit products");
+    //     }
+    // }
 
 
     public String EditProductPrice(int productId,int storeId,Double newPrice,String username) throws Exception {
@@ -219,20 +235,44 @@ public class Market {
         }
     }
 
-    public HashSet<String> getSystemManagers(){
-        return systemManagers;
+    // Purchase History
+    public String viewsystemPurchaseHistory(String username) throws Exception {
+        if(!systemManagers.contains(username)){
+            LOGGER.severe("only system managers can view purchase history");
+            throw new Exception("only system managers can view purchase history");
+        }
+        return PurchaseHistory.getInstance().viewPurchaseHistory();
     }
 
-    public boolean getOnline(){
-        return Online;
+    public String addPurchase(int storeId, int userId, Purchase purchase){
+        purchaseHistory.addPurchase(storeId, userId, purchase);
+        LOGGER.info("purcahse added");
+        return "purchase added";
     }
 
-    //this is for testing
-    public void setToNull(){
-        instance=null;
-        permissions.setToNull();
-        userController.setToNull();
-        storeController.setToNull();
-        systemManagers=new HashSet<>();
+    public String getStorePurchaseHistory(int storeId){
+        List<Purchase> purchases=purchaseHistory.getStorePurchaseHistory(storeId);
+        String info="";
+        for(Purchase purchase : purchases){
+            info+=purchase.FetchInfo();
+        }
+        return info;
+    }
+
+    public String getUserPurchaseHistory(int storeId){
+        List<Purchase> purchases=purchaseHistory.getUserPurchaseHistory(storeId);
+        String info="";
+        for(Purchase purchase : purchases){
+            info+=purchase.FetchInfo();
+        }
+        return info;
+    }
+
+    public synchronized String removePurchaseFromStore(int storeId, int purchaseId) throws Exception {
+        return purchaseHistory.removePurchaseFromStore(storeId, purchaseId);
+    }
+
+    public synchronized String removePurchaseFromUser(int storeId, int purchaseId) throws Exception {
+        return purchaseHistory.removePurchaseFromUser(storeId, purchaseId);
     }
 }
