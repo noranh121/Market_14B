@@ -24,12 +24,17 @@ public class ProductController {
     }
 
     public void addProduct(String name, Category category, String description, String brand) {
+        //if (!contains(name,category)) {
         Product prod = new Product(name, description, brand, category);
         // update categories
         prod.setId(idCounter++);
         products.put(prod.getId(), prod);
         LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system");
     }
+
+    // private boolean contains(String name, Category category) {
+        
+    // }
 
     public String removeProduct(int productID) throws Exception {
         if (products.containsKey(productID)) {
@@ -46,8 +51,18 @@ public class ProductController {
         if (products.containsKey(productID)) {
             return products.get(productID).getInfo();
         } else {
-            LOGGER.severe("product " + productID + " is not exist");
-            throw new Exception("product " + productID + " is not exist");
+            LOGGER.severe("product " + productID + " does not exist");
+            throw new Exception("product " + productID + " does not exist");
+        }
+    }
+
+    public int getCatagory(int productID) throws Exception {
+        if (products.containsKey(productID)) {
+            return products.get(productID).getCategory().getId();
+        }
+        else {
+            LOGGER.severe("product " + productID + " does not exist");
+            throw new Exception("product " + productID + " does not exist");
         }
     }
 

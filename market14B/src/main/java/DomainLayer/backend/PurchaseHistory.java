@@ -14,7 +14,7 @@ public class PurchaseHistory {
     private static int counterID;
 
     private Map<Integer, List<Purchase>> storeHistory; // storeid ==> purchases
-    private Map<Integer, List<Purchase>> userHistory; // userid ==> purchases
+    private Map<String, List<Purchase>> userHistory; // userid ==> purchases
     private Map<Integer, Purchase> allPurchases; // purchaseid ==> purchase
 
     private PurchaseHistory() {
@@ -31,7 +31,7 @@ public class PurchaseHistory {
     }
 
     // id's should be checked in an earlier stage
-    public synchronized void addPurchase(int storeId, int userId, Purchase purchase) {
+    public synchronized void addPurchase(int storeId, String userId, Purchase purchase) {
         // Add to all history
         purchase.setID(counterID++);
         allPurchases.put(purchase.getID(), purchase);
@@ -50,7 +50,7 @@ public class PurchaseHistory {
         return storeHistory.getOrDefault(storeId, new ArrayList<>());
     }
 
-    public List<Purchase> getUserPurchaseHistory(int userId) {
+    public List<Purchase> getUserPurchaseHistory(String userId) {
         UserController.LOGGER.info("userId: " + userId);
         return userHistory.getOrDefault(userId, new ArrayList<>());
     }
@@ -75,7 +75,7 @@ public class PurchaseHistory {
         }
     }
 
-    public synchronized String removePurchaseFromUser(int userId, int purchaseId) throws Exception {
+    public synchronized String removePurchaseFromUser(String userId, int purchaseId) throws Exception {
         UserController.LOGGER.info("userId: " + userId + ", purchaseId: " + purchaseId);
         List<Purchase> purchases = userHistory.get(userId);
         Purchase purchase = null;

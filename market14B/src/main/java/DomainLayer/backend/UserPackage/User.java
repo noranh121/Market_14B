@@ -35,7 +35,7 @@ public abstract class User {
      * @throws Exception
      */
     public double Buy() throws Exception {
-        return shoppingCart.Buy();
+        return shoppingCart.Buy(getUsername());
     }
 
     public String addToCart(Integer product, int storeId, int quantity) throws Exception {

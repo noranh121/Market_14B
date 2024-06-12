@@ -1,5 +1,6 @@
 package DomainLayer.backend;
 
+import DomainLayer.backend.ProductPackage.CategoryController;
 // import DomainLayer.backend.ProductPackage.CategoryController;
 // import DomainLayer.backend.ProductPackage.ProductController;
 import DomainLayer.backend.StorePackage.StoreController;
@@ -22,8 +23,7 @@ public class Market {
     private Permissions permissions = Permissions.getInstance();
     private PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
     // private ProductController productController=ProductController.getInstance();
-    // private CategoryController
-    // categoryController=CategoryController.getinstance();
+    private CategoryController categoryController=CategoryController.getinstance();
 
     private Boolean Online = false;
     private HashSet<String> systemManagers = new HashSet<>();
@@ -173,6 +173,18 @@ public class Market {
         }
     }
 
+    public String addCatagory(int storeId, String catagory, String username) throws Exception{
+        if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
+            // check if manager not permissions (change if)
+            categoryController.addCategory(catagory);
+            LOGGER.info("added successfully");
+            return "added successfully";
+        } else {
+            LOGGER.severe(username + " has no permission to add catagory");
+            throw new Exception(username + " has no permission to add catagory");
+        }
+    }
+
     public String RemoveProduct(int productId, int storeId, String username) throws Exception {
         if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
             return storeController.removeProduct(productId, storeId);
@@ -247,11 +259,11 @@ public class Market {
         return PurchaseHistory.getInstance().viewPurchaseHistory();
     }
 
-    public String addPurchase(int storeId, int userId, Purchase purchase) {
-        purchaseHistory.addPurchase(storeId, userId, purchase);
-        LOGGER.info("purcahse added");
-        return "purchase added";
-    }
+    // public String addPurchase(int storeId, int userId, Purchase purchase) {
+    //     purchaseHistory.addPurchase(storeId, userId, purchase);
+    //     LOGGER.info("purcahse added");
+    //     return "purchase added";
+    // }
 
     public String getStorePurchaseHistory(int storeId) {
         List<Purchase> purchases = purchaseHistory.getStorePurchaseHistory(storeId);
@@ -262,8 +274,8 @@ public class Market {
         return info;
     }
 
-    public String getUserPurchaseHistory(int storeId) {
-        List<Purchase> purchases = purchaseHistory.getUserPurchaseHistory(storeId);
+    public String getUserPurchaseHistory(String userId) {
+        List<Purchase> purchases = purchaseHistory.getUserPurchaseHistory(userId);
         String info = "";
         for (Purchase purchase : purchases) {
             info += purchase.FetchInfo();
@@ -275,7 +287,7 @@ public class Market {
         return purchaseHistory.removePurchaseFromStore(storeId, purchaseId);
     }
 
-    public synchronized String removePurchaseFromUser(int storeId, int purchaseId) throws Exception {
-        return purchaseHistory.removePurchaseFromUser(storeId, purchaseId);
+    public synchronized String removePurchaseFromUser(String userId, int purchaseId) throws Exception {
+        return purchaseHistory.removePurchaseFromUser(userId, purchaseId);
     }
 }
