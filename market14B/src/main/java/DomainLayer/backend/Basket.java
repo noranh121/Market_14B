@@ -9,7 +9,7 @@ import java.util.Map;
 public class Basket {
     private String username;
     private int storeID;
-    private Map<Integer, Integer> products;
+    private Map<Integer, Integer> products; //-> <productId,quantity>
 
     public Basket(String username, int storeID) {
         this.username = username;

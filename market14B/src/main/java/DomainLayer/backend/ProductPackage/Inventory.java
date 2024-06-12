@@ -43,6 +43,19 @@ public class Inventory {
 
     }
 
+    public void subQuantity(int productId, int quantity) {
+        double[] details = products.get(productId);
+        if (details != null) {
+            details[QUANTITY] = details[QUANTITY] - quantity;
+        }
+    }
+    public void addQuantity(int productId, int quantity) {
+        double[] details = products.get(productId);
+        if (details != null) {
+            details[QUANTITY] = details[QUANTITY] + quantity;
+        }
+    }
+
     public String fetchInfo() {
         StringBuilder description = new StringBuilder();
         for (Map.Entry<Integer, double[]> entry : products.entrySet()) {

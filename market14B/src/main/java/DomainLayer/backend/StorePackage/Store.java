@@ -100,7 +100,25 @@ public class Store {
             throw new Exception("Quantity cannot negative!");
         }
         inventory.EditProductQuantity(productId, newQuantity);
-        StoreController.LOGGER.info("Product's price edited successfully");
+        StoreController.LOGGER.info("Product's quantity edited successfully");
+    }
+
+    public void subQuantity(int productId, int quantity) throws Exception {
+        if (quantity < 0) {
+            StoreController.LOGGER.severe("quantity is < 0 while trying to edit quantity");
+            throw new Exception("Quantity cannot be negative!");
+        }
+        inventory.subQuantity(productId, quantity);
+        StoreController.LOGGER.info("Product's quantity subtracted successfully");
+    }
+
+    public void addQuantity(int productId, int quantity) throws Exception {
+        if (quantity < 0) {
+            StoreController.LOGGER.severe("quantity is < 0 while trying to edit quantity");
+            throw new Exception("Quantity cannot be negative!");
+        }
+        inventory.subQuantity(productId, quantity);
+        StoreController.LOGGER.info("Product's quantity added successfully");
     }
 
     public double getProdPrice(Integer p) {

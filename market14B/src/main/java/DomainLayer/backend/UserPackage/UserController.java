@@ -36,19 +36,15 @@ public class UserController {
     // Guest
     public String EnterAsGuest() throws Exception {
         User guest = new GuestUser(idCounter);
-        idCounter++; // TODO how to keep track of available ids
+        idCounter++; 
         return addToGuestMap(guest);
     }
 
     private String addToGuestMap(User guest) throws Exception {
-        if (GuestMap.put(guest.getUsername(), guest) == null) {
-            LOGGER.severe("guest user cannot be added");
-            throw new Exception("guest user cannot be added");
-        } else {
-            guest.setLoggedIn(true);
-            LOGGER.info("guest user added successfully");
-            return "guest user added successfully";
-        }
+        GuestMap.put(guest.getUsername(), guest);
+        guest.setLoggedIn(true);
+        LOGGER.info("guest user added successfully");
+        return "guest user added successfully";
     }
 
     public String GuestExit(String username) throws Exception {
@@ -87,11 +83,8 @@ public class UserController {
 
     // Registered user
     private String addToRegUserMap(User reg) throws Exception {
-        if (RegUserMap.put(reg.getUsername(), reg) == null) {
-            LOGGER.severe("guest user cannot be added");
-            throw new Exception("guest user cannot be added");
-        } else
-            return "guest user added successfully";
+        RegUserMap.put(reg.getUsername(), reg);
+        return "guest user added successfully";
     }
 
     public String Logout(String username) throws Exception {
