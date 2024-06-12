@@ -23,13 +23,19 @@ public class ProductController {
         products = new HashMap<>();
     }
 
-    public void addProduct(String name, Category category, String description, String brand) {
-        //if (!contains(name,category)) {
+    public String addProduct(String name, Category category, String description, String brand) throws Exception {
+        for(Product product : products.values()){
+            if(product.getName().equals(name)){
+                LOGGER.severe("product already exits in the system");
+                throw new Exception("product already exits in the system");
+            }
+        }
         Product prod = new Product(name, description, brand, category);
-        // update categories
         prod.setId(idCounter++);
+        category.addProduct(prod.getId());
         products.put(prod.getId(), prod);
         LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system");
+        return "Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system";
     }
 
     // private boolean contains(String name, Category category) {
@@ -68,6 +74,10 @@ public class ProductController {
 
     public String getProductName(int productId) {
         return products.get(productId).getName();
+    }
+
+    public int getProductCategory(int productId) {
+        return products.get(productId).getCategory().getId();
     }
 
 }

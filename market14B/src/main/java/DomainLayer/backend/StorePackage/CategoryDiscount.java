@@ -20,7 +20,7 @@ public class CategoryDiscount extends DiscountPolicy{
             productId=entry.getKey();
             quantity=entry.getValue()[0];
             price=entry.getValue()[1];
-            if(ProductController.getInstance().getProductCategory(productId)){
+            if(ProductController.getInstance().getProductCategory((int)productId)==categoryId){
                 total=total+discountType.calculateDiscount(discountPercentage, quantity*price);
             }
             else{

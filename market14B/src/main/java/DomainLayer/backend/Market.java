@@ -1,6 +1,8 @@
 package DomainLayer.backend;
 
+import DomainLayer.backend.ProductPackage.Category;
 import DomainLayer.backend.ProductPackage.CategoryController;
+import DomainLayer.backend.ProductPackage.ProductController;
 // import DomainLayer.backend.ProductPackage.CategoryController;
 // import DomainLayer.backend.ProductPackage.ProductController;
 import DomainLayer.backend.StorePackage.StoreController;
@@ -14,7 +16,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Market {
-    private static final Logger LOGGER = Logger.getLogger(Market.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(Market.class.getName());
 
     // List<Users> SystemManagers;
     // boolean ON/OFF
@@ -22,7 +24,7 @@ public class Market {
     private StoreController storeController = StoreController.getInstance();
     private Permissions permissions = Permissions.getInstance();
     private PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
-    // private ProductController productController=ProductController.getInstance();
+    private ProductController productController=ProductController.getInstance();
     private CategoryController categoryController=CategoryController.getinstance();
 
     private Boolean Online = false;
@@ -152,6 +154,32 @@ public class Market {
         return permissions.deletePermission(storeID, ownerUserName, userName);
     }
 
+    // Category
+    public String addCatagory(int storeId, String catagory, String username) throws Exception{
+        LOGGER.info("storeId: "+storeId+", category: "+catagory+", username: "+username);
+        if (systemManagers.contains(username)) {
+            categoryController.addCategory(catagory);
+            LOGGER.info("category added successfully");
+            return "category added successfully";
+        } else {
+            LOGGER.severe(username + " is not system manager");
+            throw new Exception(username + " is not system manager");
+        }
+    }
+
+    // Product
+    public String initProduct(String username,String productName, int categoryId, String description, String brand) throws Exception{
+        LOGGER.info("username: "+username+",productName : " + productName + ", categoryId: " + categoryId+", description: "+description+", brand: "+brand);
+        if(systemManagers.contains(username)){
+            Category category=categoryController.getCategory(categoryId);
+            return productController.addProduct(productName, category, description, brand);
+        }
+        else{
+            LOGGER.severe(username + " is not system manager");
+            throw new Exception(username + " is not system manager");
+        }
+    }
+
     // Store
     public String initStore(String userName, String Description) throws Exception {
         LOGGER.info("userName: " + userName + ", Description: " + Description);
@@ -170,18 +198,6 @@ public class Market {
         } else {
             LOGGER.severe(username + " has no permission to add products");
             throw new Exception(username + " has no permission to add products");
-        }
-    }
-
-    public String addCatagory(int storeId, String catagory, String username) throws Exception{
-        if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
-            // check if manager not permissions (change if)
-            categoryController.addCategory(catagory);
-            LOGGER.info("added successfully");
-            return "added successfully";
-        } else {
-            LOGGER.severe(username + " has no permission to add catagory");
-            throw new Exception(username + " has no permission to add catagory");
         }
     }
 

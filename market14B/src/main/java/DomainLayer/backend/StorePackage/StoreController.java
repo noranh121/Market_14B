@@ -81,7 +81,6 @@ public class StoreController {
             store.AddProduct(productId, price, quantity);
             LOGGER.info("Product added to store Successfully");
         }
-        //productController.addProduct(productName, catagory, description, brand);
         return "Product added to store successfully";
     }
 

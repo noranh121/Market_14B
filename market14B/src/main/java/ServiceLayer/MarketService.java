@@ -12,4 +12,14 @@ public class MarketService {
     public void setMarketOFFLINE(String username) throws Exception {
         market.setMarketOFFLINE(username);
     }
+
+    public String addCatagory(int storeId, String catagory, String username) throws Exception{
+        try {
+            String result = market.addCatagory(storeId, catagory, username);
+            Market.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }
