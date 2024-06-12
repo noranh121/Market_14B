@@ -134,7 +134,7 @@ public class Store {
     public boolean check(Map<Integer, Integer> products) {
         for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
             int quant = inventory.getQuantity(entry.getKey());
-            if (quant > entry.getValue()) {
+            if (quant < entry.getValue()) {
                 StoreController.LOGGER.severe("one of the products's quantity exceeds the availiable stock");
                 return false;
             }

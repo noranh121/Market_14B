@@ -223,6 +223,7 @@ public class Real implements Bridge{
         storeController.GetStores().put(0,s1);
         storeController.addProduct(0,0,10,15);
         u2.addToCart(0,0,5);
+        market.getSystemManagers().add("ali");
         double sum = userController.Buy(u2.getUsername());
         return market.viewsystemPurchaseHistory(username);
     }

@@ -61,7 +61,7 @@ public class integrationTests {
         u2.addToCart(0,0,5);
         double sum = userController.Buy(u2.getUsername());
         assertEquals(50,sum);
-        assertEquals(10,s1.getInventory().getQuantity(0)); // the inventory does not change after buy must fix
+        assertEquals(10,s1.getInventory().getQuantity(0)); 
     }
 
     @Test
@@ -71,7 +71,7 @@ public class integrationTests {
         storeController.addProduct(0,0,10,15);
         u2.addToCart(0,0,5);
         market.getSystemManagers().add("ali");
-        double sum = userController.Buy(u2.getUsername()); // the purchase history does not change after buy must fix
+        double sum = userController.Buy(u2.getUsername());
         String result=market.viewsystemPurchaseHistory("ali");
         assertTrue(result.contains("Username: ali"));
         assertTrue(result.contains("Store ID: 0"));

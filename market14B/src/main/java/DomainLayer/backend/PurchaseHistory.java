@@ -21,6 +21,7 @@ public class PurchaseHistory {
         counterID = 0;
         storeHistory = new HashMap<>();
         userHistory = new HashMap<>();
+        allPurchases=new HashMap<>();
     }
 
     public static synchronized PurchaseHistory getInstance() {
