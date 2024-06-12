@@ -29,7 +29,7 @@ public abstract class AcceptanceTests {
         return bridge.testGetInfo(storeId, username);
     }
 
-    public String testAddToCart(String username, Integer product, int storeId, int quantity) {
+    public String testAddToCart(String username, Integer product, int storeId, int quantity) throws Exception {
         return bridge.testAddToCart(username, product, storeId, quantity);
     }
 

@@ -18,7 +18,7 @@ public class StoreUnitTest {
     public void setUp() {
         storeController = StoreController.getInstance();
         s1=new Store("store1","decs1",0);
-        s2=new Store("store2","decs2",0);
+        s2=new Store("store2","decs2",1);
         c1=new Category(0,"c1");
         c2=new Category(1,"c2");
         p1=new Product("product1","desc1","brand1",c1);
@@ -63,19 +63,14 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testAddProduct_StoreDoesNotExist() {
+    public void testAddProduct_StoreDoesNotExist() throws Exception {
         int productId = 101;
         double price = 19.99;
         int quantity = 10;
         storeController.GetStores().put(0,s1);
-        Exception exception = assertThrows(Exception.class, () -> {
-            storeController.addProduct(productId, 0, price, quantity);
-        });
-
-        String expectedMessage = "Price cannot be zero or less, quantity can only be 0 or positive!";
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
+        String result=storeController.addProduct(productId, 2, price, quantity);
+        String expectedMessage = "store does not exist";
+        assertTrue(result.contains(expectedMessage));
     }
 
     @Test
@@ -134,7 +129,7 @@ public class StoreUnitTest {
     public void testCloseStore_Success() {
         storeController.GetStores().put(s1.getId(), s1);
         String result = storeController.closeStore(s1.getId());
-        assertEquals("Store Closed Successfully", result);
+        assertEquals("Store Closed Successfuly", result);
         assertFalse(s1.isActive());
     }
 

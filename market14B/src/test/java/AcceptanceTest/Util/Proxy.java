@@ -34,7 +34,7 @@ public class Proxy implements Bridge{
     }
 
     @Override
-    public String testAddToCart(String username, Integer product, int storeId, int quantity) {
+    public String testAddToCart(String username, Integer product, int storeId, int quantity) throws Exception {
         return real.testAddToCart(username, product, storeId, quantity);
     }
 

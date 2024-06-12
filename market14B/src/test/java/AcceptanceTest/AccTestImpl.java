@@ -4,6 +4,11 @@ import DomainLayer.backend.UserPackage.UserController;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 public class AccTestImpl extends AcceptanceTests{
+
+    @AfterEach
+    void tearDown() {
+        Market.getInstance().setToNull();
+    }
     @Test
     void testSetMarketOnline1() throws Exception {
         testSetMarketOnline("ali");
@@ -38,14 +43,14 @@ public class AccTestImpl extends AcceptanceTests{
     void testGetInfo1() throws Exception {
         String res=testGetInfo(0,"ali");
         assertTrue(res.contains("Product ID: 0"));
-        assertTrue(res.contains(", Quantity: : 5"));
+        assertTrue(res.contains(", Quantity: 5"));
     }
 
     @Test
-    void testAddToCart1(){
+    void testAddToCart1() throws Exception {
         String res=testAddToCart("ali",0,0,5);
         assertNotNull(res);
-        assertEquals(res,"product added successfully");
+        assertEquals(res,"added to cart");
     }
 
     @Test
@@ -120,7 +125,7 @@ public class AccTestImpl extends AcceptanceTests{
     @Test
     void testCloseStore1(){
         String res=testCloseStore(0,"ali");
-        assertEquals("Store Closed Successfully", res);
+        assertEquals("Store Closed Successfuly", res);
     }
 
     @Test

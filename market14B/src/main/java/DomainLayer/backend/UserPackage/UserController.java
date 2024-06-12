@@ -41,7 +41,7 @@ public class UserController {
     }
 
     private String addToGuestMap(User guest) throws Exception {
-        if (GuestMap.put(guest.getUsername(), guest) == null) {
+        if (GuestMap.put(guest.getUsername(), guest) != null) {
             LOGGER.severe("guest user cannot be added");
             throw new Exception("guest user cannot be added");
         }
@@ -89,7 +89,7 @@ public class UserController {
 
     //Registered user
     private String addToRegUserMap(User reg) throws Exception {
-        if (RegUserMap.put(reg.getUsername(), reg) == null) {
+        if (RegUserMap.put(reg.getUsername(), reg) != null) {
             LOGGER.severe("guest user cannot be added");
             throw new Exception("guest user cannot be added");
         }

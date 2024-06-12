@@ -7,7 +7,7 @@ public interface Bridge {
     String testRegister(String username, String password) throws Exception;
     String testLogin(String username, String password) throws Exception;
     String testGetInfo(int storeId,String username) throws Exception;
-    String testAddToCart(String username, Integer product, int storeId, int quantity);
+    String testAddToCart(String username, Integer product, int storeId, int quantity) throws Exception;
     String testInspectCart(String username);
     double testBuy(String username) throws Exception;
     String testLogout(String username);

@@ -1,5 +1,8 @@
 package UnitTest;
 import DomainLayer.backend.Market;
+import DomainLayer.backend.UserPackage.RegisteredUser;
+import DomainLayer.backend.UserPackage.User;
+import DomainLayer.backend.UserPackage.UserController;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 public class MarketUnitTest {
@@ -54,6 +57,7 @@ public class MarketUnitTest {
     @Test
     public void testInitStore() {
         try {
+            market.Register("ali","123");
             String result = market.initStore("ali", "Store Description");
             assertEquals("store added successfully", result);
         } catch (Exception e) {

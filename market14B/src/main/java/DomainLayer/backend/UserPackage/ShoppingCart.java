@@ -78,9 +78,10 @@ public class ShoppingCart {
                       sum += price * entry.getValue();
                     UserController.LOGGER.info("Your purchase was successful");
                 }
+            }else {
+                UserController.LOGGER.severe("invalid cart");
+                throw new Exception("invalid cart");
             }
-            UserController.LOGGER.severe("invalid cart");
-            throw new Exception("invalid cart");
         }
         return sum;
     }

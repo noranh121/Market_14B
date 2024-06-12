@@ -73,6 +73,8 @@ public class StoreController {
         if(store != null){
             store.AddProduct(productId, price, quantity);
             LOGGER.info("Product added to store Successfully");
+        }else{
+            return "store does not exist";
         }
         return "Product added to store successfully";
     }

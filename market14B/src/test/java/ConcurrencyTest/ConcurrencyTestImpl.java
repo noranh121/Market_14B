@@ -27,6 +27,9 @@ public class ConcurrencyTestImpl {
     //2 users try to but the same last product at the same time
     @Test
     public void tess2UserBuy() throws Exception {
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
         market.EnterAsGuest();
         market.Register("essa","1");
         market.Login("0","essa","1");
@@ -93,6 +96,9 @@ public class ConcurrencyTestImpl {
     //store owner tries to delete a product while a user tries to buy it
     @Test
     public void testDelAndBuy() throws Exception {
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
         market.EnterAsGuest();
         market.Register("essa","1");
         market.Login("0","essa","1");
@@ -154,6 +160,9 @@ public class ConcurrencyTestImpl {
     //2 store owners try to assign the same user to store owner at the same time
     @Test
     public void test2AssignOwner() throws Exception {
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
         market.EnterAsGuest();
         market.Register("essa","1");
         market.Login("0","essa","1");
@@ -219,6 +228,9 @@ public class ConcurrencyTestImpl {
     //2 store owners try to assign the same user to store mager at the same time
     @Test
     public void test2AssignManager() throws Exception {
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
         market.EnterAsGuest();
         market.Register("essa","1");
         market.Login("0","essa","1");
@@ -284,6 +296,9 @@ public class ConcurrencyTestImpl {
     //store owners try to close the store and a user and tries to buy from the store at the same time
     @Test
     public void testcloseAndBuy() throws Exception {
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
         market.EnterAsGuest();
         market.Register("essa","1");
         market.Login("0","essa","1");
