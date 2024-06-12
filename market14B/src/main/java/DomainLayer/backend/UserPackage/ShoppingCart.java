@@ -1,25 +1,28 @@
 package DomainLayer.backend.UserPackage;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import DomainLayer.backend.Basket;
-import DomainLayer.backend.ProductPackage.Product;
+import DomainLayer.backend.Purchase;
+import DomainLayer.backend.PurchaseHistory;
 import DomainLayer.backend.StorePackage.Store;
 import DomainLayer.backend.StorePackage.StoreController;
 
 public class ShoppingCart {
     private List<Basket> baskets;
+
     public ShoppingCart() {
         baskets = new LinkedList<>();
     }
 
     public String addBasket(Basket basket) throws Exception {
-        if(basket!=null) {
+        if (basket != null) {
             baskets.add(basket);
             UserController.LOGGER.info("Basket added successfully");
             return "Basket added successfully";
-        }else{
+        } else {
             UserController.LOGGER.severe("Basket is null");
             throw new Exception("Basket is null");
         }
@@ -29,10 +32,9 @@ public class ShoppingCart {
         return baskets;
     }
 
-
     public void addToCart(String username, Integer product, int storeId, int quantity) throws Exception {
-        Basket basket = getBasket(username,storeId);
-        basket.addProduct(product,quantity);
+        Basket basket = getBasket(username, storeId);
+        basket.addProduct(product, quantity);
         UserController.LOGGER.info("added to cart");
     }
 
@@ -42,7 +44,7 @@ public class ShoppingCart {
                 return basket;
             }
         }
-        Basket b = new Basket(username,storeId);
+        Basket b = new Basket(username, storeId);
         baskets.add(b);
         return b;
     }
@@ -68,21 +70,58 @@ public class ShoppingCart {
         return "no such item";
     }
 
-    public double Buy() throws Exception {
+    public double Buy(String username) throws Exception {
         double sum = 0;
+        StoreController storeController = StoreController.getInstance();
+        Store store;
+
         for (Basket basket : baskets) {
-            Store store = StoreController.getInstance().getStore(basket.getStoreID());
-            if (store.check(basket.getProducts())) { //policies
-                for (Map.Entry<Integer,Integer> entry : basket.getProducts().entrySet()) {
-                      double price = store.getProdPrice(entry.getKey()); //discounts
-                      sum += price * entry.getValue();
-                    UserController.LOGGER.info("Your purchase was successful");
-                }
-            }else {
+            store = storeController.getStore(basket.getStoreID());
+            if (store.check(basket.getProducts())) { // policies
+                sum += processBasket(basket, store, username);
+            }
+            else {
                 UserController.LOGGER.severe("invalid cart");
                 throw new Exception("invalid cart");
             }
         }
+        // process payment
+        //if payment unsuccessful {
+        // cancelPurchase();
+        //}
+        UserController.LOGGER.info("Your purchase was successful");
         return sum;
     }
+
+    private int processBasket(Basket basket, Store store, String username) throws Exception {
+        int basketSum = 0;
+        PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
+        Map<Integer, double[]> purchases = new HashMap<>(); // prodid ==> {quantity, price}
+        double[] qp;
+        for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>
+            int productId = entry.getKey();
+            int quantity = entry.getValue();
+            double price = store.getProdPrice(productId); // discounts
+            basketSum += price * quantity;
+            store.subQuantity(productId, quantity);
+            qp = new double[]{quantity,price};
+            purchases.put(productId, qp);
+        }
+        Purchase purchase = new Purchase(basket, basketSum, purchases);
+        purchaseHistory.addPurchase(basket.getStoreID(), username, purchase);
+        return basketSum;
+    }
+
+    private void cancelPurchase() throws Exception {
+        StoreController storeController = StoreController.getInstance();
+        for (Basket basket : baskets) {
+            Store store = storeController.getStore(basket.getStoreID());
+            for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>
+                int productId = entry.getKey();
+                int quantity = entry.getValue();
+                store.addQuantity(productId, quantity);
+            }
+        }
+    }
+    
 }

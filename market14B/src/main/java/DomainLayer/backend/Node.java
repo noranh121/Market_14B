@@ -34,7 +34,7 @@ public class Node {
     }
 
     public boolean isChild(String userName) {
-        for (Node node: children) {
+        for (Node node : children) {
             if (node.getData().getUserName() == userName) {
                 return true;
             }
@@ -45,7 +45,6 @@ public class Node {
     public void edit(Permission per) {
         this.data = per;
     }
-
 
     public boolean deleteNode(String userName) {
         for (int i = 0; i < children.size(); i++) {

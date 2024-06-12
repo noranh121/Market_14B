@@ -1,16 +1,15 @@
 package DomainLayer.backend;
 
-import DomainLayer.backend.ProductPackage.Product;
+import DomainLayer.backend.ProductPackage.ProductController;
 import DomainLayer.backend.UserPackage.UserController;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class Basket {
     private String username;
     private int storeID;
-    private Map<Integer, Integer> products;
+    private Map<Integer, Integer> products; //-> <productId,quantity>
 
     public Basket(String username, int storeID) {
         this.username = username;
@@ -26,10 +25,9 @@ public class Basket {
         return storeID;
     }
 
-    public Map<Integer,Integer> getProducts() {
+    public Map<Integer, Integer> getProducts() {
         return products;
     }
-
 
     public int getQuantity(Integer product) {
         if (products.containsKey(product))
@@ -37,6 +35,7 @@ public class Basket {
         else
             return -1;
     }
+
     public String addProduct(Integer product, int quantity) throws Exception {
         if (quantity > 0) {
             products.put(product, quantity);
@@ -48,7 +47,6 @@ public class Basket {
         }
     }
 
-
     public StringBuilder inspectBasket() {
         StringBuilder output = new StringBuilder();
         output.append("Store ID: ").append(getStoreID()).append("\n");
@@ -57,10 +55,10 @@ public class Basket {
             output.append("  No products in this store.\n");
         } else {
             for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
-                Integer product = entry.getKey();
+                Integer productId = entry.getKey();
                 Integer quantity = entry.getValue();
-                //TODO product.getName()
-                //output.append("  Product: ").append(product.getName()).append(", Quantity: ").append(quantity).append("\n");
+                String name = ProductController.getInstance().getProductName(productId);
+                output.append("  Product: ").append(name).append(", Quantity: ").append(quantity).append("\n");
             }
         }
         return output;

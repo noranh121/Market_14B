@@ -10,8 +10,7 @@ public class Category {
     private List<Integer> subCategories;
     private List<Integer> products;
 
-
-    public Category(int id, String name, int parentCategoryID){
+    public Category(int id, String name, int parentCategoryID) {
         this.id = id;
         this.name = name;
         this.parentCategoryID = parentCategoryID;
@@ -19,14 +18,13 @@ public class Category {
         products = new ArrayList<>();
     }
 
-    public Category(int id, String name){
+    public Category(int id, String name) {
         this.id = id;
         this.name = name;
         parentCategoryID = -1;
         subCategories = new ArrayList<>();
         products = new ArrayList<>();
     }
-
 
     public int getId() {
         return id;
@@ -68,7 +66,6 @@ public class Category {
         this.products = products;
     }
 
-
     public void addSubCategory(int subCategoryID) {
         subCategories.add(subCategoryID);
     }
@@ -79,7 +76,7 @@ public class Category {
 
     public void addProduct(int productID) {
         products.add(productID);
-        if(parentCategoryID != -1){
+        if (parentCategoryID != -1) {
             CategoryController.getinstance().getCategory(parentCategoryID).addProduct(productID);
         }
     }
@@ -91,6 +88,4 @@ public class Category {
         }
     }
 
-
 }
-
