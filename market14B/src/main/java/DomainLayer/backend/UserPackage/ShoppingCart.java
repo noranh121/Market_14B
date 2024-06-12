@@ -93,8 +93,8 @@ public class ShoppingCart {
         return sum;
     }
 
-    private int processBasket(Basket basket, Store store, String username) throws Exception {
-        int basketSum = 0;
+    private double processBasket(Basket basket, Store store, String username) throws Exception {
+        double basketSum = 0;
         PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
         Map<Integer, double[]> purchases = new HashMap<>(); // prodid ==> {quantity, price}
         double[] qp;
@@ -106,6 +106,9 @@ public class ShoppingCart {
             store.subQuantity(productId, quantity);
             qp = new double[]{quantity,price};
             purchases.put(productId, qp);
+        }
+        if(store.getDiscountPolicy()!=null){
+            basketSum=store.getDiscountPolicy().calculateDiscount(purchases);
         }
         Purchase purchase = new Purchase(basket, basketSum, purchases);
         purchaseHistory.addPurchase(basket.getStoreID(), username, purchase);

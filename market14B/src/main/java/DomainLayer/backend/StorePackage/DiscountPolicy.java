@@ -11,6 +11,6 @@ public abstract class DiscountPolicy {
         this.discountPercentage=discountPercentage;
     }
 
-    // products.entry = <productId,[quantity,price,storeId]>
+    // products.entry = <productId,[quantity,price]>
     public abstract double calculateDiscount(Map<Integer, double[]> products);
 }

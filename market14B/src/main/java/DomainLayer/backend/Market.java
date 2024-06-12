@@ -3,9 +3,15 @@ package DomainLayer.backend;
 import DomainLayer.backend.ProductPackage.Category;
 import DomainLayer.backend.ProductPackage.CategoryController;
 import DomainLayer.backend.ProductPackage.ProductController;
+import DomainLayer.backend.StorePackage.CategoryDiscount;
+import DomainLayer.backend.StorePackage.ConditionalDiscount;
+import DomainLayer.backend.StorePackage.Discount;
+import DomainLayer.backend.StorePackage.ProductDiscount;
+import DomainLayer.backend.StorePackage.StandardDiscount;
 // import DomainLayer.backend.ProductPackage.CategoryController;
 // import DomainLayer.backend.ProductPackage.ProductController;
 import DomainLayer.backend.StorePackage.StoreController;
+import DomainLayer.backend.StorePackage.StoreDiscount;
 import DomainLayer.backend.UserPackage.UserController;
 
 import java.util.HashSet;
@@ -181,6 +187,63 @@ public class Market {
     }
 
     // Store
+    public String setProductDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int productId) throws Exception{
+        LOGGER.info("storeId: "+storeId+", userName: " + username + ", discountType: " +discountType+", discountPercentage: "+discountPercentage+", productId: "+productId);
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        Discount type=null;
+        if(discountType){
+            type=new StandardDiscount();
+        }
+        else{
+            type=new ConditionalDiscount(conditionalprice,conditionalQuantity);
+        }
+        ProductDiscount discountPolicy=new ProductDiscount(type,discountPercentage,productId);
+        storeController.getStore(storeId).setDiscountPolicy(discountPolicy);
+        LOGGER.info("discount policy updated");
+        return "discount policy updated";
+    }
+
+    public String setCategoryDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int categoryId) throws Exception{
+        LOGGER.info("storeId: "+storeId+", userName: " + username + ", discountType: " +discountType+", discountPercentage: "+discountPercentage+", categoryId: "+categoryId);
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        Discount type=null;
+        if(discountType){
+            type=new StandardDiscount();
+        }
+        else{
+            type=new ConditionalDiscount(conditionalprice,conditionalQuantity);
+        }
+        CategoryDiscount discountPolicy=new CategoryDiscount(type,discountPercentage,categoryId);
+        storeController.getStore(storeId).setDiscountPolicy(discountPolicy);
+        LOGGER.info("discount policy updated");
+        return "discount policy updated";
+    }
+
+    public String setStoreDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage) throws Exception{
+        LOGGER.info("storeId: "+storeId+", userName: " + username + ", discountType: " +discountType+", discountPercentage: "+discountPercentage);
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        Discount type=null;
+        if(discountType){
+            type=new StandardDiscount();
+        }
+        else{
+            type=new ConditionalDiscount(conditionalprice,conditionalQuantity);
+        }
+        StoreDiscount discountPolicy=new StoreDiscount(type, discountPercentage);
+        storeController.getStore(storeId).setDiscountPolicy(discountPolicy);
+        LOGGER.info("discount policy updated");
+        return "discount policy updated";
+    }
+
     public String initStore(String userName, String Description) throws Exception {
         LOGGER.info("userName: " + userName + ", Description: " + Description);
         if (userController.isRegistered(userName)) {

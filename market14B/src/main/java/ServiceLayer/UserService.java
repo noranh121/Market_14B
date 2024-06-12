@@ -62,7 +62,7 @@ public class UserService {
             // result = payment method TODO
             // LOGGER.info(result);
             // return result;
-            return "";
+            return "sum: "+sum;
         } catch (Exception e) {
             return e.getMessage();
         }

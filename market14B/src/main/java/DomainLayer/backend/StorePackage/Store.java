@@ -11,6 +11,7 @@ public class Store {
     private boolean active;
     private String description;
     private double rating; // 0 - 5
+    private DiscountPolicy discountPolicy;
 
     public Store(String name, String Description, int id) {
         this.id = id;
@@ -19,6 +20,16 @@ public class Store {
         active = false;
         inventory = new Inventory();
         this.rating = 0;
+        discountPolicy=null;
+    }
+
+    // Getter and Setter for discountPolicy
+    public DiscountPolicy getDiscountPolicy(){
+        return discountPolicy;
+    }
+
+    public void setDiscountPolicy(DiscountPolicy discountPolicy){
+        this.discountPolicy=discountPolicy;
     }
 
     // Getter and Setter for rating
@@ -134,7 +145,7 @@ public class Store {
     public boolean check(Map<Integer, Integer> products) {
         for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
             int quant = inventory.getQuantity(entry.getKey());
-            if (quant > entry.getValue()) {
+            if (quant < entry.getValue()) {
                 StoreController.LOGGER.severe("one of the products's quantity exceeds the availiable stock");
                 return false;
             }

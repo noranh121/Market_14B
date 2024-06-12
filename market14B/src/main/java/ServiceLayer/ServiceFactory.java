@@ -111,4 +111,20 @@ public class ServiceFactory {
     public String getInfo(int storeId, String username) {
         return storesService.getInfo(storeId, username);
     }
+
+    public String initProduct(String username,String productName, int categoryId, String description, String brand){
+        return storesService.initProduct(username, productName, categoryId, description, brand);
+    }
+
+    public String setProductDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int productId) throws Exception{
+        return storesService.setProductDiscountPolicy(storeId, username, discountType, conditionalprice,conditionalQuantity, discountPercentage, productId);
+    }
+
+    public String setCategoryDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int categoryId) throws Exception{
+        return storesService.setCategoryDiscountPolicy(storeId, username, discountType, conditionalprice,conditionalQuantity, discountPercentage, categoryId);
+    }
+
+    public String setStoreDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage) throws Exception{
+        return storesService.setStoreDiscountPolicy(storeId, username, discountType, conditionalprice,conditionalQuantity, discountPercentage);
+    }
 }

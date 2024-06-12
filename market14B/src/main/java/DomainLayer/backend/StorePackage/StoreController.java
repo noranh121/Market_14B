@@ -7,16 +7,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import DomainLayer.backend.ProductPackage.ProductController;
-import groovy.lang.Category;
-
 public class StoreController {
     private static StoreController instance;
     public static final Logger LOGGER = Logger.getLogger(StoreController.class.getName());
 
     private Map<Integer, Store> stores;
     private int idCounter;
-    private ProductController productController = ProductController.getInstance();
 
     public static synchronized StoreController getInstance() {
         if (instance == null) {

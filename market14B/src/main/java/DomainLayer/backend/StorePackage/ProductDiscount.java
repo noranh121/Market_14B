@@ -18,7 +18,7 @@ public class ProductDiscount extends DiscountPolicy {
             quantity=entry.getValue()[0];
             price=entry.getValue()[1];
             if(entry.getKey()==productId){
-                total=total+discountType.calculateDiscount(discountPercentage, price*quantity);
+                total=total+discountType.calculateDiscount(discountPercentage, price,quantity);
             }
             else{
                 total=total+price*quantity;

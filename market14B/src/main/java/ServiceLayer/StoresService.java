@@ -27,6 +27,16 @@ public class StoresService {
         }
     }
 
+    public String initProduct(String username,String productName, int categoryId, String description, String brand){
+        try {
+            String result = market.initProduct(username, productName, categoryId, description, brand);
+            StoreController.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
     public String removeProduct(int productId, int storeId, String username) {
         try {
             String result = market.RemoveProduct(productId, storeId, username);
@@ -83,6 +93,37 @@ public class StoresService {
     public String getInfo(int storeId, String username) {
         try {
             String result = market.getInfo(storeId, username);
+            StoreController.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    // Discount policy
+    public String setProductDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int productId) throws Exception{
+        try {
+            String result = market.setProductDiscountPolicy(storeId, username, discountType, conditionalprice,conditionalQuantity, discountPercentage, productId);
+            StoreController.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String setCategoryDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int categoryId) throws Exception{
+        try {
+            String result = market.setCategoryDiscountPolicy(storeId, username, discountType, conditionalprice,conditionalQuantity, discountPercentage, categoryId);
+            StoreController.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String setStoreDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage) throws Exception{
+        try {
+            String result = market.setStoreDiscountPolicy(storeId, username, discountType, conditionalprice,conditionalQuantity, discountPercentage);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
