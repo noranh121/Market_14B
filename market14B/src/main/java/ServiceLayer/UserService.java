@@ -46,98 +46,98 @@ public class UserService {
         }
     }
 
-    public String Register(String username, String password) {
+    public Response<String> Register(String username, String password) {
         try {
             String result = market.Register(username, password);
             UserController.LOGGER.info(result);
-            return result;
+            return Response.successRes(result);
         } catch (Exception e) {
-            return e.getMessage();
+            return Response.failRes(e.getMessage());
         }
     }
 
-    public String Buy(String username) {
+    public Response<String> Buy(String username) {
         try {
             double sum = market.Buy(username);
             // result = payment method TODO
             // LOGGER.info(result);
             // return result;
-            return "";
+            return Response.successRes("Buying process completed successfully!");
         } catch (Exception e) {
-            return e.getMessage();
+            return  Response.failRes(e.getMessage());
         }
     }
 
-    public String addToCart(String username, Integer product, int storeId, int quantity) {
+    public Response<String> addToCart(String username, Integer product, int storeId, int quantity) {
         try {
             String result = market.addToCart(username, product, storeId, quantity);
             UserController.LOGGER.info(result);
-            return result;
+            return Response.successRes(result);
         } catch (Exception e) {
-            return e.getMessage();
+            return Response.failRes(e.getMessage());
         }
     }
 
-    public String inspectCart(String username) {
+    public Response<String> inspectCart(String username) {
         try {
             String result = market.inspectCart(username);
             UserController.LOGGER.info(result);
-            return result;
+            return Response.successRes(result);
         } catch (Exception e) {
-            return e.getMessage();
+            return Response.failRes(e.getMessage());
         }
     }
 
-    public String removeCartItem(String username, int storeId, int product) {
+    public Response<String> removeCartItem(String username, int storeId, int product) {
         try {
             String result = market.removeCartItem(username, storeId, product);
             UserController.LOGGER.info(result);
-            return result;
+            return Response.successRes(result);
         } catch (Exception e) {
-            return e.getMessage();
+            return Response.failRes(e.getMessage());
         }
     }
 
-    public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
+    public Response<String> EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
             Boolean storeManager, Boolean[] pType) throws Exception {
         try {
             String result = market.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
             UserController.LOGGER.info(result);
-            return result;
+            return Response.successRes(result);
         } catch (Exception e) {
-            return e.getMessage();
+            return Response.failRes(e.getMessage());
         }
     }
 
-    public String AssignStoreManager(int storeId, String ownerUserName, String username, Boolean[] pType)
+    public Response<String> AssignStoreManager(int storeId, String ownerUserName, String username, Boolean[] pType)
             throws Exception {
         try {
             String result = market.AssignStoreManager(storeId, ownerUserName, username, pType);
             UserController.LOGGER.info(result);
-            return result;
+            return Response.successRes(result);
         } catch (Exception e) {
-            return e.getMessage();
+            return Response.failRes(e.getMessage());
         }
     }
 
-    public String AssignStoreOnwer(int storeId, String ownerUserName, String username, Boolean[] pType)
+    public Response<String> AssignStoreOnwer(int storeId, String ownerUserName, String username, Boolean[] pType)
             throws Exception {
         try {
             String result = market.AssignStoreOwner(storeId, ownerUserName, username, pType);
             UserController.LOGGER.info(result);
-            return result;
+            return Response.successRes(result);
         } catch (Exception e) {
-            return e.getMessage();
+            return Response.failRes(e.getMessage());
         }
     }
 
-    public String unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
+    public Response<String> unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
         try {
             String result = market.unassignUser(storeID, ownerUserName, userName);
             UserController.LOGGER.info(result);
-            return result;
+            return Response.successRes(result);
         } catch (Exception e) {
-            return e.getMessage();
+            return Response.failRes(e.getMessage());
         }
     }
 }
