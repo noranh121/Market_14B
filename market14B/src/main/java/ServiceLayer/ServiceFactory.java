@@ -23,6 +23,10 @@ public class ServiceFactory {
         marketService.setMarketOFFLINE(username);
     }
 
+    public void addCatagory(int storeId, String catagory, String username) throws Exception {
+        marketService.addCatagory(storeId, catagory, username);
+    }
+
     // UserService
     public String EnterAsGuest() {
         return userService.EnterAsGuest();
@@ -77,6 +81,10 @@ public class ServiceFactory {
 
     public String unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
         return userService.unassignUser(storeID, ownerUserName, userName);
+    }
+
+    public String resign(int storeID, String username) throws Exception {
+        return userService.resign(storeID, username);
     }
 
     // StoreService

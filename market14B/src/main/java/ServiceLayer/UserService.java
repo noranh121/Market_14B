@@ -140,4 +140,14 @@ public class UserService {
             return e.getMessage();
         }
     }
+
+    public String resign(int storeID, String username) throws Exception {
+        try {
+            String result = market.resign(storeID, username);
+            UserController.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }
