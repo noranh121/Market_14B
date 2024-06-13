@@ -30,8 +30,8 @@ public class Market {
     private StoreController storeController = StoreController.getInstance();
     private Permissions permissions = Permissions.getInstance();
     private PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
-    private ProductController productController=ProductController.getInstance();
-    private CategoryController categoryController=CategoryController.getinstance();
+    private ProductController productController = ProductController.getInstance();
+    private CategoryController categoryController = CategoryController.getinstance();
 
     private Boolean Online = false;
     private HashSet<String> systemManagers = new HashSet<>();
@@ -152,7 +152,6 @@ public class Market {
         return userController.removeCartItem(username, storeId, product);
     }
 
-
     // Permissions
     public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
             Boolean storeManager, Boolean[] pType) throws Exception {
@@ -180,17 +179,15 @@ public class Market {
     public String suspendUser(String systemManager, String username) throws Exception {
         if (systemManagers.contains(systemManager)) {
             return permissions.suspendUser(username);
-        }
-        else {
+        } else {
             throw new Exception(systemManager + " not a system manager");
         }
     }
 
     public String suspendUserSeconds(String systemManager, String username, int duration) throws Exception {
         if (systemManagers.contains(systemManager)) {
-            return permissions.suspendUserSeconds(username,duration);
-        }
-        else {
+            return permissions.suspendUserSeconds(username, duration);
+        } else {
             throw new Exception(systemManager + " not a system manager");
         }
     }
@@ -198,17 +195,15 @@ public class Market {
     public String resumeUser(String systemManager, String username) throws Exception {
         if (systemManagers.contains(systemManager)) {
             return permissions.resumeUser(username);
-        }
-        else {
+        } else {
             throw new Exception(systemManager + " not a system manager");
         }
     }
 
     public String resumeUserSeconds(String systemManager, String username, int duration) throws Exception {
         if (systemManagers.contains(systemManager)) {
-            return permissions.resumeTemporarily(username,duration);
-        }
-        else {
+            return permissions.resumeTemporarily(username, duration);
+        } else {
             throw new Exception(systemManager + " not a system manager");
         }
     }
@@ -216,15 +211,14 @@ public class Market {
     public String viewSuspended(String systemManager) throws Exception {
         if (systemManagers.contains(systemManager)) {
             return permissions.viewSuspended();
-        }
-        else {
+        } else {
             throw new Exception(systemManager + " not a system manager");
         }
     }
 
     // Category
-    public String addCatagory(int storeId, String catagory, String username) throws Exception{
-        LOGGER.info("storeId: "+storeId+", category: "+catagory+", username: "+username);
+    public String addCatagory(int storeId, String catagory, String username) throws Exception {
+        LOGGER.info("storeId: " + storeId + ", category: " + catagory + ", username: " + username);
         if (systemManagers.contains(username)) {
             categoryController.addCategory(catagory);
             LOGGER.info("category added successfully");
@@ -236,71 +230,75 @@ public class Market {
     }
 
     // Product
-    public String initProduct(String username,String productName, int categoryId, String description, String brand) throws Exception{
-        LOGGER.info("username: "+username+",productName : " + productName + ", categoryId: " + categoryId+", description: "+description+", brand: "+brand);
-        if(systemManagers.contains(username)){
-            Category category=categoryController.getCategory(categoryId);
+    public String initProduct(String username, String productName, int categoryId, String description, String brand)
+            throws Exception {
+        LOGGER.info("username: " + username + ",productName : " + productName + ", categoryId: " + categoryId
+                + ", description: " + description + ", brand: " + brand);
+        if (systemManagers.contains(username)) {
+            Category category = categoryController.getCategory(categoryId);
             return productController.addProduct(productName, category, description, brand);
-        }
-        else{
+        } else {
             LOGGER.severe(username + " is not system manager");
             throw new Exception(username + " is not system manager");
         }
     }
 
     // Store
-    public String setProductDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int productId) throws Exception{
-        LOGGER.info("storeId: "+storeId+", userName: " + username + ", discountType: " +discountType+", discountPercentage: "+discountPercentage+", productId: "+productId);
-        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+    public String setProductDiscountPolicy(int storeId, String username, Boolean discountType, double conditionalprice,
+            double conditionalQuantity, double discountPercentage, int productId) throws Exception {
+        LOGGER.info("storeId: " + storeId + ", userName: " + username + ", discountType: " + discountType
+                + ", discountPercentage: " + discountPercentage + ", productId: " + productId);
+        if (!permissions.getPermission(storeId, username).getStoreOwner()) {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        Discount type=null;
-        if(discountType){
-            type=new StandardDiscount();
+        Discount type = null;
+        if (discountType) {
+            type = new StandardDiscount();
+        } else {
+            type = new ConditionalDiscount(conditionalprice, conditionalQuantity);
         }
-        else{
-            type=new ConditionalDiscount(conditionalprice,conditionalQuantity);
-        }
-        ProductDiscount discountPolicy=new ProductDiscount(type,discountPercentage,productId);
+        ProductDiscount discountPolicy = new ProductDiscount(type, discountPercentage, productId);
         storeController.getStore(storeId).setDiscountPolicy(discountPolicy);
         LOGGER.info("discount policy updated");
         return "discount policy updated";
     }
 
-    public String setCategoryDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int categoryId) throws Exception{
-        LOGGER.info("storeId: "+storeId+", userName: " + username + ", discountType: " +discountType+", discountPercentage: "+discountPercentage+", categoryId: "+categoryId);
-        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+    public String setCategoryDiscountPolicy(int storeId, String username, Boolean discountType, double conditionalprice,
+            double conditionalQuantity, double discountPercentage, int categoryId) throws Exception {
+        LOGGER.info("storeId: " + storeId + ", userName: " + username + ", discountType: " + discountType
+                + ", discountPercentage: " + discountPercentage + ", categoryId: " + categoryId);
+        if (!permissions.getPermission(storeId, username).getStoreOwner()) {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        Discount type=null;
-        if(discountType){
-            type=new StandardDiscount();
+        Discount type = null;
+        if (discountType) {
+            type = new StandardDiscount();
+        } else {
+            type = new ConditionalDiscount(conditionalprice, conditionalQuantity);
         }
-        else{
-            type=new ConditionalDiscount(conditionalprice,conditionalQuantity);
-        }
-        CategoryDiscount discountPolicy=new CategoryDiscount(type,discountPercentage,categoryId);
+        CategoryDiscount discountPolicy = new CategoryDiscount(type, discountPercentage, categoryId);
         storeController.getStore(storeId).setDiscountPolicy(discountPolicy);
         LOGGER.info("discount policy updated");
         return "discount policy updated";
     }
 
-    public String setStoreDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage) throws Exception{
-        LOGGER.info("storeId: "+storeId+", userName: " + username + ", discountType: " +discountType+", discountPercentage: "+discountPercentage);
-        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+    public String setStoreDiscountPolicy(int storeId, String username, Boolean discountType, double conditionalprice,
+            double conditionalQuantity, double discountPercentage) throws Exception {
+        LOGGER.info("storeId: " + storeId + ", userName: " + username + ", discountType: " + discountType
+                + ", discountPercentage: " + discountPercentage);
+        if (!permissions.getPermission(storeId, username).getStoreOwner()) {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        Discount type=null;
-        if(discountType){
-            type=new StandardDiscount();
+        Discount type = null;
+        if (discountType) {
+            type = new StandardDiscount();
+        } else {
+            type = new ConditionalDiscount(conditionalprice, conditionalQuantity);
         }
-        else{
-            type=new ConditionalDiscount(conditionalprice,conditionalQuantity);
-        }
-        StoreDiscount discountPolicy=new StoreDiscount(type, discountPercentage);
+        StoreDiscount discountPolicy = new StoreDiscount(type, discountPercentage);
         storeController.getStore(storeId).setDiscountPolicy(discountPolicy);
         LOGGER.info("discount policy updated");
         return "discount policy updated";
@@ -401,9 +399,9 @@ public class Market {
     }
 
     // public String addPurchase(int storeId, int userId, Purchase purchase) {
-    //     purchaseHistory.addPurchase(storeId, userId, purchase);
-    //     LOGGER.info("purcahse added");
-    //     return "purchase added";
+    // purchaseHistory.addPurchase(storeId, userId, purchase);
+    // LOGGER.info("purcahse added");
+    // return "purchase added";
     // }
 
     public String getStorePurchaseHistory(int storeId) {

@@ -1,14 +1,10 @@
 package DomainLayer.backend;
 
 import DomainLayer.backend.StorePackage.StoreController;
-import DomainLayer.backend.UserPackage.User;
 import DomainLayer.backend.UserPackage.UserController;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Executors;
@@ -141,10 +137,10 @@ public class Permissions {
 
     public String deleteStoreOwner(int storeID, String userName) throws Exception {
         StoreController storeController = StoreController.getInstance();
-        if (storeOwners.containsKey(storeID)) { 
+        if (storeOwners.containsKey(storeID)) {
             Tree currTree = storeOwners.get(storeID);
             if (currTree.findNode(userName).getData().getStoreOwner()) {
-                if (currTree.isRoot(storeOwners.get(storeID).findNode(userName))){
+                if (currTree.isRoot(storeOwners.get(storeID).findNode(userName))) {
                     storeController.deleteStore(storeID);
                     storeOwners.remove(storeID);
                     UserController.LOGGER.info("deleted main store owner - store is closed permanently");
@@ -165,13 +161,13 @@ public class Permissions {
 
     public String suspendUser(String username) {
         suspensionInfo sI = new suspensionInfo(LocalDateTime.now(), 0);
-        suspendedUsers.put(username,sI);
+        suspendedUsers.put(username, sI);
         return "suspended successfully";
     }
 
     public String suspendUserSeconds(String username, int duration) {
         suspensionInfo sI = new suspensionInfo(LocalDateTime.now(), duration);
-        suspendedUsers.put(username,sI);
+        suspendedUsers.put(username, sI);
         scheduler.schedule(() -> resumeUser(username), duration, TimeUnit.SECONDS);
         return username + " suspended for " + duration + " seconds";
     }
@@ -193,7 +189,7 @@ public class Permissions {
 
     public String viewSuspended() {
         StringBuilder result = new StringBuilder();
-        for (Entry<String,suspensionInfo> entry : suspendedUsers.entrySet()) {
+        for (Entry<String, suspensionInfo> entry : suspendedUsers.entrySet()) {
             result.append(entry.getKey());
             result.append(entry.getValue().toString());
         }
