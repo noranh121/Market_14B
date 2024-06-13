@@ -27,6 +27,26 @@ public class ServiceFactory {
         marketService.addCatagory(storeId, catagory, username);
     }
 
+    public void suspendUserIndefinitely(String systemManager, String username) {
+        marketService.suspendUserIndefinitely(systemManager,username);
+    }
+
+    public void suspendUserTemporarily(String systemManager, String username, int durationInSeconds){
+        marketService.suspendUserTemporarily(systemManager,username,durationInSeconds);
+    }
+
+    public void resumeUserIndefinitely(String systemManager, String username) {
+        marketService.resumeUserIndefinitely(systemManager,username);
+    }
+
+    public void resumeUser(String systemManager, String username, int duration) {
+        marketService.resumeUserTemporarily(systemManager,username,duration);
+    }
+
+    public String viewSuspended(String systemManager) {
+        return marketService.viewSuspended(systemManager);
+    }
+
     // UserService
     public String EnterAsGuest() {
         return userService.EnterAsGuest();
