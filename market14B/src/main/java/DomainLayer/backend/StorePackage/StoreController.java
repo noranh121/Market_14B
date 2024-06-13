@@ -139,6 +139,18 @@ public class StoreController {
         return "Store Opened Successfuly";
     }
 
+    public String deleteStore(int storeId) {
+        LOGGER.info("storeId: " + storeId);
+        Store store = getStore(storeId);
+        if (store != null) {
+            stores.remove(storeId);
+            LOGGER.info("store deleted successfully");
+            return "store deleted successfully";
+        }
+        LOGGER.severe("store does not exist");
+        return "store does not exist";
+    }
+
     public String getInfo(int storeId) {
         // checkStore(storeID)
         LOGGER.info("storeId: " + storeId);

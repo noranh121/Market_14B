@@ -19,4 +19,8 @@ public class Tree {
         return root.deleteNode(userName);
     }
 
+    public boolean isRoot(Node node) {
+        return node.getParent() == null;
+    }
+
 }

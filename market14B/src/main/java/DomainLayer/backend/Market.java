@@ -125,20 +125,33 @@ public class Market {
     }
 
     public double Buy(String username) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new Exception("can't buy user is suspended");
+        }
         return userController.Buy(username);
     }
 
     public String addToCart(String username, Integer product, int storeId, int quantity) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new Exception("can't add to cart user is suspended");
+        }
         return userController.addToCart(username, product, storeId, quantity);
     }
 
     public String inspectCart(String username) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new Exception("can't inspect cart user is suspended");
+        }
         return userController.inspectCart(username);
     }
 
     public String removeCartItem(String username, int storeId, int product) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new Exception("can't remove cart item user is suspended");
+        }
         return userController.removeCartItem(username, storeId, product);
     }
+
 
     // Permissions
     public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
@@ -158,6 +171,55 @@ public class Market {
 
     public String unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
         return permissions.deletePermission(storeID, ownerUserName, userName);
+    }
+
+    public String resign(int storeID, String username) throws Exception {
+        return permissions.deleteStoreOwner(storeID, username);
+    }
+
+    public String suspendUser(String systemManager, String username) throws Exception {
+        if (systemManagers.contains(systemManager)) {
+            return permissions.suspendUser(username);
+        }
+        else {
+            throw new Exception(systemManager + " not a system manager");
+        }
+    }
+
+    public String suspendUserSeconds(String systemManager, String username, int duration) throws Exception {
+        if (systemManagers.contains(systemManager)) {
+            return permissions.suspendUserSeconds(username,duration);
+        }
+        else {
+            throw new Exception(systemManager + " not a system manager");
+        }
+    }
+
+    public String resumeUser(String systemManager, String username) throws Exception {
+        if (systemManagers.contains(systemManager)) {
+            return permissions.resumeUser(username);
+        }
+        else {
+            throw new Exception(systemManager + " not a system manager");
+        }
+    }
+
+    public String resumeUserSeconds(String systemManager, String username, int duration) throws Exception {
+        if (systemManagers.contains(systemManager)) {
+            return permissions.resumeTemporarily(username,duration);
+        }
+        else {
+            throw new Exception(systemManager + " not a system manager");
+        }
+    }
+
+    public String viewSuspended(String systemManager) throws Exception {
+        if (systemManagers.contains(systemManager)) {
+            return permissions.viewSuspended();
+        }
+        else {
+            throw new Exception(systemManager + " not a system manager");
+        }
     }
 
     // Category
@@ -369,4 +431,5 @@ public class Market {
     public synchronized String removePurchaseFromUser(String userId, int purchaseId) throws Exception {
         return purchaseHistory.removePurchaseFromUser(userId, purchaseId);
     }
+
 }

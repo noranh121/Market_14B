@@ -6,18 +6,25 @@ import java.util.List;
 public class Node {
     private Permission data;
     private List<Node> children;
+    private Node parent;
 
     public Node(Permission data) {
         this.data = data;
         this.children = new ArrayList<>();
+        this.parent = null;
     }
 
     public Permission getData() {
         return data;
     }
 
+    public Node getParent() {
+        return this.parent;
+    }
+
     public void addChild(Node child) {
         children.add(child);
+        child.parent = this;
     }
 
     public Node findNode(String userName) {
@@ -41,6 +48,7 @@ public class Node {
         }
         return false;
     }
+
 
     public void edit(Permission per) {
         this.data = per;
