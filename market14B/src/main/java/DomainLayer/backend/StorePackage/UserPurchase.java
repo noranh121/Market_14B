@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class UserPurchase extends PurchasePolicy {
 
-    public UserPurchase(PurchaseMethod purchaseMethod, double age) {
-        super(purchaseMethod);
+    public UserPurchase(PurchaseMethod purchaseMethod, double age,int id) {
+        super(purchaseMethod,id);
     }
 
     @Override

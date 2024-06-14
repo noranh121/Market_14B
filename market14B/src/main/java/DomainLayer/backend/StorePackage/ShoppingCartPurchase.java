@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class ShoppingCartPurchase extends PurchasePolicy {
 
-    public ShoppingCartPurchase(PurchaseMethod purchaseMethod) {
-        super(purchaseMethod);
+    public ShoppingCartPurchase(PurchaseMethod purchaseMethod,int id) {
+        super(purchaseMethod,id);
     }
 
     @Override
