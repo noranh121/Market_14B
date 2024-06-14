@@ -1,10 +1,16 @@
 package DomainLayer.backend;
 
+import DomainLayer.backend.NotificationPackage.BaseNotifier;
+import DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
+import DomainLayer.backend.NotificationPackage.ImmediateNotifierDecorator;
+import DomainLayer.backend.NotificationPackage.Notifier;
 import DomainLayer.backend.StorePackage.StoreController;
+import DomainLayer.backend.UserPackage.User;
 import DomainLayer.backend.UserPackage.UserController;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Executors;
@@ -15,6 +21,9 @@ public class Permissions {
     private Map<Integer, Tree> storeOwners = new HashMap<>();
     private HashMap<String, suspensionInfo> suspendedUsers = new HashMap<>();
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private BaseNotifier baseNotifier = new BaseNotifier();
+    private Notifier ImmediateNotifier = new ImmediateNotifierDecorator(baseNotifier);
+    private Notifier DelayerNotifier = new DelayedNotifierDecorator(baseNotifier);
 
     private static Permissions instance = null;
 
@@ -67,6 +76,7 @@ public class Permissions {
         if (storeOwners.containsKey(storeID)) {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 if (storeOwners.get(storeID).findNode(userName) == null) {
+                    updateUser(userName, "you have an updated permission");
                     storeOwners.get(storeID).findNode(ownerUserName).addChild(permissionNode);
                     UserController.LOGGER.info("Permission added to store");
                     return "Permission added to store";
@@ -92,6 +102,7 @@ public class Permissions {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)) {
                     storeOwners.get(storeID).findNode(userName).edit(permission);
+                    updateUser(userName, "edited your permission");
                     UserController.LOGGER.info("Permission added to store");
                     return "Permission added to store";
                 } else {
@@ -114,6 +125,7 @@ public class Permissions {
                 if (storeOwners.get(storeID).findNode(userName) != null) {
                     if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)
                             || ownerUserName.equals(userName)) {
+                        updateUsers(storeID, ownerUserName , "deleted your permission");
                         storeOwners.get(storeID).deleteNode(userName);
                         UserController.LOGGER.info("Permission deleted from store");
                         return "Permission deleted from store";
@@ -162,6 +174,7 @@ public class Permissions {
     public String suspendUser(String username) {
         suspensionInfo sI = new suspensionInfo(LocalDateTime.now(), 0);
         suspendedUsers.put(username, sI);
+        updateUser(username, "you were suspended, you can only view");
         return "suspended successfully";
     }
 
@@ -169,17 +182,20 @@ public class Permissions {
         suspensionInfo sI = new suspensionInfo(LocalDateTime.now(), duration);
         suspendedUsers.put(username, sI);
         scheduler.schedule(() -> resumeUser(username), duration, TimeUnit.SECONDS);
+        updateUser(username, "you were suspended for " + duration + " seconds, you can only view");
         return username + " suspended for " + duration + " seconds";
     }
 
     public String resumeUser(String username) {
         suspendedUsers.remove(username);
+        updateUser(username, "you were unsuspended");
         return username + " unsuspended";
     }
 
     public String resumeTemporarily(String username, int duration) {
         resumeUser(username);
         scheduler.schedule(() -> suspendUser(username), duration, TimeUnit.SECONDS);
+        updateUser(username, "you were unsuspended for " + duration + " seconds");
         return username + " resumed for " + duration + " seconds";
     }
 
@@ -195,6 +211,47 @@ public class Permissions {
         }
         return result.toString();
     }
+
+
+    //notifier
+    public void updateStoreOwners(int storeId, String updateMessage) {
+        if (storeOwners.containsKey(storeId)) {
+            Tree tree = storeOwners.get(storeId);
+            for (String username : tree) {
+                chooseNotifier(username,updateMessage);
+            }
+        }
+        else {
+            UserController.LOGGER.severe("store " + storeId + " does not exist");
+        }
+    }
+
+    public void updateUsers(int storeId, String root, String updateMessage) {
+        Iterator<String> iterator = storeOwners.get(storeId).subtreeIterator(root);
+        if (iterator != null) {
+            while (iterator.hasNext()) {
+                updateUser(iterator.next(), updateMessage);
+            }
+        }
+    }
+
+    public void updateUser(String username, String updateMessage){
+        chooseNotifier(username,updateMessage);
+    }
+
+    private void chooseNotifier(String username, String message) {
+        UserController userController = UserController.getInstance();
+        User user = userController.getUser(username);
+        if (user.isLoggedIn()) {
+            ImmediateNotifier.send(username, message);
+            UserController.LOGGER.info("message sent to " + username);
+        }
+        else {
+            DelayerNotifier.send(username, message);
+            UserController.LOGGER.info("message stacked to " + username);
+        }
+    }
+
 
     // this is for testing
     public void setToNull() {

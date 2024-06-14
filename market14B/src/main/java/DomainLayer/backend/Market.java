@@ -33,6 +33,7 @@ public class Market {
     private ProductController productController = ProductController.getInstance();
     private CategoryController categoryController = CategoryController.getinstance();
 
+
     private Boolean Online = false;
     private HashSet<String> systemManagers = new HashSet<>();
     private static Market instance;
@@ -364,6 +365,7 @@ public class Market {
 
     public String CloseStore(int storeId, String username) throws Exception {
         if (permissions.getPermission(storeId, username).getStoreOwner()) {
+            permissions.updateStoreOwners(storeId, storeId + " store was closed");
             return storeController.closeStore(storeId);
         } else {
             LOGGER.severe(username + " has no permission to close the store");
@@ -373,6 +375,7 @@ public class Market {
 
     public String OpenStore(int storeId, String username) throws Exception {
         if (permissions.getPermission(storeId, username).getStoreOwner()) {
+            permissions.updateStoreOwners(storeId, storeId + " store was opened");
             return storeController.openStore(storeId);
         } else {
             LOGGER.severe(username + " has no permission to open the store");
@@ -429,5 +432,6 @@ public class Market {
     public synchronized String removePurchaseFromUser(String userId, int purchaseId) throws Exception {
         return purchaseHistory.removePurchaseFromUser(userId, purchaseId);
     }
+
 
 }

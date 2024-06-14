@@ -70,4 +70,8 @@ public class Node {
         return false;
     }
 
+    public List<Node> getChildren() {
+        return children;
+    }
+
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-class DelayedNotifierDecorator extends NotifierDecorator {
+public class DelayedNotifierDecorator extends NotifierDecorator {
 
     private Map<String, ArrayList<String>> delayedMessages = new HashMap<>();
 
