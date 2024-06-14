@@ -1,14 +1,16 @@
 package DomainLayer.backend.StorePackage;
 
-import java.util.Map;
-
-public abstract class PurchasePolicy {
+public abstract class PurchasePolicy extends CompositePurchasePolicy{
+    public enum PurchasePolicyType{
+        PRODUCT,
+        CATEGORY,
+        USER,
+        SHOPPINGCART
+    }
     protected PurchaseMethod purchaseMethod;
 
-    public PurchasePolicy(PurchaseMethod purchaseMethod) {
+    public PurchasePolicy(PurchaseMethod purchaseMethod,int id) {
+        super(id);
         this.purchaseMethod = purchaseMethod;
     }
-
-    // products.entry = <productId,[quantity,price,weight]>
-    public abstract Boolean purchase(Map<Integer, double[]> products, double age);
 }

@@ -6,8 +6,8 @@ public class ProductPurchase extends PurchasePolicy {
 
     private int productId;
 
-    public ProductPurchase(PurchaseMethod purchaseMethod, int productId) {
-        super(purchaseMethod);
+    public ProductPurchase(PurchaseMethod purchaseMethod, int productId,int id) {
+        super(purchaseMethod,id);
         this.productId = productId;
     }
 

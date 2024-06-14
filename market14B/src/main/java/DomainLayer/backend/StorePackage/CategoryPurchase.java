@@ -8,8 +8,8 @@ public class CategoryPurchase extends PurchasePolicy {
 
     private int categoryId;
 
-    public CategoryPurchase(PurchaseMethod purchaseMethod, int categoryId) {
-        super(purchaseMethod);
+    public CategoryPurchase(PurchaseMethod purchaseMethod, int categoryId,int id) {
+        super(purchaseMethod,id);
         this.categoryId = categoryId;
     }
 
