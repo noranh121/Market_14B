@@ -96,22 +96,25 @@ public class ShoppingCart {
     private double processBasket(Basket basket, Store store, String username) throws Exception {
         double basketSum = 0;
         PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
-        Map<Integer, double[]> purchases = new HashMap<>(); // prodid ==> {quantity, price}
+        Map<Integer, double[]> purchases = new HashMap<>(); // prodid ==> {quantity, price,weight}
         double[] qp;
         for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>
             int productId = entry.getKey();
             int quantity = entry.getValue();
-            double price = store.getProdPrice(productId); // discounts
-            basketSum += price * quantity;
+            double price = store.getProdPrice(productId);
+            double weight=store.getProdWeight(productId);
+            // basketSum += price * quantity;
             store.subQuantity(productId, quantity);
-            qp = new double[]{quantity,price};
+            qp = new double[]{quantity,price,weight};
             purchases.put(productId, qp);
         }
-        if(store.getDiscountPolicy()!=null){
-            basketSum=store.getDiscountPolicy().calculateDiscount(purchases);
+        // purchase after that discount
+        double age= UserController.getInstance().getUser(username).getAge();
+        if(store.purchase(purchases,age)){
+            basketSum=store.calculateDiscount(purchases);
+            Purchase purchase = new Purchase(basket, basketSum, purchases);
+            purchaseHistory.addPurchase(basket.getStoreID(), username, purchase);
         }
-        Purchase purchase = new Purchase(basket, basketSum, purchases);
-        purchaseHistory.addPurchase(basket.getStoreID(), username, purchase);
         return basketSum;
     }
 

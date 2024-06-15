@@ -6,16 +6,27 @@ public class Product {
     private Category category;
     private String description;
     private String brand;
+    private double weight;
+
     private double rating; // 0 - 5
     // should be synchronized
 
-    public Product(String name, String description, String brand, Category category) {
+    public Product(String name, String description, String brand, Category category,double weight) {
         // id
         rating = 0;
         this.name = name;
         this.description = description;
         this.brand = brand;
         this.category = category;
+        this.weight=weight;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public int getId() {

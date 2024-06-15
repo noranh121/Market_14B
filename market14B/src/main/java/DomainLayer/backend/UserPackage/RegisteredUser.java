@@ -7,8 +7,8 @@ public class RegisteredUser extends User {
     private String password;
 
     // private int currentStore; //storeId
-    public RegisteredUser(String username, String password) {
-        super(username);
+    public RegisteredUser(String username, String password,double age) {
+        super(username,age);
         this.password = password;
     }
 

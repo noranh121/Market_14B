@@ -48,8 +48,8 @@ public class ServiceFactory {
     }
 
     // UserService
-    public String EnterAsGuest() {
-        return userService.EnterAsGuest();
+    public String EnterAsGuest(double age) {
+        return userService.EnterAsGuest(age);
     }
 
     public String GuestExit(String username) {
@@ -64,8 +64,8 @@ public class ServiceFactory {
         return userService.Logout(username);
     }
 
-    public String Register(String username, String password) {
-        return userService.Register(username, password);
+    public String Register(String username, String password,double age) {
+        return userService.Register(username, password,age);
     }
 
     public String Buy(String username) {
@@ -112,8 +112,8 @@ public class ServiceFactory {
         return storesService.initStore(userName, Description);
     }
 
-    public String addProduct(int productId, int storeId, double price, int quantity, String username) throws Exception {
-        return storesService.addProduct(productId, storeId, price, quantity, username);
+    public String addProduct(int productId, int storeId, double price, int quantity, String username,double weight) throws Exception {
+        return storesService.addProduct(productId, storeId, price, quantity, username,weight);
     }
 
     public String removeProduct(int productId, int storeId, String username) {
@@ -140,19 +140,7 @@ public class ServiceFactory {
         return storesService.getInfo(storeId, username);
     }
 
-    public String initProduct(String username,String productName, int categoryId, String description, String brand){
-        return storesService.initProduct(username, productName, categoryId, description, brand);
-    }
-
-    public String setProductDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int productId) throws Exception{
-        return storesService.setProductDiscountPolicy(storeId, username, discountType, conditionalprice,conditionalQuantity, discountPercentage, productId);
-    }
-
-    public String setCategoryDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage,int categoryId) throws Exception{
-        return storesService.setCategoryDiscountPolicy(storeId, username, discountType, conditionalprice,conditionalQuantity, discountPercentage, categoryId);
-    }
-
-    public String setStoreDiscountPolicy(int storeId ,String username,Boolean discountType,double conditionalprice,double conditionalQuantity, double discountPercentage) throws Exception{
-        return storesService.setStoreDiscountPolicy(storeId, username, discountType, conditionalprice,conditionalQuantity, discountPercentage);
+    public String initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
+        return storesService.initProduct(username, productName, categoryId, description, brand,weight);
     }
 }

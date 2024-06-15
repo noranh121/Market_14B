@@ -68,13 +68,13 @@ public class StoreController {
         }
     }
 
-    public String addProduct(int productId, int storeId, double price, int quantity) throws Exception {
+    public String addProduct(int productId, int storeId, double price, int quantity,double weight) throws Exception {
         // checkStore(storeID)
         LOGGER.info(
                 "productId: " + productId + ", storeId " + storeId + ", price: " + price + ", quantity: " + quantity);
         Store store = getStore(storeId);
         if (store != null) {
-            store.AddProduct(productId, price, quantity);
+            store.AddProduct(productId, price, quantity,weight);
             LOGGER.info("Product added to store Successfully");
         }
         return "Product added to store successfully";

@@ -34,8 +34,8 @@ public class UserController {
     private HashMap<String, User> RegUserMap = new HashMap<>();
 
     // Guest
-    public String EnterAsGuest() throws Exception {
-        User guest = new GuestUser(idCounter);
+    public String EnterAsGuest(double age) throws Exception {
+        User guest = new GuestUser(idCounter,age);
         idCounter++; 
         return addToGuestMap(guest);
     }
@@ -90,18 +90,18 @@ public class UserController {
     public String Logout(String username) throws Exception {
         // save data - DATA SERVICE
         RegUserMap.get(username).setLoggedIn(false);
-        return EnterAsGuest();
+        return EnterAsGuest(RegUserMap.get(username).getAge());
     }
 
     // both
-    public String Register(String username, String password) throws Exception {
+    public String Register(String username, String password,double age) throws Exception {
         LOGGER.info("username: " + username + ", password: " + password);
         String newPass = Authenticator.encodePassword(password);
         if (RegUserMap.containsKey(username)) {
             LOGGER.severe("username already exists");
             throw new Exception("username already exists");
         }
-        User reg = new RegisteredUser(username, newPass);
+        User reg = new RegisteredUser(username, newPass,age);
         return addToRegUserMap(reg);
     }
 

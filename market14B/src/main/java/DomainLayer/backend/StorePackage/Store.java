@@ -3,6 +3,12 @@ package DomainLayer.backend.StorePackage;
 import java.util.Map;
 
 import DomainLayer.backend.ProductPackage.Inventory;
+import DomainLayer.backend.StorePackage.Discount.CompositeDiscountPolicy;
+import DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
+import DomainLayer.backend.StorePackage.Discount.Logical.ANDDiscountRule;
+import DomainLayer.backend.StorePackage.Purchase.ANDPurchaseRule;
+import DomainLayer.backend.StorePackage.Purchase.CompositePurchasePolicy;
+import DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 
 public class Store {
     private int id;
@@ -11,7 +17,11 @@ public class Store {
     private boolean active;
     private String description;
     private double rating; // 0 - 5
-    private DiscountPolicy discountPolicy;
+    private DiscountPolicyController compositeDiscountPolicy;
+    private PurchasePolicyController compositePurchasePolicy;
+
+    private int discountPolicyIDCounter;
+    private int purchasePolicyIDCounter;
 
     public Store(String name, String Description, int id) {
         this.id = id;
@@ -20,16 +30,51 @@ public class Store {
         active = false;
         inventory = new Inventory();
         this.rating = 0;
-        discountPolicy=null;
+        discountPolicyIDCounter=0;
+        purchasePolicyIDCounter=0;
+        compositeDiscountPolicy=new ANDDiscountRule(discountPolicyIDCounter);
+        compositePurchasePolicy=new ANDPurchaseRule(purchasePolicyIDCounter);
+        discountPolicyIDCounter++;
+        purchasePolicyIDCounter++;
+    }
+    
+    // Discount Policy
+    public DiscountPolicyController getCompositeDiscountPolicy(){
+        return compositeDiscountPolicy;
     }
 
-    // Getter and Setter for discountPolicy
-    public DiscountPolicy getDiscountPolicy(){
-        return discountPolicy;
+    public void addDiscountComposite(CompositeDiscountPolicy discountPolicy){
+        discountPolicy.setId(discountPolicyIDCounter);
+        compositeDiscountPolicy.addComposite(discountPolicy);
+        discountPolicyIDCounter++;
     }
 
-    public void setDiscountPolicy(DiscountPolicy discountPolicy){
-        this.discountPolicy=discountPolicy;
+    public void removeDiscountComposite(int discountPolicyId) throws Exception{
+        compositeDiscountPolicy.removeComposite(discountPolicyId);
+    }
+    
+    public double calculateDiscount(Map<Integer, double[]> products){
+        products=compositeDiscountPolicy.calculateDiscount(products);
+        return compositeDiscountPolicy.calculateTotal(products);
+    }
+
+    // Purchase Policy
+    public PurchasePolicyController getCompositePurchasePolicy() {
+        return compositePurchasePolicy;
+    }
+
+    public void addPurchaseComposite(CompositePurchasePolicy purchasePolicy){
+        purchasePolicy.setId(purchasePolicyIDCounter);
+        compositePurchasePolicy.addComposite(purchasePolicy);
+        purchasePolicyIDCounter++;
+    }
+
+    public void removePurchaseComposite(int purchasePolicyId) throws Exception{
+        compositePurchasePolicy.removeComposite(purchasePolicyId);
+    }
+
+    public Boolean purchase(Map<Integer, double[]> products, double age){
+        return compositePurchasePolicy.purchase(products, age);
     }
 
     // Getter and Setter for rating
@@ -82,12 +127,12 @@ public class Store {
         this.description = description;
     }
 
-    public void AddProduct(int productId, Double price, int quantity) throws Exception {
+    public void AddProduct(int productId, Double price, int quantity,double weight) throws Exception {
         if (price <= 0 || quantity < 0) {
             StoreController.LOGGER.severe("price is <=0 or quantity < 0 while trying to add product");
             throw new Exception("Price cannot be zero or less, quantity can only be 0 or positive!");
         }
-        inventory.AddProduct(productId, price, quantity);
+        inventory.AddProduct(productId, price, quantity,weight);
         StoreController.LOGGER.info("product added successfully");
     }
 
@@ -130,6 +175,16 @@ public class Store {
         }
         inventory.subQuantity(productId, quantity);
         StoreController.LOGGER.info("Product's quantity added successfully");
+    }
+
+    public double getProdWeight(Integer p){
+        double weight = inventory.getWeight(p);
+        if (weight == -1) {
+            StoreController.LOGGER.warning("Product doesn't appear to be the inventory of the store!");
+        } else {
+            StoreController.LOGGER.info("Weight of Product fetched successfully");
+        }
+        return weight;
     }
 
     public double getProdPrice(Integer p) {

@@ -6,14 +6,15 @@ import java.util.Map;
 public class Inventory {
     public static final int QUANTITY = 0;
     public static final int PRICE = 1;
+    public static final int WEIGHT = 2;
     private Map<Integer, double[]> products; // prodiD ==> {quant,price}
 
     public Inventory() {
         this.products = new HashMap<>();
     }
 
-    public void AddProduct(int productId, Double price, int quantity) {
-        products.put(productId, new double[] { quantity, price });
+    public void AddProduct(int productId, Double price, int quantity,double weight) {
+        products.put(productId, new double[] { quantity, price,weight });
     }
 
     public void RemoveProduct(int productId) {
@@ -22,6 +23,10 @@ public class Inventory {
 
     public double getPrice(int prodID) {
         return (products.containsKey(prodID)) ? products.get(prodID)[PRICE] : -1;
+    }
+
+    public double getWeight(int prodID) {
+        return (products.containsKey(prodID)) ? products.get(prodID)[WEIGHT] : -1;
     }
 
     public int getQuantity(int prodID) {
