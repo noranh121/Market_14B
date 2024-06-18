@@ -28,8 +28,11 @@ import DomainLayer.backend.StorePackage.Purchase.UserPurchase;
 import DomainLayer.backend.UserPackage.UserController;
 
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,7 +52,8 @@ public class Market {
 
 
     private Boolean Online = false;
-    private HashSet<String> systemManagers = new HashSet<>();
+    private List<String> systemManagers = Collections.synchronizedList(new ArrayList<>());
+    private final Lock systemManagersLock = new ReentrantLock();
     private static Market instance;
 
     public static Market getInstance() {
@@ -87,7 +91,7 @@ public class Market {
         Online = false;
     }
 
-    public HashSet<String> getSystemManagers() {
+    public List<String> getSystemManagers() {
         return systemManagers;
     }
 
@@ -101,7 +105,7 @@ public class Market {
         permissions.setToNull();
         userController.setToNull();
         storeController.setToNull();
-        systemManagers = new HashSet<>();
+        systemManagers = Collections.synchronizedList(new ArrayList<>());
     }
 
     // while OFFLINE only the login function is reachable, if SystemManager ==>
@@ -173,18 +177,39 @@ public class Market {
         return userController.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
     }
 
-    public String AssignStoreManager(int storeId, String ownerUserName, String username, Boolean[] pType)
-            throws Exception {
-        return userController.AssignStoreManager(storeId, ownerUserName, username, pType);
+    public String AssignStoreManager(int storeId, String ownerUserName, String username, Boolean[] pType) throws Exception {
+        while (!systemManagersLock.tryLock()) {
+            Thread.sleep(1000);
+        }
+        try{
+            return userController.AssignStoreManager(storeId, ownerUserName, username, pType);
+        } finally{
+            systemManagersLock.unlock();
+        }
     }
 
-    public String AssignStoreOwner(int storeId, String ownerUserName, String username, Boolean[] pType)
-            throws Exception {
-        return userController.AssignStoreOwner(storeId, ownerUserName, username, pType);
+    public String AssignStoreOwner(int storeId, String ownerUserName, String username, Boolean[] pType) throws Exception {
+        while (!systemManagersLock.tryLock()) {
+            Thread.sleep(1000);
+        }
+        try{
+            return userController.AssignStoreOwner(storeId, ownerUserName, username, pType);
+        }finally{
+            systemManagersLock.unlock();
+        }
+        
     }
 
     public String unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
-        return permissions.deletePermission(storeID, ownerUserName, userName);
+        while (!systemManagersLock.tryLock()) {
+            Thread.sleep(1000);
+        }
+        try{
+            return permissions.deletePermission(storeID, ownerUserName, userName);
+        }finally{
+            systemManagersLock.unlock();
+        }
+        
     }
 
     public String resign(int storeID, String username) throws Exception {
@@ -192,18 +217,28 @@ public class Market {
     }
 
     public String suspendUser(String systemManager, String username) throws Exception {
-        if (systemManagers.contains(systemManager)) {
-            return permissions.suspendUser(username);
-        } else {
-            throw new Exception(systemManager + " not a system manager");
+        systemManagersLock.lock();
+        try{
+            if (systemManagers.contains(systemManager)) {
+                return permissions.suspendUser(username);
+            } else {
+                throw new Exception(systemManager + " not a system manager");
+            }
+        }finally{
+            systemManagersLock.unlock();
         }
     }
 
     public String suspendUserSeconds(String systemManager, String username, int duration) throws Exception {
-        if (systemManagers.contains(systemManager)) {
-            return permissions.suspendUserSeconds(username, duration);
-        } else {
-            throw new Exception(systemManager + " not a system manager");
+        systemManagersLock.lock();
+        try{
+            if (systemManagers.contains(systemManager)) {
+                return permissions.suspendUserSeconds(username, duration);
+            } else {
+                throw new Exception(systemManager + " not a system manager");
+            }
+        }finally{
+            systemManagersLock.unlock();
         }
     }
 
@@ -514,11 +549,16 @@ public class Market {
 
     // Purchase History
     public String viewsystemPurchaseHistory(String username) throws Exception {
-        if (!systemManagers.contains(username)) {
-            LOGGER.severe("only system managers can view purchase history");
-            throw new Exception("only system managers can view purchase history");
+        systemManagersLock.lock();
+        try{
+            if (!systemManagers.contains(username)) {
+                LOGGER.severe("only system managers can view purchase history");
+                throw new Exception("only system managers can view purchase history");
+            }
+            return PurchaseHistory.getInstance().viewPurchaseHistory();
+        }finally{
+            systemManagersLock.unlock();
         }
-        return PurchaseHistory.getInstance().viewPurchaseHistory();
     }
 
     // public String addPurchase(int storeId, int userId, Purchase purchase) {
@@ -527,7 +567,11 @@ public class Market {
     // return "purchase added";
     // }
 
-    public String getStorePurchaseHistory(int storeId) {
+    public Lock getSystemManagersLock(){
+        return systemManagersLock;
+    }
+
+    public String getStorePurchaseHistory(int storeId) throws InterruptedException {
         List<Purchase> purchases = purchaseHistory.getStorePurchaseHistory(storeId);
         String info = "";
         for (Purchase purchase : purchases) {
@@ -536,7 +580,7 @@ public class Market {
         return info;
     }
 
-    public String getUserPurchaseHistory(String userId) {
+    public String getUserPurchaseHistory(String userId) throws InterruptedException {
         List<Purchase> purchases = purchaseHistory.getUserPurchaseHistory(userId);
         String info = "";
         for (Purchase purchase : purchases) {

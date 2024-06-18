@@ -1,6 +1,8 @@
 package DomainLayer.backend.StorePackage;
 
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import DomainLayer.backend.ProductPackage.Inventory;
 import DomainLayer.backend.StorePackage.Discount.CompositeDiscountPolicy;
@@ -19,6 +21,7 @@ public class Store {
     private double rating; // 0 - 5
     private DiscountPolicyController compositeDiscountPolicy;
     private PurchasePolicyController compositePurchasePolicy;
+    private final Lock storeLock = new ReentrantLock();
 
     private int discountPolicyIDCounter;
     private int purchasePolicyIDCounter;
@@ -210,11 +213,25 @@ public class Store {
     }
 
     public void CloseStore() {
-        this.active = false;
+        storeLock.lock();
+        try{
+            this.active = false;
+        }finally{
+            storeLock.unlock();
+        }
     }
 
     public void OpenStore() {
-        this.active = true;
+        storeLock.lock();
+        try{
+            this.active = true;
+        }finally{
+            storeLock.unlock();
+        }
+    }
+
+    public Lock getLock(){
+        return storeLock;
     }
 
     public String getInfo() {

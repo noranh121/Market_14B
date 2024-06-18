@@ -1,7 +1,7 @@
 package DomainLayer.backend.ProductPackage;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Inventory {
     public static final int QUANTITY = 0;
@@ -10,7 +10,7 @@ public class Inventory {
     private Map<Integer, double[]> products; // prodiD ==> {quant,price}
 
     public Inventory() {
-        this.products = new HashMap<>();
+        this.products = new ConcurrentHashMap<>();
     }
 
     public void AddProduct(int productId, Double price, int quantity,double weight) {

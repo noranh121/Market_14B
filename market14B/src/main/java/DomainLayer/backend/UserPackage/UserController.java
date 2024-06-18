@@ -2,7 +2,8 @@ package DomainLayer.backend.UserPackage;
 
 import DomainLayer.backend.AuthenticatorPackage.Authenticator;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,9 +30,9 @@ public class UserController {
         }
     }
 
-    private HashMap<String, User> GuestMap = new HashMap<>(); // ?
+    private Map<String, User> GuestMap = new ConcurrentHashMap<>(); // ?
     private int idCounter = 0;
-    private HashMap<String, User> RegUserMap = new HashMap<>();
+    private Map<String, User> RegUserMap = new ConcurrentHashMap<>();
 
     // Guest
     public String EnterAsGuest(double age) throws Exception {
@@ -186,11 +187,11 @@ public class UserController {
         }
     }
 
-    public HashMap<String, User> getRegUserMap() {
+    public Map<String, User> getRegUserMap() {
         return RegUserMap;
     }
 
-    public HashMap<String, User> getGuestUserMap() {
+    public Map<String, User> getGuestUserMap() {
         return GuestMap;
     }
 

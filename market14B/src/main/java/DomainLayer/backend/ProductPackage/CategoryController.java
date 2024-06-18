@@ -1,7 +1,7 @@
 package DomainLayer.backend.ProductPackage;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CategoryController {
     private static CategoryController instance;
@@ -17,7 +17,7 @@ public class CategoryController {
     }
 
     private CategoryController() {
-        categories = new HashMap<>();
+        categories = new ConcurrentHashMap<>();
         counterID = 0;
     }
 

@@ -1,6 +1,7 @@
 package DomainLayer.backend;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Node {
@@ -10,7 +11,7 @@ public class Node {
 
     public Node(Permission data) {
         this.data = data;
-        this.children = new ArrayList<>();
+        this.children = Collections.synchronizedList(new ArrayList<>());
         this.parent = null;
     }
 

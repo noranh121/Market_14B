@@ -1,8 +1,8 @@
 package DomainLayer.backend;
 
 import DomainLayer.backend.StorePackage.StoreController;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Purchase {
     public static final int QUANTITY = 0;
@@ -14,7 +14,7 @@ public class Purchase {
     private int purchaseid;
 
     public Purchase(Basket basket, double calculatedPrice, Map<Integer, double[]> purchases) {
-        purchases = new HashMap<>();
+        purchases = new ConcurrentHashMap<>();
         this.username = basket.getUsername(); // method in basket
         this.storeId = basket.getStoreID(); // method in basket
         this.Ovlprice = calculatedPrice; // calculate price in basket!

@@ -1,6 +1,7 @@
 package DomainLayer.backend.ProductPackage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Category {
@@ -14,16 +15,16 @@ public class Category {
         this.id = id;
         this.name = name;
         this.parentCategoryID = parentCategoryID;
-        subCategories = new ArrayList<>();
-        products = new ArrayList<>();
+        subCategories = Collections.synchronizedList(new ArrayList<>());
+        products = Collections.synchronizedList(new ArrayList<>());
     }
 
     public Category(int id, String name) {
         this.id = id;
         this.name = name;
         parentCategoryID = -1;
-        subCategories = new ArrayList<>();
-        products = new ArrayList<>();
+        subCategories = Collections.synchronizedList(new ArrayList<>());
+        products = Collections.synchronizedList(new ArrayList<>());
     }
 
     public int getId() {

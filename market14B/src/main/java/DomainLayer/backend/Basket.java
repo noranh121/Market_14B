@@ -3,8 +3,8 @@ package DomainLayer.backend;
 import DomainLayer.backend.ProductPackage.ProductController;
 import DomainLayer.backend.UserPackage.UserController;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Basket {
     private String username;
@@ -14,7 +14,7 @@ public class Basket {
     public Basket(String username, int storeID) {
         this.username = username;
         this.storeID = storeID;
-        this.products = new HashMap<>();
+        this.products = new ConcurrentHashMap<>();
     }
 
     public String getUsername() {

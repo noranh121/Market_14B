@@ -1,14 +1,16 @@
 package DomainLayer.backend.StorePackage.Purchase;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class PurchasePolicyController extends CompositePurchasePolicy{
 
-    protected HashSet<CompositePurchasePolicy> compositePurchasePolicies;
+    protected List<CompositePurchasePolicy> compositePurchasePolicies;
 
     public PurchasePolicyController(int id){
         super(id);
-        compositePurchasePolicies=new HashSet<>();
+        compositePurchasePolicies=Collections.synchronizedList(new ArrayList<>());
     }
 
     public void addComposite(CompositePurchasePolicy compositePurchasePolicy){

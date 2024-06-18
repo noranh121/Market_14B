@@ -1,13 +1,14 @@
 package DomainLayer.backend;
 
 import java.util.Iterator;
-import java.util.Stack;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class TreeIterator implements Iterator<String>{
-    private Stack<Node> stack;
+    private ConcurrentLinkedDeque<Node> stack;
+
 
     public TreeIterator(Node root) {
-        stack = new Stack<>();
+        stack =  new ConcurrentLinkedDeque<>();
         if (root != null) {
             stack.push(root);
         }

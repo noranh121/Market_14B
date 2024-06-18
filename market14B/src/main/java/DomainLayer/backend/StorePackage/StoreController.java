@@ -1,7 +1,7 @@
 package DomainLayer.backend.StorePackage;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +23,7 @@ public class StoreController {
 
     private StoreController() {
         idCounter = 0;
-        stores = new HashMap<>();
+        stores = new ConcurrentHashMap<>();
         try {
             FileHandler fileHandler = new FileHandler("StorePackage", true);
             fileHandler.setFormatter(new SimpleFormatter());

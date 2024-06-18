@@ -9,17 +9,19 @@ import DomainLayer.backend.UserPackage.User;
 import DomainLayer.backend.UserPackage.UserController;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Permissions {
-    private Map<Integer, Tree> storeOwners = new HashMap<>();
-    private HashMap<String, suspensionInfo> suspendedUsers = new HashMap<>();
+    private Map<Integer, Tree> storeOwners = new ConcurrentHashMap<>();
+    private Map<String, suspensionInfo> suspendedUsers = new ConcurrentHashMap<>();
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private BaseNotifier baseNotifier = new BaseNotifier();
     private Notifier ImmediateNotifier = new ImmediateNotifierDecorator(baseNotifier);
@@ -54,36 +56,51 @@ public class Permissions {
     }
 
     public Permission getPermission(int storeID, String userName) throws Exception {
-        if (storeOwners.containsKey(storeID)) {
-            Node permissionNode = storeOwners.get(storeID).findNode(userName);
-            if (permissionNode != null) {
-                UserController.LOGGER.info("Permission found");
-                return permissionNode.getData();
-            } else {
-                UserController.LOGGER.severe(userName + " does not exist");
-                throw new Exception(userName + " does not exist");
-            }
-        } else {
-            UserController.LOGGER.severe(storeID + " does not exist");
-            throw new Exception(storeID + " does not exist");
+        while(!deleteLock.tryLock()){
+            Thread.sleep(1000);
         }
+        try{
+            if (storeOwners.containsKey(storeID)) {
+                Node permissionNode = storeOwners.get(storeID).findNode(userName);
+                if (permissionNode != null) {
+                    UserController.LOGGER.info("Permission found");
+                    return permissionNode.getData();
+                } else {
+                    UserController.LOGGER.severe(userName + " does not exist");
+                    throw new Exception(userName + " does not exist");
+                }
+            } else {
+                UserController.LOGGER.severe(storeID + " does not exist");
+                throw new Exception(storeID + " does not exist");
+            }
+        }finally{
+            deleteLock.unlock();
+        }
+        
     }
+    
+    private final Lock addLock = new ReentrantLock();
 
     public String addPermission(int storeID, String ownerUserName, String userName, Boolean storeOwner,
-            Boolean storeManager, Boolean[] pType) throws Exception {
+        Boolean storeManager, Boolean[] pType) throws Exception {
         Permission permission = new Permission(userName, storeOwner, storeManager, pType);
         Node permissionNode = new Node(permission);
         if (storeOwners.containsKey(storeID)) {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
-                if (storeOwners.get(storeID).findNode(userName) == null) {
-                    updateUser(userName, "you have an updated permission");
-                    storeOwners.get(storeID).findNode(ownerUserName).addChild(permissionNode);
-                    UserController.LOGGER.info("Permission added to store");
-                    return "Permission added to store";
-
-                } else {
-                    UserController.LOGGER.severe(userName + " already exists");
-                    throw new Exception(userName + " already exists");
+                addLock.lock();
+                try{
+                    if (storeOwners.get(storeID).findNode(userName) == null) {
+                        updateUser(userName, "you have an updated permission");
+                        storeOwners.get(storeID).findNode(ownerUserName).addChild(permissionNode);
+                        UserController.LOGGER.info("Permission added to store");
+                        return "Permission added to store";
+    
+                    } else {
+                        UserController.LOGGER.severe(userName + " already exists");
+                        throw new Exception(userName + " already exists");
+                    }
+                }finally{
+                    addLock.unlock();
                 }
             } else {
                 UserController.LOGGER.severe(ownerUserName + " not owner");
@@ -95,19 +112,26 @@ public class Permissions {
         }
     }
 
+    private final Lock editLock = new ReentrantLock();
+
     public String editPermission(int storeID, String ownerUserName, String userName, Boolean storeOwner,
             Boolean storeManager, Boolean[] pType) throws Exception {
         Permission permission = new Permission(userName, storeOwner, storeManager, pType);
         if (storeOwners.containsKey(storeID)) {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
-                if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)) {
-                    storeOwners.get(storeID).findNode(userName).edit(permission);
-                    updateUser(userName, "edited your permission");
-                    UserController.LOGGER.info("Permission added to store");
-                    return "Permission added to store";
-                } else {
-                    UserController.LOGGER.severe(userName + " is not employed by " + ownerUserName);
-                    throw new Exception(userName + " is not employed by " + ownerUserName);
+                editLock.lock();
+                try{
+                    if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)) {
+                        storeOwners.get(storeID).findNode(userName).edit(permission);
+                        updateUser(userName, "edited your permission");
+                        UserController.LOGGER.info("Permission added to store");
+                        return "Permission added to store";
+                    } else {
+                        UserController.LOGGER.severe(userName + " is not employed by " + ownerUserName);
+                        throw new Exception(userName + " is not employed by " + ownerUserName);
+                    }
+                }finally{
+                    editLock.unlock();
                 }
             } else {
                 UserController.LOGGER.severe(ownerUserName + " does not exist");
@@ -119,20 +143,28 @@ public class Permissions {
         }
     }
 
+    private final Lock deleteLock = new ReentrantLock();
+
     public String deletePermission(int storeID, String ownerUserName, String userName) throws Exception {
         if (storeOwners.containsKey(storeID)) {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 if (storeOwners.get(storeID).findNode(userName) != null) {
-                    if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)
+                    deleteLock.lock();
+                    try{
+                        if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)
                             || ownerUserName.equals(userName)) {
                         updateUsers(storeID, ownerUserName , "deleted your permission");
                         storeOwners.get(storeID).deleteNode(userName);
                         UserController.LOGGER.info("Permission deleted from store");
                         return "Permission deleted from store";
-                    } else {
-                        UserController.LOGGER.severe(userName + " is not employed by " + ownerUserName);
-                        throw new Exception(userName + " is not employed by " + ownerUserName);
+                        } else {
+                            UserController.LOGGER.severe(userName + " is not employed by " + ownerUserName);
+                            throw new Exception(userName + " is not employed by " + ownerUserName);
+                        }
+                    }finally{
+                        deleteLock.unlock();
                     }
+                    
                 } else {
                     UserController.LOGGER.severe(userName + " already exists");
                     throw new Exception(userName + " already exists");
@@ -147,20 +179,28 @@ public class Permissions {
         }
     }
 
+    private final Lock ownerLock = new ReentrantLock();
+
     public String deleteStoreOwner(int storeID, String userName) throws Exception {
         StoreController storeController = StoreController.getInstance();
         if (storeOwners.containsKey(storeID)) {
             Tree currTree = storeOwners.get(storeID);
             if (currTree.findNode(userName).getData().getStoreOwner()) {
-                if (currTree.isRoot(storeOwners.get(storeID).findNode(userName))) {
-                    storeController.deleteStore(storeID);
-                    storeOwners.remove(storeID);
-                    UserController.LOGGER.info("deleted main store owner - store is closed permanently");
-                    return "deleted main store owner - store is closed perminantly";
+                ownerLock.lock();
+                try{
+                    if (currTree.isRoot(storeOwners.get(storeID).findNode(userName))) {
+                        storeController.deleteStore(storeID);
+                        storeOwners.remove(storeID);
+                        UserController.LOGGER.info("deleted main store owner - store is closed permanently");
+                        return "deleted main store owner - store is closed perminantly";
+                    }
+                    storeOwners.get(storeID).deleteNode(userName);
+                    UserController.LOGGER.info("deleted store owner");
+                    return "deleted store owner";
+                }finally{
+                    ownerLock.unlock();
                 }
-                storeOwners.get(storeID).deleteNode(userName);
-                UserController.LOGGER.info("deleted store owner");
-                return "deleted store owner";
+                
             } else {
                 UserController.LOGGER.severe(userName + " not a store owner");
                 throw new Exception(userName + " not a store owner");

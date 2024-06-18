@@ -1,6 +1,8 @@
 package DomainLayer.backend.StorePackage.Discount;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class DiscountPolicyController extends CompositeDiscountPolicy{
 
@@ -11,11 +13,11 @@ public abstract class DiscountPolicyController extends CompositeDiscountPolicy{
         IF_THEN
     }
 
-    protected HashSet<CompositeDiscountPolicy> compositeDiscountPolicies;
+    protected List<CompositeDiscountPolicy> compositeDiscountPolicies;
 
     public DiscountPolicyController(int id) {
         super(id);
-        compositeDiscountPolicies=new HashSet<>();
+        compositeDiscountPolicies=Collections.synchronizedList(new ArrayList<>());
     }
 
     public void addComposite(CompositeDiscountPolicy composite){

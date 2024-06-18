@@ -25,7 +25,7 @@ public class Product {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public synchronized void setWeight(double weight) {
         this.weight = weight;
     }
 
@@ -33,7 +33,7 @@ public class Product {
         return id;
     }
 
-    public void setId(int id) {
+    public synchronized void setId(int id) {
         this.id = id;
     }
 
@@ -41,7 +41,7 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {
+    public synchronized void setName(String name) {
         this.name = name;
     }
 
@@ -49,7 +49,7 @@ public class Product {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public synchronized void setCategory(Category category) {
         this.category = category;
     }
 
@@ -57,7 +57,7 @@ public class Product {
         return description;
     }
 
-    public void setDescription(String description) {
+    public synchronized void setDescription(String description) {
         this.description = description;
     }
 
@@ -65,7 +65,7 @@ public class Product {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public synchronized void setBrand(String brand) {
         this.brand = brand;
     }
 
@@ -73,7 +73,7 @@ public class Product {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public synchronized void setRating(double rating) {
         this.rating = rating;
     }
 
