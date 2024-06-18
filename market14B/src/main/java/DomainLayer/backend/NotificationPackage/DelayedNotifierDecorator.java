@@ -6,10 +6,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+
+@Component
 public class DelayedNotifierDecorator extends NotifierDecorator {
 
     private Map<String, List<String>> delayedMessages = new ConcurrentHashMap<>();
 
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @Autowired
     public DelayedNotifierDecorator(Notifier notifier) {
         super(notifier);
     }
@@ -27,11 +36,22 @@ public class DelayedNotifierDecorator extends NotifierDecorator {
         }
     }
 
-    public void sendDelayedMessages(String user) {
-        LOGGER.info("Sending delayed messages to " + user);
-        for (String message : delayedMessages.get(user)) {
-            super.send(user, message);
+    // public void sendDelayedMessages(String user) {
+    //     LOGGER.info("Sending delayed messages to " + user);
+    //     for (String message : delayedMessages.get(user)) {
+    //         super.send(user, message);
+    //     }
+    //     delayedMessages.remove(user);
+    // }
+
+    public List<String> retriveNotifications(String username){
+        if(delayedMessages.containsKey(username)){
+        List<String> nots = delayedMessages.get(username);
+        delayedMessages.remove(username);
         }
-        delayedMessages.remove(user);
+        return null;
     }
+
+
+    
 }

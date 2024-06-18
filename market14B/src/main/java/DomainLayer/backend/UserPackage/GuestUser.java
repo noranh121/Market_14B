@@ -4,6 +4,7 @@ public class GuestUser extends User {
 
     public GuestUser(int Id,double age) {
         super(Integer.toString(Id),age);
+        super.setLoggedIn(true);
     }
 
 }
