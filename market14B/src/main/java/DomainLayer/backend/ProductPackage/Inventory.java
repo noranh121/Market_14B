@@ -1,19 +1,20 @@
 package DomainLayer.backend.ProductPackage;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Inventory {
     public static final int QUANTITY = 0;
     public static final int PRICE = 1;
+    public static final int WEIGHT = 2;
     private Map<Integer, double[]> products; // prodiD ==> {quant,price}
 
     public Inventory() {
-        this.products = new HashMap<>();
+        this.products = new ConcurrentHashMap<>();
     }
 
-    public void AddProduct(int productId, Double price, int quantity) {
-        products.put(productId, new double[] { quantity, price });
+    public void AddProduct(int productId, Double price, int quantity,double weight) {
+        products.put(productId, new double[] { quantity, price,weight });
     }
 
     public void RemoveProduct(int productId) {
@@ -22,6 +23,10 @@ public class Inventory {
 
     public double getPrice(int prodID) {
         return (products.containsKey(prodID)) ? products.get(prodID)[PRICE] : -1;
+    }
+
+    public double getWeight(int prodID) {
+        return (products.containsKey(prodID)) ? products.get(prodID)[WEIGHT] : -1;
     }
 
     public int getQuantity(int prodID) {
@@ -43,9 +48,12 @@ public class Inventory {
 
     }
 
-    public void subQuantity(int productId, int quantity) {
+    public void subQuantity(int productId, int quantity) throws Exception {
         double[] details = products.get(productId);
         if (details != null) {
+            if(details[QUANTITY]<quantity){
+                throw new Exception("product is in shortage");
+            }
             details[QUANTITY] = details[QUANTITY] - quantity;
         }
     }

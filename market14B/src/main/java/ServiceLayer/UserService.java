@@ -6,9 +6,9 @@ import DomainLayer.backend.UserPackage.UserController;
 public class UserService {
     private Market market = Market.getInstance();
 
-    public String EnterAsGuest() {
+    public String EnterAsGuest(double age) {
         try {
-            String result = market.EnterAsGuest();
+            String result = market.EnterAsGuest(age);
             UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -46,9 +46,9 @@ public class UserService {
         }
     }
 
-    public String Register(String username, String password) {
+    public String Register(String username, String password,double age) {
         try {
-            String result = market.Register(username, password);
+            String result = market.Register(username, password,age);
             UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class UserService {
             // result = payment method TODO
             // LOGGER.info(result);
             // return result;
-            return "";
+            return "sum: "+sum;
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -134,6 +134,16 @@ public class UserService {
     public String unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
         try {
             String result = market.unassignUser(storeID, ownerUserName, userName);
+            UserController.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String resign(int storeID, String username) throws Exception {
+        try {
+            String result = market.resign(storeID, username);
             UserController.LOGGER.info(result);
             return result;
         } catch (Exception e) {

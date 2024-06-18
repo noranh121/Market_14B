@@ -17,8 +17,8 @@ public abstract class AcceptanceTests {
         return bridge.testGuestExit(username);
     }
 
-    public String testRegister(String username, String password) throws Exception {
-        return bridge.testRegister(username, password);
+    public String testRegister(String username, String password,int age) throws Exception {
+        return bridge.testRegister(username, password,age);
     }
 
     public String testLogin(String username, String password) throws Exception {
@@ -49,8 +49,8 @@ public abstract class AcceptanceTests {
         return bridge.testInitStore(userName, Description);
     }
 
-    public String testAddProduct(int productId, int storeId, double price, int quantity, String username) {
-        return bridge.testAddProduct(productId, storeId, price, quantity, username);
+    public String testAddProduct(int productId, int storeId, double price, int quantity, String username,double weight) {
+        return bridge.testAddProduct(productId, storeId, price, quantity, username,weight);
     }
 
     public String testRemoveProduct(int productId, int storeId, String username) throws Exception {

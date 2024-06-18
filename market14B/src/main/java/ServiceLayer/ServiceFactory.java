@@ -23,9 +23,33 @@ public class ServiceFactory {
         marketService.setMarketOFFLINE(username);
     }
 
+    public void addCatagory(int storeId, String catagory, String username) throws Exception {
+        marketService.addCatagory(storeId, catagory, username);
+    }
+
+    public void suspendUserIndefinitely(String systemManager, String username) {
+        marketService.suspendUserIndefinitely(systemManager,username);
+    }
+
+    public void suspendUserTemporarily(String systemManager, String username, int durationInSeconds){
+        marketService.suspendUserTemporarily(systemManager,username,durationInSeconds);
+    }
+
+    public void resumeUserIndefinitely(String systemManager, String username) {
+        marketService.resumeUserIndefinitely(systemManager,username);
+    }
+
+    public void resumeUser(String systemManager, String username, int duration) {
+        marketService.resumeUserTemporarily(systemManager,username,duration);
+    }
+
+    public String viewSuspended(String systemManager) {
+        return marketService.viewSuspended(systemManager);
+    }
+
     // UserService
-    public String EnterAsGuest() {
-        return userService.EnterAsGuest();
+    public String EnterAsGuest(double age) {
+        return userService.EnterAsGuest(age);
     }
 
     public String GuestExit(String username) {
@@ -40,8 +64,8 @@ public class ServiceFactory {
         return userService.Logout(username);
     }
 
-    public String Register(String username, String password) {
-        return userService.Register(username, password);
+    public String Register(String username, String password,double age) {
+        return userService.Register(username, password,age);
     }
 
     public String Buy(String username) {
@@ -79,13 +103,17 @@ public class ServiceFactory {
         return userService.unassignUser(storeID, ownerUserName, userName);
     }
 
+    public String resign(int storeID, String username) throws Exception {
+        return userService.resign(storeID, username);
+    }
+
     // StoreService
     public String initStore(String userName, String Description) throws Exception {
         return storesService.initStore(userName, Description);
     }
 
-    public String addProduct(int productId, int storeId, double price, int quantity, String username) throws Exception {
-        return storesService.addProduct(productId, storeId, price, quantity, username);
+    public String addProduct(int productId, int storeId, double price, int quantity, String username,double weight) throws Exception {
+        return storesService.addProduct(productId, storeId, price, quantity, username,weight);
     }
 
     public String removeProduct(int productId, int storeId, String username) {
@@ -110,5 +138,9 @@ public class ServiceFactory {
 
     public String getInfo(int storeId, String username) {
         return storesService.getInfo(storeId, username);
+    }
+
+    public String initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
+        return storesService.initProduct(username, productName, categoryId, description, brand,weight);
     }
 }

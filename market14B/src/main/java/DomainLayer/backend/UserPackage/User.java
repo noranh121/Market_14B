@@ -3,13 +3,19 @@ package DomainLayer.backend.UserPackage;
 public abstract class User {
 
     private String username;
+    private double age;
     private ShoppingCart shoppingCart;
     private boolean LoggedIn;
 
-    public User(String username) {
+    public User(String username,double age) {
         this.username = username;
+        this.age=age;
         shoppingCart = new ShoppingCart();
         LoggedIn = false;
+    }
+    
+    public double getAge() {
+        return age;
     }
 
     public String getUsername() {

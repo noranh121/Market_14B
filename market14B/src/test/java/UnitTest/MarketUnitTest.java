@@ -57,7 +57,7 @@ public class MarketUnitTest {
     @Test
     public void testInitStore() {
         try {
-            market.Register("ali","123");
+            market.Register("ali","123",18);
             String result = market.initStore("ali", "Store Description");
             assertEquals("store added successfully", result);
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package DomainLayer.backend.NotificationPackage;
 
-class ImmediateNotifierDecorator extends NotifierDecorator {
+public class ImmediateNotifierDecorator extends NotifierDecorator {
     
 
     public ImmediateNotifierDecorator(Notifier notifier) {

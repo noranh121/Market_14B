@@ -1,12 +1,14 @@
 package DomainLayer.backend.NotificationPackage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-class DelayedNotifierDecorator extends NotifierDecorator {
+public class DelayedNotifierDecorator extends NotifierDecorator {
 
-    private Map<String, ArrayList<String>> delayedMessages = new HashMap<>();
+    private Map<String, List<String>> delayedMessages = new ConcurrentHashMap<>();
 
     public DelayedNotifierDecorator(Notifier notifier) {
         super(notifier);
@@ -19,7 +21,7 @@ class DelayedNotifierDecorator extends NotifierDecorator {
         } else {
             LOGGER.info("User " + user + " is offline. Saving message for later.");
             if(!delayedMessages.containsKey(user)){
-                delayedMessages.put(user, new ArrayList<String>());
+                delayedMessages.put(user, Collections.synchronizedList(new ArrayList<>()));
             }
             delayedMessages.get(user).add(message);
         }

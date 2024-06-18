@@ -1,6 +1,8 @@
 package DomainLayer.backend;
 
-public class Tree {
+import java.util.Iterator;
+
+public class Tree  implements Iterable<String> {
     private Node root;
 
     public Tree(Permission rootData) {
@@ -17,6 +19,23 @@ public class Tree {
             return true;
         }
         return root.deleteNode(userName);
+    }
+
+    public boolean isRoot(Node node) {
+        return node.getParent() == null;
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        return new TreeIterator(root);
+    }
+
+    public Iterator<String> subtreeIterator(String userName) {
+        Node subtreeRoot = findNode(userName);
+        if (subtreeRoot != null) {
+            return new TreeIterator(subtreeRoot);
+        }
+        return null;
     }
 
 }

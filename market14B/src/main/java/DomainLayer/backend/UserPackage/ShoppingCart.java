@@ -1,10 +1,15 @@
 package DomainLayer.backend.UserPackage;
 
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import DomainLayer.backend.Basket;
+import DomainLayer.backend.Market;
 import DomainLayer.backend.Purchase;
 import DomainLayer.backend.PurchaseHistory;
 import DomainLayer.backend.StorePackage.Store;
@@ -14,7 +19,7 @@ public class ShoppingCart {
     private List<Basket> baskets;
 
     public ShoppingCart() {
-        baskets = new LinkedList<>();
+        baskets = Collections.synchronizedList(new ArrayList<>());
     }
 
     public String addBasket(Basket basket) throws Exception {
@@ -93,22 +98,47 @@ public class ShoppingCart {
         return sum;
     }
 
-    private int processBasket(Basket basket, Store store, String username) throws Exception {
-        int basketSum = 0;
+    private final Lock lock = new ReentrantLock();
+
+    private double processBasket(Basket basket, Store store, String username) throws Exception {
+        double basketSum = 0;
         PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
-        Map<Integer, double[]> purchases = new HashMap<>(); // prodid ==> {quantity, price}
+        Map<Integer, double[]> purchases = new ConcurrentHashMap<>(); // prodid ==> {quantity, price,weight}
         double[] qp;
-        for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>
-            int productId = entry.getKey();
-            int quantity = entry.getValue();
-            double price = store.getProdPrice(productId); // discounts
-            basketSum += price * quantity;
-            store.subQuantity(productId, quantity);
-            qp = new double[]{quantity,price};
-            purchases.put(productId, qp);
+        lock.lock();
+        while(!store.getLock().tryLock()){
+            Thread.sleep(1000);
         }
-        Purchase purchase = new Purchase(basket, basketSum, purchases);
-        purchaseHistory.addPurchase(basket.getStoreID(), username, purchase);
+        try{
+            for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>
+                int productId = entry.getKey();
+                int quantity = entry.getValue();
+                double price = store.getProdPrice(productId);
+                double weight=store.getProdWeight(productId);
+                // basketSum += price * quantity;
+                store.subQuantity(productId, quantity);
+                qp = new double[]{quantity,price,weight};
+                purchases.put(productId, qp);
+            }
+        }finally{
+            lock.unlock();
+            store.getLock().unlock();
+        }
+        // purchase after that discount
+        double age= UserController.getInstance().getUser(username).getAge();
+        if(store.purchase(purchases,age)){
+            basketSum=store.calculateDiscount(purchases);
+            while(!Market.getInstance().getSystemManagersLock().tryLock()){
+                Thread.sleep(1000);
+            }
+            try{
+                Purchase purchase = new Purchase(basket, basketSum, purchases);
+                purchaseHistory.addPurchase(basket.getStoreID(), username, purchase);
+            }finally{
+                Market.getInstance().getSystemManagersLock().unlock();
+            }
+            
+        }
         return basketSum;
     }
 

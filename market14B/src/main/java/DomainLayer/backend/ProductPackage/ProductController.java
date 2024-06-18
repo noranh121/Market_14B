@@ -1,7 +1,7 @@
 package DomainLayer.backend.ProductPackage;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
 public class ProductController {
@@ -20,17 +20,17 @@ public class ProductController {
     }
 
     private ProductController() {
-        products = new HashMap<>();
+        products = new ConcurrentHashMap<>();
     }
 
-    public String addProduct(String name, Category category, String description, String brand) throws Exception {
+    public synchronized String addProduct(String name, Category category, String description, String brand,double weight) throws Exception {
         for(Product product : products.values()){
             if(product.getName().equals(name)){
                 LOGGER.severe("product already exits in the system");
                 throw new Exception("product already exits in the system");
             }
         }
-        Product prod = new Product(name, description, brand, category);
+        Product prod = new Product(name, description, brand, category,weight);
         prod.setId(idCounter++);
         category.addProduct(prod.getId());
         products.put(prod.getId(), prod);
@@ -42,7 +42,7 @@ public class ProductController {
         
     // }
 
-    public String removeProduct(int productID) throws Exception {
+    public synchronized String removeProduct(int productID) throws Exception {
         if (products.containsKey(productID)) {
             products.remove(productID);
             LOGGER.info("product " + productID + " removed");

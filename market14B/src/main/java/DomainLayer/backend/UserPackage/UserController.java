@@ -2,7 +2,8 @@ package DomainLayer.backend.UserPackage;
 
 import DomainLayer.backend.AuthenticatorPackage.Authenticator;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +15,7 @@ public class UserController {
 
     public static synchronized UserController getInstance() {
         if (instance == null)
-            return new UserController();
+            instance= new UserController();
         return instance;
     }
 
@@ -29,13 +30,13 @@ public class UserController {
         }
     }
 
-    private HashMap<String, User> GuestMap = new HashMap<>(); // ?
+    private Map<String, User> GuestMap = new ConcurrentHashMap<>(); // ?
     private int idCounter = 0;
-    private HashMap<String, User> RegUserMap = new HashMap<>();
+    private Map<String, User> RegUserMap = new ConcurrentHashMap<>();
 
     // Guest
-    public String EnterAsGuest() throws Exception {
-        User guest = new GuestUser(idCounter);
+    public String EnterAsGuest(double age) throws Exception {
+        User guest = new GuestUser(idCounter,age);
         idCounter++; 
         return addToGuestMap(guest);
     }
@@ -90,18 +91,18 @@ public class UserController {
     public String Logout(String username) throws Exception {
         // save data - DATA SERVICE
         RegUserMap.get(username).setLoggedIn(false);
-        return EnterAsGuest();
+        return EnterAsGuest(RegUserMap.get(username).getAge());
     }
 
     // both
-    public String Register(String username, String password) throws Exception {
+    public String Register(String username, String password,double age) throws Exception {
         LOGGER.info("username: " + username + ", password: " + password);
         String newPass = Authenticator.encodePassword(password);
         if (RegUserMap.containsKey(username)) {
             LOGGER.severe("username already exists");
             throw new Exception("username already exists");
         }
-        User reg = new RegisteredUser(username, newPass);
+        User reg = new RegisteredUser(username, newPass,age);
         return addToRegUserMap(reg);
     }
 
@@ -186,11 +187,11 @@ public class UserController {
         }
     }
 
-    public HashMap<String, User> getRegUserMap() {
+    public Map<String, User> getRegUserMap() {
         return RegUserMap;
     }
 
-    public HashMap<String, User> getGuestUserMap() {
+    public Map<String, User> getGuestUserMap() {
         return GuestMap;
     }
 

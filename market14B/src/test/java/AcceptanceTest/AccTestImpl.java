@@ -29,7 +29,7 @@ public class AccTestImpl extends AcceptanceTests{
 
     @Test
     void testRegister1() throws Exception {
-        String res=testRegister("u","1");
+        String res=testRegister("u","1",18);
         assertEquals(res,"guest user added successfully");
     }
 
@@ -79,8 +79,8 @@ public class AccTestImpl extends AcceptanceTests{
 
     @Test
     void testAddProduct1(){
-        String res=testAddProduct(0,0,10,0,"ali");
-        assertEquals("Product added to store successfully", res);
+        String res=testAddProduct(0,0,10,0,"ali",5);
+        assertEquals("Product added to store Successfully", res);
     }
 
     @Test

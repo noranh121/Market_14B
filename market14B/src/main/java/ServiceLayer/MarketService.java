@@ -22,4 +22,54 @@ public class MarketService {
             return e.getMessage();
         }
     }
+
+    public String suspendUserIndefinitely(String systemManager, String username) {
+        try {
+            String result = market.suspendUser(systemManager, username);
+            Market.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String suspendUserTemporarily(String systemManager,String username, int duration) {
+        try {
+            String result = market.suspendUserSeconds(systemManager, username,duration);
+            Market.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String resumeUserIndefinitely(String systemManager, String username) {
+        try {
+            String result = market.resumeUser(systemManager, username);
+            Market.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String resumeUserTemporarily(String systemManager,String username, int duration) {
+        try {
+            String result = market.resumeUserSeconds(systemManager, username,duration);
+            Market.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String viewSuspended(String systemManager) {
+        try {
+            String result = market.viewSuspended(systemManager);
+            Market.LOGGER.info(result);
+            return result;
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
 }

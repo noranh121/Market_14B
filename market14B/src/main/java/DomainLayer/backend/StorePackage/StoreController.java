@@ -1,14 +1,11 @@
 package DomainLayer.backend.StorePackage;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
-import DomainLayer.backend.ProductPackage.ProductController;
-import groovy.lang.Category;
 
 public class StoreController {
     private static StoreController instance;
@@ -16,7 +13,6 @@ public class StoreController {
 
     private Map<Integer, Store> stores;
     private int idCounter;
-    private ProductController productController = ProductController.getInstance();
 
     public static synchronized StoreController getInstance() {
         if (instance == null) {
@@ -27,7 +23,7 @@ public class StoreController {
 
     private StoreController() {
         idCounter = 0;
-        stores = new HashMap<>();
+        stores = new ConcurrentHashMap<>();
         try {
             FileHandler fileHandler = new FileHandler("StorePackage", true);
             fileHandler.setFormatter(new SimpleFormatter());
@@ -72,18 +68,17 @@ public class StoreController {
         }
     }
 
-    public String addProduct(int productId, int storeId, double price, int quantity) throws Exception {
+    public String addProduct(int productId, int storeId, double price, int quantity,double weight) throws Exception {
         // checkStore(storeID)
         LOGGER.info(
                 "productId: " + productId + ", storeId " + storeId + ", price: " + price + ", quantity: " + quantity);
         Store store = getStore(storeId);
         if (store != null) {
-            store.AddProduct(productId, price, quantity);
+            store.AddProduct(productId, price, quantity,weight);
             LOGGER.info("Product added to store Successfully");
-        }else{
-            return "store does not exist";
+            return "Product added to store Successfully";
         }
-        return "Product added to store successfully";
+        return "store does not exist";
     }
 
     public String removeProduct(int productId, int storeId) {
@@ -143,6 +138,18 @@ public class StoreController {
             LOGGER.info("Store Opened Successfuly");
         }
         return "Store Opened Successfuly";
+    }
+
+    public String deleteStore(int storeId) {
+        LOGGER.info("storeId: " + storeId);
+        Store store = getStore(storeId);
+        if (store != null) {
+            stores.remove(storeId);
+            LOGGER.info("store deleted successfully");
+            return "store deleted successfully";
+        }
+        LOGGER.severe("store does not exist");
+        return "store does not exist";
     }
 
     public String getInfo(int storeId) {

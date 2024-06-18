@@ -4,7 +4,7 @@ public interface Bridge {
     void testSetMarketOnline(String username) throws Exception;
     String testEnterAsGuest() throws Exception;
     String testGuestExit(String username) throws Exception;
-    String testRegister(String username, String password) throws Exception;
+    String testRegister(String username, String password,int age) throws Exception;
     String testLogin(String username, String password) throws Exception;
     String testGetInfo(int storeId,String username) throws Exception;
     String testAddToCart(String username, Integer product, int storeId, int quantity) throws Exception;
@@ -12,7 +12,7 @@ public interface Bridge {
     double testBuy(String username) throws Exception;
     String testLogout(String username);
     String testInitStore(String userName, String Description);
-    String testAddProduct(int productId,int storeId,double price,int quantity,String username);
+    String testAddProduct(int productId,int storeId,double price,int quantity,String username,double weight);
     String testRemoveProduct(int productId,int storeId,String username) throws Exception;
     String testEditProductPrice(int productId,int storeId,Double newPrice,String username) throws Exception;
     String testEditProductQuantity(int productId,int storeId,int newQuantity,String username) throws Exception;
