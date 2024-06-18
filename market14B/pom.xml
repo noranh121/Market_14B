@@ -33,6 +33,24 @@
             <version>5.9.3</version>
             <scope>test</scope>
         </dependency>
+    
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-websocket</artifactId>
+          <version>5.3.10</version> <!-- Replace with the version compatible with your project -->
+      </dependency>
+      
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-messaging</artifactId>
+          <version>5.3.10</version> <!-- Ensure version compatibility with spring-websocket -->
+      </dependency>
+      
+      <dependency>
+          <groupId>javax.websocket</groupId>
+          <artifactId>javax.websocket-api</artifactId>
+          <version>1.1</version> <!-- Ensure version compatibility with your Spring version -->
+      </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
