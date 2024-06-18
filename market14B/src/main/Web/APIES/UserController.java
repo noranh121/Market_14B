@@ -3,6 +3,7 @@ package main.Web.APIES;
 import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +42,6 @@ public class UserController {
         String res = service.GuestExit(username);
         return Response.successRes(res);
     }
- 
 
     @PostMapping("/login")
     public Response<String> Login(@RequestBody ReqUser user){
