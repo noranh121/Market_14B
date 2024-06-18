@@ -18,11 +18,11 @@ public class StoreUnitTest {
     public void setUp() {
         storeController = StoreController.getInstance();
         s1=new Store("store1","decs1",0);
-        s2=new Store("store2","decs2",0);
+        s2=new Store("store2","decs2",1);
         c1=new Category(0,"c1");
         c2=new Category(1,"c2");
-        p1=new Product("product1","desc1","brand1",c1);
-        p2=new Product("product2","desc2","brand2",c2);
+        p1=new Product("product1","desc1","brand1",c1,5);
+        p2=new Product("product2","desc2","brand2",c2,5);
     }
 
     @AfterEach
@@ -53,8 +53,8 @@ public class StoreUnitTest {
     public void testAddProduct_StoreExists() {
         storeController.GetStores().put(0,s1);
         try {
-            String result = storeController.addProduct(p1.getId(), s1.getId(), 10, 15);
-            assertEquals("Product added to store successfully", result);
+            String result = storeController.addProduct(p1.getId(), s1.getId(), 10, 15,5);
+            assertEquals("Product added to store Successfully", result);
             assertEquals(10, s1.getProdPrice(0));
             assertEquals(15, s1.getInventory().getQuantity(0));
         } catch (Exception e) {
@@ -63,27 +63,22 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testAddProduct_StoreDoesNotExist() {
+    public void testAddProduct_StoreDoesNotExist() throws Exception {
         int productId = 101;
         double price = 19.99;
         int quantity = 10;
         storeController.GetStores().put(0,s1);
-        Exception exception = assertThrows(Exception.class, () -> {
-            storeController.addProduct(productId, 0, price, quantity);
-        });
-
-        String expectedMessage = "Price cannot be zero or less, quantity can only be 0 or positive!";
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
+        String result=storeController.addProduct(productId, 2, price, quantity,5);
+        String expectedMessage = "store does not exist";
+        assertTrue(result.contains(expectedMessage));
     }
 
     @Test
     public void testRemoveProduct_StoreExists() throws Exception {
         storeController.GetStores().put(s1.getId(), s1);
         storeController.GetStores().put(s2.getId(), s2);
-        s1.AddProduct(p1.getId(), 10.0, 5);
-        s1.AddProduct(p2.getId(), 20.0, 10);
+        s1.AddProduct(p1.getId(), 10.0, 5,5);
+        s1.AddProduct(p2.getId(), 20.0, 10,5);
         int productId = p1.getId();
 
         try {
@@ -98,8 +93,8 @@ public class StoreUnitTest {
     public void testRemoveProduct_StoreDoesNotExist() throws Exception {
         storeController.GetStores().put(s1.getId(), s1);
         storeController.GetStores().put(s2.getId(), s2);
-        s1.AddProduct(p1.getId(), 10.0, 5);
-        s1.AddProduct(p2.getId(), 20.0, 10);
+        s1.AddProduct(p1.getId(), 10.0, 5,5);
+        s1.AddProduct(p2.getId(), 20.0, 10,5);
         int productId = p1.getId();
         int nonExistentStoreID = 999;
 
@@ -111,8 +106,8 @@ public class StoreUnitTest {
     public void testEditProductPrice_Success() throws Exception {
         storeController.GetStores().put(s1.getId(), s1);
         storeController.GetStores().put(s2.getId(), s2);
-        s1.AddProduct(p1.getId(), 10.0, 5);
-        s1.AddProduct(p2.getId(), 20.0, 10);
+        s1.AddProduct(p1.getId(), 10.0, 5,5);
+        s1.AddProduct(p2.getId(), 20.0, 10,5);
         String result = storeController.EditProducPrice(p1.getId(), s1.getId(), 150.0);
         assertEquals("Product's Price Modified in store Successfully", result);
         assertEquals(150.0, s1.getProdPrice(p1.getId()));
@@ -123,8 +118,8 @@ public class StoreUnitTest {
     public void testEditProductQuantity_Success() throws Exception {
         storeController.GetStores().put(s1.getId(), s1);
         storeController.GetStores().put(s2.getId(), s2);
-        s1.AddProduct(p1.getId(), 10.0, 5);
-        s1.AddProduct(p2.getId(), 20.0, 10);
+        s1.AddProduct(p1.getId(), 10.0, 5,5);
+        s1.AddProduct(p2.getId(), 20.0, 10,5);
         String result = storeController.EditProductQuantity(p1.getId(), s1.getId(), 20);
         assertEquals("Product's Quantity Modified in store Successfully", result);
         assertEquals(20, s1.getInventory().getQuantity(p1.getId()));
@@ -134,7 +129,7 @@ public class StoreUnitTest {
     public void testCloseStore_Success() {
         storeController.GetStores().put(s1.getId(), s1);
         String result = storeController.closeStore(s1.getId());
-        assertEquals("Store Closed Successfully", result);
+        assertEquals("Store Closed Successfuly", result);
         assertFalse(s1.isActive());
     }
 

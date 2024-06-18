@@ -19,8 +19,8 @@ public class Proxy implements Bridge{
     }
 
     @Override
-    public String testRegister(String username, String password) throws Exception {
-        return real.testRegister(username, password);
+    public String testRegister(String username, String password,int age) throws Exception {
+        return real.testRegister(username, password,age);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Proxy implements Bridge{
     }
 
     @Override
-    public String testAddToCart(String username, Integer product, int storeId, int quantity) {
+    public String testAddToCart(String username, Integer product, int storeId, int quantity) throws Exception {
         return real.testAddToCart(username, product, storeId, quantity);
     }
 
@@ -59,8 +59,8 @@ public class Proxy implements Bridge{
     }
 
     @Override
-    public String testAddProduct(int productId, int storeId, double price, int quantity, String username) {
-        return real.testAddProduct(productId, storeId, price, quantity, username);
+    public String testAddProduct(int productId, int storeId, double price, int quantity, String username,double weight) {
+        return real.testAddProduct(productId, storeId, price, quantity, username,weight);
     }
 
     @Override

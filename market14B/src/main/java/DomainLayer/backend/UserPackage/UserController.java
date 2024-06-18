@@ -15,7 +15,7 @@ public class UserController {
 
     public static synchronized UserController getInstance() {
         if (instance == null)
-            return new UserController();
+            instance= new UserController();
         return instance;
     }
 

@@ -48,9 +48,12 @@ public class Inventory {
 
     }
 
-    public void subQuantity(int productId, int quantity) {
+    public void subQuantity(int productId, int quantity) throws Exception {
         double[] details = products.get(productId);
         if (details != null) {
+            if(details[QUANTITY]<quantity){
+                throw new Exception("product is in shortage");
+            }
             details[QUANTITY] = details[QUANTITY] - quantity;
         }
     }

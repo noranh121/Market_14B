@@ -20,7 +20,7 @@ public abstract class CompositeDiscountPolicy {
     public double calculateTotal(Map<Integer, double[]> products){
         double total=0;
         for(Map.Entry<Integer, double[]> entry : products.entrySet()){
-            total+=entry.getValue()[1];
+            total+=entry.getValue()[1]*entry.getValue()[0];
         }
         return total;
     }

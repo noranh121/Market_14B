@@ -76,8 +76,9 @@ public class StoreController {
         if (store != null) {
             store.AddProduct(productId, price, quantity,weight);
             LOGGER.info("Product added to store Successfully");
+            return "Product added to store Successfully";
         }
-        return "Product added to store successfully";
+        return "store does not exist";
     }
 
     public String removeProduct(int productId, int storeId) {

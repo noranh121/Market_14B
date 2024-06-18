@@ -27,15 +27,18 @@ public class ConcurrencyTestImpl {
     //2 users try to but the same last product at the same time
     @Test
     public void tess2UserBuy() throws Exception {
-        market.EnterAsGuest();
-        market.Register("essa","1");
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
+        market.EnterAsGuest(18);
+        market.Register("essa","1",18);
         market.Login("0","essa","1");
         market.initStore("essa","desc");
-        market.addProduct(0,0,10,1,"essa");
-        market.EnterAsGuest();
-        market.EnterAsGuest();
-        market.Register("maged","2");
-        market.Register("ola","5");
+        market.addProduct(0,0,10,1,"essa",18);
+        market.EnterAsGuest(18);
+        market.EnterAsGuest(18);
+        market.Register("maged","2",18);
+        market.Register("ola","5",18);
         market.Login("1","maged","2");
         market.Login("2","ola","5");
         market.addToCart("maged",0,0,1);
@@ -93,13 +96,16 @@ public class ConcurrencyTestImpl {
     //store owner tries to delete a product while a user tries to buy it
     @Test
     public void testDelAndBuy() throws Exception {
-        market.EnterAsGuest();
-        market.Register("essa","1");
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
+        market.EnterAsGuest(18);
+        market.Register("essa","1",18);
         market.Login("0","essa","1");
         market.initStore("essa","desc");
-        market.addProduct(0,0,10,1,"essa");
-        market.EnterAsGuest();
-        market.Register("maged","2");
+        market.addProduct(0,0,10,1,"essa",18);
+        market.EnterAsGuest(18);
+        market.Register("maged","2",18);
         market.Login("1","maged","2");
         market.addToCart("maged",0,0,1);
         boolean[] result=new boolean[2];
@@ -154,14 +160,17 @@ public class ConcurrencyTestImpl {
     //2 store owners try to assign the same user to store owner at the same time
     @Test
     public void test2AssignOwner() throws Exception {
-        market.EnterAsGuest();
-        market.Register("essa","1");
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
+        market.EnterAsGuest(18);
+        market.Register("essa","1",18);
         market.Login("0","essa","1");
         market.initStore("essa","desc");
-        market.EnterAsGuest();
-        market.EnterAsGuest();
-        market.Register("maged","2");
-        market.Register("ola","5");
+        market.EnterAsGuest(18);
+        market.EnterAsGuest(18);
+        market.Register("maged","2",18);
+        market.Register("ola","5",18);
         market.Login("1","maged","2");
         market.Login("2","ola","5");
         Boolean[] p={true,true,true};
@@ -219,14 +228,17 @@ public class ConcurrencyTestImpl {
     //2 store owners try to assign the same user to store mager at the same time
     @Test
     public void test2AssignManager() throws Exception {
-        market.EnterAsGuest();
-        market.Register("essa","1");
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
+        market.EnterAsGuest(18);
+        market.Register("essa","1",18);
         market.Login("0","essa","1");
         market.initStore("essa","desc");
-        market.EnterAsGuest();
-        market.EnterAsGuest();
-        market.Register("maged","2");
-        market.Register("ola","5");
+        market.EnterAsGuest(18);
+        market.EnterAsGuest(18);
+        market.Register("maged","2",18);
+        market.Register("ola","5",18);
         market.Login("1","maged","2");
         market.Login("2","ola","5");
         Boolean[] p={true,true,true};
@@ -284,13 +296,16 @@ public class ConcurrencyTestImpl {
     //store owners try to close the store and a user and tries to buy from the store at the same time
     @Test
     public void testcloseAndBuy() throws Exception {
-        market.EnterAsGuest();
-        market.Register("essa","1");
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
+        market.EnterAsGuest(18);
+        market.Register("essa","1",18);
         market.Login("0","essa","1");
         market.initStore("essa","desc");
-        market.addProduct(0,0,10,1,"essa");
-        market.EnterAsGuest();
-        market.Register("maged","2");
+        market.addProduct(0,0,10,1,"essa",5);
+        market.EnterAsGuest(18);
+        market.Register("maged","2",18);
         market.Login("1","maged","2");
         market.addToCart("maged",0,0,1);
         boolean[] result=new boolean[2];

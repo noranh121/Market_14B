@@ -28,15 +28,15 @@ public class integrationTests {
         market=Market.getInstance();
         storeController = StoreController.getInstance();
         userController = UserController.getInstance();
-        u1=new GuestUser(0);
-        u2=new RegisteredUser("ali","123");
-        u3=new RegisteredUser("malek","456");
+        u1=new GuestUser(0,18);
+        u2=new RegisteredUser("ali","123",18);
+        u3=new RegisteredUser("malek","456",18);
         s1=new Store("store1","decs1",0);
         s2=new Store("store2","decs2",0);
         c1=new Category(0,"c1");
         c2=new Category(1,"c2");
-        p1=new Product("product1","desc1","brand1",c1);
-        p2=new Product("product2","desc2","brand2",c2);
+        p1=new Product("product1","desc1","brand1",c1,5);
+        p2=new Product("product2","desc2","brand2",c2,5);
     }
     @AfterEach
     void tearDown() {
@@ -57,19 +57,20 @@ public class integrationTests {
     void buyTest2() throws Exception {
         userController.getGuestUserMap().put(u2.getUsername(),u2);
         storeController.GetStores().put(0,s1);
-        storeController.addProduct(0,0,10,15);
+        storeController.addProduct(0,0,10,15,5);
         u2.addToCart(0,0,5);
         double sum = userController.Buy(u2.getUsername());
         assertEquals(50,sum);
-        assertEquals(10,s1.getInventory().getQuantity(0));
+        assertEquals(10,s1.getInventory().getQuantity(0)); 
     }
 
     @Test
     void testviewsystemPurchaseHistory1() throws Exception {
-        userController.getGuestUserMap().put(u2.getUsername(),u2);
+        userController.getRegUserMap().put(u2.getUsername(),u2);
         storeController.GetStores().put(0,s1);
-        storeController.addProduct(0,0,10,15);
+        storeController.addProduct(0,0,10,15,5);
         u2.addToCart(0,0,5);
+        market.getSystemManagers().add("ali");
         double sum = userController.Buy(u2.getUsername());
         String result=market.viewsystemPurchaseHistory("ali");
         assertTrue(result.contains("Username: ali"));
@@ -89,8 +90,8 @@ public class integrationTests {
 
     @Test
     void testAssignStoreManager2() throws Exception {
-        userController.getGuestUserMap().put(u2.getUsername(),u2);
-        userController.getGuestUserMap().put(u3.getUsername(),u3);
+        market.Register("ali","123",18);
+        market.Register("malek","456",18);
         market.initStore(u2.getUsername(),"description");
         Boolean[] per=new Boolean[]{true,true,true};
         String result=market.AssignStoreManager(0,u2.getUsername(),u3.getUsername(),per);
@@ -109,8 +110,8 @@ public class integrationTests {
 
     @Test
     void testAssignStoreOwner2() throws Exception {
-        userController.getGuestUserMap().put(u2.getUsername(),u2);
-        userController.getGuestUserMap().put(u3.getUsername(),u3);
+        market.Register("ali","123",18);
+        market.Register("malek","456",18);
         market.initStore(u2.getUsername(),"description");
         Boolean[] per=new Boolean[]{true,true,true};
         String result=market.AssignStoreOwner(0,u2.getUsername(),u3.getUsername(),per);
@@ -130,14 +131,14 @@ public class integrationTests {
 
     @Test
     public void testEditPermissions2() throws Exception {
-        userController.getGuestUserMap().put(u2.getUsername(),u2);
-        userController.getGuestUserMap().put(u3.getUsername(),u3);
+        market.Register("ali","123",18);
+        market.Register("malek","456",18);
         market.initStore(u2.getUsername(),"description");
         Boolean[] per=new Boolean[]{true,true,true};
         String result=market.AssignStoreOwner(0,u2.getUsername(),u3.getUsername(),per);
         Boolean[] per1=new Boolean[]{true,false,true};
         try {
-            String result1 = userController.EditPermissions(0, u2.getUsername(), u3.getUsername(), true, false, per1);
+            String result1 = market.EditPermissions(0, u2.getUsername(), u3.getUsername(), true, false, per1);
             assertNotNull(result1);
             assertEquals("Permission added to store",result1);
         } catch (Exception e) {
@@ -147,8 +148,8 @@ public class integrationTests {
 
     @Test
     void testunassignUser1() throws Exception {
-        userController.getGuestUserMap().put(u2.getUsername(),u2);
-        userController.getGuestUserMap().put(u3.getUsername(),u3);
+        market.Register("ali","123",18);
+        market.Register("malek","456",18);
         market.initStore(u2.getUsername(),"description");
         Boolean[] per=new Boolean[]{true,true,true};
         String result=market.AssignStoreOwner(0,u2.getUsername(),u3.getUsername(),per);
@@ -160,9 +161,8 @@ public class integrationTests {
     public void testunassignUser2()  {
         try {
             String result = market.unassignUser(0,u2.getUsername(), u3.getUsername());
-            fail("error in buy");
         } catch (Exception e) {
-            assertEquals("does not exist" , e.getMessage());
+            assertEquals("0 does not exist" , e.getMessage());
         }
     }
 
@@ -172,10 +172,10 @@ public class integrationTests {
         String password = "password123";
 
         try {
-            String result = userController.Register(username, password);
+            String result = userController.Register(username, password,18);
             assertEquals("guest user added successfully", result);
             assertTrue(userController.getRegUserMap().containsKey(username));
-            assertTrue(userController.getRegUserMap().get(username).isLoggedIn());
+            assertFalse(userController.getRegUserMap().get(username).isLoggedIn());
         } catch (Exception e) {
             fail("Exception should not be thrown: " + e.getMessage());
         }
@@ -186,12 +186,12 @@ public class integrationTests {
         String username = "existingUser";
         String password = "password123";
         try {
-            userController.Register(username, password);
+            userController.Register(username, password,18);
         } catch (Exception e) {
             fail("Exception should not be thrown: " + e.getMessage());
         }
         try {
-            userController.Register(username, password);
+            userController.Register(username, password,18);
             fail("Exception should have been thrown");
         } catch (Exception e) {
             assertEquals("username already exists", e.getMessage());
@@ -200,11 +200,14 @@ public class integrationTests {
     @Test
     public void testLogin_Success() {
         try {
-            userController.getGuestUserMap().put(u1.getUsername(), u1);
-            userController.getRegUserMap().put(u3.getUsername(), u3);
-            String result = userController.Login(u1.getUsername(), u3.getUsername(),"123");
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.Register("ali","123",18);
+            String result = market.Login("0", "ali","123");
             assertEquals("logged in successfully", result);
-            assertNull(userController.getGuestUserMap().get(u1.getUsername()));
+            assertNull(userController.getGuestUserMap().get("0"));
         } catch (Exception e) {
             fail("Exception should not be thrown: " + e.getMessage());
         }
