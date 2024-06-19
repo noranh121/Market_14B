@@ -15,10 +15,10 @@ public class ConditionalDiscount implements Discount{
             return 0;
         else{
             if(conditionalPrice<=price && conditionalQuantity<=quantity){
-                return price*quantity*discountPercentage;
+                return price*(1-discountPercentage);
             }
             else{
-                return price*quantity;
+                return price;
             }
         }
     }

@@ -6,6 +6,6 @@ public class StandardDiscount implements Discount {
         if(discountPercentage<0 || discountPercentage>1)
             return 0;
         else
-            return price*quantity*discountPercentage;
+            return price*(1-discountPercentage);
     }
 }

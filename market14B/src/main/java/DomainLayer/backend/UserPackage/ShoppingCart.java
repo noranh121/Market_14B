@@ -139,6 +139,11 @@ public class ShoppingCart {
             }
             
         }
+        else{
+            cancelPurchase();
+            UserController.LOGGER.severe("purchase failed");
+            throw new Exception("purchase failed");
+        }
         return basketSum;
     }
 
