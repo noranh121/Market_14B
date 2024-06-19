@@ -64,7 +64,7 @@ public class ServiceFactory {
         return userService.Logout(username);
     }
 
-    public String Register(String username, String password,double age) {
+    public Response<String> Register(String username, String password,double age) {
         return userService.Register(username, password,age);
     }//@
 

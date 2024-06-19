@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String Register(@RequestBody ReqUser user){
+    public Response<String> Register(@RequestBody ReqUser user){
          return service.Register(user.getUsername(), user.getPass(), user.getAge());
     }
 

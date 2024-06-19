@@ -28,6 +28,15 @@ public class CategoryController {
         return null;
     }
 
+    public Category getCategorybyName(String catName) {
+        for (Category category : categories.values()) {
+            if (category.getName().equals(catName)) {
+                return category;
+            }
+        }
+        return null;  
+    }
+
     public void addCategory(String name) {
         Category cat = new Category(counterID, name);
         categories.put(counterID, cat);

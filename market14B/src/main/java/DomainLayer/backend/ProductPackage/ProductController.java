@@ -1,8 +1,14 @@
 package DomainLayer.backend.ProductPackage;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+
 
 public class ProductController {
     private static final Logger LOGGER = Logger.getLogger(ProductController.class.getName());
@@ -78,6 +84,17 @@ public class ProductController {
 
     public int getProductCategory(int productId) {
         return products.get(productId).getCategory().getId();
+    }
+
+    public Collection<Product> getProducts(){
+        return this.products.values();
+    }
+
+    public List<Product> getProductsByIDs(List<Integer> ids){
+        return ids.stream()
+                .map(products::get)
+                .filter(product -> product != null)
+                .collect(Collectors.toList());
     }
 
 }
