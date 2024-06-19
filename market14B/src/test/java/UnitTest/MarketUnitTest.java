@@ -64,4 +64,112 @@ public class MarketUnitTest {
             fail("Exception thrown: " + e.getMessage());
         }
     }
+
+    @Test
+    public void testsuspendUser1(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            String result=market.suspendUser("admin", "ali");
+            assertEquals("suspended successfully", result);
+        }catch(Exception e){
+            fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
+    @Test
+    public void testsuspendUser2(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            String result=market.suspendUser("bob", "ali");
+            fail();
+        }catch(Exception e){
+            assertEquals(e.getMessage(),"bob not a system manager");
+        }
+    }
+
+    @Test
+    public void testSuspendSec1(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            String result=market.suspendUserSeconds("admin", "ali",3);
+            assertEquals("ali suspended for 3 seconds", result);
+        }catch(Exception e){
+            fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
+    @Test
+    public void testsuspendUserSec2(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            String result=market.suspendUserSeconds("bob", "ali",3);
+            fail();
+        }catch(Exception e){
+            assertEquals(e.getMessage(),"bob not a system manager");
+        }
+    }
+
+    @Test
+    public void testResUSer1(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.suspendUser("admin", "ali");
+            String result=market.resumeUser(systemManager, "ali");
+            assertEquals(result, "ali unsuspended");
+        }catch(Exception e){
+            fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
+    @Test
+    public void testResUSer2(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.suspendUser("admin", "ali");
+            String result=market.resumeUser("bob", "ali");
+            fail();
+        }catch(Exception e){
+            assertEquals(e.getMessage(),"bob not a system manager");
+        }
+    }
+
+    @Test
+    public void testViewSuspended(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.suspendUser(systemManager, "ali");
+            String result=market.viewSuspended(systemManager);
+            assertTrue(result.contains("ali"));
+        }catch(Exception e){
+            fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
 }

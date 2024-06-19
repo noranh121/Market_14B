@@ -176,7 +176,7 @@ public class Store {
             StoreController.LOGGER.severe("quantity is < 0 while trying to edit quantity");
             throw new Exception("Quantity cannot be negative!");
         }
-        inventory.subQuantity(productId, quantity);
+        inventory.addQuantity(productId, quantity);
         StoreController.LOGGER.info("Product's quantity added successfully");
     }
 
