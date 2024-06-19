@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="AcceptanceTest.AccTestImpl" time="1.21" tests="20" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="22"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/test-classes:/Users/maged/Desktop/Market_14B/market14B/target/classes:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.3/junit-jupiter-engine-5.9.3.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/maged/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.3/junit-jupiter-api-5.9.3.jar:/Users/maged/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/maged/.m2/repository/org/springframework/spring-websocket/5.3.10/spring-websocket-5.3.10.jar:/Users/maged/.m2/repository/org/springframework/spring-context/6.1.8/spring-context-6.1.8.jar:/Users/maged/.m2/repository/io/micrometer/micrometer-observation/1.13.0/micrometer-observation-1.13.0.jar:/Users/maged/.m2/repository/io/micrometer/micrometer-commons/1.13.0/micrometer-commons-1.13.0.jar:/Users/maged/.m2/repository/org/springframework/spring-core/6.1.8/spring-core-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/spring-jcl/6.1.8/spring-jcl-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/spring-web/6.1.8/spring-web-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/spring-messaging/5.3.10/spring-messaging-5.3.10.jar:/Users/maged/.m2/repository/org/springframework/spring-beans/6.1.8/spring-beans-6.1.8.jar:/Users/maged/.m2/repository/javax/websocket/javax.websocket-api/1.1/javax.websocket-api-1.1.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-core/5.8.0/spring-security-core-5.8.0.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-crypto/6.3.0/spring-security-crypto-6.3.0.jar:/Users/maged/.m2/repository/org/springframework/spring-aop/6.1.8/spring-aop-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/spring-expression/6.1.8/spring-expression-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.3.0/spring-boot-starter-web-3.3.0.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter/3.3.0/spring-boot-starter-3.3.0.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot/3.3.0/spring-boot-3.3.0.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.3.0/spring-boot-autoconfigure-3.3.0.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.3.0/spring-boot-starter-logging-3.3.0.jar:/Users/maged/.m2/repository/ch/qos/logback/logback-classic/1.5.6/logback-classic-1.5.6.jar:/Users/maged/.m2/repository/ch/qos/logback/logback-core/1.5.6/logback-core-1.5.6.jar:/Users/maged/.m2/repository/org/slf4j/slf4j-api/2.0.13/slf4j-api-2.0.13.jar:/Users/maged/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.23.1/log4j-to-slf4j-2.23.1.jar:/Users/maged/.m2/repository/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar:/Users/maged/.m2/repository/org/slf4j/jul-to-slf4j/2.0.13/jul-to-slf4j-2.0.13.jar:/Users/maged/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/maged/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.3.0/spring-boot-starter-json-3.3.0.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.17.1/jackson-datatype-jdk8-2.17.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.17.1/jackson-datatype-jsr310-2.17.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.17.1/jackson-module-parameter-names-2.17.1.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.3.0/spring-boot-starter-tomcat-3.3.0.jar:/Users/maged/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.24/tomcat-embed-core-10.1.24.jar:/Users/maged/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.24/tomcat-embed-el-10.1.24.jar:/Users/maged/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.24/tomcat-embed-websocket-10.1.24.jar:/Users/maged/.m2/repository/org/springframework/spring-webmvc/6.1.8/spring-webmvc-6.1.8.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.1/jackson-databind-2.17.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.1/jackson-annotations-2.17.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.1/jackson-core-2.17.1.jar:/Users/maged/.m2/repository/org/codehaus/groovy/groovy/2.5.8/groovy-2.5.8.jar:"/>
+    <property name="java.vm.vendor" value="Homebrew"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="user.timezone" value="Asia/Jerusalem"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="java.vm.specification.version" value="22"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IL"/>
+    <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/22.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter9122670101719261866.jar /Users/maged/Desktop/Market_14B/market14B/target/surefire 2024-06-19T13-56-34_782-jvmRun1 surefire18088340448009727436tmp surefire_010948895762202185518tmp"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/test-classes:/Users/maged/Desktop/Market_14B/market14B/target/classes:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.3/junit-jupiter-engine-5.9.3.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:/Users/maged/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/Users/maged/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.3/junit-jupiter-api-5.9.3.jar:/Users/maged/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/Users/maged/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/Users/maged/.m2/repository/org/springframework/spring-websocket/5.3.10/spring-websocket-5.3.10.jar:/Users/maged/.m2/repository/org/springframework/spring-context/6.1.8/spring-context-6.1.8.jar:/Users/maged/.m2/repository/io/micrometer/micrometer-observation/1.13.0/micrometer-observation-1.13.0.jar:/Users/maged/.m2/repository/io/micrometer/micrometer-commons/1.13.0/micrometer-commons-1.13.0.jar:/Users/maged/.m2/repository/org/springframework/spring-core/6.1.8/spring-core-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/spring-jcl/6.1.8/spring-jcl-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/spring-web/6.1.8/spring-web-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/spring-messaging/5.3.10/spring-messaging-5.3.10.jar:/Users/maged/.m2/repository/org/springframework/spring-beans/6.1.8/spring-beans-6.1.8.jar:/Users/maged/.m2/repository/javax/websocket/javax.websocket-api/1.1/javax.websocket-api-1.1.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-core/5.8.0/spring-security-core-5.8.0.jar:/Users/maged/.m2/repository/org/springframework/security/spring-security-crypto/6.3.0/spring-security-crypto-6.3.0.jar:/Users/maged/.m2/repository/org/springframework/spring-aop/6.1.8/spring-aop-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/spring-expression/6.1.8/spring-expression-6.1.8.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter-web/3.3.0/spring-boot-starter-web-3.3.0.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter/3.3.0/spring-boot-starter-3.3.0.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot/3.3.0/spring-boot-3.3.0.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.3.0/spring-boot-autoconfigure-3.3.0.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.3.0/spring-boot-starter-logging-3.3.0.jar:/Users/maged/.m2/repository/ch/qos/logback/logback-classic/1.5.6/logback-classic-1.5.6.jar:/Users/maged/.m2/repository/ch/qos/logback/logback-core/1.5.6/logback-core-1.5.6.jar:/Users/maged/.m2/repository/org/slf4j/slf4j-api/2.0.13/slf4j-api-2.0.13.jar:/Users/maged/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.23.1/log4j-to-slf4j-2.23.1.jar:/Users/maged/.m2/repository/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar:/Users/maged/.m2/repository/org/slf4j/jul-to-slf4j/2.0.13/jul-to-slf4j-2.0.13.jar:/Users/maged/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/Users/maged/.m2/repository/org/yaml/snakeyaml/2.2/snakeyaml-2.2.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter-json/3.3.0/spring-boot-starter-json-3.3.0.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.17.1/jackson-datatype-jdk8-2.17.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.17.1/jackson-datatype-jsr310-2.17.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.17.1/jackson-module-parameter-names-2.17.1.jar:/Users/maged/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/3.3.0/spring-boot-starter-tomcat-3.3.0.jar:/Users/maged/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/10.1.24/tomcat-embed-core-10.1.24.jar:/Users/maged/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/10.1.24/tomcat-embed-el-10.1.24.jar:/Users/maged/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/10.1.24/tomcat-embed-websocket-10.1.24.jar:/Users/maged/.m2/repository/org/springframework/spring-webmvc/6.1.8/spring-webmvc-6.1.8.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar:/Users/maged/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.17.1/jackson-databind-2.17.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.17.1/jackson-annotations-2.17.1.jar:/Users/maged/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.17.1/jackson-core-2.17.1.jar:/Users/maged/.m2/repository/org/codehaus/groovy/groovy/2.5.8/groovy-2.5.8.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/maged"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2024-04-16"/>
+    <property name="java.home" value="/opt/homebrew/Cellar/openjdk/22.0.1/libexec/openjdk.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/maged/Desktop/Market_14B/market14B"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="apple.awt.application.name" value="ForkedBooter"/>
+    <property name="surefire.real.class.path" value="/Users/maged/Desktop/Market_14B/market14B/target/surefire/surefirebooter9122670101719261866.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.runtime.version" value="22.0.1"/>
+    <property name="user.name" value="maged"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="14.4.1"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Homebrew"/>
+    <property name="localRepository" value="/Users/maged/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/Homebrew/homebrew-core/issues"/>
+    <property name="java.io.tmpdir" value="/var/folders/96/rzr_svz92llc7cxwwg__p3fm0000gn/T/"/>
+    <property name="java.version" value="22.0.1"/>
+    <property name="user.dir" value="/Users/maged/Desktop/Market_14B/market14B"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/Users/maged/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Homebrew"/>
+    <property name="java.vm.version" value="22.0.1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="java.class.version" value="66.0"/>
+  </properties>
+  <testcase name="testAssignStoreOwner1" classname="AcceptanceTest.AccTestImpl" time="0.153">
+    <system-err><![CDATA[Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.Market initStore
+INFO: userName: ali, Description: description
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: ali, Description: description
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator send
+INFO: User malek is offline. Saving message for later.
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+]]></system-err>
+  </testcase>
+  <testcase name="testSetMarketOnline1" classname="AcceptanceTest.AccTestImpl" time="0">
+    <system-err><![CDATA[Jun 19, 2024 1:56:43 PM DomainLayer.backend.Market setMarketOnline
+INFO: market is Online
+]]></system-err>
+  </testcase>
+  <testcase name="testGetInfo1" classname="AcceptanceTest.AccTestImpl" time="0.079">
+    <system-err><![CDATA[Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 12
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.Market initStore
+INFO: userName: ali, Description: d
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: ali, Description: d
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 10.0, quantity: 5
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController getInfo
+INFO: storeId: 0
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController getInfo
+INFO: Store Info fetched!
+]]></system-err>
+  </testcase>
+  <testcase name="testBuy1" classname="AcceptanceTest.AccTestImpl" time="0.008">
+    <system-err><![CDATA[Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 10.0, quantity: 15
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.Store check
+INFO: Basket's contents are available in the store
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.Store getProdPrice
+INFO: Price of Product fetched successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.Store getProdWeight
+INFO: Weight of Product fetched successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.StorePackage.Store subQuantity
+INFO: Product's quantity subtracted successfully
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.Purchase <init>
+INFO: Purchase captured!
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to store history: Store ID 0
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+]]></system-err>
+  </testcase>
+  <testcase name="testEditPermissions1" classname="AcceptanceTest.AccTestImpl" time="0.154">
+    <system-err><![CDATA[Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jun 19, 2024 1:56:43 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Market initStore
+INFO: userName: ali, Description: description
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: ali, Description: description
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator send
+INFO: User malek is offline. Saving message for later.
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController EditPermissions
+INFO: storeID: 0, ownerUserName: ali, userName: malekstoreOwner: true
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator send
+INFO: User malek is offline. Saving message for later.
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions editPermission
+INFO: Permission added to store
+]]></system-err>
+  </testcase>
+  <testcase name="testCloseStore1" classname="AcceptanceTest.AccTestImpl" time="0.002">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: storeId: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: Store Closed Successfuly
+]]></system-err>
+  </testcase>
+  <testcase name="testInitStore1" classname="AcceptanceTest.AccTestImpl" time="0.079">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Market initStore
+INFO: userName: ali, Description: desc
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: ali, Description: desc
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testLogout1" classname="AcceptanceTest.AccTestImpl" time="0.001">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testAddToCart1" classname="AcceptanceTest.AccTestImpl" time="0.313">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.Market setMarketOnline
+INFO: market is Online
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: u, password: 1
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: u, password: 1
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: u, password: 1
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: u
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 1, username: ali, password: 123
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: ali, password: 123
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 1
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Market initStore
+INFO: userName: u, Description: d
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: u
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: u, Description: d
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 10.0, quantity: 5
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+]]></system-err>
+  </testcase>
+  <testcase name="testEditProductPrice1" classname="AcceptanceTest.AccTestImpl" time="0.003">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController EditProducPrice
+INFO: productId: 0, storeId 0, newPrice: 55.0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store EditProductPrice
+INFO: Product's price edited successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController EditProducPrice
+INFO: Product's Price Modified in store Successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testViewSystemPurchaseHistory1" classname="AcceptanceTest.AccTestImpl" time="0.007">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 10.0, quantity: 15
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store check
+INFO: Basket's contents are available in the store
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store getProdPrice
+INFO: Price of Product fetched successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store getProdWeight
+INFO: Weight of Product fetched successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store subQuantity
+INFO: Product's quantity subtracted successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Purchase <init>
+INFO: Purchase captured!
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to store history: Store ID 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+]]></system-err>
+  </testcase>
+  <testcase name="testRemoveProduct1" classname="AcceptanceTest.AccTestImpl" time="0.002">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController removeProduct
+INFO: productId: 0, storeId 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store RemoveProduct
+INFO: product removed successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController removeProduct
+INFO: Product Removed from store Successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testEditProductQuantity1" classname="AcceptanceTest.AccTestImpl" time="0.002">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController EditProductQuantity
+INFO: productId: 0, storeId 0, newQuantity: 20
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store EditProductQuantity
+INFO: Product's quantity edited successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController EditProductQuantity
+INFO: Product's Quantity Modified in store Successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testRegister1" classname="AcceptanceTest.AccTestImpl" time="0.075">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: u, password: 1
+]]></system-err>
+  </testcase>
+  <testcase name="testInspectCart1" classname="AcceptanceTest.AccTestImpl" time="0.002">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController inspectCart
+INFO: username: malek
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+]]></system-err>
+  </testcase>
+  <testcase name="testLogin1" classname="AcceptanceTest.AccTestImpl" time="0.155">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: u, password: 1
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Market setMarketOnline
+INFO: market is Online
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: u, password: 1
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: u, password: 1
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: u
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testEnterAsGuest1" classname="AcceptanceTest.AccTestImpl" time="0.001">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testAddProduct1" classname="AcceptanceTest.AccTestImpl" time="0.002">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 10.0, quantity: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testGuestExit1" classname="AcceptanceTest.AccTestImpl" time="0.002">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testAssignStoreManager1" classname="AcceptanceTest.AccTestImpl" time="0.154">
+    <system-err><![CDATA[Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Market initStore
+INFO: userName: ali, Description: description
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: ali, Description: description
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController AssignStoreManager
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator send
+INFO: User malek is offline. Saving message for later.
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jun 19, 2024 1:56:44 PM DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+]]></system-err>
+  </testcase>
+</testsuite>

@@ -122,6 +122,29 @@
           <version>2.22.1</version>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.0.0-M5</version> <!-- Use the latest version -->
+          <configuration>
+              <testSourceDirectory>test/java</testSourceDirectory>
+              <includes>
+                  <include>**/AccTestImpl.java</include> <!-- Include all files ending with Test.java -->
+                  <include>**/ConcurrencyTestImpl.java</include>
+                  <include>**/integrationTests.java</include>
+                  <include>**/MarketUnitTest.java</include>
+                  <include>**/StoreUnitTest.java</include>
+                  <include>**/UserUnitTests.java</include>
+              </includes>
+              <excludes>
+                    <exclude>**/Bridge.java</exclude>
+                    <exclude>**/Proxy.java</exclude>
+                    <exclude>**/Real.java</exclude>
+                    <exclude>**/AcceptanceTests.java</exclude>
+              </excludes>
+          </configuration>
+        </plugin>
+        
+        <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
         </plugin>
