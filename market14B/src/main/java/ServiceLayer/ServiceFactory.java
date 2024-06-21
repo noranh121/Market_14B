@@ -64,42 +64,42 @@ public class ServiceFactory {
         return userService.Logout(username);
     }
 
-    public String Register(String username, String password,double age) {
+    public Response<String> Register(String username, String password,double age) {
         return userService.Register(username, password,age);
-    }
+    }//@
 
-    public String Buy(String username) {
+    public Response<String> Buy(String username) {
         return userService.Buy(username);
     }
 
-    public String addToCart(String username, Integer product, int storeId, int quantity) {
+    public Response<String> addToCart(String username, Integer product, int storeId, int quantity) {
         return userService.addToCart(username, product, storeId, quantity);
     }
 
-    public String inspectCart(String username) {
+    public Response<String> inspectCart(String username) {
         return userService.inspectCart(username);
     }
 
-    public String removeCartItem(String username, int storeId, int product) {
+    public Response<String> removeCartItem(String username, int storeId, int product) {
         return userService.removeCartItem(username, storeId, product);
     }
 
-    public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
+    public Response<String> EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
             Boolean storeManager, Boolean[] pType) throws Exception {
         return userService.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
     }
 
-    public String AssignStoreManager(int storeId, String ownerUserName, String username, Boolean[] pType)
+    public Response<String> AssignStoreManager(int storeId, String ownerUserName, String username, Boolean[] pType)
             throws Exception {
         return userService.AssignStoreManager(storeId, ownerUserName, username, pType);
     }
 
-    public String AssignStoreOnwer(int storeId, String ownerUserName, String username, Boolean[] pType)
+    public Response<String> AssignStoreOnwer(int storeId, String ownerUserName, String username, Boolean[] pType)
             throws Exception {
         return userService.AssignStoreOnwer(storeId, ownerUserName, username, pType);
     }
 
-    public String unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
+    public Response<String> unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
         return userService.unassignUser(storeID, ownerUserName, userName);
     }
 
@@ -108,39 +108,39 @@ public class ServiceFactory {
     }
 
     // StoreService
-    public String initStore(String userName, String Description) throws Exception {
+    public Response<String> initStore(String userName, String Description) throws Exception {
         return storesService.initStore(userName, Description);
     }
 
     public String addProduct(int productId, int storeId, double price, int quantity, String username,double weight) throws Exception {
         return storesService.addProduct(productId, storeId, price, quantity, username,weight);
-    }
+    }//@
 
-    public String removeProduct(int productId, int storeId, String username) {
+    public Response<String> removeProduct(int productId, int storeId, String username) {
         return storesService.removeProduct(productId, storeId, username);
     }
 
-    public String EditProducPrice(int productId, int storeId, Double newPrice, String username) throws Exception {
+    public Response<String> EditProducPrice(int productId, int storeId, Double newPrice, String username) throws Exception {
         return storesService.EditProducPrice(productId, storeId, newPrice, username);
     }
 
-    public String EditProductQuantity(int productId, int storeId, int newQuantity, String username) throws Exception {
+    public Response<String>  EditProductQuantity(int productId, int storeId, int newQuantity, String username) throws Exception {
         return storesService.EditProductQuantity(productId, storeId, newQuantity, username);
     }
 
-    public String closeStore(int storeId, String username) {
+    public Response<String> closeStore(int storeId, String username) {
         return storesService.closeStore(storeId, username);
     }
 
-    public String openStore(int storeId, String username) {
+    public Response<String> openStore(int storeId, String username) {
         return storesService.openStore(storeId, username);
     }
 
-    public String getInfo(int storeId, String username) {
+    public Response<String> getInfo(int storeId, String username) {
         return storesService.getInfo(storeId, username);
     }
 
-    public String initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
+    public Response<String> initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
         return storesService.initProduct(username, productName, categoryId, description, brand,weight);
     }
 }

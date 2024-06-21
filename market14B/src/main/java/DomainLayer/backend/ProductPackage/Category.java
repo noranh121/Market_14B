@@ -27,6 +27,30 @@ public class Category {
         products = Collections.synchronizedList(new ArrayList<>());
     }
 
+
+    public List<Integer> getAllProductIds() {
+        List<Integer> allProductIds = new ArrayList<>();
+        getAllProductIdsRec(this, allProductIds);
+        return allProductIds;
+    }
+
+    private void getAllProductIdsRec(Category category, List<Integer> allProductIds) {
+        // Add the product IDs of the current category
+        if (category.getProducts() != null) {
+            allProductIds.addAll(category.getProducts());
+        }
+
+        // Recursively add product IDs from subcategories
+        if (category.getSubCategories() != null) {
+            for (Integer subCategoryId : category.getSubCategories()) {
+                Category subCategory = CategoryController.getinstance().getCategory(subCategoryId);
+                if (subCategory != null) {
+                    getAllProductIdsRec(subCategory, allProductIds);
+                }
+            }
+        }
+    }
+
     public int getId() {
         return id;
     }
