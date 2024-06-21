@@ -49,6 +49,26 @@ public class Proxy implements Bridge{
     }
 
     @Override
+    public double testBuyNotEnoughSupply(String username) throws Exception {
+        return real.testBuyNotEnoughSupply(username);
+    }
+
+    @Override
+    public double testBuySupplyFail(String username) throws Exception {
+        return real.testBuySupplyFail(username);
+    }
+
+    @Override
+    public double testBuyPaymentFail(String username) throws Exception {
+        return real.testBuyPaymentFail(username);
+    }
+
+    @Override
+    public double testBuyShippingFail(String username) throws Exception {
+        return real.testBuyShippingFail(username);
+    }
+
+    @Override
     public String testLogout(String username) {
         return real.testLogout(username);
     }

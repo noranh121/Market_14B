@@ -10,6 +10,10 @@ public interface Bridge {
     String testAddToCart(String username, Integer product, int storeId, int quantity) throws Exception;
     String testInspectCart(String username);
     double testBuy(String username) throws Exception;
+    double testBuyNotEnoughSupply(String username) throws Exception;
+    double testBuySupplyFail(String username) throws Exception;
+    double testBuyPaymentFail(String username) throws Exception;
+    double testBuyShippingFail(String username) throws Exception;
     String testLogout(String username);
     String testInitStore(String userName, String Description);
     String testAddProduct(int productId,int storeId,double price,int quantity,String username,double weight);

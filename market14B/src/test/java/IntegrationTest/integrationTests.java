@@ -1,5 +1,6 @@
 package IntegrationTest;
 
+import DomainLayer.backend.Basket;
 import DomainLayer.backend.Market;
 import DomainLayer.backend.ProductPackage.Category;
 import DomainLayer.backend.ProductPackage.Product;
@@ -48,7 +49,7 @@ public class integrationTests {
     }
 
     @Test
-    void buyTest1() {
+    void buyTestFail() {
         try {
             double sum = userController.Buy(u3.getUsername());
             fail("error in buy");
@@ -58,7 +59,27 @@ public class integrationTests {
     }
 
     @Test
-    void buyTest2() throws Exception {
+    public void testBuyNotEnoughSupply() throws Exception {
+        userController.getGuestUserMap().put(u1.getUsername(), u1);
+        Store s=new Store("store","desc",0);
+        StoreController.getInstance().GetStores().put(0,s);
+        s.getInventory().AddProduct(0,10.0,2,5);
+        Basket b=new Basket(u1.getUsername(),0);
+        u1.getShoppingCart().addBasket(b);
+        b.addProduct(0,3);
+        double expectedSum = 10.0;
+        try {
+            double sum = userController.Buy(u1.getUsername());
+            fail();
+        } catch (Exception e) {
+            assertEquals("invalid cart" , e.getMessage());
+            assertEquals(StoreController.getInstance().getStore(0).getInventory().getQuantity(0),2);
+            assertEquals(UserController.getInstance().getUser(u1.getUsername()).getShoppingCart().getBasket(u1.getUsername(), 0).getProducts().size(),1);
+        }
+    }
+
+    @Test
+    void buyTestSuccess() throws Exception {
         userController.getGuestUserMap().put(u2.getUsername(), u2);
         storeController.GetStores().put(0, s1);
         storeController.addProduct(0, 0, 10, 15, 5);
@@ -69,7 +90,7 @@ public class integrationTests {
     }
 
     @Test
-    void testviewsystemPurchaseHistory1() throws Exception {
+    void testviewsystemPurchaseHistorySuccess() throws Exception {
         userController.getRegUserMap().put(u2.getUsername(), u2);
         storeController.GetStores().put(0, s1);
         storeController.addProduct(0, 0, 10, 15, 5);
@@ -83,7 +104,7 @@ public class integrationTests {
     }
 
     @Test
-    void testAssignStoreManager1() {
+    void testAssignStoreManagerFail() {
         try {
             String result = market.AssignStoreManager(0, u2.getUsername(), u3.getUsername(),
                     new Boolean[] { true, true, true });
@@ -94,7 +115,7 @@ public class integrationTests {
     }
 
     @Test
-    void testAssignStoreManager2() throws Exception {
+    void testAssignStoreManagerSuccess() throws Exception {
         market.Register("ali", "123", 18);
         market.Register("malek", "456", 18);
         market.initStore(u2.getUsername(), "description");
@@ -104,7 +125,7 @@ public class integrationTests {
     }
 
     @Test
-    void testAssignStoreOwner1() {
+    void testAssignStoreOwnerFail() {
         try {
             String result = market.AssignStoreOwner(0, u2.getUsername(), u3.getUsername(),
                     new Boolean[] { true, true, true });
@@ -115,7 +136,7 @@ public class integrationTests {
     }
 
     @Test
-    void testAssignStoreOwner2() throws Exception {
+    void testAssignStoreOwnerSuccess() throws Exception {
         market.Register("ali", "123", 18);
         market.Register("malek", "456", 18);
         market.initStore(u2.getUsername(), "description");
@@ -125,7 +146,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testEditPermissions1() {
+    public void testEditPermissionsFail() {
         try {
             String result = market.EditPermissions(0, u2.getUsername(), u3.getUsername(), true, false,
                     new Boolean[] { true, true, true });
@@ -136,7 +157,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testEditPermissions2() throws Exception {
+    public void testEditPermissionsSuccess() throws Exception {
         market.Register("ali", "123", 18);
         market.Register("malek", "456", 18);
         market.initStore(u2.getUsername(), "description");
@@ -153,7 +174,7 @@ public class integrationTests {
     }
 
     @Test
-    void testunassignUser1() throws Exception {
+    void testUnassignUserSuccess() throws Exception {
         market.Register("ali", "123", 18);
         market.Register("malek", "456", 18);
         market.initStore(u2.getUsername(), "description");
@@ -164,7 +185,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testunassignUser2() {
+    public void testUnassignUserFail() {
         try {
             String result = market.unassignUser(0, u2.getUsername(), u3.getUsername());
         } catch (Exception e) {
@@ -173,7 +194,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testRegister_Success() {
+    public void testRegisterSuccess() {
         String username = "newUser";
         String password = "password123";
 
@@ -188,7 +209,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testRegister_UsernameExists() {
+    public void testRegisterUsernameExists() {
         String username = "existingUser";
         String password = "password123";
         try {
@@ -205,7 +226,23 @@ public class integrationTests {
     }
 
     @Test
-    public void testLogin_Success() {
+    public void testRegisterDoubleRegistration() {
+        String username = "newUser";
+        String password = "password123";
+
+        try {
+            String result = userController.Register(username, password,18);
+            assertEquals("guest user added successfully", result);
+            assertTrue(userController.getRegUserMap().containsKey(username));
+            assertFalse(userController.getRegUserMap().get(username).isLoggedIn());
+            String result1 = userController.Register(username, password,18);
+        } catch (Exception e) {
+            assertEquals("username already exists" , e.getMessage());
+        }
+    }
+
+    @Test
+    public void testLoginSuccess() {
         try {
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -221,7 +258,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testLogin_IncorrectUsername() {
+    public void testLoginIncorrectUsername() {
         try {
             userController.getGuestUserMap().put(u1.getUsername(), u1);
             userController.getRegUserMap().put(u3.getUsername(), u3);
@@ -233,7 +270,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testResign1(){
+    public void testResignSuccess(){
         try{
             market.Register("ali","123",18);
             market.Register("malek","456",18);
@@ -248,7 +285,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testResign2(){
+    public void testResignFail(){
         try{
             market.Register("ali","123",18);
             market.initStore(u2.getUsername(),"description");
@@ -260,7 +297,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testsuspendUser1(){
+    public void testSuspendUserSuccess(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -275,7 +312,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testsuspendUser2(){
+    public void testSuspendUserFail(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -290,7 +327,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testSuspendSec1(){
+    public void testSuspendSecSuccess(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -305,7 +342,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testsuspendUserSec2(){
+    public void testSuspendUserSecFail(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -320,7 +357,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testDiscount1(){
+    public void testProductDiscountPolicySuccess(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -341,7 +378,7 @@ public class integrationTests {
     }
 
     @Test
-    public void testDiscount2(){
+    public void testProductPurchasePolicySuccess(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);

@@ -17,7 +17,7 @@ public class MarketUnitTest {
         market.setToNull();
     }
     @Test
-    public void testSetMarketOnline_Success() throws Exception {
+    public void testSetMarketOnlineSuccess() throws Exception {
         String systemManager = "admin";
         market.getSystemManagers().add(systemManager);
         market.setMarketOnline(systemManager);
@@ -25,7 +25,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testSetMarketOnline_NotSystemManager() {
+    public void testSetMarketOnlineFail() {
         String nonSystemManager = "user";
         String systemManager = "admin";
         market.getSystemManagers().add(systemManager);
@@ -36,7 +36,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testSetMarketOFFLINE_Success() throws Exception {
+    public void testSetMarketOFFLINESuccess() throws Exception {
         String systemManager = "admin";
         market.getSystemManagers().add(systemManager);
         market.setMarketOFFLINE(systemManager);
@@ -44,7 +44,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testSetMarketOFFLINE_NotSystemManager() {
+    public void testSetMarketOFFLINEFail() {
         String nonSystemManager = "user";
         String systemManager = "admin";
         market.getSystemManagers().add(systemManager);
@@ -66,7 +66,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testsuspendUser1(){
+    public void testSuspendUserSuccess(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -81,7 +81,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testsuspendUser2(){
+    public void testSuspendUserFail(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -96,7 +96,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testSuspendSec1(){
+    public void testSuspendSecSuccess(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -111,7 +111,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testsuspendUserSec2(){
+    public void testSuspendUserSecFail(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -126,7 +126,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testResUSer1(){
+    public void testResUserSuccess(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -142,7 +142,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testResUSer2(){
+    public void testResUserFail(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -158,7 +158,7 @@ public class MarketUnitTest {
     }
 
     @Test
-    public void testViewSuspended(){
+    public void testViewSuspendedSuccss(){
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
@@ -170,6 +170,19 @@ public class MarketUnitTest {
             assertTrue(result.contains("ali"));
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
+    @Test
+    public void testViewSuspendedFail(){
+        try{
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.suspendUser("ali", "ali");
+            String result=market.viewSuspended("ali");
+            fail();
+        }catch(Exception e){
+            assertEquals(e.getMessage(),"ali not a system manager");
         }
     }
 }

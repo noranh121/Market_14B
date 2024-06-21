@@ -182,6 +182,7 @@ public class StoreController {
     // this is for testing
     public void setToNull() {
         instance = null;
+        stores.clear();
     }
 
 }

@@ -114,6 +114,51 @@ public class Real implements Bridge{
     }
 
     @Override
+    public double testBuyNotEnoughSupply(String username) throws Exception {
+        userController.getGuestUserMap().put(u2.getUsername(),u2);
+        storeController.GetStores().put(0,s1);
+        storeController.addProduct(0,0,10,15,5);
+        u2.addToCart(0,0,50);
+        return userController.Buy(u2.getUsername());
+    }
+
+    @Override
+    public double testBuySupplyFail(String username) throws Exception {
+        userController.getGuestUserMap().put(u2.getUsername(),u2);
+        storeController.GetStores().put(0,s1);
+        storeController.addProduct(0,0,10,15,5);
+        u2.addToCart(0,0,5);
+        if (supplyApi()) {
+            return userController.Buy(u2.getUsername());
+        }
+        throw new Exception("Supply fail");
+    }
+
+    @Override
+    public double testBuyPaymentFail(String username) throws Exception {
+        userController.getGuestUserMap().put(u2.getUsername(),u2);
+        storeController.GetStores().put(0,s1);
+        storeController.addProduct(0,0,10,15,5);
+        u2.addToCart(0,0,5);
+        if (paymentApi()) {
+            return userController.Buy(u2.getUsername());
+        }
+        throw new Exception("payment fail");
+    }
+
+    @Override
+    public double testBuyShippingFail(String username) throws Exception {
+        userController.getGuestUserMap().put(u2.getUsername(),u2);
+        storeController.GetStores().put(0,s1);
+        storeController.addProduct(0,0,10,15,5);
+        u2.addToCart(0,0,5);
+        if (shippingApi()) {
+            return userController.Buy(u2.getUsername());
+        }
+        throw new Exception("shipping fail");
+    }
+
+    @Override
     public String testLogout(String username) {
         try {
             userController.getRegUserMap().put(u3.getUsername(), u3);
@@ -154,7 +199,7 @@ public class Real implements Bridge{
         s1.AddProduct(p1.getId(), 10.0, 5,5);
         s1.AddProduct(p2.getId(), 20.0, 10,5);
         try {
-            return storeController.removeProduct(productId, s1.getId());
+            return storeController.removeProduct(productId, storeId);
         } catch (Exception e) {
             fail("Exception should not be thrown when removing product from an existing store");
         }
@@ -168,7 +213,7 @@ public class Real implements Bridge{
         storeController.GetStores().put(s2.getId(), s2);
         s1.AddProduct(p1.getId(), 10.0, 5,5);
         s1.AddProduct(p2.getId(), 20.0, 10,5);
-        return storeController.EditProducPrice(p1.getId(), s1.getId(), newPrice);
+        return storeController.EditProducPrice(productId, storeId, newPrice);
     }
 
     @Override
@@ -203,28 +248,35 @@ public class Real implements Bridge{
         market.initStore(u2.getUsername(),"description");
         Boolean[] per=new Boolean[]{true,true,true};
         String result=market.AssignStoreOwner(0,u2.getUsername(),u3.getUsername(),per);
-        try {
-            return market.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
-        } catch (Exception e) {
-            fail("Exception thrown: " + e.getMessage());
-        }
-        return "";
+        return market.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
     }
 
     @Override
     public String testCloseStore(int storeId, String username) {
-        storeController.GetStores().put(s1.getId(), s1);
-        return storeController.closeStore(s1.getId());
+        storeController.GetStores().put(storeId, s1);
+        return storeController.closeStore(storeId);
     }
 
     @Override
     public String testViewSystemPurchaseHistory(String username) throws Exception {
-        userController.getGuestUserMap().put(u2.getUsername(),u2);
+        userController.getGuestUserMap().put(username,u2);
         storeController.GetStores().put(0,s1);
         storeController.addProduct(0,0,10,15,5);
         u2.addToCart(0,0,5);
         market.getSystemManagers().add("ali");
-        double sum = userController.Buy(u2.getUsername());
+        double sum = userController.Buy(username);
         return market.viewsystemPurchaseHistory(username);
+    }
+
+    public boolean paymentApi(){
+        return false;
+    }
+
+    public boolean supplyApi(){
+        return false;
+    }
+
+    public boolean shippingApi(){
+        return false;
     }
 }
