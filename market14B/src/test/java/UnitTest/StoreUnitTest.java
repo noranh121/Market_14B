@@ -43,14 +43,14 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testGetStore_StoreDoesNotExist() {
+    public void testGetStoreFail() {
         int nonExistentStoreID = 999;
         Store result = storeController.getStore(nonExistentStoreID);
         assertNull(result);
     }
 
     @Test
-    public void testAddProduct_StoreExists() {
+    public void testAddProductSuccess() {
         storeController.GetStores().put(0,s1);
         try {
             String result = storeController.addProduct(p1.getId(), s1.getId(), 10, 15,5);
@@ -63,7 +63,7 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testAddProduct_StoreDoesNotExist() throws Exception {
+    public void testAddProductFail() throws Exception {
         int productId = 101;
         double price = 19.99;
         int quantity = 10;
@@ -74,7 +74,7 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testRemoveProduct_StoreExists() throws Exception {
+    public void testRemoveProductSuccess() throws Exception {
         storeController.GetStores().put(s1.getId(), s1);
         storeController.GetStores().put(s2.getId(), s2);
         s1.AddProduct(p1.getId(), 10.0, 5,5);
@@ -90,7 +90,7 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testRemoveProduct_StoreDoesNotExist() throws Exception {
+    public void testRemoveProductFail() throws Exception {
         storeController.GetStores().put(s1.getId(), s1);
         storeController.GetStores().put(s2.getId(), s2);
         s1.AddProduct(p1.getId(), 10.0, 5,5);
@@ -103,7 +103,7 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testEditProductPrice_Success() throws Exception {
+    public void testEditProductPriceSuccess() throws Exception {
         storeController.GetStores().put(s1.getId(), s1);
         storeController.GetStores().put(s2.getId(), s2);
         s1.AddProduct(p1.getId(), 10.0, 5,5);
@@ -113,9 +113,19 @@ public class StoreUnitTest {
         assertEquals(150.0, s1.getProdPrice(p1.getId()));
     }
 
+    @Test
+    public void testEditProductPriceFail() throws Exception {
+        storeController.GetStores().put(s1.getId(), s1);
+        storeController.GetStores().put(s2.getId(), s2);
+        s1.AddProduct(p1.getId(), 10.0, 5,5);
+        s1.AddProduct(p2.getId(), 20.0, 10,5);
+        String result = storeController.EditProducPrice(1, s1.getId(), 150.0);
+        assertEquals(20, s1.getProdPrice(p1.getId()));
+    }
+
 
     @Test
-    public void testEditProductQuantity_Success() throws Exception {
+    public void testEditProductQuantitySuccess() throws Exception {
         storeController.GetStores().put(s1.getId(), s1);
         storeController.GetStores().put(s2.getId(), s2);
         s1.AddProduct(p1.getId(), 10.0, 5,5);
@@ -126,7 +136,17 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testCloseStore_Success() {
+    public void testEditProductQuantityFail() throws Exception {
+        storeController.GetStores().put(s1.getId(), s1);
+        storeController.GetStores().put(s2.getId(), s2);
+        s1.AddProduct(p1.getId(), 10.0, 5,5);
+        s1.AddProduct(p2.getId(), 20.0, 10,5);
+        String result = storeController.EditProductQuantity(2, s1.getId(), 20);
+        assertEquals(10, s1.getInventory().getQuantity(p1.getId()));
+    }
+
+    @Test
+    public void testCloseStoreSuccess() {
         storeController.GetStores().put(s1.getId(), s1);
         String result = storeController.closeStore(s1.getId());
         assertEquals("Store Closed Successfuly", result);
@@ -134,11 +154,27 @@ public class StoreUnitTest {
     }
 
     @Test
-    public void testOpenStore_Success() {
+    public void testCloseStoreFail() {
+        storeController.GetStores().put(s1.getId(), s1);
+        String result = storeController.closeStore(5);
+        assertEquals(storeController.GetStores().size() ,1);
+        assertEquals(storeController.GetStores().get(s1.getId()).isActive(),false);
+    }
+
+    @Test
+    public void testOpenStoreSuccess() {
         storeController.GetStores().put(s1.getId(), s1);
         String result = storeController.openStore(s1.getId());
         assertEquals("Store Opened Successfuly", result);
         assertTrue(s1.isActive());
+    }
+
+    @Test
+    public void testOpenStoreFail() {
+        storeController.GetStores().put(s1.getId(), s1);
+        String result = storeController.openStore(5);
+        assertEquals(storeController.GetStores().size() ,1);
+        assertEquals(storeController.GetStores().get(s1.getId()).isActive(),false );
     }
 
     @Test

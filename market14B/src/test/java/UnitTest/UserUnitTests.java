@@ -33,14 +33,15 @@ public class UserUnitTests {
     }
 
     @Test
-    public void testEnterAsGuest1() throws Exception {
+    public void testEnterAsGuestSuccess() throws Exception {
         String result = userController.EnterAsGuest(18);
         assertNotNull(result);
         assertTrue(result.contains("guest user added successfully"));
         assertEquals(1, userController.getGuestUserMap().size());
     }
+
     @Test
-    public void testEnterAsGuest2() throws Exception {
+    public void testEnterAsGuestSuccess2() throws Exception {
         String result1 = userController.EnterAsGuest(18);
         String result2 = userController.EnterAsGuest(18);
         String result3 = userController.EnterAsGuest(18);
@@ -154,7 +155,22 @@ public class UserUnitTests {
     }
 
     @Test
-    public void testRegister_UsernameExists() {
+    public void testRegisterDoubleRegistration() {
+        String username = "newUser";
+        String password = "password123";
+
+        try {
+            String result = userController.Register(username, password,18);
+            assertEquals("guest user added successfully", result);
+            assertTrue(userController.getRegUserMap().containsKey(username));
+            assertFalse(userController.getRegUserMap().get(username).isLoggedIn());
+            String result1 = userController.Register(username, password,18);
+        } catch (Exception e) {
+            assertEquals("username already exists" , e.getMessage());
+        }
+    }
+    @Test
+    public void testRegisterUsernameExists() {
         String username = "existingUser";
         String password = "password123";
         try {
@@ -171,7 +187,7 @@ public class UserUnitTests {
     }
 
     @Test
-    public void testBuy_RegUserExists() throws Exception {
+    public void testBuySuccess() throws Exception {
         userController.getRegUserMap().put(u3.getUsername(), u3);
         Store s=new Store("store","desc",0);
         StoreController.getInstance().GetStores().put(0,s);
@@ -183,13 +199,14 @@ public class UserUnitTests {
         try {
             double sum = userController.Buy(u3.getUsername());
             assertEquals(expectedSum, sum);
+            assertEquals(StoreController.getInstance().getStore(0).getInventory().getQuantity(0),1);
         } catch (Exception e) {
             fail("Exception should not be thrown: " + e.getMessage());
         }
     }
 
     @Test
-    public void testBuy_GuestUserExists() throws Exception {
+    public void testBuyGuestUserExists() throws Exception {
         userController.getGuestUserMap().put(u1.getUsername(), u1);
         Store s=new Store("store","desc",0);
         StoreController.getInstance().GetStores().put(0,s);
@@ -207,7 +224,7 @@ public class UserUnitTests {
     }
 
     @Test
-    public void testBuy_UserNotExists() {
+    public void testBuyUserNotExists() {
         String nonExistentUser = "nonExistentUser";
         try {
             userController.Buy(nonExistentUser);
@@ -216,6 +233,27 @@ public class UserUnitTests {
             assertEquals("user not found", e.getMessage());
         }
     }
+
+    @Test
+    public void testBuyNotEnoughSupply() throws Exception {
+        userController.getGuestUserMap().put(u1.getUsername(), u1);
+        Store s=new Store("store","desc",0);
+        StoreController.getInstance().GetStores().put(0,s);
+        s.getInventory().AddProduct(0,10.0,2,5);
+        Basket b=new Basket(u1.getUsername(),0);
+        u1.getShoppingCart().addBasket(b);
+        b.addProduct(0,3);
+        double expectedSum = 10.0;
+        try {
+            double sum = userController.Buy(u1.getUsername());
+            fail();
+        } catch (Exception e) {
+            assertEquals("invalid cart" , e.getMessage());
+            assertEquals(StoreController.getInstance().getStore(0).getInventory().getQuantity(0),2);
+            assertEquals(UserController.getInstance().getUser(u1.getUsername()).getShoppingCart().getBasket(u1.getUsername(), 0).getProducts().size(),1);
+        }
+    }
+
 
     @Test
     public void testGetUser_RegisteredUserExists() {
@@ -262,14 +300,14 @@ public class UserUnitTests {
     }
 
     @Test
-    public void removeCartItemTest1(){
+    public void testRemoveEmptyCartItem(){
         userController.getRegUserMap().put(u3.getUsername(), u3);
         String res=userController.removeCartItem(u3.getUsername(),0,0);
         assertTrue(res.contains("no such item"));
     }
 
     @Test
-    public void removeCartItemTest2() throws Exception {
+    public void testRemoveCartItemSuccess() throws Exception {
         userController.getRegUserMap().put(u3.getUsername(), u3);
         Category c=new Category(0,"cat");
         Product p1=new Product("a","d","b",c,5);
@@ -281,13 +319,13 @@ public class UserUnitTests {
     }
 
     @Test
-    public void testIsRegistered_UserIsRegistered() throws Exception {
+    public void testIsRegisteredSuccess() throws Exception {
         userController.getRegUserMap().put(u3.getUsername(), u3);
         assertTrue(userController.isRegistered(u3.getUsername()));
     }
 
     @Test
-    public void testIsRegistered_UserIsNotRegistered() {
+    public void testIsRegisteredFail() {
         String nonExistentUsername = "nonExistentUser";
         Exception exception = assertThrows(Exception.class, () -> {
             userController.isRegistered(nonExistentUsername);

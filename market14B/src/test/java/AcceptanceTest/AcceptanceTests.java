@@ -41,6 +41,22 @@ public abstract class AcceptanceTests {
         return bridge.testBuy(username);
     }
 
+    public double testBuyNotEnoughSupply(String username) throws Exception {
+        return bridge.testBuyNotEnoughSupply(username);
+    }
+
+    public double testBuySupplyFail(String username) throws Exception {
+        return bridge.testBuySupplyFail(username);
+    }
+
+    public double testBuyPaymentFail(String username) throws Exception {
+        return bridge.testBuyPaymentFail(username);
+    }
+
+    public double testBuyShippingFail(String username) throws Exception {
+        return bridge.testBuyShippingFail(username);
+    }
+
     public String testLogout(String username) {
         return bridge.testLogout(username);
     }

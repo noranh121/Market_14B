@@ -1,4 +1,5 @@
 package ConcurrencyTest;
+import DomainLayer.backend.Permissions;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -91,6 +92,7 @@ public class ConcurrencyTestImpl {
 
         assertTrue(result[0] || result[1]);
         assertFalse(result[0] && result[1]);
+        assertEquals(StoreController.getInstance().getStore(0).getInventory().getQuantity(0),0);
     }
 
     //store owner tries to delete a product while a user tries to buy it
@@ -155,6 +157,11 @@ public class ConcurrencyTestImpl {
         doneLatch.await(); // Wait for both threads to finish
 
         assertTrue((result[0] && result[1])||(!result[0] && result[1]));
+        try {
+            assertNull(StoreController.getInstance().getStore(0).getInventory().getQuantity(0));
+        }catch (Exception e){
+            assertTrue(e.getMessage().contains("is null"));
+        }
     }
 
     //2 store owners try to assign the same user to store owner at the same time
@@ -223,6 +230,8 @@ public class ConcurrencyTestImpl {
 
         assertTrue(result[0] || result[1]);
         assertFalse(result[0] && result[1]);
+        assertEquals(Permissions.getInstance().getPermission(0,"ola").getUserName(),"ola");
+        assertTrue(Permissions.getInstance().getPermission(0,"ola").getStoreOwner());
     }
 
     //2 store owners try to assign the same user to store mager at the same time
@@ -291,6 +300,8 @@ public class ConcurrencyTestImpl {
 
         assertTrue(result[0] || result[1]);
         assertFalse(result[0] && result[1]);
+        assertEquals(Permissions.getInstance().getPermission(0,"ola").getUserName(),"ola");
+        assertTrue(Permissions.getInstance().getPermission(0,"ola").getStoreManager());
     }
 
     //store owners try to close the store and a user and tries to buy from the store at the same time
@@ -355,6 +366,12 @@ public class ConcurrencyTestImpl {
         doneLatch.await(); // Wait for both threads to finish
 
         assertTrue((result[0] && result[1])||(!result[1] && result[0]));
+        if ((result[0] && result[1])){
+            assertEquals(StoreController.getInstance().getStore(0).getInventory().getQuantity(0),0);
+            assertFalse(StoreController.getInstance().getStore(0).isActive());
+        }else {
+            assertFalse(StoreController.getInstance().getStore(0).isActive());
+        }
     }
 
 }
