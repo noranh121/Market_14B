@@ -50,7 +50,7 @@ public class Market {
     private PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
     private ProductController productController = ProductController.getInstance();
     private CategoryController categoryController = CategoryController.getinstance();
-
+    private FileHandler fileHandler;
 
     private Boolean Online = false;
     private List<String> systemManagers = Collections.synchronizedList(new ArrayList<>());
@@ -58,14 +58,16 @@ public class Market {
     private static Market instance;
 
     public static Market getInstance() {
-        if (instance == null)
+        if (instance == null){
             instance = new Market();
+        }
+            
         return instance;
     }
 
     private Market() {
         try {
-            FileHandler fileHandler = new FileHandler("Market", true);
+            fileHandler= new FileHandler("Market.log",true);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
             LOGGER.setLevel(Level.ALL);
