@@ -5,6 +5,10 @@ import java.util.Iterator;
 public class Tree  implements Iterable<String> {
     private Node root;
 
+    public Node getRoot() {
+        return root;
+    }
+
     public Tree(Permission rootData) {
         this.root = new Node(rootData);
     }

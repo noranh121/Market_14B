@@ -21,6 +21,7 @@ import DomainLayer.backend.StorePackage.Purchase.CategoryPurchase;
 import DomainLayer.backend.StorePackage.Purchase.IF_THENPurchaseRule;
 import DomainLayer.backend.StorePackage.Purchase.ImmediatePurchase;
 import DomainLayer.backend.StorePackage.Purchase.ORPurchaseRule;
+import DomainLayer.backend.StorePackage.Purchase.OfferMethod;
 import DomainLayer.backend.StorePackage.Purchase.ProductPurchase;
 import DomainLayer.backend.StorePackage.Purchase.PurchaseMethod;
 import DomainLayer.backend.StorePackage.Purchase.ShoppingCartPurchase;
@@ -414,48 +415,57 @@ public class Market {
         }
     }
 
-    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId) throws Exception{
+    private PurchaseMethod initPurchaseMethod(Boolean immediate,int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId){
+        if(immediate){
+            return new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        }
+        else{
+            return new OfferMethod(quantity, price, date, atLeast, weight, age,storeId,username);
+        }
+    }
+
+    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        PurchaseMethod purchaseMethod=new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         CategoryPurchase categoryPurchase=new CategoryPurchase(purchaseMethod, categoryId, -1);
         storeController.getStore(storeId).addPurchaseComposite(categoryPurchase);
         LOGGER.info("category purchase policy added");
         return "category purchase policy added";
     }
 
-    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId) throws Exception{
+    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        PurchaseMethod purchaseMethod=new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         ProductPurchase productPurchase=new ProductPurchase(purchaseMethod, productId, storeId);
         storeController.getStore(storeId).addPurchaseComposite(productPurchase);
         LOGGER.info("product purchase policy added");
         return "product purchase policy added";
     }
 
-    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId) throws Exception{
+    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        PurchaseMethod purchaseMethod=new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         ShoppingCartPurchase ShoppingCartPurchase=new DomainLayer.backend.StorePackage.Purchase.ShoppingCartPurchase(purchaseMethod, -1);
         storeController.getStore(storeId).addPurchaseComposite(ShoppingCartPurchase);
         LOGGER.info("shopping cart purchase policy added");
         return "shopping cart purchase policy added";
     }
 
-    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId) throws Exception{
+    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        PurchaseMethod purchaseMethod=new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         UserPurchase userPurchase=new UserPurchase(purchaseMethod, userAge, storeId);
         storeController.getStore(storeId).addPurchaseComposite(userPurchase);
         LOGGER.info("user purchase policy added");

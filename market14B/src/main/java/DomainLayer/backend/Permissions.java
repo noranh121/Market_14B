@@ -298,4 +298,27 @@ public class Permissions {
         instance = null;
     }
 
+    public double reviewOffer(int storeId, double price, int productId) throws Exception {
+        if(storeOwners.containsKey(storeId)){
+            String rootUserName=storeOwners.get(storeId).getRoot().getData().getUserName();
+            updateUsers(storeId, rootUserName, "review this offer");
+            Iterator<String> iterator = storeOwners.get(storeId).subtreeIterator(rootUserName);
+            Boolean response=true;
+            if (iterator != null) {
+                while (iterator.hasNext()) {
+                    response&=UserController.getInstance().reviewOffer(price, iterator.next());
+                }
+            }
+            if(response)
+                return price;
+            else{
+                return StoreController.getInstance().getStore(storeId).getProdPrice(productId);
+            }
+        }
+        else{
+            UserController.LOGGER.severe(storeId + " does not exist");
+            throw new Exception(storeId + " does not exist");
+        }
+    }
+
 }

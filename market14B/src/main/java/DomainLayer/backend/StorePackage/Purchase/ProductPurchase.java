@@ -12,7 +12,7 @@ public class ProductPurchase extends PurchasePolicy {
     }
 
     @Override
-    public Boolean purchase(Map<Integer, double[]> products, double age) {
+    public Boolean purchase(Map<Integer, double[]> products, double age) throws Exception {
         if (products.containsKey(productId))
             return purchaseMethod.purchase(productId, (int) products.get(productId)[0], products.get(productId)[1],
                     products.get(productId)[2], age);

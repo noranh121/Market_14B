@@ -9,7 +9,7 @@ public class ShoppingCartPurchase extends PurchasePolicy {
     }
 
     @Override
-    public Boolean purchase(Map<Integer, double[]> products, double age) {
+    public Boolean purchase(Map<Integer, double[]> products, double age) throws Exception {
         Boolean output = true;
         for (Map.Entry<Integer, double[]> entry : products.entrySet()) {
             int productId = (int) entry.getKey();

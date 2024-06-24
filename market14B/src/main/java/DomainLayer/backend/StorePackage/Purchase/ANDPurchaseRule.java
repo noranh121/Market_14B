@@ -9,7 +9,7 @@ public class ANDPurchaseRule extends PurchasePolicyController{
     }
 
     @Override
-    public Boolean purchase(Map<Integer, double[]> products, double age){
+    public Boolean purchase(Map<Integer, double[]> products, double age) throws Exception{
         for(CompositePurchasePolicy compositePurchasePolicy : compositePurchasePolicies){
             if(!compositePurchasePolicy.purchase(products, age))
                 return false;

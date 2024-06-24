@@ -76,7 +76,7 @@ public class Store {
         compositePurchasePolicy.removeComposite(purchasePolicyId);
     }
 
-    public Boolean purchase(Map<Integer, double[]> products, double age){
+    public Boolean purchase(Map<Integer, double[]> products, double age) throws Exception{
         return compositePurchasePolicy.purchase(products, age);
     }
 

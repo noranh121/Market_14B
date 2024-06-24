@@ -70,4 +70,8 @@ public abstract class User {
         return shoppingCart.removeCartItem(storeId, product);
     }
 
+    protected Boolean reviewOffer(double offer) throws Exception{
+        wait(10000);
+        return true;
+    }
 }

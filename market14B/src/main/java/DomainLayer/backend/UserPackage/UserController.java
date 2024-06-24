@@ -200,4 +200,14 @@ public class UserController {
         instance = null;
     }
 
+    public Boolean reviewOffer(double offer, String username) throws Exception {
+        LOGGER.info("offer: " + offer);
+        if(RegUserMap.containsKey(username)){
+            return RegUserMap.get(username).reviewOffer(offer);
+        }
+        else{
+            throw new Exception("user is not registered");
+        }
+    }
+
 }
