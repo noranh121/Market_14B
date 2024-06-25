@@ -25,7 +25,7 @@ public class RealPayment implements PaymentBridge {
     }
 
     @Override
-    public int pay(int amount, String currency, String card_number, int month, int year, String holder, String ccv) {
+    public int pay(double amount, String currency, String card_number, int month, int year, String holder, String ccv) {
         Map<String,String> postContent=new ConcurrentHashMap<>();
         postContent.put("action_type", "pay");
         postContent.put("amount", String.valueOf(amount));

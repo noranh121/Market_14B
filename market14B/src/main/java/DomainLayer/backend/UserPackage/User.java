@@ -1,17 +1,23 @@
 package DomainLayer.backend.UserPackage;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public abstract class User {
 
     private String username;
     private double age;
     private ShoppingCart shoppingCart;
     private boolean LoggedIn;
+    private List<Integer> transaction_id_List;
 
     public User(String username,double age) {
         this.username = username;
         this.age=age;
         shoppingCart = new ShoppingCart();
         LoggedIn = false;
+        transaction_id_List=Collections.synchronizedList(new ArrayList<>());
     }
     
     public double getAge() {
@@ -73,5 +79,13 @@ public abstract class User {
     protected Boolean reviewOffer(double offer) throws Exception{
         wait(10000);
         return true;
+    }
+
+    public Boolean addTransaction_id(Integer transaction_id) {
+        if(!transaction_id_List.contains(transaction_id)){
+            transaction_id_List.add(transaction_id);
+            return true;
+        }
+        return false;
     }
 }

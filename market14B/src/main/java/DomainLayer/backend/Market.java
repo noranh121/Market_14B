@@ -1,5 +1,7 @@
 package DomainLayer.backend;
 
+import DomainLayer.backend.API.PaymentExternalService.PaymentService;
+import DomainLayer.backend.API.SupplyExternalService.SupplyService;
 import DomainLayer.backend.ProductPackage.Category;
 import DomainLayer.backend.ProductPackage.CategoryController;
 import DomainLayer.backend.ProductPackage.ProductController;
@@ -27,6 +29,7 @@ import DomainLayer.backend.StorePackage.Purchase.PurchaseMethod;
 import DomainLayer.backend.StorePackage.Purchase.ShoppingCartPurchase;
 import DomainLayer.backend.StorePackage.Purchase.UserPurchase;
 import DomainLayer.backend.UserPackage.UserController;
+import ServiceLayer.Response;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -50,6 +53,8 @@ public class Market {
     private PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
     private ProductController productController = ProductController.getInstance();
     private CategoryController categoryController = CategoryController.getinstance();
+    private PaymentService paymentService=PaymentService.getInstance();
+    private SupplyService supplyService=SupplyService.getInstance();
     private FileHandler fileHandler;
 
     private Boolean Online = false;
@@ -146,11 +151,57 @@ public class Market {
         return userController.Register(username, password,age);
     }
 
-    public double Buy(String username) throws Exception {
+    public double Buy(String username,String currency,String card_number,int month,int year,String ccv,
+    String address, String city, String country, int zip) throws Exception {
+        LOGGER.info("username: "+username+" currency: "+currency+" card_number: "+card_number+" month: "+month+" year: "+year+" ccv: "+ccv+" address: "+address+
+        " city: "+city+" country: "+country+" zip: "+zip);
         if (permissions.isSuspended(username)) {
             throw new Exception("can't buy user is suspended");
         }
-        return userController.Buy(username);
+        double total=userController.Buy(username);
+        paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
+        supplyServiceProccess(address,city,country,zip,username);
+        return total;
+    }
+    
+    private void supplyServiceProccess(String address, String city, String country, int zip,String username) throws Exception {
+        Response<Boolean> handshake=paymentService.handshake();
+        if(!handshake.isError()){
+            Response<Integer> transaction_id=supplyService.supply(username, address, city, country, zip);
+            if(transaction_id.isError()){
+                LOGGER.severe(transaction_id.getErrorMessage());
+                throw new Exception(transaction_id.getErrorMessage());    
+            }
+        }
+        else{
+            LOGGER.severe(handshake.getErrorMessage());
+            throw new Exception(handshake.getErrorMessage());
+        }
+    }
+
+    private void paymentServiceProccess(String username,String currency,String card_number,int month,int year,String ccv,double amount) throws Exception{
+        Response<Boolean> handshake=paymentService.handshake();
+        if(!handshake.isError()){
+            Response<Integer> transaction_id=paymentService.pay(amount, currency, card_number, month, year, card_number, ccv);
+            if(transaction_id.isError()){
+                LOGGER.severe(transaction_id.getErrorMessage());
+                throw new Exception(transaction_id.getErrorMessage());
+            }
+            else{
+                Boolean added=userController.getUser(username).addTransaction_id(transaction_id.getValue());
+                if(!added){
+                    Response<Integer> cancel_pay=paymentService.cancel_pay(transaction_id.getValue());
+                    if(cancel_pay.isError()){
+                        LOGGER.severe(cancel_pay.getErrorMessage());
+                        throw new Exception(cancel_pay.getErrorMessage());
+                    }
+                }
+            }
+        }
+        else{
+            LOGGER.severe(handshake.getErrorMessage());
+            throw new Exception(handshake.getErrorMessage());
+        }
     }
 
     public String addToCart(String username, Integer product, int storeId, int quantity) throws Exception {

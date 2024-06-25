@@ -33,7 +33,7 @@ public class PaymentService {
         }
     }
 
-    public Response<Integer> pay(int amount,String currency,String card_number,int month,int year,String holder,String ccv) {
+    public Response<Integer> pay(double amount,String currency,String card_number,int month,int year,String holder,String ccv) {
         try{
             Integer trasnsaction_id=proxyPayment.pay(amount, currency, card_number, month, year, holder, ccv);
             if(trasnsaction_id!=-1){
@@ -47,7 +47,7 @@ public class PaymentService {
         }
     }
 
-    public Response<Integer> cancel_pay(int transaction_id) {
+    public Response<Integer> cancel_pay(Integer transaction_id) {
         try{
             int response=proxyPayment.cancel_pay(transaction_id);
             if(response==1){
