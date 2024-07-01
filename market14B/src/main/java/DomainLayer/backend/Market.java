@@ -1,5 +1,7 @@
 package DomainLayer.backend;
 
+import DomainLayer.backend.API.PaymentExternalService.PaymentService;
+import DomainLayer.backend.API.SupplyExternalService.SupplyService;
 import DomainLayer.backend.ProductPackage.Category;
 import DomainLayer.backend.ProductPackage.CategoryController;
 import DomainLayer.backend.ProductPackage.ProductController;
@@ -21,11 +23,13 @@ import DomainLayer.backend.StorePackage.Purchase.CategoryPurchase;
 import DomainLayer.backend.StorePackage.Purchase.IF_THENPurchaseRule;
 import DomainLayer.backend.StorePackage.Purchase.ImmediatePurchase;
 import DomainLayer.backend.StorePackage.Purchase.ORPurchaseRule;
+import DomainLayer.backend.StorePackage.Purchase.OfferMethod;
 import DomainLayer.backend.StorePackage.Purchase.ProductPurchase;
 import DomainLayer.backend.StorePackage.Purchase.PurchaseMethod;
 import DomainLayer.backend.StorePackage.Purchase.ShoppingCartPurchase;
 import DomainLayer.backend.StorePackage.Purchase.UserPurchase;
 import DomainLayer.backend.UserPackage.UserController;
+import ServiceLayer.Response;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -49,7 +53,9 @@ public class Market {
     private PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
     private ProductController productController = ProductController.getInstance();
     private CategoryController categoryController = CategoryController.getinstance();
-
+    private PaymentService paymentService=PaymentService.getInstance();
+    private SupplyService supplyService=SupplyService.getInstance();
+    private FileHandler fileHandler;
 
     private Boolean Online = false;
     private List<String> systemManagers = Collections.synchronizedList(new ArrayList<>());
@@ -57,14 +63,16 @@ public class Market {
     private static Market instance;
 
     public static Market getInstance() {
-        if (instance == null)
+        if (instance == null){
             instance = new Market();
+        }
+            
         return instance;
     }
 
     private Market() {
         try {
-            FileHandler fileHandler = new FileHandler("Market", true);
+            fileHandler= new FileHandler("Market.log",true);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
             LOGGER.setLevel(Level.ALL);
@@ -143,11 +151,57 @@ public class Market {
         return userController.Register(username, password,age);
     }
 
-    public double Buy(String username) throws Exception {
+    public double Buy(String username,String currency,String card_number,int month,int year,String ccv,
+    String address, String city, String country, int zip) throws Exception {
+        LOGGER.info("username: "+username+" currency: "+currency+" card_number: "+card_number+" month: "+month+" year: "+year+" ccv: "+ccv+" address: "+address+
+        " city: "+city+" country: "+country+" zip: "+zip);
         if (permissions.isSuspended(username)) {
             throw new Exception("can't buy user is suspended");
         }
-        return userController.Buy(username);
+        double total=userController.Buy(username);
+        paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
+        supplyServiceProccess(address,city,country,zip,username);
+        return total;
+    }
+    
+    private void supplyServiceProccess(String address, String city, String country, int zip,String username) throws Exception {
+        Response<Boolean> handshake=paymentService.handshake();
+        if(!handshake.isError()){
+            Response<Integer> transaction_id=supplyService.supply(username, address, city, country, zip);
+            if(transaction_id.isError()){
+                LOGGER.severe(transaction_id.getErrorMessage());
+                throw new Exception(transaction_id.getErrorMessage());    
+            }
+        }
+        else{
+            LOGGER.severe(handshake.getErrorMessage());
+            throw new Exception(handshake.getErrorMessage());
+        }
+    }
+
+    private void paymentServiceProccess(String username,String currency,String card_number,int month,int year,String ccv,double amount) throws Exception{
+        Response<Boolean> handshake=paymentService.handshake();
+        if(!handshake.isError()){
+            Response<Integer> transaction_id=paymentService.pay(amount, currency, card_number, month, year, card_number, ccv);
+            if(transaction_id.isError()){
+                LOGGER.severe(transaction_id.getErrorMessage());
+                throw new Exception(transaction_id.getErrorMessage());
+            }
+            else{
+                Boolean added=userController.getUser(username).addTransaction_id(transaction_id.getValue());
+                if(!added){
+                    Response<Integer> cancel_pay=paymentService.cancel_pay(transaction_id.getValue());
+                    if(cancel_pay.isError()){
+                        LOGGER.severe(cancel_pay.getErrorMessage());
+                        throw new Exception(cancel_pay.getErrorMessage());
+                    }
+                }
+            }
+        }
+        else{
+            LOGGER.severe(handshake.getErrorMessage());
+            throw new Exception(handshake.getErrorMessage());
+        }
     }
 
     public String addToCart(String username, Integer product, int storeId, int quantity) throws Exception {
@@ -414,48 +468,57 @@ public class Market {
         }
     }
 
-    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId) throws Exception{
+    private PurchaseMethod initPurchaseMethod(Boolean immediate,int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId){
+        if(immediate){
+            return new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        }
+        else{
+            return new OfferMethod(quantity, price, date, atLeast, weight, age,storeId,username);
+        }
+    }
+
+    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        PurchaseMethod purchaseMethod=new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         CategoryPurchase categoryPurchase=new CategoryPurchase(purchaseMethod, categoryId, -1);
         storeController.getStore(storeId).addPurchaseComposite(categoryPurchase);
         LOGGER.info("category purchase policy added");
         return "category purchase policy added";
     }
 
-    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId) throws Exception{
+    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        PurchaseMethod purchaseMethod=new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         ProductPurchase productPurchase=new ProductPurchase(purchaseMethod, productId, storeId);
         storeController.getStore(storeId).addPurchaseComposite(productPurchase);
         LOGGER.info("product purchase policy added");
         return "product purchase policy added";
     }
 
-    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId) throws Exception{
+    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        PurchaseMethod purchaseMethod=new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         ShoppingCartPurchase ShoppingCartPurchase=new DomainLayer.backend.StorePackage.Purchase.ShoppingCartPurchase(purchaseMethod, -1);
         storeController.getStore(storeId).addPurchaseComposite(ShoppingCartPurchase);
         LOGGER.info("shopping cart purchase policy added");
         return "shopping cart purchase policy added";
     }
 
-    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId) throws Exception{
+    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        PurchaseMethod purchaseMethod=new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         UserPurchase userPurchase=new UserPurchase(purchaseMethod, userAge, storeId);
         storeController.getStore(storeId).addPurchaseComposite(userPurchase);
         LOGGER.info("user purchase policy added");

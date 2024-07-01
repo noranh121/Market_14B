@@ -9,7 +9,7 @@ public class IF_THENPurchaseRule extends PurchasePolicyController{
     }
 
     @Override
-    public Boolean purchase(Map<Integer, double[]> products, double age) {
+    public Boolean purchase(Map<Integer, double[]> products, double age) throws Exception {
         Boolean flag=true;
         for(CompositePurchasePolicy compositePurchasePolicy : compositePurchasePolicies){
             if(!flag || !compositePurchasePolicy.purchase(products, age))

@@ -153,9 +153,9 @@ public class StoresService {
         }
     }
 
-    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId) throws Exception{
+    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate) throws Exception{
         try {
-            String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId);
+            String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -163,9 +163,9 @@ public class StoresService {
         }
     }
     
-    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId) throws Exception{
+    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate) throws Exception{
         try {
-            String result = market.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId);
+            String result = market.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId,immediate);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -174,9 +174,9 @@ public class StoresService {
     }
 
     
-    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId) throws Exception{
+    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate) throws Exception{
         try {
-            String result = market.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId);
+            String result = market.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId,immediate);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -184,9 +184,9 @@ public class StoresService {
         }
     }
 
-    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId) throws Exception{
+    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate) throws Exception{
         try {
-            String result = market.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId);
+            String result = market.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId,immediate);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
