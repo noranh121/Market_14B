@@ -6,8 +6,7 @@ public class Transaction {
     
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="username",referencedColumnName = "username")
-    @Column(name="username")
-    private String username;
+    private User user;
 
     @Id
     @Column(name="transactionID")
@@ -21,11 +20,11 @@ public class Transaction {
         this.transactionID = transactionID;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(User user) {
+        this.user = user;
     }
 }
