@@ -1,4 +1,7 @@
-package DataAccessLayer;
+package DataAccessLayer.Entity;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +18,9 @@ public class User implements java.io.Serializable{
     @Column(name="age")
     private double age;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Basket> baskets = new ArrayList<>();
+    
     public String getUsername() {
         return username;
     }

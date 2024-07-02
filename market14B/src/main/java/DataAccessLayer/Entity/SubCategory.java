@@ -1,4 +1,4 @@
-package DataAccessLayer;
+package DataAccessLayer.Entity;
 import javax.persistence.*;
 
 import jakarta.persistence.FetchType;
