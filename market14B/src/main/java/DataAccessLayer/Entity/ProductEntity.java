@@ -1,9 +1,11 @@
 package DataAccessLayer.Entity;
 
+import java.io.Serializable;
+
 import jakarta.persistence.*;
 
 @Entity
-public class ProductEntity {
+public class ProductEntity implements Serializable{
 
     @Id
     @JoinColumn(name="productID",referencedColumnName = "productID")
