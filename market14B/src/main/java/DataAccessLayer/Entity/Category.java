@@ -1,4 +1,6 @@
 package DataAccessLayer.Entity;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,13 @@ public class Category implements java.io.Serializable{
     
     @Column(name="categoryName")
     private String categoryName;
+
+    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Category> subCategories;
+
+    @ManyToOne
+    @JoinColumn(name = "parentCategoryID")
+    private Category parentCategory;
 
     public Integer getCategoryID() {
         return categoryID;
@@ -26,6 +35,22 @@ public class Category implements java.io.Serializable{
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public List<Category> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(List<Category> subCategories) {
+        this.subCategories = subCategories;
+    }
+
+    public Category getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
     }
 
 }

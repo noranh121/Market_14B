@@ -22,6 +22,9 @@ public class Store implements java.io.Serializable{
     @Column(name="rating")
     private int rating;
 
+    @OneToOne(mappedBy = "Store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Inventory inventory;
+
     public Integer getStoreID() {
         return storeID;
     }
@@ -62,4 +65,11 @@ public class Store implements java.io.Serializable{
         this.rating = rating;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
 }
