@@ -1,7 +1,6 @@
 package DataAccessLayer.Entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import javax.persistence.*;
 
 
@@ -21,7 +20,7 @@ public class Basket implements java.io.Serializable{
     private Integer storeID;
 
     @Column(name = "products")
-    private Map<Product, Integer> products = new HashMap<>(); //<product,quantity>
+    private List<ProductEntity> products = new ArrayList<>(); //<product,quantity>
 
     public String getUsername() {
         return username;
@@ -39,11 +38,11 @@ public class Basket implements java.io.Serializable{
         this.storeID = storeID;
     }
 
-    public Map<Product, Integer> getProducts() {
+    public List<ProductEntity> getProducts() {
         return products;
     }
 
-    public void setProducts(Map<Product, Integer> products) {
+    public void setProducts(List<ProductEntity> products) {
         this.products = products;
     }
 
