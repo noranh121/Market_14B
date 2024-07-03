@@ -3,9 +3,9 @@ package DataAccessLayer.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import DataAccessLayer.Entity.Permissions;
+import DataAccessLayer.Entity.Market;
 
 @Repository
-public interface PermissionsRepository extends JpaRepository<Permissions,Integer> {
+public interface MarketRepository  extends JpaRepository<Market,Integer>{
 
 }

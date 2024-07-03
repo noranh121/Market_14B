@@ -32,6 +32,8 @@ public abstract class User {
         return shoppingCart;
     }
 
+
+
     public void setLoggedIn(boolean loggedIn) {
         LoggedIn = loggedIn;
     }
@@ -87,5 +89,9 @@ public abstract class User {
             return true;
         }
         return false;
+    }
+
+    public void cleanShoppingCart() {
+        shoppingCart.clean();
     }
 }

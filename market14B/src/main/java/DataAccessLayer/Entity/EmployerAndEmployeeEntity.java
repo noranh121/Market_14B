@@ -1,7 +1,6 @@
 package DataAccessLayer.Entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -10,25 +9,25 @@ public class EmployerAndEmployeeEntity implements Serializable{
 
     @Id
     @JoinColumn(name = "employer", referencedColumnName = "username")
-    private User employerUsername;
+    private EmployerPermission employerUsername;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<EmployerPermission> employees;
-
-    public User getEmployerUsername() {
+    public EmployerPermission getEmployerUsername() {
         return employerUsername;
     }
 
-    public void setEmployerUsername(User employerUsername) {
+    public void setEmployerUsername(EmployerPermission employerUsername) {
         this.employerUsername = employerUsername;
     }
 
-    public List<EmployerPermission> getEmployees() {
-        return employees;
+    public EmployerPermission findEmployee(String username){
+        return employerUsername.findEmployee(username);
     }
 
-    public void setEmployees(List<EmployerPermission> employees) {
-        this.employees = employees;
+    public void deleteEmployee(String username){
+        if (employerUsername.getUsername().getUsername().equals(username)) {
+            employerUsername = null; // If root matches, delete the whole tree
+        }
+        employerUsername.deleteEmployee(username);
     }
 
 }

@@ -1,5 +1,4 @@
 package DataAccessLayer.Entity;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -18,9 +17,27 @@ public class User implements java.io.Serializable{
     @Column(name="age")
     private double age;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Basket> baskets = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "User")
+    private List<Basket> baskets;
+
+    @Column(name="LoggedIn")
+    private Boolean LoggedIn;
+
+    @Column(name="suspended")
+    private Boolean suspended;
     
+    public Boolean getSuspended() {
+        return suspended;
+    }
+    public void setSuspended(Boolean suspended) {
+        this.suspended = suspended;
+    }
+    public Boolean getLoggedIn() {
+        return LoggedIn;
+    }
+    public void setLoggedIn(Boolean loggedIn) {
+        LoggedIn = loggedIn;
+    }
     public String getUsername() {
         return username;
     }
@@ -42,5 +59,11 @@ public class User implements java.io.Serializable{
         this.age = age;
     }
 
+    public List<Basket> getBaskets() {
+        return baskets;
+    }
+    public void setBaskets(List<Basket> baskets) {
+        this.baskets = baskets;
+    }
 
 }

@@ -158,5 +158,9 @@ public class ShoppingCart {
             }
         }
     }
+
+    public void clean(){
+        baskets = Collections.synchronizedList(new ArrayList<>());
+    }
     
 }

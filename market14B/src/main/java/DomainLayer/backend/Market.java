@@ -1,46 +1,23 @@
 package DomainLayer.backend;
 
-import DomainLayer.backend.API.PaymentExternalService.PaymentService;
-import DomainLayer.backend.API.SupplyExternalService.SupplyService;
-import DomainLayer.backend.ProductPackage.Category;
-import DomainLayer.backend.ProductPackage.CategoryController;
-import DomainLayer.backend.ProductPackage.ProductController;
-import DomainLayer.backend.StorePackage.StoreController;
-import DomainLayer.backend.StorePackage.Discount.CategoryDiscount;
-import DomainLayer.backend.StorePackage.Discount.ConditionalDiscount;
-import DomainLayer.backend.StorePackage.Discount.Discount;
-import DomainLayer.backend.StorePackage.Discount.ProductDiscount;
-import DomainLayer.backend.StorePackage.Discount.StandardDiscount;
-import DomainLayer.backend.StorePackage.Discount.StoreDiscount;
-import DomainLayer.backend.StorePackage.Discount.DiscountPolicyController.LogicalRule;
-import DomainLayer.backend.StorePackage.Discount.Logical.ANDDiscountRule;
-import DomainLayer.backend.StorePackage.Discount.Logical.ORDiscountRule;
-import DomainLayer.backend.StorePackage.Discount.Logical.XORDiscountRule;
-import DomainLayer.backend.StorePackage.Discount.Numerical.ADDDiscountRule;
-import DomainLayer.backend.StorePackage.Discount.Numerical.AT_MOSTDiscountRule;
-import DomainLayer.backend.StorePackage.Purchase.ANDPurchaseRule;
-import DomainLayer.backend.StorePackage.Purchase.CategoryPurchase;
-import DomainLayer.backend.StorePackage.Purchase.IF_THENPurchaseRule;
-import DomainLayer.backend.StorePackage.Purchase.ImmediatePurchase;
-import DomainLayer.backend.StorePackage.Purchase.ORPurchaseRule;
-import DomainLayer.backend.StorePackage.Purchase.OfferMethod;
-import DomainLayer.backend.StorePackage.Purchase.ProductPurchase;
-import DomainLayer.backend.StorePackage.Purchase.PurchaseMethod;
-import DomainLayer.backend.StorePackage.Purchase.ShoppingCartPurchase;
-import DomainLayer.backend.StorePackage.Purchase.UserPurchase;
+import DomainLayer.backend.API.PaymentExternalService.*;
+import DomainLayer.backend.API.SupplyExternalService.*;
+import DomainLayer.backend.ProductPackage.*;
+import DomainLayer.backend.StorePackage.*;
+import DomainLayer.backend.StorePackage.Discount.*;
+import DomainLayer.backend.StorePackage.Discount.DiscountPolicyController.*;
+import DomainLayer.backend.StorePackage.Discount.Logical.*;
+import DomainLayer.backend.StorePackage.Discount.Numerical.*;
+import DomainLayer.backend.StorePackage.Purchase.*;
 import DomainLayer.backend.UserPackage.UserController;
 import ServiceLayer.Response;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.time.*;
+import java.util.*;
+import java.util.concurrent.locks.*;
+import java.util.logging.*;
+
+import DataAccessLayer.DataController;
 
 public class Market {
     public static final Logger LOGGER = Logger.getLogger(Market.class.getName());
@@ -55,6 +32,7 @@ public class Market {
     private CategoryController categoryController = CategoryController.getinstance();
     private PaymentService paymentService=PaymentService.getInstance();
     private SupplyService supplyService=SupplyService.getInstance();
+    private DataController dataController=DataController.getinstance();
     private FileHandler fileHandler;
 
     private Boolean Online = false;
@@ -72,6 +50,8 @@ public class Market {
 
     private Market() {
         try {
+            systemManagers=dataController.getSystemManagers();
+            Online=dataController.getOnline();
             fileHandler= new FileHandler("Market.log",true);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
@@ -88,15 +68,17 @@ public class Market {
         }
         LOGGER.info("market is Online");
         Online = true;
+        dataController.setMarketOnline();
     }
 
     public void setMarketOFFLINE(String username) throws Exception {
         if (!systemManagers.contains(username)) {
             LOGGER.severe("only system managers can change market's activity");
-            throw new Exception("only system managers can change market's activity");
+            throw new Exception("only system mfanagers can change market's activity");
         }
         LOGGER.info("market is OFFLINE");
         Online = false;
+        dataController.setMarketOFFLINE();
     }
 
     public List<String> getSystemManagers() {
@@ -140,15 +122,21 @@ public class Market {
                 throw new Exception("Market IS OFFLINE");
             }
         }
-        return userController.Login(guest, username, password);
+        String response= userController.Login(guest, username, password);
+        dataController.Login(username);
+        return response;
     }
 
     public String Logout(String username) throws Exception {
-        return userController.Logout(username);
+        String response= userController.Logout(username);
+        dataController.Logout(username);
+        return response;
     }
 
     public String Register(String username, String password,double age) throws Exception {
-        return userController.Register(username, password,age);
+        String response=userController.Register(username, password,age);
+        dataController.Register(username, password, age);
+        return response;
     }
 
     public double Buy(String username,String currency,String card_number,int month,int year,String ccv,
@@ -161,6 +149,8 @@ public class Market {
         double total=userController.Buy(username);
         paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
         supplyServiceProccess(address,city,country,zip,username);
+        userController.getUser(username).cleanShoppingCart();
+        dataController.cleanShoppingCart(username);
         return total;
     }
     
@@ -208,27 +198,35 @@ public class Market {
         if (permissions.isSuspended(username)) {
             throw new Exception("can't add to cart user is suspended");
         }
-        return userController.addToCart(username, product, storeId, quantity);
+        String response= userController.addToCart(username, product, storeId, quantity);
+        dataController.addToCart(username, storeId, product, quantity);
+        return response;
     }
 
     public String inspectCart(String username) throws Exception {
         if (permissions.isSuspended(username)) {
             throw new Exception("can't inspect cart user is suspended");
         }
-        return userController.inspectCart(username);
+        String response= userController.inspectCart(username);
+        dataController.inspectCart(username);
+        return response;
     }
 
     public String removeCartItem(String username, int storeId, int product) throws Exception {
         if (permissions.isSuspended(username)) {
             throw new Exception("can't remove cart item user is suspended");
         }
-        return userController.removeCartItem(username, storeId, product);
+        String response= userController.removeCartItem(username, storeId, product);
+        dataController.removeCartItem(username, storeId, product);
+        return response;
     }
 
     // Permissions
     public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
             Boolean storeManager, Boolean[] pType) throws Exception {
-        return userController.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
+        String response= userController.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
+        dataController.EditPermissions(storeID, userName, storeOwner, storeManager,pType[0],pType[1],pType[2]);
+        return response;
     }
 
     public String AssignStoreManager(int storeId, String ownerUserName, String username, Boolean[] pType) throws Exception {
@@ -236,7 +234,9 @@ public class Market {
             Thread.sleep(1000);
         }
         try{
-            return userController.AssignStoreManager(storeId, ownerUserName, username, pType);
+            String response= userController.AssignStoreManager(storeId, ownerUserName, username, pType);
+            dataController.AssignStoreManager(storeId, username);
+            return response;
         } finally{
             systemManagersLock.unlock();
         }
@@ -247,7 +247,9 @@ public class Market {
             Thread.sleep(1000);
         }
         try{
-            return userController.AssignStoreOwner(storeId, ownerUserName, username, pType);
+            String response=userController.AssignStoreOwner(storeId, ownerUserName, username, pType);
+            dataController.AssignStoreOwner(storeId, username);
+            return response;
         }finally{
             systemManagersLock.unlock();
         }
@@ -259,7 +261,9 @@ public class Market {
             Thread.sleep(1000);
         }
         try{
-            return permissions.deletePermission(storeID, ownerUserName, userName);
+            String response= permissions.deletePermission(storeID, ownerUserName, userName);
+            dataController.unassignUser(storeID, userName);
+            return response;
         }finally{
             systemManagersLock.unlock();
         }
@@ -267,14 +271,18 @@ public class Market {
     }
 
     public String resign(int storeID, String username) throws Exception {
-        return permissions.deleteStoreOwner(storeID, username);
+        String response= permissions.deleteStoreOwner(storeID, username);
+        dataController.resign(storeID, username);
+        return response;
     }
 
     public String suspendUser(String systemManager, String username) throws Exception {
         systemManagersLock.lock();
         try{
             if (systemManagers.contains(systemManager)) {
-                return permissions.suspendUser(username);
+                String response= permissions.suspendUser(username);
+                dataController.suspendUser(username);
+                return response;
             } else {
                 throw new Exception(systemManager + " not a system manager");
             }
@@ -298,7 +306,9 @@ public class Market {
 
     public String resumeUser(String systemManager, String username) throws Exception {
         if (systemManagers.contains(systemManager)) {
-            return permissions.resumeUser(username);
+            String response= permissions.resumeUser(username);
+            dataController.resumeUser(username);
+            return response;
         } else {
             throw new Exception(systemManager + " not a system manager");
         }
@@ -314,6 +324,7 @@ public class Market {
 
     public String viewSuspended(String systemManager) throws Exception {
         if (systemManagers.contains(systemManager)) {
+            // I used datacontroller in permissions class
             return permissions.viewSuspended();
         } else {
             throw new Exception(systemManager + " not a system manager");
@@ -325,6 +336,7 @@ public class Market {
         LOGGER.info("storeId: " + storeId + ", category: " + catagory + ", username: " + username);
         if (systemManagers.contains(username)) {
             categoryController.addCategory(catagory);
+            dataController.addCategory(catagory);
             LOGGER.info("category added successfully");
             return "category added successfully";
         } else {

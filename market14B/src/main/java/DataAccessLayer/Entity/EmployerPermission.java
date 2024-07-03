@@ -1,6 +1,7 @@
 package DataAccessLayer.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -10,6 +11,9 @@ public class EmployerPermission implements Serializable{
     @Id
     @JoinColumn(name = "username", referencedColumnName = "username")
     private User username;
+
+    @OneToMany(mappedBy = "username", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<EmployerPermission> employees;
 
     @Column(name="storeOwner")
     private Boolean storeOwner;
@@ -25,6 +29,8 @@ public class EmployerPermission implements Serializable{
     
     @Column(name="addOrEditDiscountHistory")
     private Boolean addOrEditDiscountHistory;
+
+    
 
     public User getUsername() {
         return username;
@@ -72,6 +78,35 @@ public class EmployerPermission implements Serializable{
 
     public void setAddOrEditDiscountHistory(Boolean addOrEditDiscountHistory) {
         this.addOrEditDiscountHistory = addOrEditDiscountHistory;
+    }
+
+    public EmployerPermission findEmployee(String username) {
+        if(this.username.getUsername().equals(username)){
+            return this;
+        }
+        for(EmployerPermission emplyee : employees){
+            EmployerPermission found=emplyee.findEmployee(username);
+            if(found!=null){
+                return found;
+            }
+        }
+        return null;
+    }
+
+    public Boolean deleteEmployee(String username) {
+        for (int i = 0; i < employees.size(); i++) {
+            EmployerPermission child = employees.get(i);
+            if (child.getUsername().getUsername().equals(username)) {
+                employees.remove(i);
+                return true;
+            }
+        }
+        for (EmployerPermission child : employees) {
+            if (child.deleteEmployee(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
