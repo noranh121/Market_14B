@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import DataAccessLayer.DataController;
 import DomainLayer.backend.Basket;
 import DomainLayer.backend.Market;
 import DomainLayer.backend.Purchase;
@@ -54,11 +55,19 @@ public class ShoppingCart {
         return b;
     }
 
-    public String inspectCart() {
-        StringBuilder output = new StringBuilder();
+    public String inspectCart(String username) {
         if (baskets.isEmpty()) {
-            return "Your shopping cart is empty.";
+            List<DataAccessLayer.Entity.Basket> basketsEntities = DataController.getinstance().inspectCart(username);
+            if (basketsEntities.isEmpty()) {
+                UserController.LOGGER.info("Your shopping cart is empty.");
+                return "<Empty>";
+            }
+            for (DataAccessLayer.Entity.Basket basket: basketsEntities) {
+                Basket b = new Basket(username, basket.getStoreID().getStoreID());
+                baskets.add(b);
+            }
         }
+        StringBuilder output = new StringBuilder();
         for (Basket basket : baskets) {
             output.append(basket.inspectBasket());
         }

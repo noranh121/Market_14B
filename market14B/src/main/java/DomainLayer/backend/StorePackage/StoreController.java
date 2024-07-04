@@ -7,6 +7,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import org.springframework.dao.DataAccessException;
+
+import DataAccessLayer.DataController;
+
 public class StoreController {
     private static StoreController instance;
     public static final Logger LOGGER = Logger.getLogger(StoreController.class.getName());
@@ -39,6 +43,9 @@ public class StoreController {
         if (!stores.containsKey(storeID)) {
             // check and get from dataBase
             // if exists add Store to Map and return Store;
+            DataAccessLayer.Entity.Store storeEntity = DataController.getinstance().getStore(storeID);
+            Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
+            stores.put(storeEntity.getStoreID(),store);
             // else:
             LOGGER.severe("Trying to retrieve A non existing StoreID");
             return null;

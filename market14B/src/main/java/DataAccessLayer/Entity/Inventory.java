@@ -31,4 +31,32 @@ public class Inventory implements Serializable{
     public void setProducts(List<ProductEntity> products) {
         this.products = products;
     }
+
+    public void addProduct(Product product, double price, int quantity) {
+        ProductEntity pe = new ProductEntity();
+        pe.setPrice(price);
+        pe.setProductID(product);
+        pe.setQuantity(quantity);
+        this.products.add(pe);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(products.get(product.getProductID()));
+    }
+
+    public void editPrice(Product product, Double newPrice) {
+        for (ProductEntity pe : products) {
+            if (pe.getProductID().getProductID() == product.getProductID()) {
+                pe.setPrice(newPrice);
+            }
+        }
+    }
+
+    public void editQuantity(Product product, Integer quantity) {
+        for (ProductEntity pe : products) {
+            if (pe.getProductID().getProductID() == product.getProductID()) {
+                pe.setQuantity(quantity);
+            }
+        }
+    }
 }

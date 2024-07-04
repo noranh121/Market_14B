@@ -208,7 +208,7 @@ public class Market {
             throw new Exception("can't inspect cart user is suspended");
         }
         String response= userController.inspectCart(username);
-        dataController.inspectCart(username);
+        // I used datacontroller in ShoppingCart class
         return response;
     }
 
@@ -346,12 +346,16 @@ public class Market {
     }
 
     // Product
+    /*
+     * new product in the system
+     */
     public String initProduct(String username, String productName, int categoryId, String description, String brand,double weight)
             throws Exception {
         LOGGER.info("username: " + username + ",productName : " + productName + ", categoryId: " + categoryId
                 + ", description: " + description + ", brand: " + brand);
         if (systemManagers.contains(username)) {
             Category category = categoryController.getCategory(categoryId);
+            // I used datacontroller in productController class
             return productController.addProduct(productName, category, description, brand,weight);
         } else {
             LOGGER.severe(username + " is not system manager");
@@ -360,20 +364,30 @@ public class Market {
     }
 
     // Store
+    /*
+     * new store in the system
+     */
     public String initStore(String userName, String Description) throws Exception {
         LOGGER.info("userName: " + userName + ", Description: " + Description);
         if (userController.isRegistered(userName)) {
             int storeID = storeController.initStore(userName, Description);
-            return permissions.initStore(storeID, userName);
+            String resposnse = permissions.initStore(storeID, userName);
+            dataController.initStore(userName,Description);
+            return resposnse;
         } else {
             LOGGER.severe(userName + " is not registered");
             throw new Exception(userName + " is not registered");
         }
     }
 
+    /*
+     * adding a product to a certain store
+     */
     public String addProduct(int productId, int storeId, double price, int quantity, String username,double weight) throws Exception {
         if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
-            return storeController.addProduct(productId, storeId, price, quantity,weight);
+            String response = storeController.addProduct(productId, storeId, price, quantity,weight);
+            dataController.addProduct(storeId,productId,price,quantity);
+            return response;
         } else {
             LOGGER.severe(username + " has no permission to add products");
             throw new Exception(username + " has no permission to add products");
@@ -382,7 +396,9 @@ public class Market {
 
     public String RemoveProduct(int productId, int storeId, String username) throws Exception {
         if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
-            return storeController.removeProduct(productId, storeId);
+            String response = storeController.removeProduct(productId, storeId);
+            dataController.removeProduct(storeId, productId);
+            return response;
         } else {
             LOGGER.severe(username + " has no permission to edit products");
             throw new Exception(username + " has no permission to edit products");
@@ -613,17 +629,21 @@ public class Market {
         }
     }
 
+    /*
+     * returns store's invetory as a string
+     */
     public String getInfo(int storeId, String username) throws Exception {
         if (userController.isRegistered(username)) {
             return storeController.getInfo(storeId);
         } else {
+            // data controller used in getStore() in storeController
             LOGGER.severe(username + " has no permission to open the store");
             throw new Exception(username + " has no permission to open the store");
         }
     }
 
     // Purchase History
-    public String viewsystemPurchaseHistory(String username) throws Exception {
+    public String viewSystemPurchaseHistory(String username) throws Exception {
         systemManagersLock.lock();
         try{
             if (!systemManagers.contains(username)) {
@@ -665,10 +685,12 @@ public class Market {
     }
 
     public synchronized String removePurchaseFromStore(int storeId, int purchaseId) throws Exception {
+        dataController.removePurchaseHistory(purchaseId);
         return purchaseHistory.removePurchaseFromStore(storeId, purchaseId);
     }
 
     public synchronized String removePurchaseFromUser(String userId, int purchaseId) throws Exception {
+        dataController.removePurchaseHistory(purchaseId);
         return purchaseHistory.removePurchaseFromUser(userId, purchaseId);
     }
 

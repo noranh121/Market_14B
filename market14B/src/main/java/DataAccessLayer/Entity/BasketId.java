@@ -5,13 +5,29 @@ import java.util.Objects;
 public class BasketId implements Serializable {
 
     private String username;
-    private Long storeID;
+    private Integer storeID;
 
     public BasketId() {
     }
 
-    public BasketId(String username, Long storeID) {
+    public BasketId(String username, Integer storeID) {
         this.username = username;
+        this.storeID = storeID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(Integer storeID) {
         this.storeID = storeID;
     }
 

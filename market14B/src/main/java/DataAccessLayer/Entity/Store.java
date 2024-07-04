@@ -13,6 +13,9 @@ public class Store implements java.io.Serializable{
     @JoinColumn(name="firstOwnerName",referencedColumnName = "username")
     private User firstOwner;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name="active")
     private boolean active;
 
@@ -35,6 +38,10 @@ public class Store implements java.io.Serializable{
 
     public User getFirstOwner() {
         return firstOwner;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setFirstOwner(User firstOwner) {

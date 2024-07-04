@@ -1,9 +1,12 @@
 package DataAccessLayer;
 
 import DataAccessLayer.Repository.*;
+import groovy.util.logging.Log;
 
 import java.util.*;
 import java.util.logging.*;
+
+import javax.transaction.Transactional;
 
 import DataAccessLayer.Entity.*;
 
@@ -151,8 +154,18 @@ public class DataController {
         }
     }
 
-    public void inspectCart(String username){
-        // please implement this method
+    public List<Basket> inspectCart(String username){
+        Optional<User> optionalUser=userRepository.findById(username);
+        if(optionalUser.isPresent()){
+
+            // get the user if registered
+            User user=optionalUser.get(); 
+
+            // get the baskets from the user
+            return user.getBaskets();
+        }
+        LOGGER.severe("user does not exist");
+        return null;
     }
 
     public void removeCartItem(String username,Integer storeID,Integer productID){
@@ -258,7 +271,7 @@ public class DataController {
     }
 
     public void resign(int storeID, String username){
-        // please implement this method
+        unassignUser(storeID, username);
     }
 
     public void suspendUser(String username) {
@@ -286,6 +299,91 @@ public class DataController {
         Category category=new Category();
         category.setCategoryName(categoryName);
         categoryRepository.save(category);
+        LOGGER.info("added category to db");
+    }
+
+    public void initProduct(String productName, int productId, int categoryId, String description, String brand,double weight) {
+        Product product = new Product();
+        product.setBrand(brand);
+        product.setProductID(productId);
+        product.setCatagoryID(categoryId);
+        product.setDescription(description);
+        product.setProductName(productName);
+        product.setWeight(weight);
+        productRepository.save(product);
+        LOGGER.info("added product to db");
+    }
+
+    public void initStore(String username, String description) {
+        Optional<User> optionalUser=userRepository.findById(username);
+        if(optionalUser.isPresent()){
+
+            // get the user if registered
+            User user=optionalUser.get();
+            Store store = new Store();
+            store.setActive(false);
+            store.setDesciption(description);
+            store.setFirstOwner(user);         
+            Inventory inv = new Inventory(); 
+            inv.setStoreID(store);  
+            store.setInventory(inventoryRepository.save(inv));
+            store.setRating(0);
+            storeRepository.save(store);
+            LOGGER.info("added store to db");
+        }
+        LOGGER.severe("couldnt find user");
+    }
+
+    @Transactional
+    public void addProduct(int storeId, int productId, double price, int quantity) {
+        Product product = productRepository.getReferenceById(productId);
+        Store tempStore = storeRepository.getReferenceById(storeId);
+        tempStore.getInventory().addProduct(product, price, quantity);
+        LOGGER.info("added product to the store in db");
+    }
+
+    public void removeProduct(int storeId, int productId) {
+        Product product = productRepository.getReferenceById(productId);
+        Store tempStore = storeRepository.getReferenceById(storeId);
+        tempStore.getInventory().removeProduct(product);
+        LOGGER.info("removed product from store in db");
+    }
+
+    public void EditProductPrice(int productId, int storeId, Double newPrice) {
+        Product product = productRepository.getReferenceById(productId);
+        Store tempStore = storeRepository.getReferenceById(storeId);
+        tempStore.getInventory().editPrice(product,newPrice);
+        LOGGER.info("replaced price in db");
+    }
+
+    public void EditProductQuantity(int productId, int storeId, int newQuantity) {
+        Product product = productRepository.getReferenceById(productId);
+        Store tempStore = storeRepository.getReferenceById(storeId);
+        tempStore.getInventory().editQuantity(product, newQuantity);
+        LOGGER.info("replaced quantity in db");
+    }
+
+    public void openStore(int storeId) {
+        Store store = storeRepository.getReferenceById(storeId);
+        store.setActive(true);
+    }
+
+    public void closeStore(int storeId) {
+        Store store = storeRepository.getReferenceById(storeId);
+        store.setActive(false);
+    }
+
+    public Store getStore(int storeId) {
+        return storeRepository.getReferenceById(storeId);
+    }
+
+    public void removePurchaseHistory(int purchaseId) {
+        purchaseHistoryRepository.deleteById(purchaseId);
+        LOGGER.info("deleted " + purchaseId + " history from store");
+    }
+
+    public List<PurchaseHistory> getPutchaseHistory() {
+        return purchaseHistoryRepository.findAll();
     }
 
 }

@@ -8,6 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import DataAccessLayer.DataController;
+
 
 
 public class ProductController {
@@ -37,9 +39,11 @@ public class ProductController {
             }
         }
         Product prod = new Product(name, description, brand, category,weight);
-        prod.setId(idCounter++);
+        int id = idCounter++;
+        prod.setId(id);
         category.addProduct(prod.getId());
         products.put(prod.getId(), prod);
+        DataController.getinstance().initProduct(name, id,category.getId(), description, brand, weight);
         LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system");
         return "Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system";
     }

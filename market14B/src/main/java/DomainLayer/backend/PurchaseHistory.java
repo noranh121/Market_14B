@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import DataAccessLayer.DataController;
 import DomainLayer.backend.StorePackage.StoreController;
 import DomainLayer.backend.UserPackage.UserController;
 
@@ -124,6 +125,14 @@ public class PurchaseHistory {
 
     public String viewPurchaseHistory() {
         String info = "";
+        // if (storeHistory.isEmpty()) {
+        //     List<DataAccessLayer.Entity.PurchaseHistory> phs = DataController.getinstance().getPutchaseHistory();
+        //     if (phs.isEmpty())
+        //         return "<Empty>";
+        //     for (DataAccessLayer.Entity.PurchaseHistory ph : phs) {
+        //         
+        //     }
+        // }
         for (Integer storeId : storeHistory.keySet()) {
             for (Purchase purchase : storeHistory.get(storeId)) {
                 info += purchase.FetchInfo() + "\n";

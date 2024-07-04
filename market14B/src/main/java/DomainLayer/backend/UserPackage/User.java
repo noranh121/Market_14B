@@ -64,7 +64,7 @@ public abstract class User {
      * @return String of cart contents
      */
     public String inspectCart() {
-        return shoppingCart.inspectCart();
+        return shoppingCart.inspectCart(this.username);
     }
 
     /**
