@@ -23,5 +23,4 @@ public class PostRequestService {
 
         return response.getBody();
     }
-
 }

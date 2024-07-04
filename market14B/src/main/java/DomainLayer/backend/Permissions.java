@@ -9,6 +9,7 @@ import DomainLayer.backend.UserPackage.User;
 import DomainLayer.backend.UserPackage.UserController;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,6 +19,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import org.hibernate.mapping.List;
+
+import DataAccessLayer.DataController;
 
 public class Permissions {
     private Map<Integer, Tree> storeOwners = new ConcurrentHashMap<>();
@@ -244,6 +249,16 @@ public class Permissions {
     }
 
     public String viewSuspended() {
+        if(suspendedUsers.isEmpty()){
+            ArrayList<String> suspended=(ArrayList<String>)DataController.getinstance().viewSuspended();
+            if (suspended.isEmpty()) {
+                UserController.LOGGER.info("no suspended users");
+                return "<Empty>";
+            }
+            for(String name : suspended){
+                suspendedUsers.put(name,new suspensionInfo(null, 0));
+            }
+        }
         StringBuilder result = new StringBuilder();
         for (Entry<String, suspensionInfo> entry : suspendedUsers.entrySet()) {
             result.append(entry.getKey());
