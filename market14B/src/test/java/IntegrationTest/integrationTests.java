@@ -97,7 +97,7 @@ public class integrationTests {
         u2.addToCart(0, 0, 5);
         market.getSystemManagers().add("ali");
         double sum = userController.Buy(u2.getUsername());
-        String result = market.viewsystemPurchaseHistory("ali");
+        String result = market.viewSystemPurchaseHistory("ali");
         assertTrue(result.contains("Username: ali"));
         assertTrue(result.contains("Store ID: 0"));
         assertTrue(result.contains("Overall Price: 50"));
@@ -370,7 +370,7 @@ public class integrationTests {
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali");
             market.addToCart("ali", 0, 0, 5);
-            double sum=market.Buy("ali");
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
             assertEquals(sum, 45.0);
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
@@ -389,9 +389,9 @@ public class integrationTests {
             market.Register("malek", "456", 18);
             market.initStore("ali", "d");
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0);
+            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true);
             market.addToCart("ali", 0, 0, 2);
-            double sum=market.Buy("ali");
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
             fail("the test must fail");
         }catch(Exception e){
             assertEquals( "purchase failed",e.getMessage());

@@ -265,7 +265,7 @@ public class Real implements Bridge{
         u2.addToCart(0,0,5);
         market.getSystemManagers().add("ali");
         double sum = userController.Buy(username);
-        return market.viewsystemPurchaseHistory(username);
+        return market.viewSystemPurchaseHistory(username);
     }
 
     public boolean paymentApi(){
