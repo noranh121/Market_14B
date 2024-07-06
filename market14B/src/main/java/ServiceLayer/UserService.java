@@ -56,9 +56,10 @@ public class UserService {
         }
     }
 
-    public Response<String> Buy(String username) {
+    public Response<String> Buy(String username,String currency,String card_number,int month,int year,String ccv,
+    String address, String city, String country, int zip) {
         try {
-            double sum = market.Buy(username);
+            double sum = market.Buy(username, currency, card_number, month, year, ccv, address, city, country, zip);
             // result = payment method TODO
             // LOGGER.info(result);
             // return result;

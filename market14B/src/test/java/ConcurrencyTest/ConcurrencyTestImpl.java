@@ -2,7 +2,7 @@ package ConcurrencyTest;
 import DomainLayer.backend.Permissions;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.concurrent.CountDownLatch;
 import DomainLayer.backend.Market;
 import DomainLayer.backend.ProductPackage.Category;
@@ -13,7 +13,6 @@ import DomainLayer.backend.UserPackage.GuestUser;
 import DomainLayer.backend.UserPackage.RegisteredUser;
 import DomainLayer.backend.UserPackage.User;
 import DomainLayer.backend.UserPackage.UserController;
-import org.junit.jupiter.api.Test;
 public class ConcurrencyTestImpl {
     Market market;
     @BeforeEach
@@ -56,7 +55,7 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("maged");
+                double sum=market.Buy("maged","dollar","123",5,2027,"123","Ab2","city","country",434);
                 if (sum==10.0){
                     result[0]=true;
                 }
@@ -71,7 +70,7 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("ola");
+                double sum=market.Buy("ola","dollar","123",5,2027,"123","Ab2","city","country",434);
                 if (sum==10.0){
                     result[1]=true;
                 }
@@ -122,7 +121,7 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("maged");
+                double sum=market.Buy("maged","dollar","123",5,2027,"123","Ab2","city","country",434);
                 if (sum==10.0){
                     result[0]=true;
                 }
@@ -346,7 +345,7 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("maged");
+                double sum=market.Buy("maged","dollar","123",5,2027,"123","Ab2","city","country",434);
                 if (sum==10.0){
                     result[1]=true;
                 }
