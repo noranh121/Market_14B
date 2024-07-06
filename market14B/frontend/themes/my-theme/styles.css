@@ -1,0 +1,174 @@
+/*
+   CSS styling examples for the Vaadin app.
+
+   Visit https://vaadin.com/docs/styling/application-theme/ for more information.
+*/
+
+@import "user-menu.css";
+@import "cart.css";
+@import "market.css";
+@import "stores.css";
+@import "product.css";
+@import "search-bar.css";
+
+
+/* Example: CSS class name to center align the content . */
+.centered-content {
+  margin: 0 auto;
+  max-width: 250px;
+}
+
+.nav-bar {
+  border-bottom-style: solid;
+  border-width: 1px;
+  background-color: #e5e5e5;
+  position: relative; /* Ensure positioning for the shadow */
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+  border-radius: 4px; /* If you want rounded corners */
+}
+
+.customLink1 {
+  background: transparent;
+  border-radius: 4px;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  color: black;
+  font-size: 15px;
+  width: 70px;
+  height: 30px;
+  text-align: center;
+  align-content: center;
+}
+
+.customLink1:hover {
+  text-decoration: none;
+  background: gray;
+  border-bottom-style: solid;
+}
+
+.customLink2 {
+  background: transparent;
+  border-radius: 10px;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  color: black;
+  font-size: 15px;
+  width: 85px;
+  height: 30px;
+  align-content: center;
+  text-align: center;
+}
+
+.customLink2:hover {
+  text-decoration: none;
+  background: #cecdea;
+  border-bottom-style: solid;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-links a.active {
+  background-color: black;
+  color: white;
+}
+
+
+.drawer-links {
+  background-color: #f8f9fa;
+  padding: 2px;
+  border-right: 1px solid #ddd;
+  display: flex;
+}
+
+.drawer-link {
+  display: block;
+  padding: 10px;
+  width: 175px;
+  margin-bottom: -15px;
+  color: black;
+  align-content: center;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  font-size: 15px;
+}
+
+.drawer-link:hover {
+  background-color: #e2e6ea;
+  text-decoration: none;
+}
+
+.drawer-link.active {
+  background-color: #e2e6ea;
+  font-weight: bold;
+}
+
+
+.about-header {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.about-description {
+  font-size: 1.2em;
+  line-height: 1.5;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.contact-header {
+  color: #333;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  font-size: 1.2em;
+  line-height: 1.5;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.collection-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+  width: 200px; /* Increased width for better layout */
+  height: 250px; /* Increased height for better layout */
+  text-align: center;
+  background-color: gray;
+  cursor: pointer;
+}
+
+.collection-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.collection-layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  justify-content: center;
+  padding: 5px;
+}
+
+.scrollable-layout {
+  overflow-y: scroll;
+  scrollbar-width: thin; /* Thin scrollbar (supported in Firefox) */
+  scrollbar-color: #999999 #f0f0f0; /* Scrollbar track and thumb colors */
+}
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+.store-view {
+    padding: 20px;
+}
+
+.top-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: -20px
+}
+
+.add-store-btn {
+    border: solid #007bff;
+    border-radius: 10px;
+    color: white;
+    background: #007bff;
+    height: 30px;
+    width: 105px;
+    font-size: 12px;
+    margin-right: 20px;
+}
+
+.stores-title {
+    margin: 0;
+    font-size: 24px;
+}
+
+.search-bar {
+    flex-grow: 1;
+    width: 20%;
+}
+
+.store-card {
+    background: #fcede2;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: solid wheat;
+    cursor: pointer;
+}
+
+.store-card:hover {
+    background: #ead4ba;
+}
+
+.store-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.store-address,
+.store-contact-info {
+    font-size: 14px;
+    color: gray;
+}
+
+
+.stores-search-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 30%;
+    max-width: 500px;
+}
+
+.store-image {
+    width: 200px;
+    height: 200px;
+    border: solid;
+    border-radius: 4px;
+}
+
+.middle-bar {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-shadow: #333333;
+    background-color: white; /* Background color for better visibility */
+    position: relative; /* Required for the pseudo-element */
+    z-index: 1; /* Ensure the content is above the shadow */
+}
+
+.middle-bar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Adjust as needed for the shadow's position */
+    left: 0;
+    right: 0;
+    height: 8px; /* Adjust as needed for the shadow's thickness */
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px; /* Match the border radius of the bar */
+    z-index: -1; /* Ensure the shadow is below the bar */
+}
+
+
+.store-collection-card-info {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+

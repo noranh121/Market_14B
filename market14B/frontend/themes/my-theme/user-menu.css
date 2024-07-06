@@ -1,0 +1,25 @@
+.user-menu {
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.welcome-message {
+    font-size: 12px;
+}
+
+.logout-button {
+    color: #3b3939;
+    background-color: transparent;
+    border: solid;
+    border-radius: 10px;
+    width: 105px;
+    height: 30px;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
