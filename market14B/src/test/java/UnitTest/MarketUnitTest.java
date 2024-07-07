@@ -1,8 +1,5 @@
 package UnitTest;
-import DomainLayer.backend.Market;
-import DomainLayer.backend.UserPackage.RegisteredUser;
-import DomainLayer.backend.UserPackage.User;
-import DomainLayer.backend.UserPackage.UserController;
+import org.market.DomainLayer.backend.Market;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 public class MarketUnitTest {

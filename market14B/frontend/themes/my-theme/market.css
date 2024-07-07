@@ -1,0 +1,40 @@
+.no-scroll {
+    overflow: unset !important;
+}
+
+.image {
+    width: 100%; /* Ensure the image takes up the full width of the container */
+    height: 500px; /* Maintain aspect ratio */
+    border-radius: 8px; /* Slightly round the corners of the image */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Faded shadow effect */
+}
+
+.info {
+    align-items: center;
+    align-content: center;
+}
+
+.title {
+    font-size: 1.2em; /* Increased font size for better readability */
+    margin: 10px auto;
+    font-family: "Times New Roman", Serif;
+    color: white;
+}
+
+.price {
+    font-size: 1.2em; /* Increased font size for better readability */
+    color: white;
+    margin: 10px 0;
+}
+
+.products-layout {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    justify-content: center;
+    padding: 5px;
+    overflow-y: auto;
+    max-height: 80vh; /* Ensure the layout doesn't exceed the viewport height */
+    scrollbar-width: thin; /* Thin scrollbar (supported in Firefox) */
+    scrollbar-color: #999999 #f0f0f0; /* Scrollbar track and thumb colors */
+}
