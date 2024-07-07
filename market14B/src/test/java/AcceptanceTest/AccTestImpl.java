@@ -1,7 +1,7 @@
 package AcceptanceTest;
-import DomainLayer.backend.Market;
-import DomainLayer.backend.StorePackage.StoreController;
-import DomainLayer.backend.UserPackage.UserController;
+import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 public class AccTestImpl extends AcceptanceTests{

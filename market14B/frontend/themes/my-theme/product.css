@@ -1,0 +1,109 @@
+.product-view {
+    margin-left: -20px;
+    overflow-y: scroll;
+    scrollbar-width: thin; /* Thin scrollbar (supported in Firefox) */
+    scrollbar-color: #999999 #f0f0f0; /* Scrollbar track and thumb colors */
+}
+
+.product-view-top {
+    padding: 30px;
+    width: 100%;
+    height: 320px;
+    border: solid #e79631;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    width: 300px;
+    height: 250px;
+    border: solid;
+    align-content: center;
+    border-radius: 8px; /* Slightly round the corners of the image */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Faded shadow effect */
+}
+
+.product-view-price-quantity {
+    align-items: flex-end;
+}
+
+.product-view-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.add-to-cart-btn {
+    background: black;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 15px 30px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.add-to-cart-btn:hover {
+    background: white;
+    color: black;
+    border: 2px solid black;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.add-to-cart-btn:active {
+    border: 2px solid black;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+}
+
+.specification-bar {
+    margin-top: -20px;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center;    /* Centers the content vertically */
+    padding: 10px;          /* Adds padding inside the layout */
+    background-color: white; /* Background color for better visibility */
+    border-radius: 4px; /* Rounds the corners */
+    position: relative; /* Required for the pseudo-element */
+    z-index: 1; /* Ensure the content is above the shadow */
+}
+
+.specification-bar::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; /* Adjust as needed for the shadow's position */
+    left: 0;
+    right: 0;
+    height: 8px; /* Adjust as needed for the shadow's thickness */
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px; /* Match the border radius of the bar */
+    z-index: -1; /* Ensure the shadow is below the bar */
+}
+
+.specification-bar h2 {
+    margin: 0; /* Removes default margin around the h2 */
+}
+
+
+.specifications-list {
+    margin-top: 20px;
+}
+
+.specifications-list span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.separator {
+    width: 100%;
+    height: 2px;
+    border-top: 1px dashed #ccc; /* Dashed border */
+    margin: 20px 0; /* Spacing above and below the separator */
+}

@@ -1,18 +1,12 @@
 package ConcurrencyTest;
-import DomainLayer.backend.Permissions;
+import org.market.DomainLayer.backend.Permissions;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.concurrent.CountDownLatch;
-import DomainLayer.backend.Market;
-import DomainLayer.backend.ProductPackage.Category;
-import DomainLayer.backend.ProductPackage.Product;
-import DomainLayer.backend.StorePackage.Store;
-import DomainLayer.backend.StorePackage.StoreController;
-import DomainLayer.backend.UserPackage.GuestUser;
-import DomainLayer.backend.UserPackage.RegisteredUser;
-import DomainLayer.backend.UserPackage.User;
-import DomainLayer.backend.UserPackage.UserController;
+import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.StorePackage.StoreController;
+
 public class ConcurrencyTestImpl {
     Market market;
     @BeforeEach

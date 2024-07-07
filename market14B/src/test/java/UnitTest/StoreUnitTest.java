@@ -1,8 +1,8 @@
 package UnitTest;
-import DomainLayer.backend.ProductPackage.Category;
-import DomainLayer.backend.ProductPackage.Product;
-import DomainLayer.backend.StorePackage.Store;
-import DomainLayer.backend.StorePackage.StoreController;
+import org.market.DomainLayer.backend.ProductPackage.Category;
+import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.DomainLayer.backend.StorePackage.Store;
+import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
