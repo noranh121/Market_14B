@@ -1,9 +1,11 @@
 package org.market.DomainLayer.backend.API.SupplyExternalService;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.*;
 
-import org.springframework.web.client.RestTemplate;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import org.market.DomainLayer.backend.API.PostRequestService;
 
@@ -13,26 +15,39 @@ public class RealSupply implements SupplyBridge {
     private String url;
 
     public RealSupply(){
-        postRequestService=new PostRequestService(new RestTemplate());
-        url="https://damp-lynna-wsep-1984852e.koyeb.app/";
+        postRequestService=new PostRequestService();
+        loadConfig();
+    }
+
+    public void loadConfig() {
+        Properties properties = new Properties();
+        try {
+            File configFile = new File("C:\\Users\\Administrator\\Desktop\\sadna\\Market_14B\\market14B\\src\\main\\java\\org\\market\\DomainLayer\\backend\\API\\config.properties");
+            FileInputStream fileInputStream = new FileInputStream(configFile);
+            properties.load(fileInputStream);
+            url = properties.getProperty("url");
+            fileInputStream.close();
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while loading configuration from config.properties file.", e);
+        }
     }
 
     @Override
     public String handshake() {
-        Map<String,String> postContent=new ConcurrentHashMap<>();
-        postContent.put("action_type", "handshake");
+        MultiValueMap<String, String> postContent = new LinkedMultiValueMap<>();
+        postContent.add("action_type", "handshake");
         return postRequestService.sendPostRequest(url, postContent);
     }
 
     @Override
     public int supply(String name, String address, String city, String country, int zip) {
-        Map<String,String> postContent=new ConcurrentHashMap<>();
-        postContent.put("action_type", "supply");
-        postContent.put("name", name);
-        postContent.put("address", address);
-        postContent.put("city", city);
-        postContent.put("country", country);
-        postContent.put("zip", String.valueOf(zip));
+        MultiValueMap<String, String> postContent = new LinkedMultiValueMap<>();
+        postContent.add("action_type", "supply");
+        postContent.add("name", name);
+        postContent.add("address", address);
+        postContent.add("city", city);
+        postContent.add("country", country);
+        postContent.add("zip", String.valueOf(zip));
         String response=postRequestService.sendPostRequest(url, postContent);
         try{
             return Integer.parseInt(response);
@@ -43,9 +58,9 @@ public class RealSupply implements SupplyBridge {
 
     @Override
     public int cancel_supply(int transaction_id) {
-        Map<String,String> postContent=new ConcurrentHashMap<>();
-        postContent.put("action_type", "cancel_supply");
-        postContent.put("transaction_id", String.valueOf(transaction_id));
+        MultiValueMap<String, String> postContent = new LinkedMultiValueMap<>();
+        postContent.add("action_type", "cancel_supply");
+        postContent.add("transaction_id", String.valueOf(transaction_id));
         String response=postRequestService.sendPostRequest(url, postContent);
         try{
             return Integer.parseInt(response);
@@ -53,5 +68,14 @@ public class RealSupply implements SupplyBridge {
             return -1;
         }
     }
+
+
+//     public static void main(String[] args) {
+//        RealSupply supply = new RealSupply();
+//        String handshake=supply.handshake();
+//        Integer cancellationResult = supply.cancel_supply(1234);
+//        System.out.println("handshake: " + handshake);
+//        System.out.println("cancel: " + cancellationResult);
+//    }
 
 }
