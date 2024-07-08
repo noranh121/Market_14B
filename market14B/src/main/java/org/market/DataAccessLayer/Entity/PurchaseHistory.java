@@ -2,7 +2,8 @@ package org.market.DataAccessLayer.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="PurchaseHistory",catalog = "Market")
+//@Table(name="PurchaseHistory",catalog = "Market")
+@Table(name="PurchaseHistory")
 public class PurchaseHistory {
 
     @Id
@@ -10,12 +11,14 @@ public class PurchaseHistory {
     private Integer purchaseID;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="product",referencedColumnName = "productID")
-    private Integer productID;
+    //@JoinColumn(name="product",referencedColumnName = "productID")
+    @JoinColumn(name = "productID")
+    private Product productID;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="store",referencedColumnName = "storeID")
-    private Integer storeID;
+    //@JoinColumn(name="store",referencedColumnName = "storeID")
+    @JoinColumn (name = "storeID")
+    private Store storeID;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user",referencedColumnName = "username")
@@ -38,19 +41,19 @@ public class PurchaseHistory {
         this.purchaseID = purchaseID;
     }
 
-    public Integer getProductID() {
+    public Product getProductID() {
         return productID;
     }
 
-    public void setProductID(Integer productID) {
+    public void setProductID(Product productID) {
         this.productID = productID;
     }
 
-    public Integer getStoreID() {
+    public Store getStoreID() {
         return storeID;
     }
 
-    public void setStoreID(Integer storeID) {
+    public void setStoreID(Store storeID) {
         this.storeID = storeID;
     }
 

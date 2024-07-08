@@ -7,7 +7,8 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name="Basket",catalog = "Market")
+//@Table(name="Basket",catalog = "Market")
+@Table(name = "Basket")
 @IdClass(BasketId.class)
 public class Basket implements java.io.Serializable{
 
@@ -22,6 +23,7 @@ public class Basket implements java.io.Serializable{
     private Store storeID;
 
     @Column(name = "products")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductEntity> products = new ArrayList<>(); //<product,quantity>
 
     public User getUsername() {

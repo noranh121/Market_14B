@@ -6,14 +6,17 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Inventory",catalog = "Market")
+//@Table(name="Inventory",catalog = "Market")
+@Table(name="Inventory")
 public class Inventory implements Serializable{
 
     @Id
-    @JoinColumn(name="storeID",referencedColumnName = "storeID")
+    //@JoinColumn(name="storeID",referencedColumnName = "storeID")
+    @JoinColumn(name="storeID")
     private Store storeID;
 
-    @OneToMany(mappedBy = "Inventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "products")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductEntity> products;
 
     public Store getStoreID() {
@@ -24,6 +27,7 @@ public class Inventory implements Serializable{
         this.storeID = storeID;
     }
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<ProductEntity> getProducts() {
         return products;
     }

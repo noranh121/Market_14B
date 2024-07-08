@@ -2,7 +2,7 @@ package org.market.DataAccessLayer.Entity;
 
 import java.io.Serializable;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class ProductEntity implements Serializable{

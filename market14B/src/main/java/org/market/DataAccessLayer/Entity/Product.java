@@ -3,7 +3,8 @@ package org.market.DataAccessLayer.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Product",catalog = "Market")
+//@Table(name="Product",catalog = "Market")
+@Table(name="Product")
 public class Product implements java.io.Serializable {
     
     @Id 

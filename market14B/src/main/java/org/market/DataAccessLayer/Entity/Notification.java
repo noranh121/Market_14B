@@ -2,21 +2,22 @@ package org.market.DataAccessLayer.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Notification",catalog = "Market")
+//@Table(name="Notification",catalog = "Market")
+@Table(name="Notification")
 public class Notification {
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user",referencedColumnName = "username")
-    private String username;
+    @JoinColumn(name="user")
+    private User username;
 
     @Column(name = "message")
     private String message;
 
-    public String getUsername() {
+    public User getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(User username) {
         this.username = username;
     }
 

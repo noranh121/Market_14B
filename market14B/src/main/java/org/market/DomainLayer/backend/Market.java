@@ -14,6 +14,7 @@ import org.market.DomainLayer.backend.StorePackage.Discount.Numerical.ADDDiscoun
 import org.market.DomainLayer.backend.StorePackage.Discount.Numerical.AT_MOSTDiscountRule;
 import org.market.DomainLayer.backend.StorePackage.Purchase.*;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.market.DomainLayer.backend.UserPackage.User;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.market.ServiceLayer.Response;
 
@@ -92,6 +93,10 @@ public class Market {
 
     public List<String> getSystemManagers() {
         return systemManagers;
+    }
+
+    public void addToSystemManagers(String admin) {
+        systemManagers.add(admin);
     }
 
     public boolean getOnline() {
@@ -344,8 +349,8 @@ public class Market {
     public String addCatagory(int storeId, String catagory, String username) throws Exception {
         LOGGER.info("storeId: " + storeId + ", category: " + catagory + ", username: " + username);
         if (systemManagers.contains(username)) {
-            categoryController.addCategory(catagory);
-            dataController.addCategory(catagory);
+            int categoryId = categoryController.addCategory(catagory);
+            dataController.addCategory(catagory,categoryId);
             LOGGER.info("category added successfully");
             return "category added successfully";
         } else {

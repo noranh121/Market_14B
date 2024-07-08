@@ -2,8 +2,7 @@ package org.market.DataAccessLayer.Entity;
 
 import java.io.Serializable;
 import java.util.List;
-
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class EmployerPermission implements Serializable{

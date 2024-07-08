@@ -10,7 +10,7 @@ public class StoresService {
 
     private Market market = Market.getInstance();
 
-    public Response<String> initStore(String userName, String Description) throws Exception {
+    public Response<String> initStore(String userName, String Description) {
         try {
             String result = market.initStore(userName, Description);
             StoreController.LOGGER.info(result);

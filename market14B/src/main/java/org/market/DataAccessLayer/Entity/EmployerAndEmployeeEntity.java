@@ -2,13 +2,15 @@ package org.market.DataAccessLayer.Entity;
 
 import java.io.Serializable;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class EmployerAndEmployeeEntity implements Serializable{
 
     @Id
-    @JoinColumn(name = "employer", referencedColumnName = "username")
+    //@JoinColumn(name = "employer", referencedColumnName = "username")
+    @Column(name = "employer")
+    @JoinColumn(name="username")
     private EmployerPermission employerUsername;
 
     public EmployerPermission getEmployerUsername() {

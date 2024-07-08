@@ -50,6 +50,10 @@ public class ServiceFactory {
         return marketService.viewSuspended(systemManager);
     }
 
+    public void addToSystemManagers(String admin) {
+        marketService.addToSystemManagers(admin);
+    }
+
     // UserService
     public String EnterAsGuest(double age) {
         return userService.EnterAsGuest(age);
@@ -113,7 +117,7 @@ public class ServiceFactory {
     }
 
     // StoreService
-    public Response<String> initStore(String userName, String Description) throws Exception {
+    public Response<String> initStore(String userName, String Description) {
         return storesService.initStore(userName, Description);
     }
 
