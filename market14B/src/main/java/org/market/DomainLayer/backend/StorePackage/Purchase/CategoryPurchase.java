@@ -25,4 +25,16 @@ public class CategoryPurchase extends PurchasePolicy {
         return output;
     }
 
+    @Override
+    public void addComposite(CompositePurchasePolicy compositePurchasePolicy, int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("not purchase controller");
+    }
+
+    @Override
+    public void removeComposite(int id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("not purchase controller");
+    }
+
 }

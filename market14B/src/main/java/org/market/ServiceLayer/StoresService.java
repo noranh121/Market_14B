@@ -103,9 +103,9 @@ public class StoresService {
         }
     }
 
-    public String addCategoryDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int categoryId,int storeId,String username) throws Exception{
+    public String addCategoryDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int categoryId,int storeId,String username,int id) throws Exception{
         try {
-            String result = market.addCategoryDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, categoryId, storeId, username);
+            String result = market.addCategoryDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, categoryId, storeId, username,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -113,9 +113,9 @@ public class StoresService {
         }
     }
     
-    public String addProductDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int productId,int storeId,String username) throws Exception{
+    public String addProductDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int productId,int storeId,String username,int id) throws Exception{
         try {
-            String result = market.addProductDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, productId, storeId, username);
+            String result = market.addProductDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, productId, storeId, username,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -123,9 +123,9 @@ public class StoresService {
         }
     }
 
-    public String addStoreDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int storeId,String username) throws Exception{
+    public String addStoreDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int storeId,String username,int id) throws Exception{
         try {
-            String result = market.addStoreDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, storeId, username);
+            String result = market.addStoreDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, storeId, username,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -133,9 +133,9 @@ public class StoresService {
         }
     }
 
-    public String addNmericalDiscount(String username,int storeId,Boolean ADD) throws Exception{
+    public String addNmericalDiscount(String username,int storeId,Boolean ADD,int id) throws Exception{
         try {
-            String result = market.addNmericalDiscount(username, storeId, ADD);
+            String result = market.addNmericalDiscount(username, storeId, ADD,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -143,9 +143,9 @@ public class StoresService {
         }
     }
 
-    public String addLogicalDiscount(String username,int storeId,LogicalRule logicalRule) throws Exception{
+    public String addLogicalDiscount(String username,int storeId,LogicalRule logicalRule,int id) throws Exception{
         try {
-            String result = market.addLogicalDiscount(username, storeId, logicalRule);
+            String result = market.addLogicalDiscount(username, storeId, logicalRule,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -153,9 +153,9 @@ public class StoresService {
         }
     }
 
-    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate) throws Exception{
+    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id) throws Exception{
         try {
-            String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate);
+            String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -163,9 +163,9 @@ public class StoresService {
         }
     }
     
-    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate) throws Exception{
+    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
         try {
-            String result = market.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId,immediate);
+            String result = market.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId,immediate,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -174,9 +174,9 @@ public class StoresService {
     }
 
     
-    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate) throws Exception{
+    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id) throws Exception{
         try {
-            String result = market.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId,immediate);
+            String result = market.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId,immediate,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -184,9 +184,9 @@ public class StoresService {
         }
     }
 
-    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate) throws Exception{
+    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id) throws Exception{
         try {
-            String result = market.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId,immediate);
+            String result = market.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId,immediate,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {
@@ -194,9 +194,9 @@ public class StoresService {
         }
     }
 
-    public String addLogicalPurchase(String username,int storeId,LogicalRule logicalRule) throws Exception{
+    public String addLogicalPurchase(String username,int storeId,LogicalRule logicalRule,int id) throws Exception{
         try {
-            String result = market.addLogicalPurchase(username, storeId, logicalRule);
+            String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
             StoreController.LOGGER.info(result);
             return result;
         } catch (Exception e) {

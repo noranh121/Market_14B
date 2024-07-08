@@ -13,15 +13,34 @@ public abstract class PurchasePolicyController extends CompositePurchasePolicy{
         compositePurchasePolicies=Collections.synchronizedList(new ArrayList<>());
     }
 
-    public void addComposite(CompositePurchasePolicy compositePurchasePolicy){
-        compositePurchasePolicies.add(compositePurchasePolicy);
+    @Override
+    public void addComposite(CompositePurchasePolicy composite,int id){
+        if(this.getId()==id){
+            this.compositePurchasePolicies.add(composite);
+            return;
+        }
+        for(CompositePurchasePolicy compositePurchasePolicy : compositePurchasePolicies){
+            compositePurchasePolicy.addComposite(composite,id);  
+        }
     }
 
-    public void removeComposite(int compositePurchasePolicyId) throws Exception{
-        for(CompositePurchasePolicy compositePurchasePolicy : compositePurchasePolicies){
-            if(compositePurchasePolicy.getId()==compositePurchasePolicyId)
-                compositePurchasePolicies.remove(compositePurchasePolicy);
+    @Override
+    public void removeComposite(int compositePurchasePolicyId){
+        if(this.getId()==compositePurchasePolicyId){
+            this.compositePurchasePolicies=Collections.synchronizedList(new ArrayList<>());
+            return;
         }
-        throw new Exception(compositePurchasePolicyId+" is not existed");
+        for(CompositePurchasePolicy compositePurchasePolicy : compositePurchasePolicies){
+            if(compositePurchasePolicy.getId()==compositePurchasePolicyId){
+                compositePurchasePolicies.remove(compositePurchasePolicy);
+                return;
+            }
+        }
+        for(CompositePurchasePolicy compositePurchasePolicy : compositePurchasePolicies){
+            if(compositePurchasePolicy.getId()==compositePurchasePolicyId){
+                compositePurchasePolicy.removeComposite(compositePurchasePolicyId);
+                return;
+            }
+        }
     }
 }
