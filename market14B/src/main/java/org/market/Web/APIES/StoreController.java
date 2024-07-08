@@ -56,7 +56,7 @@ public class StoreController {
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllStores(){
-        List<StoreDTO> stores = service.getAllStores();
+        ArrayList<StoreDTO> stores = service.getAllStores();
         return ResponseEntity.ok().body(stores);
     }
 

@@ -1,5 +1,6 @@
 package org.market.ServiceLayer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.market.Web.DTOS.PermissionDTO;
@@ -154,7 +155,7 @@ public class ServiceFactory {
         return storesService.initProduct(username, productName, categoryId, description, brand,weight);
     }
 
-    public List<StoreDTO> getAllStores() {
+    public ArrayList<StoreDTO> getAllStores() {
         return storesService.getAllStores();
     }
 

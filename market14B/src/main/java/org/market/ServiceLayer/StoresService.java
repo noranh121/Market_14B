@@ -213,8 +213,8 @@ public class StoresService {
         }
     }
 
-    public List<StoreDTO> getAllStores() {
-        List<StoreDTO> dtoStrs = new ArrayList<>();
+    public ArrayList<StoreDTO> getAllStores() {
+        ArrayList<StoreDTO> dtoStrs = new ArrayList<>();
         List<Store> strs = market.getAllStores();
         for(Store s : strs){
             StoreDTO sdto = new StoreDTO(s);
