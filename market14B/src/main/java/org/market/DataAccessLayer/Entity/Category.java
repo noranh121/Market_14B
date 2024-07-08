@@ -1,10 +1,10 @@
 package org.market.DataAccessLayer.Entity;
-import java.util.List;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="Category",catalog = "Market")
+//@Table(name="Category",catalog = "Market")
+@Table(name="Category")
 public class Category implements java.io.Serializable{
 
     @Id

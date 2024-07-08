@@ -5,7 +5,8 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="User",catalog = "Market")
+//@Table(name="market",catalog = "Market")
+@Table(name="market")
 public class Market {
     @Id
     @Column(name="marketID")
@@ -14,7 +15,7 @@ public class Market {
     @Column(name="online")
     private Boolean online;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Market")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "systemManager")
     private List<User> systemManagers;
 
     public Integer getMarketID() {

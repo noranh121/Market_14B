@@ -2,10 +2,12 @@ package org.market.DataAccessLayer.Entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "Transaction")
 public class Transaction {
     
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="username",referencedColumnName = "username")
+    //@JoinColumn(name="username",referencedColumnName = "username")
+    @JoinColumn(name="username")
     private User user;
 
     @Id

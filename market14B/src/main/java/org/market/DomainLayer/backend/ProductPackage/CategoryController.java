@@ -37,10 +37,11 @@ public class CategoryController {
         return null;  
     }
 
-    public void addCategory(String name) {
+    public int addCategory(String name) {
         Category cat = new Category(counterID, name);
         categories.put(counterID, cat);
         counterID++;
+        return counterID-1;
     }
 
     public void addCategory(String name, int parentCategoryID) {

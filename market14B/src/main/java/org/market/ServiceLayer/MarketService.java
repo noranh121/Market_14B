@@ -72,4 +72,8 @@ public class MarketService {
             return e.getMessage();
         }
     }
+
+    public void addToSystemManagers(String admin) {
+        market.addToSystemManagers(admin);
+    }
 }

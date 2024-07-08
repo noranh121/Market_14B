@@ -2,7 +2,8 @@ package org.market.DataAccessLayer.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Store",catalog = "Market")
+//@Table(name="Store",catalog = "Market")
+@Table(name="Store")
 public class Store implements java.io.Serializable{
 
     @Id
@@ -10,7 +11,8 @@ public class Store implements java.io.Serializable{
     private Integer storeID;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="firstOwnerName",referencedColumnName = "username")
+    //@JoinColumn(name="firstOwnerName",referencedColumnName = "username")
+    @JoinColumn(name="username")
     private User firstOwner;
 
     @Column(name = "name")

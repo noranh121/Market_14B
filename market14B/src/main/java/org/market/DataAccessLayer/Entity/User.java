@@ -4,7 +4,8 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="User",catalog = "Market")
+//@Table(name="User",catalog = "Market")
+@Table(name="User")
 public class User implements java.io.Serializable{
 
     @Id
@@ -17,7 +18,7 @@ public class User implements java.io.Serializable{
     @Column(name="age")
     private double age;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "User")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
     private List<Basket> baskets;
 
     @Column(name="LoggedIn")
@@ -25,6 +26,9 @@ public class User implements java.io.Serializable{
 
     @Column(name="suspended")
     private Boolean suspended;
+
+    @Column(name = "systemManager")
+    private Boolean flag;
     
     public Boolean getSuspended() {
         return suspended;
@@ -65,5 +69,12 @@ public class User implements java.io.Serializable{
     public void setBaskets(List<Basket> baskets) {
         this.baskets = baskets;
     }
+    public Boolean getFlag() {
+        return flag;
+    }
+    public void setFlag(Boolean flag) {
+        this.flag = flag;
+    }
+    
 
 }

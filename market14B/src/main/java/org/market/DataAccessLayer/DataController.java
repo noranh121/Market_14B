@@ -2,6 +2,7 @@ package org.market.DataAccessLayer;
 
 import org.market.DataAccessLayer.Entity.*;
 import org.market.DataAccessLayer.Repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -301,9 +302,11 @@ public class DataController {
         return usernames;
     }
 
-    public void addCategory(String categoryName){
+    @Transactional
+    public void addCategory(String categoryName, int categoryId){
         Category category=new Category();
         category.setCategoryName(categoryName);
+        category.setCategoryID(categoryId);
         categoryRepository.save(category);
         LOGGER.info("added category to db");
     }

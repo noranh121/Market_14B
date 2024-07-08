@@ -50,9 +50,9 @@ public class Store {
         return compositeDiscountPolicy;
     }
 
-    public void addDiscountComposite(CompositeDiscountPolicy discountPolicy){
+    public void addDiscountComposite(CompositeDiscountPolicy discountPolicy,int id){
         discountPolicy.setId(discountPolicyIDCounter);
-        compositeDiscountPolicy.addComposite(discountPolicy);
+        compositeDiscountPolicy.addComposite(discountPolicy,id);
         discountPolicyIDCounter++;
     }
 
@@ -70,9 +70,9 @@ public class Store {
         return compositePurchasePolicy;
     }
 
-    public void addPurchaseComposite(CompositePurchasePolicy purchasePolicy){
+    public void addPurchaseComposite(CompositePurchasePolicy purchasePolicy,int id){
         purchasePolicy.setId(purchasePolicyIDCounter);
-        compositePurchasePolicy.addComposite(purchasePolicy);
+        compositePurchasePolicy.addComposite(purchasePolicy,id);
         purchasePolicyIDCounter++;
     }
 

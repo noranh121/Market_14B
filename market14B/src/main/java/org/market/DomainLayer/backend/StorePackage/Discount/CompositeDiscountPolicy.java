@@ -27,4 +27,8 @@ public abstract class CompositeDiscountPolicy {
 
     // products.entry = <productId,[quantity,price,weight]>
     public abstract Map<Integer, double[]> calculateDiscount(Map<Integer, double[]> products);
+
+    public abstract void addComposite(CompositeDiscountPolicy composite,int id);
+
+    public abstract void removeComposite(int id);
 }
