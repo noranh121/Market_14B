@@ -8,13 +8,14 @@ public class ProductDTO {
     private String name;
     private Double price;
     private String description;
+    private int storeid;
 
-    public ProductDTO(Product product){
+    public ProductDTO(Product product, Double price, int storeid){
         this.id = product.getId();
         this.name = product.getName();
-        this.price = new Double(-1);
+        this.price = price;
         this.description = product.getDescription();
-
+        this.storeid = storeid;
     }
     
 }

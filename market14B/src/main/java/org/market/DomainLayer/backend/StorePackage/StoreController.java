@@ -1,5 +1,7 @@
 package org.market.DomainLayer.backend.StorePackage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.FileHandler;
@@ -8,6 +10,8 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import org.market.DataAccessLayer.DataController;
+import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.Web.DTOS.ProductDTO;
 
 public class StoreController {
     private static StoreController instance;
@@ -188,6 +192,31 @@ public class StoreController {
     public void setToNull() {
         instance = null;
         stores.clear();
+    }
+
+    public List<Store> getAllStores() {
+        List<org.market.DataAccessLayer.Entity.Store> dalstrs =  DataController.getinstance().getAllStores();
+        List<Store> storesToReturn = new ArrayList<>();
+        for(org.market.DataAccessLayer.Entity.Store storeEntity: dalstrs){
+            Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
+            storesToReturn.add(store);
+        }
+        return storesToReturn;
+    }
+
+    public double [] getProdInfo(int prodid){
+        for(Store s: stores.values()){
+            double [] info = s.bring(prodid);
+            if(info[0] != -1) return info;
+        }
+        return new double[]{-1, -1};
+    }
+
+    public List<ProductDTO> getStoreProducts(int store_id) {
+        if(stores.containsKey(store_id)){
+           return stores.get(store_id).bringProds();
+        }
+        return new ArrayList<>();
     }
 
 }

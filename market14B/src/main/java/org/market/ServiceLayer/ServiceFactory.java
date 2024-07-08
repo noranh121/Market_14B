@@ -1,5 +1,10 @@
 package org.market.ServiceLayer;
 
+import java.util.List;
+
+import org.market.Web.DTOS.PermissionDTO;
+import org.market.Web.DTOS.ProductDTO;
+import org.market.Web.DTOS.StoreDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -147,5 +152,33 @@ public class ServiceFactory {
 
     public Response<String> initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
         return storesService.initProduct(username, productName, categoryId, description, brand,weight);
+    }
+
+    public List<StoreDTO> getAllStores() {
+        return storesService.getAllStores();
+    }
+
+    public List<ProductDTO> getAllProducts() {
+        return storesService.getAllProducts();
+    }
+
+    public List<StoreDTO> user_stores(String username) throws Exception {
+        return userService.user_stores(username);
+    }
+
+    public List<ProductDTO> getStoreProducts(int store_id) {
+        return storesService.getStoreProducts(store_id);
+    }
+
+    public StoreDTO getStore(int store_id) {
+        return storesService.getStore(store_id);
+    }
+
+    public ProductDTO getProductInfo(int product_id) throws Exception {
+        return storesService.getProductInfo(product_id);
+    }
+
+    public List<PermissionDTO> getPermissions(String username) throws Exception {
+        return storesService.getPermissions(username);
     }
 }

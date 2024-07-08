@@ -90,6 +90,7 @@ public class ProductController {
     }
 
     public Collection<Product> getProducts(){
+        //needs to connect to data, getprod(id){checks map then gets from database if needed}
         return this.products.values();
     }
 
@@ -98,6 +99,11 @@ public class ProductController {
                 .map(products::get)
                 .filter(product -> product != null)
                 .collect(Collectors.toList());
+    }
+
+    public Product getProductbyID(int prodId){
+        //should check if exists and if not check if exists in database and retrive it
+        return products.get(prodId);
     }
 
 }

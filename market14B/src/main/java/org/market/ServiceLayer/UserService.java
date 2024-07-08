@@ -1,7 +1,12 @@
 package org.market.ServiceLayer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.market.Web.DTOS.StoreDTO;
 
 public class UserService {
     private Market market = Market.getInstance();
@@ -150,5 +155,15 @@ public class UserService {
         } catch (Exception e) {
             return e.getMessage();
         }
+    }
+
+    public List<StoreDTO> user_stores(String username) throws Exception {
+        List<StoreDTO> sdtos = new ArrayList<>();
+        List<Store> stores = market.getUserStores(username);
+        for(Store s: stores){
+            StoreDTO sdto = new StoreDTO(s);
+            sdtos.add(sdto);
+        }
+        return sdtos;
     }
 }

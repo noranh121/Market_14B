@@ -5,6 +5,7 @@ import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
 import org.market.DomainLayer.backend.API.SupplyExternalService.SupplyService;
 import org.market.DomainLayer.backend.ProductPackage.Category;
 import org.market.DomainLayer.backend.ProductPackage.CategoryController;
+import org.market.DomainLayer.backend.ProductPackage.Product;
 import org.market.DomainLayer.backend.ProductPackage.ProductController;
 import org.market.DomainLayer.backend.StorePackage.Discount.*;
 import org.market.DomainLayer.backend.StorePackage.Discount.Logical.ANDDiscountRule;
@@ -13,14 +14,18 @@ import org.market.DomainLayer.backend.StorePackage.Discount.Logical.XORDiscountR
 import org.market.DomainLayer.backend.StorePackage.Discount.Numerical.ADDDiscountRule;
 import org.market.DomainLayer.backend.StorePackage.Discount.Numerical.AT_MOSTDiscountRule;
 import org.market.DomainLayer.backend.StorePackage.Purchase.*;
+import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.market.ServiceLayer.Response;
+import org.market.Web.DTOS.PermissionDTO;
+import org.market.Web.DTOS.ProductDTO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.FileHandler;
@@ -701,6 +706,48 @@ public class Market {
     public synchronized String removePurchaseFromUser(String userId, int purchaseId) throws Exception {
         dataController.removePurchaseHistory(purchaseId);
         return purchaseHistory.removePurchaseFromUser(userId, purchaseId);
+    }
+
+
+    public List<Store> getAllStores(){
+        return storeController.getAllStores();
+    }
+
+    public List<Product> getAllProducts() {
+        List<Product> prods = new ArrayList<>(productController.getProducts());
+        return prods;
+    }
+
+    public double[] findProdInfo(Product p) {
+        int prodid = p.getId();
+        return storeController.getProdInfo(prodid);
+    }
+
+    public List<Store> getUserStores(String username) throws Exception {
+        List<Store> stores = permissions.getUserStores(username);
+        return stores;
+    }
+
+    public List<ProductDTO> getStoreProducts(int store_id) {
+        List<ProductDTO> prods = storeController.getStoreProducts(store_id);
+        return prods;
+    }
+
+    public Store getStore(int store_id) {
+        return storeController.getStore(store_id);
+    }
+
+    public Product getProduct(int product_id) {
+        return productController.getProductbyID(product_id);
+    }
+
+    public List<PermissionDTO> getPermissions(String username) throws Exception {
+        List<PermissionDTO> pdtos = new ArrayList<>();
+        for(Map.Entry<Integer, Permission> entry: permissions.getUserPermissions(username).entrySet()){
+            PermissionDTO pdto = new PermissionDTO(entry.getValue(), entry.getKey());
+            pdtos.add(pdto);
+        }
+        return pdtos;
     }
 
 

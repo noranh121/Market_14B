@@ -1,9 +1,13 @@
 package org.market.Web.APIES;
 
+import java.util.List;
+
 import org.market.PresentationLayer.models.AuthResponse;
 import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.ServiceFactory;
 import org.market.ServiceLayer.TokenService;
+import org.market.Web.DTOS.StoreDTO;
+import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.Requests.*;
 import org.market.Web.Requests.cartOp;
 import org.market.Web.SocketCommunication.SocketHandler;
@@ -133,5 +137,15 @@ public class UserController {
     public Response<String> unassignUser(@RequestBody PermissionReq per) throws Exception{
         return service.unassignUser(per.getStoreID(), per.getOwnerUserName(), per.getUsername());
     }
-    
+    @GetMapping("/get-stores/{username}")
+    public ResponseEntity<?> getStores(@PathVariable String username) throws Exception{
+        List<StoreDTO> usrStores = service.user_stores(username);
+        return ResponseEntity.ok().body(usrStores);
+    }
+
+    @GetMapping("/get-permission/{username}")
+    public ResponseEntity<?> getPermissions(@PathVariable String username) throws Exception{
+        List<PermissionDTO> pdtos = service.getPermissions(username);
+        return ResponseEntity.ok().body(pdtos);
+    }
 }

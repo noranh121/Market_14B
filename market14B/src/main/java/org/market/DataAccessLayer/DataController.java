@@ -13,6 +13,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 @Service
 public class DataController {
@@ -389,6 +390,10 @@ public class DataController {
 
     public List<PurchaseHistory> getPutchaseHistory() {
         return purchaseHistoryRepository.findAll();
+    }
+
+    public List<Store> getAllStores(){
+        return new ArrayList<>();
     }
 
 }

@@ -3,6 +3,7 @@ package org.market.Web.APIES;
 import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.ServiceFactory;
 import org.market.ServiceLayer.TokenService;
+import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
 import org.market.Web.Requests.ReqStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -28,28 +30,60 @@ public class StoreController {
 
 
 
+    // @GetMapping("/all")
+    // public ResponseEntity<?> getInfo() {
+    //     ArrayList<StoreDTO> stores = new ArrayList<>();
+    //     StoreDTO store1 = new StoreDTO();
+    //     store1.setId(1);
+    //     store1.setName("store1");
+    //     store1.setDescription("desc1");
+    //     stores.add(store1);
+
+    //     StoreDTO store2 = new StoreDTO();
+    //     store2.setId(2);
+    //     store2.setName("store2");
+    //     store2.setDescription("desc2");
+    //     stores.add(store2);
+
+    //     StoreDTO store3 = new StoreDTO();
+    //     store3.setId(3);
+    //     store3.setName("store3");
+    //     store3.setDescription("desc3");
+    //     stores.add(store3);
+
+    //     return ResponseEntity.ok().body(stores);
+    // }
+
     @GetMapping("/all")
-    public ResponseEntity<?> getInfo() {
-        ArrayList<StoreDTO> stores = new ArrayList<>();
-        StoreDTO store1 = new StoreDTO();
-        store1.setId(1);
-        store1.setName("store1");
-        store1.setDescription("desc1");
-        stores.add(store1);
-
-        StoreDTO store2 = new StoreDTO();
-        store2.setId(2);
-        store2.setName("store2");
-        store2.setDescription("desc2");
-        stores.add(store2);
-
-        StoreDTO store3 = new StoreDTO();
-        store3.setId(3);
-        store3.setName("store3");
-        store3.setDescription("desc3");
-        stores.add(store3);
-
+    public ResponseEntity<?> getAllStores(){
+        List<StoreDTO> stores = service.getAllStores();
         return ResponseEntity.ok().body(stores);
+    }
+
+    @GetMapping("/products/all")
+    public ResponseEntity<?> getAllProducts(){
+        List<ProductDTO> prods = service.getAllProducts();
+        return ResponseEntity.ok().body(prods);
+    }
+    @GetMapping("/products/{store_id}")
+    public ResponseEntity<?> getStoreProducts(@PathVariable int store_id){
+        List<ProductDTO> prods = service.getStoreProducts(store_id);
+        return ResponseEntity.ok().body(prods);
+    }
+    @GetMapping("/products/{product_id}")
+    public ResponseEntity<?> getProductInfo(@PathVariable int product_id){
+        try{
+            ProductDTO pdto = service.getProductInfo(product_id);
+            return ResponseEntity.ok().body(pdto);
+        }catch(Exception e){
+            return ResponseEntity.status(404).build();
+        }
+    }
+
+    @GetMapping("/store/{store_id}")
+    public ResponseEntity<?> getStoreInfo(@PathVariable int store_id){
+        StoreDTO sdto =  service.getStore(store_id);
+        return ResponseEntity.ok().body(sdto);
     }
 
     @PostMapping("/add-store/username={username}&desc={desc}")

@@ -1,10 +1,19 @@
 package org.market.ServiceLayer;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.Permission;
+import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController.LogicalRule;
+import org.market.Web.DTOS.PermissionDTO;
+import org.market.Web.DTOS.ProductDTO;
+import org.market.Web.DTOS.StoreDTO;
+import org.springframework.security.access.method.P;
 
 public class StoresService {
 
@@ -202,5 +211,54 @@ public class StoresService {
         } catch (Exception e) {
             return e.getMessage();
         }
+    }
+
+    public List<StoreDTO> getAllStores() {
+        List<StoreDTO> dtoStrs = new ArrayList<>();
+        List<Store> strs = market.getAllStores();
+        for(Store s : strs){
+            StoreDTO sdto = new StoreDTO(s);
+            dtoStrs.add(sdto);
+        }
+        return dtoStrs;
+    }
+
+    public List<ProductDTO> getAllProducts() {
+        List<ProductDTO> psdto = new ArrayList<>();
+        List<Product> prods = market.getAllProducts();
+        //get price for product;
+        for(Product p : prods){
+            double [] price_store = market.findProdInfo(p);
+            if(price_store[0] != -1){
+                ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+                psdto.add(pdto);
+            }
+        }
+        return psdto;
+    }
+
+    public List<ProductDTO> getStoreProducts(int store_id) {
+        List<ProductDTO> prodsdto = market.getStoreProducts(store_id);
+        return prodsdto;
+    }
+
+    public StoreDTO getStore(int store_id) {
+        Store s = market.getStore(store_id);
+        StoreDTO sdto = new StoreDTO(s);
+        return sdto;
+    }
+
+    public ProductDTO getProductInfo(int product_id) throws Exception {
+        Product p = market.getProduct(product_id);
+        double [] price_store = market.findProdInfo(p);
+        if(price_store[0] == -1){
+            throw new Exception("Price is Out Of Stock");
+        }
+        ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+        return pdto;
+    }
+
+    public List<PermissionDTO> getPermissions(String username) throws Exception {
+        return market.getPermissions(username);
     }
 }

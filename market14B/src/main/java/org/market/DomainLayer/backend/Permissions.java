@@ -4,13 +4,16 @@ import org.market.DomainLayer.backend.NotificationPackage.BaseNotifier;
 import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
 import org.market.DomainLayer.backend.NotificationPackage.ImmediateNotifierDecorator;
 import org.market.DomainLayer.backend.NotificationPackage.Notifier;
+import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.User;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -332,6 +335,26 @@ public class Permissions {
             UserController.LOGGER.severe(storeId + " does not exist");
             throw new Exception(storeId + " does not exist");
         }
+    }
+
+    public List<Store> getUserStores(String username) throws Exception {
+        List<Store> stores = new ArrayList<>();
+        for(int strId: storeOwners.keySet()){
+            Permission permission = getPermission(strId, username);
+            if(permission.getStoreManager() || permission.getStoreOwner()){
+                stores.add(StoreController.getInstance().getStore(strId));
+            }
+       }
+       return stores;
+    }
+
+    public Map<Integer, Permission> getUserPermissions(String username) throws Exception{
+        Map<Integer, Permission> map = new HashMap<>();
+        for(int strId: storeOwners.keySet()){
+            Permission permission = getPermission(strId, username);
+            map.put(strId, permission);
+       }
+       return map;
     }
 
 }
