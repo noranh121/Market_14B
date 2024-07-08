@@ -22,7 +22,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Theme("my-theme")
 @EntityScan(basePackages = "org.market.DataAccessLayer.Entity")
 @EnableJpaRepositories(basePackages = "org.market.DataAccessLayer.Repository")
-public class Application implements AppShellConfigurator {
+public class Application giimplements AppShellConfigurator {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

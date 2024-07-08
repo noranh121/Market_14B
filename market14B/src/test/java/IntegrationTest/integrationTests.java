@@ -370,7 +370,7 @@ public class integrationTests {
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali");
             market.addToCart("ali", 0, 0, 5);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=margket.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
             assertEquals(sum, 45.0);
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
