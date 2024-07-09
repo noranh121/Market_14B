@@ -11,8 +11,8 @@ import javax.persistence.*;
 public class Inventory implements Serializable{
 
     @Id
-    //@JoinColumn(name="storeID",referencedColumnName = "storeID")
-    @JoinColumn(name="storeID")
+    @JoinColumn(name="storeID",referencedColumnName = "storeID")
+    // @JoinColumn(name="storeID")
     private Store storeID;
 
     @Column(name = "products")

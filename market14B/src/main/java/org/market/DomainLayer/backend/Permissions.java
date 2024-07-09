@@ -248,7 +248,7 @@ public class Permissions {
 
     public String viewSuspended() {
         if(suspendedUsers.isEmpty()){
-            ArrayList<String> suspended=(ArrayList<String>)DataController.getinstance().viewSuspended();
+            ArrayList<String> suspended=(ArrayList<String>)DataController.viewSuspended();
             if (suspended.isEmpty()) {
                 UserController.LOGGER.info("no suspended users");
                 return "<Empty>";

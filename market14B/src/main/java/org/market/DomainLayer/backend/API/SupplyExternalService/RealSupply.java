@@ -22,7 +22,7 @@ public class RealSupply implements SupplyBridge {
     public void loadConfig() {
         Properties properties = new Properties();
         try {
-            File configFile = new File("src\\main\\java\\org\\market\\DomainLayer\\backend\\API\\config.properties");
+            File configFile = new File("market14B\\src\\main\\java\\org\\market\\DomainLayer\\backend\\API\\config.properties");
             FileInputStream fileInputStream = new FileInputStream(configFile);
             properties.load(fileInputStream);
             url = properties.getProperty("url");
@@ -77,5 +77,6 @@ public class RealSupply implements SupplyBridge {
 //        System.out.println("handshake: " + handshake);
 //        System.out.println("cancel: " + cancellationResult);
 //    }
+
 
 }

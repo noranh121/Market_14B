@@ -368,7 +368,7 @@ public class integrationTests {
             market.Register("malek", "456", 18);
             market.initStore("ali", "d");
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali");
+            market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali", 0);
             market.addToCart("ali", 0, 0, 5);
             double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
             assertEquals(sum, 45.0);
@@ -389,7 +389,7 @@ public class integrationTests {
             market.Register("malek", "456", 18);
             market.initStore("ali", "d");
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true);
+            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true, 0);
             market.addToCart("ali", 0, 0, 2);
             double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
             fail("the test must fail");

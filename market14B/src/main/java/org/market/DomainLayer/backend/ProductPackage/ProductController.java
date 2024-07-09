@@ -42,7 +42,7 @@ public class ProductController {
         prod.setId(id);
         category.addProduct(prod.getId());
         products.put(prod.getId(), prod);
-        DataController.getinstance().initProduct(name, id,category.getId(), description, brand, weight);
+        DataController.initProduct(name, id,category.getId(), description, brand, weight);
         LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system");
         return "Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system";
     }

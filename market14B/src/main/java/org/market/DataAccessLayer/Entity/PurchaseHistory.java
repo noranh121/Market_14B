@@ -11,13 +11,13 @@ public class PurchaseHistory {
     private Integer purchaseID;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    //@JoinColumn(name="product",referencedColumnName = "productID")
-    @JoinColumn(name = "productID")
+    @JoinColumn(name="productID",referencedColumnName = "productID")
+    // @JoinColumn(name = "productID")
     private Product productID;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    //@JoinColumn(name="store",referencedColumnName = "storeID")
-    @JoinColumn (name = "storeID")
+    @JoinColumn(name="storeID",referencedColumnName = "storeID")
+    // @JoinColumn (name = "storeID")
     private Store storeID;
 
     @ManyToOne(fetch=FetchType.LAZY)

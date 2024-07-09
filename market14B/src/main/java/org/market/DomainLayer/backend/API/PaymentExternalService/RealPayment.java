@@ -12,17 +12,17 @@ import org.market.DomainLayer.backend.API.PostRequestService;
 public class RealPayment implements PaymentBridge {
 
     private PostRequestService postRequestService;
-    private String url;
+    private String url="https://damp-lynna-wsep-1984852e.koyeb.app/";
 
     public RealPayment(){
         postRequestService=new PostRequestService();
-        loadConfig();
+        // loadConfig();
     }
 
     public void loadConfig() {
         Properties properties = new Properties();
         try {
-            File configFile = new File("src\\main\\java\\org\\market\\DomainLayer\\backend\\API\\config.properties");
+            File configFile = new File("market14B\\src\\main\\java\\org\\market\\DomainLaye\\backend\\API\\config.properties");
             FileInputStream fileInputStream = new FileInputStream(configFile);
             properties.load(fileInputStream);
             url = properties.getProperty("url");

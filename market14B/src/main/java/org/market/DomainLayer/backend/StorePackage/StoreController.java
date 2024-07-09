@@ -41,7 +41,7 @@ public class StoreController {
         if (!stores.containsKey(storeID)) {
             // check and get from dataBase
             // if exists add Store to Map and return Store;
-            org.market.DataAccessLayer.Entity.Store storeEntity = DataController.getinstance().getStore(storeID);
+            org.market.DataAccessLayer.Entity.Store storeEntity = DataController.getStore(storeID);
             Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
             stores.put(storeEntity.getStoreID(),store);
             // else:
