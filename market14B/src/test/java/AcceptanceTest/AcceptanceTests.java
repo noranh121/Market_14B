@@ -57,6 +57,50 @@ public abstract class AcceptanceTests {
         return bridge.testBuyShippingFail(username);
     }
 
+    public double testProductDiscountPolicySuccess(String username) throws Exception{
+        return bridge.testProductDiscountPolicySuccess(username);
+    }
+
+    public double testANDDiscountPolicySuccess(String username) throws Exception{
+        return bridge.testANDDiscountPolicySuccess(username);
+    }
+
+    public double testORDiscountPolicySuccess(String username) throws Exception{
+        return bridge.testORDiscountPolicySuccess(username);
+    }
+
+    public double testXORDiscountPolicySuccess(String username) throws Exception{
+        return bridge.testXORDiscountPolicySuccess(username);
+    }
+
+    public double testProductPurchasePolicySuccess(String username) throws Exception{
+        return bridge.testProductPurchasePolicySuccess(username);
+    }
+
+    public double testANDProductPurchasePolicySuccess(String username) throws Exception{
+        return bridge.testANDProductPurchasePolicySuccess(username);
+    }
+
+    public double testANDProductPurchasePolicyFail(String username) throws Exception{
+        return bridge.testANDProductPurchasePolicyFail(username);
+    }
+
+    public double testORProductPurchasePolicySuccess(String username) throws Exception{
+        return bridge.testProductDiscountPolicySuccess(username);
+    }
+
+    public double testORProductPurchasePolicyFail(String username) throws Exception{
+        return bridge.testORProductPurchasePolicyFail(username);
+    }
+
+    public double testComplexDiscountPolicySuccess(String username) throws Exception{
+        return bridge.testComplexDiscountPolicySuccess(username);
+    }
+
+    public double testComplexPurchasePolicySuccess(String username) throws Exception{
+        return bridge.testComplexPurchasePolicySuccess(username);
+    }
+
     public String testLogout(String username) {
         return bridge.testLogout(username);
     }

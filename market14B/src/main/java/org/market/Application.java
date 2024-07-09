@@ -1,13 +1,17 @@
 package org.market;
 
+import com.nimbusds.jose.crypto.impl.ConcatKDF;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 
+import org.market.DataAccessLayer.Entity.User;
+import org.market.DataAccessLayer.Repository.UserRepository;
 import org.market.ServiceLayer.ServiceFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**

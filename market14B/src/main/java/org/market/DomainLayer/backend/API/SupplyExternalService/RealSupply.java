@@ -12,11 +12,11 @@ import org.market.DomainLayer.backend.API.PostRequestService;
 public class RealSupply implements SupplyBridge {
 
     private PostRequestService postRequestService;
-    private String url;
+    private String url="https://damp-lynna-wsep-1984852e.koyeb.app/";
 
     public RealSupply(){
         postRequestService=new PostRequestService();
-        loadConfig();
+        // loadConfig();
     }
 
     public void loadConfig() {

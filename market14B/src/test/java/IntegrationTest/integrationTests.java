@@ -4,6 +4,8 @@ import org.market.DomainLayer.backend.Basket;
 import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.ProductPackage.Category;
 import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
+import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.GuestUser;
@@ -12,6 +14,7 @@ import org.market.DomainLayer.backend.UserPackage.User;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.market.DomainLayer.backend.UserPackage.UserController.notfications;
 
 public class integrationTests {
     Market market;
@@ -368,10 +371,98 @@ public class integrationTests {
             market.Register("malek", "456", 18);
             market.initStore("ali", "d");
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali", 0);
+            market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",0);
+            market.addToCart("ali", 0, 0, 5);
+            double sum=market.Buy("ali","USD","2222333344445555",4,2021,"123","Ab2","city","country",434);
+            assertEquals(sum, 45.0);
+            assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+        }catch(Exception e){
+            fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
+    @Test
+    public void testANDDiscountPolicySuccess(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.Register("malek", "456", 18);
+            market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.AND;
+            market.addLogicalDiscount("ali",0,role,0);
+            market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
+            market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
+            market.addToCart("ali", 0, 0, 5);
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            assertEquals(sum, 36.0);
+            assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+        }catch(Exception e){
+            fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
+
+    @Test
+    public void testORDiscountPolicySuccess(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.Register("malek", "456", 18);
+            market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.OR;
+            market.addLogicalDiscount("ali",0,role,0);
+            market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
+            market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
+            market.addToCart("ali", 0, 0, 5);
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            assertEquals(sum, 36.0);
+            assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+        }catch(Exception e){
+            fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
+
+    @Test
+    public void testXORDiscountPolicySuccess(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.Register("malek", "456", 18);
+            market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.XOR;
+            market.addLogicalDiscount("ali",0,role,0);
+            market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
+            market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
             market.addToCart("ali", 0, 0, 5);
             double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
             assertEquals(sum, 45.0);
+            assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
         }
@@ -388,8 +479,10 @@ public class integrationTests {
             market.Register("ali", "123", 19);
             market.Register("malek", "456", 18);
             market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true, 0);
+            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,0);
             market.addToCart("ali", 0, 0, 2);
             double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
             fail("the test must fail");
@@ -397,4 +490,176 @@ public class integrationTests {
             assertEquals( "purchase failed",e.getMessage());
         }
     }
+
+    @Test
+    public void testANDProductPurchasePolicySuccess(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(19);
+            market.EnterAsGuest(19);
+            market.Register("ali", "123", 19);
+            market.Register("malek", "456", 18);
+            market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.AND;
+            market.addLogicalPurchase("ali",0,role,0);
+            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
+            market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
+            market.addToCart("ali", 0, 0, 4);
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            assertEquals(sum, 50.0);
+            assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+        }catch(Exception e){
+            fail("error thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testANDProductPurchasePolicyFail(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(19);
+            market.EnterAsGuest(19);
+            market.Register("ali", "123", 19);
+            market.Register("malek", "456", 18);
+            market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.AND;
+            market.addLogicalPurchase("ali",0,role,0);
+            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
+            market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
+            market.addToCart("ali", 0, 0, 4);
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            fail("the test must fail");
+        }catch(Exception e){
+            assertEquals( "purchase failed",e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void testORProductPurchasePolicySuccess(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(19);
+            market.EnterAsGuest(19);
+            market.Register("ali", "123", 19);
+            market.Register("malek", "456", 18);
+            market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.OR;
+            market.addLogicalPurchase("ali",0,role,0);
+            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
+            market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
+            market.addToCart("ali", 0, 0, 4);
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            assertEquals(sum, 50.0);
+            assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+        }catch(Exception e){
+            fail("error thrown: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testORProductPurchasePolicyFail(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(19);
+            market.EnterAsGuest(19);
+            market.Register("ali", "123", 19);
+            market.Register("malek", "456", 18);
+            market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.OR;
+            market.addLogicalPurchase("ali",0,role,0);
+            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
+            market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
+            market.addToCart("ali", 0, 0, 2);
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            fail("the test must fail");
+        }catch(Exception e){
+            assertEquals( "purchase failed",e.getMessage());
+        }
+    }
+
+    @Test
+    public void testComplexDiscountPolicySuccess(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.Register("malek", "456", 18);
+            market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            DiscountPolicyController.LogicalRule role1=DiscountPolicyController.LogicalRule.AND;
+            market.addLogicalDiscount("ali",0,role1,0);
+            market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
+            market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
+            DiscountPolicyController.LogicalRule role2=DiscountPolicyController.LogicalRule.OR;
+            market.addLogicalDiscount("ali",0,role2,1);
+            market.addStoreDiscountPolicy(true, 0, 0, 0.1, 0,  "ali",4);
+            market.addToCart("ali", 0, 0, 5);
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            assertEquals(sum, 32.400000000000006);
+            assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+        }catch(Exception e){
+            fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
+    @Test
+    public void testComplexPurchasePolicySuccess(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.Register("malek", "456", 18);
+            market.initStore("ali", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            PurchasePolicyController.LogicalRule role1=PurchasePolicyController.LogicalRule.AND;
+            market.addLogicalPurchase("ali",0,role1,0);
+            market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
+            market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
+            PurchasePolicyController.LogicalRule role2=PurchasePolicyController.LogicalRule.OR;
+            market.addLogicalPurchase("ali",0,role2,1);
+            market.addUserPurchasePolicy(3,-1,null,0,-1,18,19,"ali",0,true,4);
+            market.addToCart("ali", 0, 0, 5);
+            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            assertEquals(sum, 50);
+            assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+        }catch(Exception e){
+            fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
 }

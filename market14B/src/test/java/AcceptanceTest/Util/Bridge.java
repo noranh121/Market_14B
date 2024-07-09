@@ -14,6 +14,17 @@ public interface Bridge {
     double testBuySupplyFail(String username) throws Exception;
     double testBuyPaymentFail(String username) throws Exception;
     double testBuyShippingFail(String username) throws Exception;
+    double testProductDiscountPolicySuccess(String username) throws Exception;
+    double testANDDiscountPolicySuccess (String username) throws Exception;
+    double testORDiscountPolicySuccess (String username) throws Exception;
+    double testXORDiscountPolicySuccess (String username) throws Exception;
+    double testProductPurchasePolicySuccess (String username) throws Exception;
+    double testANDProductPurchasePolicySuccess (String username) throws Exception;
+    double testANDProductPurchasePolicyFail (String username) throws Exception;
+    double testORProductPurchasePolicySuccess (String username) throws Exception;
+    double testORProductPurchasePolicyFail (String username) throws Exception;
+    double testComplexDiscountPolicySuccess (String username) throws Exception;
+    double testComplexPurchasePolicySuccess (String username) throws Exception;
     String testLogout(String username);
     String testInitStore(String userName, String Description);
     String testAddProduct(int productId,int storeId,double price,int quantity,String username,double weight);

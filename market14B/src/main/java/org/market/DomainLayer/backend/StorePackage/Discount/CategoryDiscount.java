@@ -35,13 +35,13 @@ public class CategoryDiscount extends DiscountPolicy{
     @Override
     public void addComposite(CompositeDiscountPolicy composite, int id) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("not discount policy controller");
+        // throw new UnsupportedOperationException("not discount policy controller");
     }
 
     @Override
     public void removeComposite(int id) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("not discount policy controller");
+        // throw new UnsupportedOperationException("not discount policy controller");
     }
 
 }

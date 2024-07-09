@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static org.market.DomainLayer.backend.UserPackage.UserController.notfications;
+
 @Component
 public class DelayedNotifierDecorator extends NotifierDecorator {
 
@@ -27,6 +29,7 @@ public class DelayedNotifierDecorator extends NotifierDecorator {
     public void send(String user, String message) {
         if (isUserOnline(user)) {
             super.send(user, message);
+            notfications.add(new String[] {user, message});
         } else {
             LOGGER.info("User " + user + " is offline. Saving message for later.");
             if(!delayedMessages.containsKey(user)){
