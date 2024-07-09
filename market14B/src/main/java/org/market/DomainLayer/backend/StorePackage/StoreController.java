@@ -195,7 +195,7 @@ public class StoreController {
     }
 
     public List<Store> getAllStores() {
-        List<org.market.DataAccessLayer.Entity.Store> dalstrs =  DataController.getinstance().getAllStores();
+        List<org.market.DataAccessLayer.Entity.Store> dalstrs =  DataController.getAllStores();
         List<Store> storesToReturn = new ArrayList<>();
         for(org.market.DataAccessLayer.Entity.Store storeEntity: dalstrs){
             Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());

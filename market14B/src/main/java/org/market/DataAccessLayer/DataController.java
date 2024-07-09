@@ -402,7 +402,8 @@ public class DataController {
         return purchaseHistoryRepository.findAll();
     }
 
-    public List<Store> getAllStores(){
+    public static List<Store> getAllStores(){
+        //get all stores
         return new ArrayList<>();
     }
 
