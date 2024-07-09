@@ -20,6 +20,7 @@ import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.market.ServiceLayer.Response;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,15 +39,15 @@ public class Market {
 
     // List<Users> SystemManagers;
     // boolean ON/OFF
-    private UserController userController = UserController.getInstance();
-    private StoreController storeController = StoreController.getInstance();
-    private Permissions permissions = Permissions.getInstance();
-    private PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
-    private ProductController productController = ProductController.getInstance();
-    private CategoryController categoryController = CategoryController.getinstance();
-    private PaymentService paymentService=PaymentService.getInstance();
-    private SupplyService supplyService=SupplyService.getInstance();
-    private DataController dataController=DataController.getinstance();
+    private UserController userController; // = UserController.getInstance();
+    private StoreController storeController; // = StoreController.getInstance();
+    private Permissions permissions; // = Permissions.getInstance();
+    private PurchaseHistory purchaseHistory; // = PurchaseHistory.getInstance();
+    private ProductController productController; // = ProductController.getInstance();
+    private CategoryController categoryController; // = CategoryController.getinstance();
+    private PaymentService paymentService; // =PaymentService.getInstance();
+    private SupplyService supplyService; //=SupplyService.getInstance();
+    private DataController dataController; //=DataController.getinstance();
     private FileHandler fileHandler;
 
     private Boolean Online = false;
@@ -60,6 +61,30 @@ public class Market {
         }
             
         return instance;
+    }
+
+    @Autowired
+    public void setDependencies(UserController userController,StoreController storeController,Permissions permissions,PurchaseHistory purchaseHistory
+    ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService,DataController dataController){
+        this.userController = userController;
+        this.storeController = storeController;
+        this.permissions = permissions;
+        this.purchaseHistory = purchaseHistory;
+        this.productController = productController;
+        this.categoryController = categoryController;
+        this.paymentService = paymentService;
+        this.supplyService = supplyService;
+        this.dataController = dataController;
+        try {
+            systemManagers=dataController.getSystemManagers();
+            Online=dataController.getOnline();
+            fileHandler= new FileHandler("Market.log",true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            LOGGER.addHandler(fileHandler);
+            LOGGER.setLevel(Level.ALL);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Failed to set up logger handler.", e);
+        }
     }
 
     private Market() {

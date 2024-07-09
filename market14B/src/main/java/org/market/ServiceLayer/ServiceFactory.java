@@ -6,21 +6,31 @@ import java.util.List;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceFactory {
-    private MarketService marketService = new MarketService();
-    private UserService userService = new UserService();
-    private StoresService storesService = new StoresService();
+    // private MarketService marketService = new MarketService();
+    // private UserService userService = new UserService();
+    // private StoresService storesService = new StoresService();
+    private MarketService marketService;
+    private UserService userService;
+    private StoresService storesService;
 
-    private static ServiceFactory instance;
+    //private static ServiceFactory instance;
 
-    public static synchronized ServiceFactory getInstance() {
-        if (instance == null) {
-            instance = new ServiceFactory();
-        }
-        return instance;
+    // public static synchronized ServiceFactory getInstance() {
+    //     if (instance == null) {
+    //         instance = new ServiceFactory();
+    //     }
+    //     return instance;
+    // }
+    @Autowired
+    public ServiceFactory(MarketService marketService, UserService userService,StoresService storesService){
+        this.marketService = marketService;
+        this.userService= userService;
+        this.storesService = storesService;
     }
 
     // MarketService
