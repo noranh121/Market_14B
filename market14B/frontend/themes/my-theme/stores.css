@@ -44,14 +44,17 @@
     background: #ead4ba;
 }
 
+.my-store-edit {
+
+}
+
 .store-name {
     font-size: 18px;
     font-weight: bold;
     color: black;
 }
 
-.store-address,
-.store-contact-info {
+.store-description{
     font-size: 14px;
     color: gray;
 }
@@ -102,6 +105,27 @@
     align-content: center;
     align-items: center;
     width: 100%;
+}
+
+.add-product-btn {
+    border: solid #007bff;
+    border-radius: 10px;
+    color: white;
+    background: #007bff;
+    height: 30px;
+    width: 120px;
+    font-size: 12px;
+    margin-right: 20px;
+}
+
+.store-apply-btn{
+    border: solid;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.store-apply-layout{
+    margin-left: 60px;
 }
 
 

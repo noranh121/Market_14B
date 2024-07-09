@@ -1,4 +1,4 @@
-package org.market.PresentationLayer.presenter;
+package org.market.PresentationLayer.views.components;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Image;

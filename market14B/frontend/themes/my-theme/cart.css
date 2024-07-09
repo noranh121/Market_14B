@@ -6,6 +6,7 @@
     overflow-y: scroll;
     scrollbar-width: thin; /* Thin scrollbar (supported in Firefox) */
     scrollbar-color: #999999 #f0f0f0; /* Scrollbar track and thumb colors */
+    margin-left: -12px;
 }
 
 .cart-title {

@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 @Component("BackendStoreController")
 public class StoreController {
     //private static StoreController instance;
-    @Autowired
-    private DataController dataController;
+//    @Autowired
+//    private DataController dataController;
     public static final Logger LOGGER = Logger.getLogger(StoreController.class.getName());
 
     private Map<Integer, Store> stores;
@@ -50,9 +50,9 @@ public class StoreController {
         if (!stores.containsKey(storeID)) {
             // check and get from dataBase
             // if exists add Store to Map and return Store;
-            org.market.DataAccessLayer.Entity.Store storeEntity = dataController.getStore(storeID);
-            Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
-            stores.put(storeEntity.getStoreID(),store);
+//            org.market.DataAccessLayer.Entity.Store storeEntity = dataController.getStore(storeID);
+//            Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
+//            stores.put(storeEntity.getStoreID(),store);
             // else:
             LOGGER.severe("Trying to retrieve A non existing StoreID");
             return null;
@@ -199,14 +199,18 @@ public class StoreController {
         stores.clear();
     }
 
+//    public List<Store> getAllStores() {
+//        List<org.market.DataAccessLayer.Entity.Store> dalstrs =  DataController.getinstance().getAllStores();
+//        List<Store> storesToReturn = new ArrayList<>();
+//        for(org.market.DataAccessLayer.Entity.Store storeEntity: dalstrs){
+//            Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
+//            storesToReturn.add(store);
+//        }
+//        return storesToReturn;
+//    }
+
     public List<Store> getAllStores() {
-        List<org.market.DataAccessLayer.Entity.Store> dalstrs =  dataController.getAllStores();
-        List<Store> storesToReturn = new ArrayList<>();
-        for(org.market.DataAccessLayer.Entity.Store storeEntity: dalstrs){
-            Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
-            storesToReturn.add(store);
-        }
-        return storesToReturn;
+        return new ArrayList<Store>(stores.values());
     }
 
     public double [] getProdInfo(int prodid){
@@ -219,7 +223,7 @@ public class StoreController {
 
     public List<ProductDTO> getStoreProducts(int store_id) {
         if(stores.containsKey(store_id)){
-           return stores.get(store_id).bringProds();
+            return stores.get(store_id).bringProds();
         }
         return new ArrayList<>();
     }

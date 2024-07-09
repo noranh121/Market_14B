@@ -1,19 +1,20 @@
 package org.market.Web.APIES;
 
-import java.util.List;
-
 import org.market.PresentationLayer.models.AuthResponse;
 import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.ServiceFactory;
 import org.market.ServiceLayer.TokenService;
-import org.market.Web.DTOS.StoreDTO;
 import org.market.Web.DTOS.PermissionDTO;
-import org.market.Web.Requests.*;
+import org.market.Web.DTOS.StoreDTO;
+import org.market.Web.Requests.PermissionReq;
+import org.market.Web.Requests.ReqUser;
 import org.market.Web.Requests.cartOp;
 import org.market.Web.SocketCommunication.SocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/users")
@@ -137,6 +138,7 @@ public class UserController {
     public Response<String> unassignUser(@RequestBody PermissionReq per) throws Exception{
         return service.unassignUser(per.getStoreID(), per.getOwnerUserName(), per.getUsername());
     }
+
     @GetMapping("/get-stores/{username}")
     public ResponseEntity<?> getStores(@PathVariable String username) throws Exception{
         List<StoreDTO> usrStores = service.user_stores(username);
@@ -148,4 +150,5 @@ public class UserController {
         List<PermissionDTO> pdtos = service.getPermissions(username);
         return ResponseEntity.ok().body(pdtos);
     }
+    
 }

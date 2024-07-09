@@ -37,7 +37,7 @@ public class Permissions {
     private Notifier DelayerNotifier = new DelayedNotifierDecorator(baseNotifier);
 
 
-    
+
     @Autowired
     private DataController dataController;
     @Autowired
@@ -260,16 +260,16 @@ public class Permissions {
     }
 
     public String viewSuspended() {
-        if(suspendedUsers.isEmpty()){
-            ArrayList<String> suspended=(ArrayList<String>)dataController.viewSuspended();
-            if (suspended.isEmpty()) {
-                UserController.LOGGER.info("no suspended users");
-                return "<Empty>";
-            }
-            for(String name : suspended){
-                suspendedUsers.put(name,new suspensionInfo(null, 0));
-            }
-        }
+//        if(suspendedUsers.isEmpty()){
+//            ArrayList<String> suspended=(ArrayList<String>)DataController.getinstance().viewSuspended();
+//            if (suspended.isEmpty()) {
+//                UserController.LOGGER.info("no suspended users");
+//                return "<Empty>";
+//            }
+//            for(String name : suspended){
+//                suspendedUsers.put(name,new suspensionInfo(null, 0));
+//            }
+//        }
         StringBuilder result = new StringBuilder();
         for (Entry<String, suspensionInfo> entry : suspendedUsers.entrySet()) {
             result.append(entry.getKey());
@@ -352,10 +352,10 @@ public class Permissions {
         for(int strId: storeOwners.keySet()){
             Permission permission = getPermission(strId, username);
             if(permission.getStoreManager() || permission.getStoreOwner()){
-                stores.add(storeController.getStore(strId));
+                stores.add(StoreController.getInstance().getStore(strId));
             }
-       }
-       return stores;
+        }
+        return stores;
     }
 
     public Map<Integer, Permission> getUserPermissions(String username) throws Exception{
@@ -363,8 +363,8 @@ public class Permissions {
         for(int strId: storeOwners.keySet()){
             Permission permission = getPermission(strId, username);
             map.put(strId, permission);
-       }
-       return map;
+        }
+        return map;
     }
 
 }

@@ -1,6 +1,5 @@
 package org.market.PresentationLayer.presenter;
 
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.server.VaadinSession;
 import org.market.PresentationLayer.errors.ErrorHandler;
 import org.market.PresentationLayer.views.MyStoresView;
@@ -44,7 +43,7 @@ public class MyStoresPresenter {
 
                     ResponseEntity<Response> response = restTemplate.exchange(addStoreUrl, HttpMethod.POST, requestEntity, Response.class, username, "This is description!");
 
-                    Notification.show(response.getBody().getValue().toString(), 3000, Notification.Position.MIDDLE);
+                    ErrorHandler.showSuccessNotification(response.getBody().getValue().toString());
 
                 } catch (HttpClientErrorException e) {
                     ErrorHandler.handleError(e, this);

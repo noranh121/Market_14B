@@ -20,25 +20,49 @@ public class PermissionReq {
     public int getStoreID() {
         return storeID;
     }
-    
+
     public String getOwnerUserName() {
         return OwnerUserName;
     }
-    
+
     public String getUsername() {
         return username;
     }
-    
+
     public Boolean isStoreOwner() {
         return storeOwner;
     }
-    
+
     public Boolean isStoreManager() {
         return storeManager;
     }
-    
+
     public Boolean[] getPType() {
         return pType;
     }
-    
+
+    public void setStoreID(int storeID) {
+        this.storeID = storeID;
+    }
+
+    public void setOwnerUserName(String ownerUserName) {
+        OwnerUserName = ownerUserName;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setStoreOwner(Boolean storeOwner) {
+        this.storeOwner = storeOwner;
+    }
+
+    public void setStoreManager(Boolean storeManager) {
+        this.storeManager = storeManager;
+    }
+
+    public void setpType(Boolean[] pType) {
+        this.pType = pType;
+    }
+
 }

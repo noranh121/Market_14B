@@ -1,4 +1,4 @@
-package org.market.PresentationLayer.views.components;
+package org.market.PresentationLayer.models;
 
 public class ProductForProductView {
 

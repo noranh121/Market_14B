@@ -15,34 +15,62 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RoutePrefix;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
-import org.market.PresentationLayer.views.components.ProductForProductView;
+import org.market.PresentationLayer.presenter.ProductPresenter;
+import org.market.Web.DTOS.ProductDTO;
 
 @Route(value = "product", layout = HomeView.class)
 @RoutePrefix("dash")
 @AnonymousAllowed
 public class ProductView extends VerticalLayout implements HasUrlParameter<String> {
-    private ProductForProductView product;
-    private H2 title;
-    private Span description;
+
+    private int product_id;
+    private HorizontalLayout top_layout;
     private ComboBox<String> sizeSelector;
     private ComboBox<String> colorSelector;
     private IntegerField quantityField;
-    private Span price;
     private Button addToCartButton;
+
+    private ProductPresenter presenter;
 
     public ProductView() {
 
-        HorizontalLayout top_layout = new HorizontalLayout();
+        this.top_layout = new HorizontalLayout();
 
+        VerticalLayout specificationsLayout = new VerticalLayout();
+        HorizontalLayout specificationBar = new HorizontalLayout(new H2("Specifications"));
+        specificationBar.addClassName("specification-bar");
+
+        Div separator1 = new Div();
+        Div separator2 = new Div();
+        separator1.addClassName("separator");
+        separator2.addClassName("separator");
+
+        VerticalLayout specificationsList = new VerticalLayout();
+        specificationsList.addClassName("specifications-list");
+        specificationsList.add(new Span("Spec 1: not available"));
+        specificationsList.add(separator1);
+        specificationsList.add(new Span("Spec 2: not available"));
+        specificationsList.add(separator2);
+        specificationsList.add(new Span("Spec 3: not available"));
+
+        specificationsLayout.add(specificationBar);
+        specificationsLayout.add(specificationsList);
+
+        add(top_layout);
+        add(specificationsLayout);
+        addClassName("product-view");
+
+        this.presenter = new ProductPresenter(this);
+    }
+
+    public void setTopLayout(ProductDTO product){
         Image img = new Image("icons/headphones.jpg", "product-view-image");
         img.addClassName("product-image");
 
-        product = new ProductForProductView("product 1", "description",30.0);
-
-        title = new H2(product.getName());
+        H2 title = new H2(product.getName());
         title.getStyle().set("font-size", "25px");
 
-        description = new Span(product.getDescription());
+        Span description = new Span(product.getDescription());
 
         sizeSelector = new ComboBox<>();
         sizeSelector.setItems("Small", "Medium", "Large");
@@ -62,33 +90,12 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         quantityField.getStyle().set("--lumo-size-m", "25px");
         quantityField.setWidth("7em");
 
-
-        price = new Span("$" + product.getPrice());
+        Span price = new Span("$" + product.getPrice());
         price.addClassName("product-view-price");
 
         addToCartButton = new Button("Add to Cart");
         addToCartButton.addClassName("add-to-cart-btn");
         addToCartButton.setSuffixComponent(VaadinIcon.PLUS_CIRCLE_O.create());
-
-        VerticalLayout specificationsLayout = new VerticalLayout();
-        HorizontalLayout specificationBar = new HorizontalLayout(new H2("Specifications"));
-        specificationBar.addClassName("specification-bar");
-
-        Div separator1 = new Div();
-        Div separator2 = new Div();
-        separator1.addClassName("separator");
-        separator2.addClassName("separator");
-
-        VerticalLayout specificationsList = new VerticalLayout();
-        specificationsList.addClassName("specifications-list");
-        specificationsList.add(new Span("Spec 1: Value"));
-        specificationsList.add(separator1);
-        specificationsList.add(new Span("Spec 2: Value"));
-        specificationsList.add(separator2);
-        specificationsList.add(new Span("Spec 3: Value"));
-
-        specificationsLayout.add(specificationBar);
-        specificationsLayout.add(specificationsList);
 
         VerticalLayout productLayout = new VerticalLayout();
 
@@ -105,15 +112,11 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
 
         productLayout.add(details, quantity_price);
 
-        top_layout.add(img);
-        top_layout.add(productLayout);
-        top_layout.addAndExpand(new HorizontalLayout());
-        top_layout.add(button_layout);
-        top_layout.addClassName("product-view-top");
-
-        add(top_layout);
-        add(specificationsLayout);
-        addClassName("product-view");
+        this.top_layout.add(img);
+        this.top_layout.add(productLayout);
+        this.top_layout.addAndExpand(new HorizontalLayout());
+        this.top_layout.add(button_layout);
+        this.top_layout.addClassName("product-view-top");
     }
 
     private void addToCart() {
@@ -121,10 +124,21 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         System.out.println("Product added to cart!");
     }
 
+    public int getProduct_id() {
+        return product_id;
+    }
+
     @Override
     public void setParameter(BeforeEvent beforeEvent, String s) {
-        product.setName(s);
-        title.removeAll();
-        title.add(s);
+        try {
+            if (s != null && !s.isEmpty()) {
+                this.product_id = Integer.parseInt(s);
+                System.out.println("Product ID set to: " + product_id);
+            } else {
+                System.out.println("Invalid or empty parameter provided.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format: " + e.getMessage());
+        }
     }
 }

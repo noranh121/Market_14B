@@ -10,6 +10,8 @@
 @import "stores.css";
 @import "product.css";
 @import "search-bar.css";
+@import "manager-setting.css";
+
 
 
 /* Example: CSS class name to center align the content . */
@@ -137,6 +139,7 @@
 }
 
 .collection-card {
+  position: relative;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 8px;
@@ -159,6 +162,19 @@
   gap: 15px;
   justify-content: center;
   padding: 5px;
+}
+
+.collection-card-remove-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  border: solid;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .scrollable-layout {

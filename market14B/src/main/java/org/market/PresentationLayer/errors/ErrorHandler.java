@@ -2,6 +2,7 @@ package org.market.PresentationLayer.errors;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.server.VaadinSession;
 import org.market.PresentationLayer.models.AuthResponse;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ public class ErrorHandler {
         if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
             handleUnauthorizedError(originalRequest);
         } else {
-            Notification.show("An error occurred: " + e.getMessage(), 3000, Notification.Position.MIDDLE);
+            showErrorNotification(e.getMessage());
         }
     }
 
@@ -25,7 +26,6 @@ public class ErrorHandler {
         if (refreshAccessToken()) {
             // Retry the original request
             originalRequest.run();
-            System.out.println("bing!!!");
         } else {
             Notification.show("Session expired. Please log in again.", 3000, Notification.Position.MIDDLE);
             // Redirect to the login page
@@ -50,8 +50,19 @@ public class ErrorHandler {
                 return true;
             }
         } catch (HttpClientErrorException e) {
-            Notification.show("Failed to refresh token: " + e.getMessage(), 3000, Notification.Position.MIDDLE);
         }
         return false;
+    }
+
+    public static void showErrorNotification(String message) {
+        Notification notification = new Notification(message, 3000);
+        notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+        notification.open();
+    }
+
+    public static void showSuccessNotification(String message) {
+        Notification notification = new Notification(message, 3000);
+        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+        notification.open();
     }
 }

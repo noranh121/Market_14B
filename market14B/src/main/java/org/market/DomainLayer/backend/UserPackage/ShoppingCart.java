@@ -66,17 +66,17 @@ public class ShoppingCart {
     }
 
     public String inspectCart(String username) {
-        if (baskets.isEmpty()) {
-            List<org.market.DataAccessLayer.Entity.Basket> basketsEntities = dataController.inspectCart(username);
-            if (basketsEntities.isEmpty()) {
-                UserController.LOGGER.info("Your shopping cart is empty.");
-                return "<Empty>";
-            }
-            for (org.market.DataAccessLayer.Entity.Basket basket: basketsEntities) {
-                Basket b = new Basket(username, basket.getStoreID().getStoreID());
-                baskets.add(b);
-            }
-        }
+//        if (baskets.isEmpty()) {
+//            List<org.market.DataAccessLayer.Entity.Basket> basketsEntities = DataController.getinstance().inspectCart(username);
+//            if (basketsEntities.isEmpty()) {
+//                UserController.LOGGER.info("Your shopping cart is empty.");
+//                return "<Empty>";
+//            }
+//            for (org.market.DataAccessLayer.Entity.Basket basket: basketsEntities) {
+//                Basket b = new Basket(username, basket.getStoreID().getStoreID());
+//                baskets.add(b);
+//            }
+//        }
         StringBuilder output = new StringBuilder();
         for (Basket basket : baskets) {
             output.append(basket.inspectBasket());

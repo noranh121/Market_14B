@@ -1,0 +1,59 @@
+.manager-settings-view {
+    width: 100%;
+    padding: 10px;
+}
+
+.manager-settings-top-bar {
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 10px;
+
+}
+
+.manager-settings-main-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.manager-settings-role-section, .manager-settings-permission-section {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.manager-settings-role-section {
+    width: 45%;
+}
+
+.manager-settings-permission-section {
+    width: 50%;
+    height: 400px;
+    overflow-y: auto;
+}
+
+
+.manager-setting-role-layout{
+    display: flex;
+    flex-flow: row;
+    align-items: flex-end;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.manager-setting-assign-btn-layout{
+    margin-top: 20px;
+    margin-left: 220px;
+}
+
+
+.manager-setting-assign-btn{
+    border: solid;
+    border-radius: 6px;
+    background: transparent;
+}

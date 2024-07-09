@@ -18,7 +18,7 @@ public class MarketView extends VerticalLayout {
         searchBar.addClassName("top-bar");
 
         add(searchBar);
-        ProductCollection products = new ProductCollection(null);
+        ProductCollection products = new ProductCollection(-1);
         add(products);
     }
 

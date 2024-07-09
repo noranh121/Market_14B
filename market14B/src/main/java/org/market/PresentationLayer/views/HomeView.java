@@ -82,7 +82,7 @@ public class HomeView extends HorizontalLayout implements RouterLayout, AfterNav
 
         add(drawer);
 
-        this.getUI().ifPresent(ui -> ui.navigate("/dash/market"));
+        //this.getUI().ifPresent(ui -> ui.navigate("/dash/market"));
     }
 
     @Override
