@@ -6,8 +6,8 @@ import javax.persistence.*;
 public class Transaction {
     
     @ManyToOne(fetch=FetchType.LAZY)
-    //@JoinColumn(name="username",referencedColumnName = "username")
-    @JoinColumn(name="username")
+    @JoinColumn(name="username",referencedColumnName = "username")
+    // @JoinColumn(name="username")
     private User user;
 
     @Id

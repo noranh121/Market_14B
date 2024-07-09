@@ -38,16 +38,26 @@ public class Market {
     public static final Logger LOGGER = Logger.getLogger(Market.class.getName());
 
     // List<Users> SystemManagers;
-    // boolean ON/OFF
-    private UserController userController; // = UserController.getInstance();
-    private StoreController storeController; // = StoreController.getInstance();
-    private Permissions permissions; // = Permissions.getInstance();
-    private PurchaseHistory purchaseHistory; // = PurchaseHistory.getInstance();
-    private ProductController productController; // = ProductController.getInstance();
-    private CategoryController categoryController; // = CategoryController.getinstance();
-    private PaymentService paymentService; // =PaymentService.getInstance();
-    private SupplyService supplyService; //=SupplyService.getInstance();
+    // // boolean ON/OFF
+    // private UserController userController; // = UserController.getInstance();
+    // private StoreController storeController; // = StoreController.getInstance();
+    // private Permissions permissions; // = Permissions.getInstance();
+    // private PurchaseHistory purchaseHistory; // = PurchaseHistory.getInstance();
+    // private ProductController productController; // = ProductController.getInstance();
+    // private CategoryController categoryController; // = CategoryController.getinstance();
+    // private PaymentService paymentService; // =PaymentService.getInstance();
+    // private SupplyService supplyService; //=SupplyService.getInstance();
+
+
     private DataController dataController; //=DataController.getinstance();
+    private UserController userController = UserController.getInstance();
+    private StoreController storeController = StoreController.getInstance();
+    private Permissions permissions = Permissions.getInstance();
+    private PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
+    private ProductController productController = ProductController.getInstance();
+    private CategoryController categoryController = CategoryController.getinstance();
+    private PaymentService paymentService=PaymentService.getInstance();
+    private SupplyService supplyService=SupplyService.getInstance();
     private FileHandler fileHandler;
 
     private Boolean Online = false;
@@ -89,8 +99,8 @@ public class Market {
 
     private Market() {
         try {
-            systemManagers=dataController.getSystemManagers();
-            Online=dataController.getOnline();
+            systemManagers=DataController.getSystemManagers();
+            Online=DataController.getOnline();
             fileHandler= new FileHandler("Market.log",true);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
@@ -107,7 +117,7 @@ public class Market {
         }
         LOGGER.info("market is Online");
         Online = true;
-        dataController.setMarketOnline();
+        DataController.setMarketOnline();
     }
 
     public void setMarketOFFLINE(String username) throws Exception {
@@ -117,7 +127,7 @@ public class Market {
         }
         LOGGER.info("market is OFFLINE");
         Online = false;
-        dataController.setMarketOFFLINE();
+        DataController.setMarketOFFLINE();
     }
 
     public List<String> getSystemManagers() {
@@ -166,19 +176,19 @@ public class Market {
             }
         }
         String response= userController.Login(guest, username, password);
-        dataController.Login(username);
+        DataController.Login(username);
         return response;
     }
 
     public String Logout(String username) throws Exception {
         String response= userController.Logout(username);
-        dataController.Logout(username);
+        DataController.Logout(username);
         return response;
     }
 
     public String Register(String username, String password,double age) throws Exception {
         String response=userController.Register(username, password,age);
-        dataController.Register(username, password, age);
+        DataController.Register(username, password, age);
         return response;
     }
 
@@ -193,7 +203,7 @@ public class Market {
         paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
         supplyServiceProccess(address,city,country,zip,username);
         userController.getUser(username).cleanShoppingCart();
-        dataController.cleanShoppingCart(username);
+        DataController.cleanShoppingCart(username);
         return total;
     }
     
@@ -242,7 +252,7 @@ public class Market {
             throw new Exception("can't add to cart user is suspended");
         }
         String response= userController.addToCart(username, product, storeId, quantity);
-        dataController.addToCart(username, storeId, product, quantity);
+        DataController.addToCart(username, storeId, product, quantity);
         return response;
     }
 
@@ -251,7 +261,7 @@ public class Market {
             throw new Exception("can't inspect cart user is suspended");
         }
         String response= userController.inspectCart(username);
-        // I used datacontroller in ShoppingCart class
+        // I used DataController in ShoppingCart class
         return response;
     }
 
@@ -260,7 +270,7 @@ public class Market {
             throw new Exception("can't remove cart item user is suspended");
         }
         String response= userController.removeCartItem(username, storeId, product);
-        dataController.removeCartItem(username, storeId, product);
+        DataController.removeCartItem(username, storeId, product);
         return response;
     }
 
@@ -268,7 +278,7 @@ public class Market {
     public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
             Boolean storeManager, Boolean[] pType) throws Exception {
         String response= userController.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
-        dataController.EditPermissions(storeID, userName, storeOwner, storeManager,pType[0],pType[1],pType[2]);
+        DataController.EditPermissions(storeID, userName, storeOwner, storeManager,pType[0],pType[1],pType[2]);
         return response;
     }
 
@@ -278,7 +288,7 @@ public class Market {
         }
         try{
             String response= userController.AssignStoreManager(storeId, ownerUserName, username, pType);
-            dataController.AssignStoreManager(storeId, username);
+            DataController.AssignStoreManager(storeId, username);
             return response;
         } finally{
             systemManagersLock.unlock();
@@ -291,7 +301,7 @@ public class Market {
         }
         try{
             String response=userController.AssignStoreOwner(storeId, ownerUserName, username, pType);
-            dataController.AssignStoreOwner(storeId, username);
+            DataController.AssignStoreOwner(storeId, username);
             return response;
         }finally{
             systemManagersLock.unlock();
@@ -305,7 +315,7 @@ public class Market {
         }
         try{
             String response= permissions.deletePermission(storeID, ownerUserName, userName);
-            dataController.unassignUser(storeID, userName);
+            DataController.unassignUser(storeID, userName);
             return response;
         }finally{
             systemManagersLock.unlock();
@@ -315,7 +325,7 @@ public class Market {
 
     public String resign(int storeID, String username) throws Exception {
         String response= permissions.deleteStoreOwner(storeID, username);
-        dataController.resign(storeID, username);
+        DataController.resign(storeID, username);
         return response;
     }
 
@@ -324,7 +334,7 @@ public class Market {
         try{
             if (systemManagers.contains(systemManager)) {
                 String response= permissions.suspendUser(username);
-                dataController.suspendUser(username);
+                DataController.suspendUser(username);
                 return response;
             } else {
                 throw new Exception(systemManager + " not a system manager");
@@ -350,7 +360,7 @@ public class Market {
     public String resumeUser(String systemManager, String username) throws Exception {
         if (systemManagers.contains(systemManager)) {
             String response= permissions.resumeUser(username);
-            dataController.resumeUser(username);
+            DataController.resumeUser(username);
             return response;
         } else {
             throw new Exception(systemManager + " not a system manager");
@@ -367,7 +377,7 @@ public class Market {
 
     public String viewSuspended(String systemManager) throws Exception {
         if (systemManagers.contains(systemManager)) {
-            // I used datacontroller in permissions class
+            // I used DataController in permissions class
             return permissions.viewSuspended();
         } else {
             throw new Exception(systemManager + " not a system manager");
@@ -379,7 +389,7 @@ public class Market {
         LOGGER.info("storeId: " + storeId + ", category: " + catagory + ", username: " + username);
         if (systemManagers.contains(username)) {
             int categoryId = categoryController.addCategory(catagory);
-            dataController.addCategory(catagory,categoryId);
+            DataController.addCategory(catagory,categoryId);
             LOGGER.info("category added successfully");
             return "category added successfully";
         } else {
@@ -398,7 +408,7 @@ public class Market {
                 + ", description: " + description + ", brand: " + brand);
         if (systemManagers.contains(username)) {
             Category category = categoryController.getCategory(categoryId);
-            // I used datacontroller in productController class
+            // I used DataController in productController class
             return productController.addProduct(productName, category, description, brand,weight);
         } else {
             LOGGER.severe(username + " is not system manager");
@@ -415,7 +425,7 @@ public class Market {
         if (userController.isRegistered(userName)) {
             int storeID = storeController.initStore(userName, Description);
             String resposnse = permissions.initStore(storeID, userName);
-            dataController.initStore(userName,Description);
+            DataController.initStore(userName,Description);
             return resposnse;
         } else {
             LOGGER.severe(userName + " is not registered");
@@ -429,7 +439,7 @@ public class Market {
     public String addProduct(int productId, int storeId, double price, int quantity, String username,double weight) throws Exception {
         if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
             String response = storeController.addProduct(productId, storeId, price, quantity,weight);
-            dataController.addProduct(storeId,productId,price,quantity);
+            DataController.addProduct(storeId,productId,price,quantity);
             return response;
         } else {
             LOGGER.severe(username + " has no permission to add products");
@@ -440,7 +450,7 @@ public class Market {
     public String RemoveProduct(int productId, int storeId, String username) throws Exception {
         if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
             String response = storeController.removeProduct(productId, storeId);
-            dataController.removeProduct(storeId, productId);
+            DataController.removeProduct(storeId, productId);
             return response;
         } else {
             LOGGER.severe(username + " has no permission to edit products");
@@ -596,7 +606,7 @@ public class Market {
         return "user purchase policy added";
     }
 
-    public String addLogicalPurchase(String username, int storeId, DiscountPolicyController.LogicalRule logicalRule,int id) throws Exception{
+    public String addLogicalPurchase(String username, int storeId, PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -728,12 +738,12 @@ public class Market {
     }
 
     public synchronized String removePurchaseFromStore(int storeId, int purchaseId) throws Exception {
-        dataController.removePurchaseHistory(purchaseId);
+        DataController.removePurchaseHistory(purchaseId);
         return purchaseHistory.removePurchaseFromStore(storeId, purchaseId);
     }
 
     public synchronized String removePurchaseFromUser(String userId, int purchaseId) throws Exception {
-        dataController.removePurchaseHistory(purchaseId);
+        DataController.removePurchaseHistory(purchaseId);
         return purchaseHistory.removePurchaseFromUser(userId, purchaseId);
     }
 

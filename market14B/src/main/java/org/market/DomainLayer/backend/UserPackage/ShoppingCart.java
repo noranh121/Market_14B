@@ -57,7 +57,7 @@ public class ShoppingCart {
 
     public String inspectCart(String username) {
         if (baskets.isEmpty()) {
-            List<org.market.DataAccessLayer.Entity.Basket> basketsEntities = DataController.getinstance().inspectCart(username);
+            List<org.market.DataAccessLayer.Entity.Basket> basketsEntities = DataController.inspectCart(username);
             if (basketsEntities.isEmpty()) {
                 UserController.LOGGER.info("Your shopping cart is empty.");
                 return "<Empty>";

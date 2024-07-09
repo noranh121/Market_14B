@@ -17,31 +17,38 @@ import java.util.logging.SimpleFormatter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Service
+@Transactional
 public class DataController {
+
     public static final Logger LOGGER = Logger.getLogger(DataController.class.getName());
-    private BasketRepository basketRepository;
-    private CategoryRepository categoryRepository;
-    private InventoryRepository inventoryRepository;
-    private NotificationRepository notificationRepository;
-    private PermissionsRepository permissionsRepository;
-    private ProductRepository productRepository;
-    private PurchaseHistoryRepository purchaseHistoryRepository;
-    private StoreRepository storeRepository;
-    private TransactionRepository transactionRepository;
-    private MarketRepository marketRepository;
-    private UserRepository userRepository;
+
+    @Autowired
+    private static BasketRepository basketRepository;
+    @Autowired
+    private static CategoryRepository categoryRepository;
+    @Autowired
+    private static InventoryRepository inventoryRepository;
+    @Autowired
+    private static NotificationRepository notificationRepository;
+    @Autowired
+    private static PermissionsRepository permissionsRepository;
+    @Autowired
+    private static ProductRepository productRepository;
+    @Autowired
+    private static PurchaseHistoryRepository purchaseHistoryRepository;
+    @Autowired
+    private static StoreRepository storeRepository;
+    @Autowired
+    private static TransactionRepository transactionRepository;
+    @Autowired
+    private static MarketRepository marketRepository;
+    @Autowired
+    private static UserRepository userRepository;
     
-    private static DataController instance;
     private FileHandler fileHandler;
 
-    public static synchronized DataController getinstance() {
-        if (instance == null) {
-            instance = new DataController();
-        }
-        return instance;
-    }
-
-    private DataController() {
+    public DataController() {
+        super();
         try {
             fileHandler= new FileHandler("DataController.log",true);
             fileHandler.setFormatter(new SimpleFormatter());
@@ -52,21 +59,21 @@ public class DataController {
         }
     }
 
-    public void setMarketOnline(){
+    public static void setMarketOnline(){
         Market market=marketRepository.findById(0).get();
         market.setOnline(true);
         marketRepository.save(market);
         LOGGER.info("market updated to online at DataBase");
     }
 
-    public void setMarketOFFLINE(){
+    public static void setMarketOFFLINE(){
         Market market=marketRepository.findById(0).get();
         market.setOnline(false);
         marketRepository.save(market);
         LOGGER.info("market updated to OFFLINE at DataBase");
     }
 
-    public List<String> getSystemManagers(){
+    public static List<String> getSystemManagers(){
         Market market=marketRepository.findById(0).get();
         List<User> systemManagersEntity=market.getSystemManagers();
         List<String> systemManagers= Collections.synchronizedList(new ArrayList<>());
@@ -76,26 +83,26 @@ public class DataController {
         return systemManagers;
     }
 
-    public Boolean getOnline(){
+    public static Boolean getOnline(){
         Market market=marketRepository.findById(0).get();
         return market.getOnline();
     }
 
-    public void Login(String username){
+    public static void Login(String username){
         User user=userRepository.findById(username).get();
         user.setLoggedIn(true);
         userRepository.save(user);
         LOGGER.info("user is online at the DataBase");
     }
     
-    public void Logout(String username){
+    public static void Logout(String username){
         User user=userRepository.findById(username).get();
         user.setLoggedIn(false);
         userRepository.save(user);
         LOGGER.info("user is offline at the DataBase");
     }
 
-    public void Register(String username,String password,double age) {
+    public static void Register(String username,String password,double age) {
         User user=new User();
         user.setUsername(username);
         user.setAge(age);
@@ -107,7 +114,7 @@ public class DataController {
         LOGGER.info("user entity added to DataBase");
     }
 
-    public void cleanShoppingCart(String username){
+    public static void cleanShoppingCart(String username){
         Optional<User> optionalUser=userRepository.findById(username);
         if(optionalUser.isPresent()){
             User user=optionalUser.get();
@@ -118,7 +125,7 @@ public class DataController {
         }
     }
 
-    public void addToCart(String username,Integer storeID,Integer productID,Integer quantity){
+    public static void addToCart(String username,Integer storeID,Integer productID,Integer quantity){
         Optional<User> optionalUser=userRepository.findById(username);
         if(optionalUser.isPresent()){
 
@@ -161,7 +168,7 @@ public class DataController {
         }
     }
 
-    public List<Basket> inspectCart(String username){
+    public static List<Basket> inspectCart(String username){
         Optional<User> optionalUser=userRepository.findById(username);
         if(optionalUser.isPresent()){
 
@@ -175,7 +182,7 @@ public class DataController {
         return null;
     }
 
-    public void removeCartItem(String username,Integer storeID,Integer productID){
+    public static void removeCartItem(String username,Integer storeID,Integer productID){
         Optional<User> optionalUser=userRepository.findById(username);
         if(optionalUser.isPresent()){
 
@@ -208,7 +215,7 @@ public class DataController {
         }
     }
 
-    public void EditPermissions(Integer storeID,String username,Boolean storeOwner,Boolean storeManager,
+    public static void EditPermissions(Integer storeID,String username,Boolean storeOwner,Boolean storeManager,
     Boolean editProducts,Boolean addOrEditPurchaseHistory,Boolean addOrEditDiscountHistory){
         // get relevant permission for the store
         Permissions permissions=permissionsRepository.findById(storeID).get();
@@ -230,7 +237,7 @@ public class DataController {
 
     }
 
-    public void AssignStoreManager(Integer storeID,String username){
+    public static void AssignStoreManager(Integer storeID,String username){
         // get relevant permission for the store
         Permissions permissions=permissionsRepository.findById(storeID).get();
         
@@ -246,7 +253,7 @@ public class DataController {
 
     }
 
-    public void AssignStoreOwner(Integer storeID,String username){
+    public static void AssignStoreOwner(Integer storeID,String username){
         // get relevant permission for the store
         Permissions permissions=permissionsRepository.findById(storeID).get();
         
@@ -262,7 +269,7 @@ public class DataController {
 
     }
 
-    public void unassignUser(Integer storeID,String username){
+    public static void unassignUser(Integer storeID,String username){
         // get relevant permission for the store
         Permissions permissions=permissionsRepository.findById(storeID).get();
         
@@ -277,25 +284,25 @@ public class DataController {
 
     }
 
-    public void resign(int storeID, String username){
+    public static void resign(int storeID, String username){
         unassignUser(storeID, username);
     }
 
-    public void suspendUser(String username) {
+    public static void suspendUser(String username) {
         User user=userRepository.findById(username).get();
         user.setSuspended(true);
         userRepository.save(user);
         LOGGER.info("user is suspended at the DataBase");
     }
 
-    public void resumeUser(String username) {
+    public  static void resumeUser(String username) {
         User user=userRepository.findById(username).get();
         user.setSuspended(false);
         userRepository.save(user);
         LOGGER.info("user is not suspended at the DataBase");
     }
 
-    public List<String> viewSuspended(){
+    public static List<String> viewSuspended(){
         List<User> users=userRepository.findAll();
         List<User> suspendedUsers=users.stream().filter(user -> user.getSuspended()).toList();
         List<String> usernames=suspendedUsers.stream().map(user -> user.getUsername()).toList();
@@ -303,7 +310,7 @@ public class DataController {
     }
 
     @Transactional
-    public void addCategory(String categoryName, int categoryId){
+    public static void addCategory(String categoryName, int categoryId){
         Category category=new Category();
         category.setCategoryName(categoryName);
         category.setCategoryID(categoryId);
@@ -311,7 +318,7 @@ public class DataController {
         LOGGER.info("added category to db");
     }
 
-    public void initProduct(String productName, int productId, int categoryId, String description, String brand,double weight) {
+    public static void initProduct(String productName, int productId, int categoryId, String description, String brand,double weight) {
         Product product = new Product();
         product.setBrand(brand);
         product.setProductID(productId);
@@ -323,7 +330,7 @@ public class DataController {
         LOGGER.info("added product to db");
     }
 
-    public void initStore(String username, String description) {
+    public static void initStore(String username, String description) {
         Optional<User> optionalUser=userRepository.findById(username);
         if(optionalUser.isPresent()){
 
@@ -344,54 +351,54 @@ public class DataController {
     }
 
     @Transactional
-    public void addProduct(int storeId, int productId, double price, int quantity) {
+    public static void addProduct(int storeId, int productId, double price, int quantity) {
         Product product = productRepository.getReferenceById(productId);
         Store tempStore = storeRepository.getReferenceById(storeId);
         tempStore.getInventory().addProduct(product, price, quantity);
         LOGGER.info("added product to the store in db");
     }
 
-    public void removeProduct(int storeId, int productId) {
+    public static void removeProduct(int storeId, int productId) {
         Product product = productRepository.getReferenceById(productId);
         Store tempStore = storeRepository.getReferenceById(storeId);
         tempStore.getInventory().removeProduct(product);
         LOGGER.info("removed product from store in db");
     }
 
-    public void EditProductPrice(int productId, int storeId, Double newPrice) {
+    public static void EditProductPrice(int productId, int storeId, Double newPrice) {
         Product product = productRepository.getReferenceById(productId);
         Store tempStore = storeRepository.getReferenceById(storeId);
         tempStore.getInventory().editPrice(product,newPrice);
         LOGGER.info("replaced price in db");
     }
 
-    public void EditProductQuantity(int productId, int storeId, int newQuantity) {
+    public static void EditProductQuantity(int productId, int storeId, int newQuantity) {
         Product product = productRepository.getReferenceById(productId);
         Store tempStore = storeRepository.getReferenceById(storeId);
         tempStore.getInventory().editQuantity(product, newQuantity);
         LOGGER.info("replaced quantity in db");
     }
 
-    public void openStore(int storeId) {
+    public static void openStore(int storeId) {
         Store store = storeRepository.getReferenceById(storeId);
         store.setActive(true);
     }
 
-    public void closeStore(int storeId) {
+    public static void closeStore(int storeId) {
         Store store = storeRepository.getReferenceById(storeId);
         store.setActive(false);
     }
 
-    public Store getStore(int storeId) {
+    public static Store getStore(int storeId) {
         return storeRepository.getReferenceById(storeId);
     }
 
-    public void removePurchaseHistory(int purchaseId) {
+    public static void removePurchaseHistory(int purchaseId) {
         purchaseHistoryRepository.deleteById(purchaseId);
         LOGGER.info("deleted " + purchaseId + " history from store");
     }
 
-    public List<PurchaseHistory> getPutchaseHistory() {
+    public static List<PurchaseHistory> getPutchaseHistory() {
         return purchaseHistoryRepository.findAll();
     }
 

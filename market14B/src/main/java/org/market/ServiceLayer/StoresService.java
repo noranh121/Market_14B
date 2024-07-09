@@ -14,6 +14,8 @@ import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
 import org.springframework.security.access.method.P;
+import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
+import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 
 public class StoresService {
 
@@ -152,7 +154,7 @@ public class StoresService {
         }
     }
 
-    public String addLogicalDiscount(String username,int storeId,LogicalRule logicalRule,int id) throws Exception{
+    public String addLogicalDiscount(String username,int storeId,DiscountPolicyController.LogicalRule logicalRule,int id) throws Exception{
         try {
             String result = market.addLogicalDiscount(username, storeId, logicalRule,id);
             StoreController.LOGGER.info(result);
@@ -203,7 +205,7 @@ public class StoresService {
         }
     }
 
-    public String addLogicalPurchase(String username,int storeId,LogicalRule logicalRule,int id) throws Exception{
+    public String addLogicalPurchase(String username,int storeId,PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
         try {
             String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
             StoreController.LOGGER.info(result);
