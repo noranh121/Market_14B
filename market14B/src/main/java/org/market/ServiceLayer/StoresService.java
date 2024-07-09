@@ -46,10 +46,10 @@ public class StoresService {
         }
     }//@
 
-    public Response<String> initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
+    public Response<Integer> initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
         try {
-            String result = market.initProduct(username, productName, categoryId, description, brand,weight);
-            StoreController.LOGGER.info(result);
+            int result = market.initProduct(username, productName, categoryId, description, brand,weight);
+            StoreController.LOGGER.info(String.valueOf(result));
             return Response.successRes(result);
         } catch (Exception e) {
             return Response.failRes(e.getMessage());

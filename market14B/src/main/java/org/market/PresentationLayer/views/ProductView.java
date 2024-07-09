@@ -59,8 +59,6 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         add(top_layout);
         add(specificationsLayout);
         addClassName("product-view");
-
-        this.presenter = new ProductPresenter(this);
     }
 
     public void setTopLayout(ProductDTO product){
@@ -133,6 +131,7 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         try {
             if (s != null && !s.isEmpty()) {
                 this.product_id = Integer.parseInt(s);
+                this.presenter = new ProductPresenter(this);
                 System.out.println("Product ID set to: " + product_id);
             } else {
                 System.out.println("Invalid or empty parameter provided.");

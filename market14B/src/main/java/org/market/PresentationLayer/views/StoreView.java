@@ -110,8 +110,6 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
 
         middle_layout.addClassName("middle-bar");
         add(middle_layout);
-
-        //this.presenter = new StorePresenter(this);
     }
 
     public void setApplyButtonClickEventListener(ComponentEventListener<ClickEvent<Button>> event) {

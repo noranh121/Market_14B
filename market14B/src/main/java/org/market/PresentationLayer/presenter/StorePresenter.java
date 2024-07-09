@@ -27,7 +27,6 @@ public class StorePresenter {
     }
 
     private void initView() {
-        System.out.println("id: sssss " + view.getStore_id());
         StoreDTO store = getStore(this.view.getStore_id());
         this.view.setStoreLayout(store);
         this.view.setApplyButtonClickEventListener(e ->

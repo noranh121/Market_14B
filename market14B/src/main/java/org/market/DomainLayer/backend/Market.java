@@ -1,6 +1,7 @@
 package org.market.DomainLayer.backend;
 
-import org.market.DataAccessLayer.DataController;
+//import org.market.DataAccessLayer.DataController;
+
 import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
 import org.market.DomainLayer.backend.API.SupplyExternalService.SupplyService;
 import org.market.DomainLayer.backend.ProductPackage.Category;
@@ -52,8 +53,8 @@ public class Market {
     // private SupplyService supplyService; //=SupplyService.getInstance();
 
 
-    private DataController dataController;// = new DataController();//=DataController.getinstance(); 
-    private StoreController storeController;// = StoreController.getInstance();   
+    private DataController dataController;// = new DataController();//=DataController.getinstance();
+    private StoreController storeController;// = StoreController.getInstance();
     private UserController userController;// = UserController.getInstance();
     private Permissions permissions;// = Permissions.getInstance();
     private PurchaseHistory purchaseHistory;// = PurchaseHistory.getInstance();
@@ -63,7 +64,7 @@ public class Market {
     private SupplyService supplyService;//=SupplyService.getInstance();
     private FileHandler fileHandler;
 
-    private Boolean Online = false;
+    private Boolean Online = true;
     private List<String> systemManagers = Collections.synchronizedList(new ArrayList<>());
     private final Lock systemManagersLock = new ReentrantLock();
     private static Market instance;
@@ -75,7 +76,7 @@ public class Market {
             
         return instance;
     }
- 
+
     @Autowired
     public void setDependencies(DataController dataController,StoreController storeController,UserController userController,Permissions permissions,PurchaseHistory purchaseHistory
     ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService){
@@ -392,7 +393,7 @@ public class Market {
         LOGGER.info("storeId: " + storeId + ", category: " + catagory + ", username: " + username);
         if (systemManagers.contains(username)) {
             int categoryId = categoryController.addCategory(catagory);
-            dataController.addCategory(catagory,categoryId);
+            //dataController.addCategory(catagory,categoryId);
             LOGGER.info("category added successfully");
             return "category added successfully";
         } else {
@@ -405,13 +406,17 @@ public class Market {
     /*
      * new product in the system
      */
-    public String initProduct(String username, String productName, int categoryId, String description, String brand,double weight)
+    public int initProduct(String username, String productName, int categoryId, String description, String brand,double weight)
             throws Exception {
         LOGGER.info("username: " + username + ",productName : " + productName + ", categoryId: " + categoryId
                 + ", description: " + description + ", brand: " + brand);
-        if (systemManagers.contains(username)) {
+        if (true/*systemManagers.contains(username)*/) {
             Category category = categoryController.getCategory(categoryId);
-            // I used DataController in productController class
+            if(category == null){
+                int catId = categoryController.addCategory("None");
+                category = categoryController.getCategory(catId);
+            }
+            // I used datacontroller in productController class
             return productController.addProduct(productName, category, description, brand,weight);
         } else {
             LOGGER.severe(username + " is not system manager");

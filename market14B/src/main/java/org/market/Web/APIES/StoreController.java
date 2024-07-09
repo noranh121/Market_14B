@@ -45,7 +45,7 @@ public class StoreController {
         List<ProductDTO> prods = service.getStoreProducts(store_id);
         return ResponseEntity.ok().body(prods);
     }
-    @GetMapping("/products/{product_id}")
+    @GetMapping("/product/{product_id}")
     public ResponseEntity<?> getProductInfo(@PathVariable("product_id") int product_id){
         try{
             ProductDTO pdto = service.getProductInfo(product_id);
@@ -55,11 +55,11 @@ public class StoreController {
         }
     }
 
-//    @GetMapping("/store/{store_id}")
-//    public ResponseEntity<?> getStoreInfo(@PathVariable("store_id") int store_id){
-//        StoreDTO sdto =  service.getStore(store_id);
-//        return ResponseEntity.ok().body(sdto);
-//    }
+    @GetMapping("/store/{store_id}")
+    public ResponseEntity<?> getStoreInfo(@PathVariable("store_id") int store_id){
+        StoreDTO sdto =  service.getStore(store_id);
+        return ResponseEntity.ok().body(sdto);
+    }
 
 //    @GetMapping("/all")
 //    public ResponseEntity<?> getAllStores() {
@@ -149,14 +149,14 @@ public class StoreController {
 //        return ResponseEntity.ok().body(product);
 //    }
 //
-    @GetMapping("/store/{store_id}")
-    public ResponseEntity<?> getStoreInfo(@PathVariable("store_id") int store_id) {
-        StoreDTO store = new StoreDTO();
-        store.setId(1);
-        store.setName("Awesome Store");
-        store.setDescription("This store is very Awesome.");
-        return ResponseEntity.ok().body(store);
-    }
+//    @GetMapping("/store/{store_id}")
+//    public ResponseEntity<?> getStoreInfo(@PathVariable("store_id") int store_id) {
+//        StoreDTO store = new StoreDTO();
+//        store.setId(1);
+//        store.setName("Awesome Store");
+//        store.setDescription("This store is very Awesome.");
+//        return ResponseEntity.ok().body(store);
+//    }
 
     @PostMapping("/add-store/username={username}&desc={desc}")
     public ResponseEntity<?> initStore(@RequestHeader("Authorization") String token,
@@ -177,14 +177,24 @@ public class StoreController {
     }
 
     @PostMapping("/add-product")
-    public ResponseEntity<?> addProduct(@RequestBody AddProductReq rstr) throws Exception{
-        String response = service.addProduct(rstr.getId(), rstr.getStore_id(), rstr.getPrice(), rstr.getInventory(), rstr.getUsername(), rstr.getWeight());
-        if(!response.equals("Product added to store Successfully")){
-            return ResponseEntity.badRequest().body(response);
+    public ResponseEntity<?> addProduct(@RequestHeader("Authorization") String token, @RequestBody AddProductReq rstr) throws Exception{
+        String tokenValue = token.replace("Bearer ", "");
+        String username = jwtUtil.extractUsername(tokenValue);
+        if (username != null && jwtUtil.validateToken(tokenValue,username)) {
+            Response<Integer> response1 = service.initProduct(rstr.getUsername(), rstr.getName(),-1,rstr.getDescription(),"brand",rstr.getWeight());
+            if(!response1.isError()){
+                String response2 = service.addProduct(response1.getValue(), rstr.getStore_id(), rstr.getPrice(), rstr.getInventory(), rstr.getUsername(), rstr.getWeight());
+                if(!response2.equals("Product added to store Successfully")) {
+                    return ResponseEntity.badRequest().body(response2);
+                }else{
+                    return ResponseEntity.ok(response2);
+                }
+            }
+            else {
+                return ResponseEntity.badRequest().body(response1.getErrorMessage());
+            }
         }
-        else{
-            return ResponseEntity.ok(response);
-        }
+        return ResponseEntity.status(401).build();
     }
 
     @DeleteMapping("/remove-product")

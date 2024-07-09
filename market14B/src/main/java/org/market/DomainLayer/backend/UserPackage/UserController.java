@@ -20,7 +20,7 @@ public class UserController {
      private static UserController instance;
     public static List<String[]> notfications=new ArrayList<String[]>();
     private DataController dataController;
-    
+
     public static synchronized UserController getInstance() {
         if (instance == null)
             instance= new UserController();
@@ -93,8 +93,8 @@ public class UserController {
     // Registered user
     private String addToRegUserMap(User reg,String newPass) throws Exception {
         RegUserMap.put(reg.getUsername(), reg);
-        dataController.Register(reg.getUsername(), newPass,reg.getAge());
-        return "guest user added successfully";
+        //dataController.Register(reg.getUsername(), newPass,reg.getAge());
+        return "User registered successfully";
     }
 
     public String Logout(String username) throws Exception {

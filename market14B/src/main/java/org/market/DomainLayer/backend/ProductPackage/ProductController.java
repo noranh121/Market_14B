@@ -34,7 +34,7 @@ public class ProductController {
         products = new ConcurrentHashMap<>();
     }
 
-    public synchronized String addProduct(String name, Category category, String description, String brand,double weight) throws Exception {
+    public synchronized int addProduct(String name, Category category, String description, String brand,double weight) throws Exception {
         for(Product product : products.values()){
             if(product.getName().equals(name)){
                 LOGGER.severe("product already exits in the system");
@@ -48,7 +48,7 @@ public class ProductController {
         products.put(prod.getId(), prod);
         //dataController.initProduct(name, id,category.getId(), description, brand, weight);
         LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system");
-        return "Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system";
+        return id;
     }
 
     // private boolean contains(String name, Category category) {

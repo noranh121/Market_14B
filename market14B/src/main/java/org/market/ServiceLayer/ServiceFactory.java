@@ -167,7 +167,7 @@ public class ServiceFactory {
         return storesService.getInfo(storeId, username);
     }
 
-    public Response<String> initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
+    public Response<Integer> initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
         return storesService.initProduct(username, productName, categoryId, description, brand,weight);
     }
 
