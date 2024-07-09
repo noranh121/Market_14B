@@ -6,6 +6,12 @@ import java.util.List;
 
 public abstract class PurchasePolicyController extends CompositePurchasePolicy{
 
+    public enum LogicalRule{
+        AND,
+        OR,
+        IF_THEN
+    }
+
     protected List<CompositePurchasePolicy> compositePurchasePolicies;
 
     public PurchasePolicyController(int id){

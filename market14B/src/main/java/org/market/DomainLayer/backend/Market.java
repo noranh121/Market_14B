@@ -566,7 +566,7 @@ public class Market {
         return "user purchase policy added";
     }
 
-    public String addLogicalPurchase(String username, int storeId, DiscountPolicyController.LogicalRule logicalRule,int id) throws Exception{
+    public String addLogicalPurchase(String username, int storeId, PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
         if(!Permissions.getInstance().getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
