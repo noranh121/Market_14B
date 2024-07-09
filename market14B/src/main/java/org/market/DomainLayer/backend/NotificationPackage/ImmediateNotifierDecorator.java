@@ -7,6 +7,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import static org.market.DomainLayer.backend.UserPackage.UserController.notfications;
+
 @Component
 public class ImmediateNotifierDecorator extends NotifierDecorator {
 
@@ -30,6 +32,7 @@ public class ImmediateNotifierDecorator extends NotifierDecorator {
             super.send(user, message);
             SocketHandler socket =  applicationContext.getBean(SocketHandler.class);
             socket.sendMessage(user,message);
+            notfications.add(new String[] {user, message});
         }
     }catch(Exception ex){}
     }

@@ -4,6 +4,8 @@ import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.market.DomainLayer.backend.UserPackage.UserController.notfications;
+
 public class AccTestImpl extends AcceptanceTests{
 
     @AfterEach
@@ -262,6 +264,88 @@ public class AccTestImpl extends AcceptanceTests{
         assertTrue(res.contains("Username: ali"));
         assertTrue(res.contains("Store ID: 0"));
         assertTrue(res.contains("Overall Price: 50"));
+    }
+
+    @Test
+    void testProductDiscountPolicySuccessImpl() throws Exception{
+        double res=testProductDiscountPolicySuccess("ali");
+        assertEquals(res,50);
+        assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+        assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+    }
+
+    @Test
+    void testANDDiscountPolicySuccessImpl() throws Exception{
+        double res=testANDDiscountPolicySuccess("ali");
+        assertEquals(res,36);
+        assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+        assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+    }
+
+    @Test
+    void testORDiscountPolicySuccessImpl() throws Exception{
+        double res=testORDiscountPolicySuccess("ali");
+        assertEquals(res,36);
+        assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+        assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+    }
+
+    @Test
+    void testXORDiscountPolicySuccessImpl() throws Exception{
+        double res=testXORDiscountPolicySuccess("ali");
+        assertEquals(res,36);
+        assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+        assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+    }
+
+    @Test
+    void testProductPurchasePolicySuccessImpl() throws Exception{
+        double res=testProductPurchasePolicySuccess("ali");
+        assertEquals(res,-1);
+    }
+
+    @Test
+    void testANDProductPurchasePolicySuccessImpl() throws Exception{
+        double res=testANDProductPurchasePolicySuccess("ali");
+        assertEquals(res,50);
+        assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+        assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+    }
+
+    @Test
+    void testANDProductPurchasePolicyFailImpl() throws Exception{
+        double res=testANDProductPurchasePolicyFail("ali");
+        assertEquals(res,-1);
+    }
+
+    @Test
+    void testORProductPurchasePolicySuccessImpl() throws Exception{
+        double res=testORProductPurchasePolicySuccess("ali");
+        assertEquals(res,50);
+        assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+        assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+    }
+
+    @Test
+    void testORProductPurchasePolicyFailImpl() throws Exception{
+        double res=testORProductPurchasePolicyFail("ali");
+        assertEquals(res,-1);
+    }
+
+    @Test
+    void testComplexDiscountPolicySuccessImpl() throws Exception{
+        double res=testComplexDiscountPolicySuccess("ali");
+        assertEquals(res,32.400000000000006);
+        assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+        assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
+    }
+
+    @Test
+    void testComplexPurchasePolicySuccessImpl() throws Exception{
+        double res=testComplexPurchasePolicySuccess("ali");
+        assertEquals(res,50);
+        assertEquals(notfications.get(notfications.indexOf("ali")).length,1);
+        assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
     }
 
 }

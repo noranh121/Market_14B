@@ -11,6 +11,9 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.market.DataAccessLayer.DataController;
 import org.market.DomainLayer.backend.Basket;
 import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.NotificationPackage.BaseNotifier;
+import org.market.DomainLayer.backend.NotificationPackage.ImmediateNotifierDecorator;
+import org.market.DomainLayer.backend.NotificationPackage.Notifier;
 import org.market.DomainLayer.backend.Purchase;
 import org.market.DomainLayer.backend.PurchaseHistory;
 import org.market.DomainLayer.backend.StorePackage.Store;
@@ -104,6 +107,9 @@ public class ShoppingCart {
         // cancelPurchase();
         //}
         UserController.LOGGER.info("Your purchase was successful");
+        BaseNotifier baseNotifier = new BaseNotifier();
+        Notifier ImmediateNotifier = new ImmediateNotifierDecorator(baseNotifier);
+        ImmediateNotifier.send(username,"Your purchase was successful");
         return sum;
     }
 

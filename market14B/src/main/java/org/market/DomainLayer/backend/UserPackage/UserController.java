@@ -2,6 +2,8 @@ package org.market.DomainLayer.backend.UserPackage;
 
 import org.market.DomainLayer.backend.AuthenticatorPackage.Authenticator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.FileHandler;
@@ -12,6 +14,7 @@ import java.util.logging.SimpleFormatter;
 public class UserController {
     public static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
     private static UserController instance;
+    public static List<String[]> notfications=new ArrayList<String[]>();
 
     public static synchronized UserController getInstance() {
         if (instance == null)
