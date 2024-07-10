@@ -1,6 +1,8 @@
 package org.market.DomainLayer.backend.UserPackage;
 
 import org.market.DomainLayer.backend.AuthenticatorPackage.Authenticator;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+@Component("BackendUserController")
 public class UserController {
     public static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
-    private static UserController instance;
+     private static UserController instance;
     public static List<String[]> notfications=new ArrayList<String[]>();
 
     public static synchronized UserController getInstance() {

@@ -1,10 +1,16 @@
 package org.market.DataAccessLayer.Entity;
 
-import javax.persistence.*;
+// import javax.persistence.*;
 
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 @Entity
 //@Table(name="Category",catalog = "Market")
 @Table(name="Category")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category implements java.io.Serializable{
 
     @Id

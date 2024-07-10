@@ -2,32 +2,45 @@ package org.market.DataAccessLayer.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+
+import com.vaadin.flow.component.template.Id;
+
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+
+@Embeddable
 public class BasketId implements Serializable {
 
-    private String username;
-    private Integer storeID;
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private User username;
+    @JoinColumn(name = "storeID", referencedColumnName = "storeID")
+    private Store storeID;
 
     public BasketId() {
     }
 
-    public BasketId(String username, Integer storeID) {
+    public BasketId(User username, Store storeID) {
         this.username = username;
         this.storeID = storeID;
     }
 
-    public String getUsername() {
+    public User getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(User username) {
         this.username = username;
     }
 
-    public Integer getStoreID() {
+    public Store getStoreID() {
         return storeID;
     }
 
-    public void setStoreID(Integer storeID) {
+    public void setStoreID(Store storeID) {
         this.storeID = storeID;
     }
 

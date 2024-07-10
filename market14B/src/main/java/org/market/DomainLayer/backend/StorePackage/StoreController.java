@@ -12,20 +12,25 @@ import java.util.logging.SimpleFormatter;
 import org.market.DataAccessLayer.DataController;
 import org.market.DomainLayer.backend.ProductPackage.Product;
 import org.market.Web.DTOS.ProductDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component("BackendStoreController")
 public class StoreController {
-    private static StoreController instance;
+    //private static StoreController instance;
+    @Autowired
+    private DataController dataController;
     public static final Logger LOGGER = Logger.getLogger(StoreController.class.getName());
 
     private Map<Integer, Store> stores;
     private int idCounter;
 
-    public static synchronized StoreController getInstance() {
-        if (instance == null) {
-            instance = new StoreController();
-        }
-        return instance;
-    }
+    // public static synchronized StoreController getInstance() {
+    //     if (instance == null) {
+    //         instance = new StoreController();
+    //     }
+    //     return instance;
+    // }
 
     private StoreController() {
         idCounter = 0;
@@ -45,7 +50,7 @@ public class StoreController {
         if (!stores.containsKey(storeID)) {
             // check and get from dataBase
             // if exists add Store to Map and return Store;
-            org.market.DataAccessLayer.Entity.Store storeEntity = DataController.getStore(storeID);
+            org.market.DataAccessLayer.Entity.Store storeEntity = dataController.getStore(storeID);
             Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
             stores.put(storeEntity.getStoreID(),store);
             // else:
@@ -190,12 +195,12 @@ public class StoreController {
 
     // this is for testing
     public void setToNull() {
-        instance = null;
+        //instance = null;
         stores.clear();
     }
 
     public List<Store> getAllStores() {
-        List<org.market.DataAccessLayer.Entity.Store> dalstrs =  DataController.getAllStores();
+        List<org.market.DataAccessLayer.Entity.Store> dalstrs =  dataController.getAllStores();
         List<Store> storesToReturn = new ArrayList<>();
         for(org.market.DataAccessLayer.Entity.Store storeEntity: dalstrs){
             Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());

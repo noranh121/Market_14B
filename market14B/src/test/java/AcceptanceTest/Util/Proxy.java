@@ -178,4 +178,14 @@ public class Proxy implements Bridge{
     public String testViewSystemPurchaseHistory(String username) throws Exception {
         return real.testViewSystemPurchaseHistory(username);
     }
+
+    @Override
+    public double testUseCase1() throws Exception {
+        return real.testUseCase1();
+    }
+
+    @Override
+    public String testUseCase2() throws Exception {
+        return real.testUseCase2();
+    }
 }

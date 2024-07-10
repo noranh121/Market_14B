@@ -26,6 +26,8 @@ public class ServiceFactory {
     //     }
     //     return instance;
     // }
+
+
     @Autowired
     public ServiceFactory(MarketService marketService, UserService userService,StoresService storesService){
         this.marketService = marketService;

@@ -1,12 +1,19 @@
 package org.market.DataAccessLayer.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+// import javax.persistence.*;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 //@Table(name="market",catalog = "Market")
 @Table(name="market")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Market {
     @Id
     @Column(name="marketID")
@@ -15,8 +22,8 @@ public class Market {
     @Column(name="online")
     private Boolean online;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "systemManager")
-    private List<User> systemManagers;
+    @OneToMany(cascade = CascadeType.ALL, fetch =FetchType.LAZY)
+    private List<User> systemManagers = new ArrayList<>();
 
     public Integer getMarketID() {
         return marketID;

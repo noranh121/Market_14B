@@ -11,8 +11,7 @@ import org.market.DomainLayer.backend.UserPackage.RegisteredUser;
 import org.market.DomainLayer.backend.UserPackage.User;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Real implements Bridge {
     Market market = Market.getInstance();
@@ -510,6 +509,66 @@ public class Real implements Bridge {
         market.getSystemManagers().add("ali");
         double sum = userController.Buy(username);
         return market.viewSystemPurchaseHistory(username);
+    }
+
+    @Override
+    public double testUseCase1() throws Exception {
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("u1", "123", 18);
+            market.Register("u2", "456", 18);
+            market.Register("u3","789",18);
+            market.initStore("u1", "d");
+            Boolean[] per=new Boolean[]{true,true,true};
+            market.AssignStoreOwner(0,"u1","u2",per);
+            market.AssignStoreOwner(0,"u2","u3",per);
+            market.resign(0,"u2");
+            market.AssignStoreOwner(0,"u3","u2",per);
+            return 0;
+        }catch (Exception e){
+            return -1;
+        }
+    }
+
+    @Override
+    public String testUseCase2() throws Exception {
+        try{
+            String systemManager = "admin";
+            market.addToSystemManagers(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("u1", "123", 18);
+            market.Register("u2", "456", 18);
+            market.initStore("u1", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            market.suspendUser(systemManager,"u2");
+            try {
+                market.addToCart("u2",0,0,5);
+                return null;
+            }catch (Exception ex){
+            }
+            String res1=market.viewSuspended(systemManager);
+            if (!res1.contains("u2")){
+                return null;
+            }
+            market.resumeUser(systemManager,"u2");
+            String res2=market.addToCart("u2",0,0,5);
+            if (!res2.equals("added to cart")){
+                return null;
+            }
+            return "useCase passed Successfully";
+        }catch (Exception e){
+        }
+        return null;
     }
 
     public boolean paymentApi() {

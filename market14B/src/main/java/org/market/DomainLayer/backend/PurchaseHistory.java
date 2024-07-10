@@ -10,7 +10,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PurchaseHistory {
 
     private static PurchaseHistory instance;

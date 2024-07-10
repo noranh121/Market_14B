@@ -2,11 +2,19 @@ package org.market.DataAccessLayer.Entity;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+// import javax.persistence.*;
 
+
+import jakarta.persistence.*;
+
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 @Entity
 //@Table(name="Permissions",catalog = "Market")
 @Table(name="Permissions")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Permissions implements Serializable {
     
     @Id

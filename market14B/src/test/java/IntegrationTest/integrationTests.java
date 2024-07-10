@@ -125,6 +125,8 @@ public class integrationTests {
         Boolean[] per = new Boolean[] { true, true, true };
         String result = market.AssignStoreManager(0, u2.getUsername(), u3.getUsername(), per);
         assertEquals("Permission added to store", result);
+        assertEquals(notfications.size(),1);
+        assertEquals(notfications.get(notfications.indexOf("malek"))[0],"you have an updated permission");
     }
 
     @Test
@@ -146,6 +148,8 @@ public class integrationTests {
         Boolean[] per = new Boolean[] { true, true, true };
         String result = market.AssignStoreOwner(0, u2.getUsername(), u3.getUsername(), per);
         assertEquals("Permission added to store", result);
+        assertEquals(notfications.size(),1);
+        assertEquals(notfications.get(notfications.indexOf("malek"))[0],"you have an updated permission");
     }
 
     @Test
@@ -171,6 +175,8 @@ public class integrationTests {
             String result1 = market.EditPermissions(0, u2.getUsername(), u3.getUsername(), true, false, per1);
             assertNotNull(result1);
             assertEquals("Permission added to store", result1);
+            assertEquals(notfications.size(),1);
+            assertEquals(notfications.get(notfications.indexOf("malek"))[0],"edited your permission");
         } catch (Exception e) {
             fail("Exception thrown: " + e.getMessage());
         }
@@ -184,6 +190,8 @@ public class integrationTests {
         Boolean[] per = new Boolean[] { true, true, true };
         String result = market.AssignStoreOwner(0, u2.getUsername(), u3.getUsername(), per);
         String result1 = market.unassignUser(0, u2.getUsername(), u3.getUsername());
+        assertEquals(notfications.size(),1);
+        assertEquals(notfications.get(notfications.indexOf("malek"))[1],"deleted your permission");
         assertEquals(result1, "Permission deleted from store");
     }
 
@@ -309,6 +317,8 @@ public class integrationTests {
             market.Register("ali", "123", 18);
             String result=market.suspendUser("admin", "ali");
             assertEquals("suspended successfully", result);
+            assertEquals(notfications.size(),1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[1],"you were suspended, you can only view");
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
         }
@@ -339,6 +349,8 @@ public class integrationTests {
             market.Register("ali", "123", 18);
             String result=market.suspendUserSeconds("admin", "ali",3);
             assertEquals("ali suspended for 3 seconds", result);
+            assertEquals(notfications.size(),1);
+            assertEquals(notfications.get(notfications.indexOf("ali"))[1],"you were suspended for 3 seconds, you can only view");
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
         }
@@ -659,6 +671,62 @@ public class integrationTests {
             assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
+        }
+    }
+
+    @Test
+    public void testUseCase1(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("u1", "123", 18);
+            market.Register("u2", "456", 18);
+            market.Register("u3","789",18);
+            market.initStore("u1", "d");
+            Boolean[] per=new Boolean[]{true,true,true};
+            market.AssignStoreOwner(0,"u1","u2",per);
+            market.AssignStoreOwner(0,"u2","u3",per);
+            market.resign(0,"u2");
+            market.AssignStoreOwner(0,"u3","u2",per);
+            fail("the test must fail");
+        }catch (Exception e){
+            assertEquals("u3 not owner",e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUseCase2(){
+        try{
+            String systemManager = "admin";
+            market.addToSystemManagers(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("u1", "123", 18);
+            market.Register("u2", "456", 18);
+            market.initStore("u1", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            market.suspendUser(systemManager,"u2");
+            try {
+                market.addToCart("u2",0,0,5);
+                fail("the test must fail");
+            }catch (Exception ex){
+                assertEquals("can't add to cart user is suspended",ex.getMessage());
+            }
+            String res1=market.viewSuspended(systemManager);
+            assertTrue(res1.contains("u2"));
+            market.resumeUser(systemManager,"u2");
+            String res2=market.addToCart("u2",0,0,5);
+            assertEquals("added to cart",res2);
+        }catch (Exception e){
+            fail("test must not fail");
         }
     }
 

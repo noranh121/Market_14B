@@ -13,13 +13,18 @@ import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyContro
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.method.P;
 import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
 import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class StoresService {
 
-    private Market market = Market.getInstance();
+    @Autowired
+    private Market market;// = Market.getInstance();
 
     public Response<String> initStore(String userName, String Description) {
         try {

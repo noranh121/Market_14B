@@ -1,11 +1,19 @@
 package org.market.DataAccessLayer.Entity;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+// import javax.persistence.*;
+
+import jakarta.persistence.*;
 
 @Entity
 //@Table(name="User",catalog = "Market")
-@Table(name="User")
+@Table(name="Users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements java.io.Serializable{
 
     @Id
@@ -18,8 +26,8 @@ public class User implements java.io.Serializable{
     @Column(name="age")
     private double age;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
-    private List<Basket> baskets;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Basket> baskets = new ArrayList<>();
 
     @Column(name="LoggedIn")
     private Boolean LoggedIn;

@@ -1,7 +1,10 @@
 package org.market.DomainLayer.backend.API.SupplyExternalService;
 
 import org.market.ServiceLayer.Response;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class SupplyService{
 
     private SupplyBridge proxySupply;

@@ -1,9 +1,15 @@
 package org.market.DataAccessLayer.Entity;
-import javax.persistence.*;
+// import javax.persistence.*;
 
+import jakarta.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 @Entity
 //@Table(name="Store",catalog = "Market")
 @Table(name="Store")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Store implements java.io.Serializable{
 
     @Id
@@ -27,8 +33,8 @@ public class Store implements java.io.Serializable{
     @Column(name="rating")
     private int rating;
 
-    @OneToOne(mappedBy = "Store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Inventory inventory;
+    // @OneToOne(mappedBy = "Store", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // private Inventory inventory;
 
     public Integer getStoreID() {
         return storeID;
@@ -74,11 +80,11 @@ public class Store implements java.io.Serializable{
         this.rating = rating;
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
+    // public Inventory getInventory() {
+    //     return inventory;
+    // }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
+    // public void setInventory(Inventory inventory) {
+    //     this.inventory = inventory;
+    // }
 }

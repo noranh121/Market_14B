@@ -1,9 +1,16 @@
 package org.market.DataAccessLayer.Entity;
-import javax.persistence.*;
+// import javax.persistence.*;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 //@Table(name="PurchaseHistory",catalog = "Market")
 @Table(name="PurchaseHistory")
+@NoArgsConstructor
+@AllArgsConstructor
 public class PurchaseHistory {
 
     @Id
@@ -21,8 +28,8 @@ public class PurchaseHistory {
     private Store storeID;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user",referencedColumnName = "username")
-    private String username;
+    @JoinColumn(name="username",referencedColumnName = "username")
+    private User username;
 
     @Column(name = "quantity")
     private Integer quantity;
@@ -57,11 +64,11 @@ public class PurchaseHistory {
         this.storeID = storeID;
     }
 
-    public String getUsername() {
+    public User getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(User username) {
         this.username = username;
     }
 

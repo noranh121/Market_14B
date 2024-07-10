@@ -8,6 +8,8 @@ import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.User;
 import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.market.DataAccessLayer.DataController;
 
+@Component
 public class Permissions {
     private Map<Integer, Tree> storeOwners = new ConcurrentHashMap<>();
     private Map<String, suspensionInfo> suspendedUsers = new ConcurrentHashMap<>();
@@ -32,6 +35,11 @@ public class Permissions {
     private BaseNotifier baseNotifier = new BaseNotifier();
     private Notifier ImmediateNotifier = new ImmediateNotifierDecorator(baseNotifier);
     private Notifier DelayerNotifier = new DelayedNotifierDecorator(baseNotifier);
+
+
+    
+    @Autowired
+    private DataController dataController;
 
     private static Permissions instance = null;
 
@@ -251,7 +259,7 @@ public class Permissions {
 
     public String viewSuspended() {
         if(suspendedUsers.isEmpty()){
-            ArrayList<String> suspended=(ArrayList<String>)DataController.viewSuspended();
+            ArrayList<String> suspended=(ArrayList<String>)dataController.viewSuspended();
             if (suspended.isEmpty()) {
                 UserController.LOGGER.info("no suspended users");
                 return "<Empty>";

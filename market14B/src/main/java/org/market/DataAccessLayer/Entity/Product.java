@@ -1,10 +1,18 @@
 package org.market.DataAccessLayer.Entity;
 
-import javax.persistence.*;
+// import javax.persistence.*;
+
+
+import jakarta.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 //@Table(name="Product",catalog = "Market")
 @Table(name="Product")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product implements java.io.Serializable {
     
     @Id 
@@ -25,7 +33,7 @@ public class Product implements java.io.Serializable {
 
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="catagory",referencedColumnName = "categoryID")
-    private Integer catagoryID;
+    private Category catagoryID;
 
     public Integer getProductID() {
         return productID;
@@ -57,10 +65,10 @@ public class Product implements java.io.Serializable {
     public void setWeight(Double weight) {
         this.weight = weight;
     }
-    public Integer getCatagoryID() {
+    public Category getCatagoryID() {
         return catagoryID;
     }
-    public void setCatagoryID(Integer catagoryID) {
+    public void setCatagoryID(Category catagoryID) {
         this.catagoryID = catagoryID;
     }
 

@@ -18,9 +18,14 @@ import org.market.DomainLayer.backend.Purchase;
 import org.market.DomainLayer.backend.PurchaseHistory;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 
+@Configurable
 public class ShoppingCart {
     private List<Basket> baskets;
+    @Autowired
+    private DataController dataController;
 
     public ShoppingCart() {
         baskets = Collections.synchronizedList(new ArrayList<>());
@@ -60,7 +65,7 @@ public class ShoppingCart {
 
     public String inspectCart(String username) {
         if (baskets.isEmpty()) {
-            List<org.market.DataAccessLayer.Entity.Basket> basketsEntities = DataController.inspectCart(username);
+            List<org.market.DataAccessLayer.Entity.Basket> basketsEntities = dataController.inspectCart(username);
             if (basketsEntities.isEmpty()) {
                 UserController.LOGGER.info("Your shopping cart is empty.");
                 return "<Empty>";

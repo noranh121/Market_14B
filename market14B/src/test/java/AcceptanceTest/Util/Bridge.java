@@ -36,4 +36,6 @@ public interface Bridge {
     String testEditPermissions(int storeID,String ownerUserName, String userName, Boolean storeOwner, Boolean storeManager, Boolean[] pType) throws Exception;
     String testCloseStore(int storeId,String username);
     String testViewSystemPurchaseHistory(String username) throws Exception;
+    double testUseCase1() throws Exception;
+    String testUseCase2() throws Exception;
 }

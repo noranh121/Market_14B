@@ -1,13 +1,29 @@
 package org.market.DataAccessLayer.Entity;
-import javax.persistence.*;
+// import javax.persistence.*;
+
+
+import java.io.Serializable;
+
+import jakarta.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 //@Table(name="Notification",catalog = "Market")
-@Table(name="Notification")
-public class Notification {
+@Table(name="Notifications")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Notification implements Serializable{
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user")
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="notificationID")
+    private Integer notificationID;
+
+    @ManyToOne
+    @JoinColumn(name="username", referencedColumnName = "username")
     private User username;
 
     @Column(name = "message")

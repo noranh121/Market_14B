@@ -2,9 +2,16 @@ package org.market.DataAccessLayer.Entity;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
+// import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductEntity implements Serializable{
 
     @Id

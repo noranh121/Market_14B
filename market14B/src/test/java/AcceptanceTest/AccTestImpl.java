@@ -348,4 +348,16 @@ public class AccTestImpl extends AcceptanceTests{
         assertEquals(notfications.get(notfications.indexOf("ali"))[0],"Your purchase was successful");
     }
 
+    @Test
+    void testUseCase1Impl() throws Exception {
+        double res=testUseCase1();
+        assertEquals(-1,res);
+    }
+
+    @Test
+    void testUseCase2Impl() throws Exception{
+        String res=testUseCase2();
+        assertEquals(res,"useCase passed Successfully");
+    }
+
 }

@@ -6,13 +6,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MarketService {
-    private Market market; 
-    //= Market.getInstance();
 
     @Autowired
-    public MarketService(Market market){
-        this.market = market;
-    }
+    private Market market;// = Market.getInstance();
+    //= Market.getInstance();
+
+    // @Autowired
+    // public MarketService(Market market){
+    //     this.market = market;
+    // }
     public void setMarketOnline(String username) throws Exception {
         market.setMarketOnline(username);
     }

@@ -145,4 +145,12 @@ public abstract class AcceptanceTests {
     public String testViewSystemPurchaseHistory(String username) throws Exception {
         return bridge.testViewSystemPurchaseHistory(username);
     }
+
+    public double testUseCase1() throws Exception {
+        return bridge.testUseCase1();
+    }
+
+    public String testUseCase2() throws Exception {
+        return bridge.testUseCase2();
+    }
 }

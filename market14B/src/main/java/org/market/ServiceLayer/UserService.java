@@ -7,9 +7,16 @@ import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.market.Web.DTOS.StoreDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class UserService {
-    private Market market = Market.getInstance();
+
+
+    @Autowired
+    private Market market;// = Market.getInstance();
 
     public String EnterAsGuest(double age) {
         try {

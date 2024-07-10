@@ -1,7 +1,9 @@
 package org.market.DomainLayer.backend.API.PaymentExternalService;
 
 import org.market.ServiceLayer.Response;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PaymentService {
 
     private PaymentBridge proxyPayment;

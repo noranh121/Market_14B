@@ -8,13 +8,17 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import org.market.DataAccessLayer.DataController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
-
+@Component("BackendProductController")
 public class ProductController {
     private static final Logger LOGGER = Logger.getLogger(ProductController.class.getName());
 
     private static ProductController instance;
+    @Autowired
+    private DataController dataController;
 
     private Map<Integer, Product> products;
     private int idCounter;
@@ -42,7 +46,7 @@ public class ProductController {
         prod.setId(id);
         category.addProduct(prod.getId());
         products.put(prod.getId(), prod);
-        DataController.initProduct(name, id,category.getId(), description, brand, weight);
+        dataController.initProduct(name, id,category.getId(), description, brand, weight);
         LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system");
         return "Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system";
     }

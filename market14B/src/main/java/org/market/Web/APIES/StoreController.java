@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("api/stores")
 public class StoreController {
 
-    private ServiceFactory service;
+    private final  ServiceFactory service;
     private TokenService jwtUtil;
 
 

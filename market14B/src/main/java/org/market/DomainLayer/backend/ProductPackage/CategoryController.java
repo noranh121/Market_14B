@@ -3,6 +3,9 @@ package org.market.DomainLayer.backend.ProductPackage;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CategoryController {
     private static CategoryController instance;
 

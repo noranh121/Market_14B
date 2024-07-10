@@ -1,8 +1,18 @@
 package org.market.DataAccessLayer.Entity;
-import javax.persistence.*;
+// import javax.persistence.*;
+
+
+
+import jakarta.persistence.*;
+
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Transaction")
+@Table(name = "transactions")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
     
     @ManyToOne(fetch=FetchType.LAZY)
