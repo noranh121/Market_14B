@@ -26,6 +26,8 @@ public class ShoppingCart {
     private List<Basket> baskets;
     @Autowired
     private DataController dataController;
+    @Autowired
+    private StoreController storeController;
 
     public ShoppingCart() {
         baskets = Collections.synchronizedList(new ArrayList<>());
@@ -94,7 +96,7 @@ public class ShoppingCart {
 
     public double Buy(String username) throws Exception {
         double sum = 0;
-        StoreController storeController = StoreController.getInstance();
+        //StoreController storeController = StoreController.getInstance();
         Store store;
 
         for (Basket basket : baskets) {
@@ -168,7 +170,7 @@ public class ShoppingCart {
     }
 
     private void cancelPurchase() throws Exception {
-        StoreController storeController = StoreController.getInstance();
+        //StoreController storeController = StoreController.getInstance();
         for (Basket basket : baskets) {
             Store store = storeController.getStore(basket.getStoreID());
             for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>

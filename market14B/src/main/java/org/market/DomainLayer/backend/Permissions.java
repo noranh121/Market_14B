@@ -40,6 +40,8 @@ public class Permissions {
     
     @Autowired
     private DataController dataController;
+    @Autowired
+    private StoreController storeController;
 
     private static Permissions instance = null;
 
@@ -196,7 +198,7 @@ public class Permissions {
     private final Lock ownerLock = new ReentrantLock();
 
     public String deleteStoreOwner(int storeID, String userName) throws Exception {
-        StoreController storeController = StoreController.getInstance();
+        //StoreController storeController = StoreController.getInstance();
         if (storeOwners.containsKey(storeID)) {
             Tree currTree = storeOwners.get(storeID);
             if (currTree.findNode(userName).getData().getStoreOwner()) {
@@ -336,7 +338,7 @@ public class Permissions {
             if(response)
                 return price;
             else{
-                return StoreController.getInstance().getStore(storeId).getProdPrice(productId);
+                return storeController.getStore(storeId).getProdPrice(productId);
             }
         }
         else{
@@ -350,7 +352,7 @@ public class Permissions {
         for(int strId: storeOwners.keySet()){
             Permission permission = getPermission(strId, username);
             if(permission.getStoreManager() || permission.getStoreOwner()){
-                stores.add(StoreController.getInstance().getStore(strId));
+                stores.add(storeController.getStore(strId));
             }
        }
        return stores;
