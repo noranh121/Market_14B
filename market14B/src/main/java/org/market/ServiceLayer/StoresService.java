@@ -26,9 +26,9 @@ public class StoresService {
     @Autowired
     private Market market;// = Market.getInstance();
 
-    public Response<String> initStore(String userName, String Description) {
+    public Response<String> initStore(String userName, String name, String Description) throws Exception {
         try {
-            String result = market.initStore(userName, Description);
+            String result = market.initStore(userName, name, Description);
             StoreController.LOGGER.info(result);
             return Response.successRes(result);
         } catch (Exception e) {

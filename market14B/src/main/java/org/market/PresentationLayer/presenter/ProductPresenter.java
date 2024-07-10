@@ -1,6 +1,6 @@
 package org.market.PresentationLayer.presenter;
 
-import org.market.PresentationLayer.errors.ErrorHandler;
+import org.market.PresentationLayer.handlers.ErrorHandler;
 import org.market.PresentationLayer.views.ProductView;
 import org.market.Web.DTOS.ProductDTO;
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,6 +22,7 @@ public class ProductPresenter {
     private void initView() {
         ProductDTO product = getProduct(this.view.getProduct_id());
         this.view.setTopLayout(product);
+        this.view.setSpecificationLayout(product);
     }
 
     private ProductDTO getProduct(int product_id) {

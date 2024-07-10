@@ -428,10 +428,10 @@ public class Market {
     /*
      * new store in the system
      */
-    public String initStore(String userName, String Description) throws Exception {
+    public String initStore(String userName, String name, String Description) throws Exception {
         LOGGER.info("userName: " + userName + ", Description: " + Description);
         if (userController.isRegistered(userName)) {
-            int storeID = storeController.initStore(userName, Description);
+            int storeID = storeController.initStore(userName, name, Description);
             String resposnse = permissions.initStore(storeID, userName);
 //            dataController.initStore(userName,Description);
             return resposnse;

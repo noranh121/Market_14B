@@ -7,9 +7,9 @@ public class PermissionDTO{
     private Boolean storeOwner;
     private Boolean storeManager;
     private Boolean[] PType;
-    private int storeid;
+    private int storeId;
 
-    public PermissionDTO(Permission permission, int storeid){
+    public PermissionDTO(Permission permission, int storeId){
         this.userName = permission.getUserName();
         this.storeOwner = permission.getStoreOwner();
         this.storeManager = permission.getStoreManager();
@@ -17,9 +17,10 @@ public class PermissionDTO{
         for (int i = 0; i < permission.getPType().length; i++) {
             this.PType[i] = permission.getPType()[i];
         }
-        this.storeid = storeid;
+        this.storeId = storeId;
     }
 
+    public PermissionDTO(){}
 
     public String getUserName() {
         return userName;
@@ -52,6 +53,14 @@ public class PermissionDTO{
 
     public void setPType(Boolean[] PType) {
         this.PType = PType;
+    }
+
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(int storeid) {
+        this.storeId = storeid;
     }
 
 }

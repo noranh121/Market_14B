@@ -1,6 +1,7 @@
 package org.market.PresentationLayer.presenter;
 
 import com.vaadin.flow.server.VaadinSession;
+import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.models.AuthResponse;
 import org.market.PresentationLayer.views.LoginView;
 import org.market.Web.Requests.ReqUser;
@@ -28,9 +29,12 @@ public class LoginPresenter {
 
         if (validateInput(username, password)) {
             try {
+                String guest = VaadinSession.getCurrent().getAttribute("guest").toString();
+
                 ReqUser authRequest = new ReqUser();
                 authRequest.setUsername(username);
                 authRequest.setPassword(password);
+                authRequest.setGuest(guest);
                 String loginUrl = "http://localhost:8080/api/users/login";
 
                 AuthResponse response = restTemplate.postForObject(loginUrl, authRequest, AuthResponse.class);
@@ -45,6 +49,10 @@ public class LoginPresenter {
                 System.out.println(response.getRefresh_token());
 
                 view.showSuccessNotification("Successful Login");
+
+                // load user permissions
+                PermissionHandler.loadPermissions(username);
+
                 view.NavigateToHomepage();
                 
             } catch (Exception e) {

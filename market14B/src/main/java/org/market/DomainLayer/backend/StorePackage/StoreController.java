@@ -60,9 +60,9 @@ public class StoreController {
         return stores.get(storeID);
     }
 
-    public String addStore(String name, String Description) {
+    public String addStore(String username, String name, String Description) {
         // add to database
-        Store store = new Store(name, Description, idCounter);
+        Store store = new Store(name, name, Description, idCounter);
         stores.put(idCounter, store);
         idCounter++;
         LOGGER.info("store added");
@@ -177,10 +177,10 @@ public class StoreController {
         return "No such store!";
     }
 
-    public int initStore(String userName, String Description) {
+    public int initStore(String userName, String name, String Description) {
         LOGGER.info("userName: " + userName + ", Description: " + Description);
         int id = idCounter;
-        Store newStore = new Store(userName, userName, idCounter);
+        Store newStore = new Store(userName, name, Description, idCounter);
         stores.put(id, newStore);
         // database
         idCounter++;

@@ -25,6 +25,7 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
 
     private int product_id;
     private HorizontalLayout top_layout;
+    private VerticalLayout specificationsLayout;
     private ComboBox<String> sizeSelector;
     private ComboBox<String> colorSelector;
     private IntegerField quantityField;
@@ -36,25 +37,7 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
 
         this.top_layout = new HorizontalLayout();
 
-        VerticalLayout specificationsLayout = new VerticalLayout();
-        HorizontalLayout specificationBar = new HorizontalLayout(new H2("Specifications"));
-        specificationBar.addClassName("specification-bar");
-
-        Div separator1 = new Div();
-        Div separator2 = new Div();
-        separator1.addClassName("separator");
-        separator2.addClassName("separator");
-
-        VerticalLayout specificationsList = new VerticalLayout();
-        specificationsList.addClassName("specifications-list");
-        specificationsList.add(new Span("Spec 1: not available"));
-        specificationsList.add(separator1);
-        specificationsList.add(new Span("Spec 2: not available"));
-        specificationsList.add(separator2);
-        specificationsList.add(new Span("Spec 3: not available"));
-
-        specificationsLayout.add(specificationBar);
-        specificationsLayout.add(specificationsList);
+        this.specificationsLayout = new VerticalLayout();
 
         add(top_layout);
         add(specificationsLayout);
@@ -115,6 +98,27 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         this.top_layout.addAndExpand(new HorizontalLayout());
         this.top_layout.add(button_layout);
         this.top_layout.addClassName("product-view-top");
+    }
+
+    public void setSpecificationLayout(ProductDTO product) {
+        HorizontalLayout specificationBar = new HorizontalLayout(new H2("Specifications"));
+        specificationBar.addClassName("specification-bar");
+
+        Div separator1 = new Div();
+        Div separator2 = new Div();
+        separator1.addClassName("separator");
+        separator2.addClassName("separator");
+
+        VerticalLayout specificationsList = new VerticalLayout();
+        specificationsList.addClassName("specifications-list");
+        specificationsList.add(new Span("Weight: " + product.getWeigth() + " kg"));
+        specificationsList.add(separator1);
+        specificationsList.add(new Span("Brand: " + product.getBrand()));
+        specificationsList.add(separator2);
+        specificationsList.add(new Span("Category: " + "None"));
+
+        this.specificationsLayout.add(specificationBar);
+        this.specificationsLayout.add(specificationsList);
     }
 
     private void addToCart() {

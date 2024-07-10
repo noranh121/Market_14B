@@ -361,8 +361,10 @@ public class Permissions {
     public Map<Integer, Permission> getUserPermissions(String username) throws Exception{
         Map<Integer, Permission> map = new HashMap<>();
         for(int strId: storeOwners.keySet()){
-            Permission permission = getPermission(strId, username);
-            map.put(strId, permission);
+            if(storeOwners.get(strId).findNode(username) != null){
+                Permission permission = getPermission(strId, username);
+                map.put(strId, permission);
+            }
         }
         return map;
     }

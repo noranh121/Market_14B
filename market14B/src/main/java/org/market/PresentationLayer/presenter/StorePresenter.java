@@ -4,7 +4,7 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.server.VaadinSession;
-import org.market.PresentationLayer.errors.ErrorHandler;
+import org.market.PresentationLayer.handlers.ErrorHandler;
 import org.market.PresentationLayer.views.StoreView;
 import org.market.Web.DTOS.StoreDTO;
 import org.market.Web.Requests.AddProductReq;
@@ -29,13 +29,15 @@ public class StorePresenter {
     private void initView() {
         StoreDTO store = getStore(this.view.getStore_id());
         this.view.setStoreLayout(store);
-        this.view.setApplyButtonClickEventListener(e ->
-                onApplyAddProductClicked(view.getName_field(), view.getDescription_field(),
-                        view.getPrice_field(), view.getWeight_field(), view.getInventory_field())
+        this.view.setApplyButtonClickEventListener(e -> {
+                    onApplyAddProductClicked(view.getName_field(), view.getDescription_field(),
+                            view.getBrand_field(), view.getPrice_field(), view.getWeight_field(), view.getInventory_field());
+                    view.updateProductCollection();
+                }
         );
     }
 
-    private boolean validateAddForm(TextField name_field, TextField description_field, NumberField price_field, NumberField weight_field, IntegerField inventory_field) {
+    private boolean validateAddForm(TextField name_field, TextField description_field, TextField brand_field,NumberField price_field, NumberField weight_field, IntegerField inventory_field) {
         boolean isValid = true;
 
         if (name_field.isEmpty()) {
@@ -46,6 +48,11 @@ public class StorePresenter {
         if (description_field.isEmpty()) {
             description_field.setInvalid(true);
             description_field.setErrorMessage("Description is required");
+            isValid = false;
+        }
+        if (brand_field.isEmpty()) {
+            brand_field.setInvalid(true);
+            brand_field.setErrorMessage("Brand is required");
             isValid = false;
         }
         if (price_field.isEmpty()) {
@@ -87,12 +94,12 @@ public class StorePresenter {
         }
     }
 
-    private void onApplyAddProductClicked(TextField name_field, TextField description_field, NumberField price_field, NumberField weight_field, IntegerField inventory_field) {
+    private void onApplyAddProductClicked(TextField name_field, TextField description_field, TextField brand_field,NumberField price_field, NumberField weight_field, IntegerField inventory_field) {
         Runnable originalRequest = new Runnable() {
             @Override
             public void run() {
                 try {
-                    if (validateAddForm(name_field, description_field, price_field, weight_field, inventory_field)) {
+                    if (validateAddForm(name_field, description_field, brand_field, price_field, weight_field, inventory_field)) {
 
                         String accessToken = (String) VaadinSession.getCurrent().getAttribute("access-token");
                         String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
@@ -105,6 +112,7 @@ public class StorePresenter {
                         AddProductReq request = new AddProductReq();
                         request.setName(name_field.getValue());
                         request.setDescription(description_field.getValue());
+                        request.setBrand(brand_field.getValue());
                         request.setPrice(price_field.getValue());
                         request.setWeight(weight_field.getValue());
                         request.setInventory(inventory_field.getValue());
@@ -121,7 +129,6 @@ public class StorePresenter {
                         ResponseEntity<String> response = restTemplate.exchange(addProductUrl, HttpMethod.POST, requestEntity, new ParameterizedTypeReference<String>() {});
 
                         ErrorHandler.showSuccessNotification(response.getBody());
-
                     }
                 } catch (HttpClientErrorException e) {
                     ErrorHandler.handleError(e, this);

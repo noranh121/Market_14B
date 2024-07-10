@@ -1,4 +1,4 @@
-package org.market.PresentationLayer.errors;
+package org.market.PresentationLayer.handlers;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;

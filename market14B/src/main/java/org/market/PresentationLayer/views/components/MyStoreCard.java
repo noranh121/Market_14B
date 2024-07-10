@@ -6,11 +6,10 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import org.market.PresentationLayer.models.Store;
-import org.market.PresentationLayer.views.StoreView;
+import org.market.Web.DTOS.StoreDTO;
 
 public class MyStoreCard extends HorizontalLayout {
-    public MyStoreCard(Store store){
+    public MyStoreCard(StoreDTO store){
         addClassName("store-card");
 
         VerticalLayout layout = new VerticalLayout();
@@ -28,6 +27,6 @@ public class MyStoreCard extends HorizontalLayout {
         edit.addClickListener(e-> UI.getCurrent().navigate("dash/settings"));
         add(edit);
 
-        layout.addClickListener(e -> this.getUI().ifPresent(ui -> ui.navigate(StoreView.class)));
+        layout.addClickListener(e -> UI.getCurrent().navigate("dash/store/" + store.getId()));
     }
 }

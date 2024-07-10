@@ -18,6 +18,7 @@ import org.market.Web.DTOS.ProductDTO;
 
 public class Store {
     private int id;
+    private String name;
     private Inventory inventory;
     private String firstOwnerName;
     private boolean active;
@@ -30,9 +31,10 @@ public class Store {
     private int discountPolicyIDCounter;
     private int purchasePolicyIDCounter;
 
-    public Store(String name, String Description, int id) {
+    public Store(String username, String name, String Description, int id) {
         this.id = id;
-        this.firstOwnerName = name;
+        this.name = name;
+        this.firstOwnerName = username;
         this.description = Description;
         active = false;
         inventory = new Inventory();
@@ -83,6 +85,15 @@ public class Store {
     public Boolean purchase(Map<Integer, double[]> products, double age) throws Exception{
         return compositePurchasePolicy.purchase(products, age);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     // Getter and Setter for rating
     public double getRating() {

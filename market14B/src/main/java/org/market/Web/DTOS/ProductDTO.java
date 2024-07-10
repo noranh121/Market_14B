@@ -8,6 +8,8 @@ public class ProductDTO {
     private String name;
     private Double price;
     private String description;
+    private String brand;
+    private Double weigth;
     private int storeid;
 
     public ProductDTO(Product product){
@@ -15,7 +17,6 @@ public class ProductDTO {
         this.name = product.getName();
         this.price = -1.0;
         this.description = product.getDescription();
-
     }
 
     public ProductDTO(Product product, Double price, int storeid){
@@ -24,6 +25,8 @@ public class ProductDTO {
         this.price = price;
         this.description = product.getDescription();
         this.storeid = storeid;
+        this.weigth = product.getWeight();
+        this.brand = product.getBrand();
     }
 
     public ProductDTO(){}
@@ -68,5 +71,19 @@ public class ProductDTO {
         this.storeid = storeid;
     }
 
+    public String getBrand() {
+        return brand;
+    }
 
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public Double getWeigth() {
+        return weigth;
+    }
+
+    public void setWeigth(Double weigth) {
+        this.weigth = weigth;
+    }
 }

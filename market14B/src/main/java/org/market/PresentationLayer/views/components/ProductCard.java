@@ -1,12 +1,13 @@
 package org.market.PresentationLayer.views.components;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.UI;
+import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.Web.DTOS.ProductDTO;
 
 public class ProductCard extends VerticalLayout {
@@ -40,7 +41,7 @@ public class ProductCard extends VerticalLayout {
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidthFull();
 
-        if(editable) {
+        if(editable && PermissionHandler.hasPermission(product.getStoreid(), 0)) {
             // Create the close button
             Button closeButton = new Button(VaadinIcon.CLOSE.create());
             closeButton.addClassName("collection-card-remove-button");

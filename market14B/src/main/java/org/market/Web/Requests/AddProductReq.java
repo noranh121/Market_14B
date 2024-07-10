@@ -8,6 +8,7 @@ public class AddProductReq {
     private double price;
     private double weight;
     private int inventory;
+    private String brand;
 
     private String username;
 
@@ -78,4 +79,13 @@ public class AddProductReq {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
 }

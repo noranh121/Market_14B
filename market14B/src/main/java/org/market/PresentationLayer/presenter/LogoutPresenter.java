@@ -24,7 +24,10 @@ public class LogoutPresenter {
             if(VaadinSession.getCurrent().getAttribute("current-user") != null) {
                 logoutUser(VaadinSession.getCurrent().getAttribute("current-user").toString());
                 VaadinSession.getCurrent().setAttribute("current-user", null);
-                VaadinSession.getCurrent().setAttribute("token", null);
+                VaadinSession.getCurrent().setAttribute("access-token", null);
+                VaadinSession.getCurrent().setAttribute("refresh-token", null);
+                VaadinSession.getCurrent().setAttribute("guest", null);
+                VaadinSession.getCurrent().setAttribute("permissions", null);
                 UI.getCurrent().getPage().reload();
             }
         });

@@ -53,7 +53,7 @@ public class UserController {
         GuestMap.put(guest.getUsername(), guest);
         guest.setLoggedIn(true);
         LOGGER.info("guest user added successfully");
-        return "guest user added successfully";
+        return guest.getUsername();
     }
 
     public String GuestExit(String username) throws Exception {
@@ -74,7 +74,7 @@ public class UserController {
             throw new Exception("username or password are incorrect");
         } else {
             LOGGER.info("logged in successfully");
-            //GuestExit(guest);
+            GuestExit(guest);
             return "logged in successfully";
         }
     }

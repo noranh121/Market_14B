@@ -1,5 +1,6 @@
 package org.market.PresentationLayer.presenter;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -45,6 +46,7 @@ public class SignupPresenter {
                     } else {
                         assert response != null;
                         showSuccessNotification(response.getValue());
+                        UI.getCurrent().navigate("/");
                     }
                 }
             }catch(Exception ex){

@@ -135,8 +135,8 @@ public class ServiceFactory {
     }
 
     // StoreService
-    public Response<String> initStore(String userName, String Description) {
-        return storesService.initStore(userName, Description);
+    public Response<String> initStore(String userName, String name, String Description) throws Exception {
+        return storesService.initStore(userName, name, Description);
     }
 
     public String addProduct(int productId, int storeId, double price, int quantity, String username,double weight) throws Exception {

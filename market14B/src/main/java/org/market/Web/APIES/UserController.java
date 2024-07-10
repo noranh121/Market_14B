@@ -39,63 +39,85 @@ public class UserController {
 
     @PostMapping("/refresh-token")
     public ResponseEntity<?> RefreshToken(@RequestBody String refresh_token){
-        String username = jwtUtil.extractUsername(refresh_token);
-        if(username != null && jwtUtil.validateToken(refresh_token,username)) {
-            AuthResponse response = new AuthResponse();
-            response.setAccess_token(jwtUtil.generateAccessToken(username));
-            response.setRefresh_token(jwtUtil.generateRefreshToken(username));
-            return ResponseEntity.ok(response);
+        try{
+            String username = jwtUtil.extractUsername(refresh_token);
+            if(username != null && jwtUtil.validateToken(refresh_token,username)) {
+                AuthResponse response = new AuthResponse();
+                response.setAccess_token(jwtUtil.generateAccessToken(username));
+                response.setRefresh_token(jwtUtil.generateRefreshToken(username));
+                return ResponseEntity.ok(response);
+            }
+            else{
+                service.Logout(jwtUtil.extractUsernameIgnoringExpiration(refresh_token));
+                return ResponseEntity.status(401).build();
+            }
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to refresh token.");
         }
-        else{
-            service.Logout(jwtUtil.extractUsernameIgnoringExpiration(refresh_token));
-            return ResponseEntity.status(401).build();
-        }
-    }
 
+    }
 
     @PostMapping("/enter-as-guest/{age}")
     public ResponseEntity<?> enterAsGuest(@PathVariable Double age){
-        String res = service.EnterAsGuest(age);
-        return ResponseEntity.ok(Response.successRes(res));
+        try{
+            String res = service.EnterAsGuest(age);
+            return ResponseEntity.ok(res);
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add guest.");
+        }
     }
-
 
     @PostMapping("/guest-exit/{username}")
     public ResponseEntity<?> GuestExit(@PathVariable String username) {
-        String res = service.GuestExit(username);
-        return ResponseEntity.ok(Response.successRes(res));
+        try{
+            String res = service.GuestExit(username);
+            return ResponseEntity.ok(res);
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to remove guest.");
+        }
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> Login(@RequestBody ReqUser user){
-       String res =  service.Login(user.getGuest(), user.getUsername(), user.getPassword());
-       if(res.equals("logged in successfully")){
-           AuthResponse response = new AuthResponse();
-           response.setAccess_token(jwtUtil.generateAccessToken(user.getUsername()));
-           response.setRefresh_token(jwtUtil.generateRefreshToken(user.getUsername()));
-           return ResponseEntity.ok(response);
-       }
-       else{
-           return ResponseEntity.status(400).body(res);
-       }
-
+        try{
+            String res =  service.Login(user.getGuest(), user.getUsername(), user.getPassword());
+            if(res.equals("logged in successfully")){
+                AuthResponse response = new AuthResponse();
+                response.setAccess_token(jwtUtil.generateAccessToken(user.getUsername()));
+                response.setRefresh_token(jwtUtil.generateRefreshToken(user.getUsername()));
+                return ResponseEntity.ok(response);
+            }
+            else{
+                return ResponseEntity.status(400).body(res);
+            }
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to remove guest.");
+        }
     }
 
     @PostMapping("/logout/{username}")
     public ResponseEntity<?> Logout(@PathVariable String username){
-        String res = service.Logout(username);
-        return ResponseEntity.ok(Response.successRes(res));
+        try{
+            String res = service.Logout(username);
+            return ResponseEntity.ok(Response.successRes(res));
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to logout.");
+        }
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> Register(@RequestBody ReqUser user){
-         Response<String> response = service.Register(user.getUsername(), user.getPassword(), user.getAge());
-         if (response.isError()){
-             return ResponseEntity.status(400).body(response.getErrorMessage());
-         }
-         else{
-             return ResponseEntity.ok(response);
-         }
+        try{
+            Response<String> response = service.Register(user.getUsername(), user.getPassword(), user.getAge());
+            if (response.isError()){
+                return ResponseEntity.status(400).body(response.getErrorMessage());
+            }
+            else{
+                return ResponseEntity.ok(response);
+            }
+        }catch(Exception e) {
+            return ResponseEntity.status(404).body("Failed to register.");
+        }
     }
 
     @PostMapping("/buy/{username}")
@@ -140,15 +162,23 @@ public class UserController {
     }
 
     @GetMapping("/get-stores/{username}")
-    public ResponseEntity<?> getStores(@PathVariable String username) throws Exception{
-        List<StoreDTO> usrStores = service.user_stores(username);
-        return ResponseEntity.ok().body(usrStores);
+    public ResponseEntity<?> getStores(@PathVariable("username") String username) throws Exception{
+        try{
+            List<StoreDTO> usrStores = service.user_stores(username);
+            return ResponseEntity.ok().body(usrStores);
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve stores.");
+        }
     }
 
     @GetMapping("/get-permission/{username}")
-    public ResponseEntity<?> getPermissions(@PathVariable String username) throws Exception{
-        List<PermissionDTO> pdtos = service.getPermissions(username);
-        return ResponseEntity.ok().body(pdtos);
+    public ResponseEntity<?> getPermissions(@PathVariable("username") String username) throws Exception{
+        try{
+            List<PermissionDTO> pdtos = service.getPermissions(username);
+            return ResponseEntity.ok().body(pdtos);
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve permissions.");
+        }
     }
     
 }
