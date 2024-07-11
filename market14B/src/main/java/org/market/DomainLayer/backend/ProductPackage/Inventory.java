@@ -4,11 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+
+@Configurable
 public class Inventory {
     public static final int QUANTITY = 0;
     public static final int PRICE = 1;
     public static final int WEIGHT = 2;
     private Map<Integer, double[]> products; // prodiD ==> {quant,price}
+
+    @Autowired
+    private ProductController productController;
 
     public Inventory() {
         this.products = new ConcurrentHashMap<>();
@@ -82,7 +89,7 @@ public class Inventory {
     public Map<Product, Double> gatherProds() {
         Map<Product, Double> map = new HashMap<>();
         for(Map.Entry<Integer, double[]> entry: products.entrySet()){
-            Product p = ProductController.getInstance().getProductbyID(entry.getKey());
+            Product p = productController.getProductbyID(entry.getKey());
             double price = entry.getValue()[1];
             map.put(p, price);
         }

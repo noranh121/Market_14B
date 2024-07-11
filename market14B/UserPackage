@@ -2,3 +2,73 @@ Jul 10, 2024 3:18:13 AM org.market.DomainLayer.backend.UserPackage.UserControlle
 INFO: username: maged, password: password123
 Jul 10, 2024 3:18:13 AM org.market.ServiceLayer.UserService Register
 INFO: guest user added successfully
+Jul 12, 2024 12:10:49 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 12, 2024 12:10:49 AM org.market.ServiceLayer.UserService EnterAsGuest
+INFO: 0
+Jul 12, 2024 12:11:05 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: maged, password: natourus123
+Jul 12, 2024 12:11:06 AM org.market.ServiceLayer.UserService Register
+INFO: User registered successfully
+Jul 12, 2024 12:11:20 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: maged, password: natourus123
+Jul 12, 2024 12:11:20 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: maged, password: natourus123
+Jul 12, 2024 12:11:20 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: maged
+Jul 12, 2024 12:11:20 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 12, 2024 12:11:21 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 12, 2024 12:11:21 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 12, 2024 12:11:21 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 12, 2024 12:11:21 AM org.market.ServiceLayer.UserService Login
+INFO: logged in successfully
+Jul 12, 2024 12:12:13 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 12, 2024 12:12:13 AM org.market.ServiceLayer.UserService Logout
+INFO: 1
+Jul 12, 2024 12:12:14 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 12, 2024 12:12:14 AM org.market.ServiceLayer.UserService EnterAsGuest
+INFO: 2
+Jul 12, 2024 12:12:41 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 12, 2024 12:12:41 AM org.market.ServiceLayer.UserService EnterAsGuest
+INFO: 3
+Jul 12, 2024 12:12:47 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 12, 2024 12:12:47 AM org.market.ServiceLayer.UserService EnterAsGuest
+INFO: 4
+Jul 12, 2024 12:12:54 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 4, username: we, password: ew
+Jul 12, 2024 12:12:54 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+SEVERE: username or password are incorrect
+Jul 12, 2024 12:13:03 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 4, username: maged, password: ew
+Jul 12, 2024 12:13:03 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: maged, password: ew
+Jul 12, 2024 12:13:03 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: maged
+Jul 12, 2024 12:13:03 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 12, 2024 12:13:03 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+SEVERE: username or password are incorrect
+Jul 12, 2024 12:13:06 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 4, username: maged, password: natourus123
+Jul 12, 2024 12:13:06 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: maged, password: natourus123
+Jul 12, 2024 12:13:06 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: maged
+Jul 12, 2024 12:13:06 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 12, 2024 12:13:06 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 12, 2024 12:13:06 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 4
+Jul 12, 2024 12:13:06 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 12, 2024 12:13:06 AM org.market.ServiceLayer.UserService Login
+INFO: logged in successfully

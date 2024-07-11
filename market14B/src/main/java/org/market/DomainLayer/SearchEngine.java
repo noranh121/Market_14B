@@ -13,10 +13,16 @@ import org.market.DomainLayer.backend.ProductPackage.CategoryController;
 import org.market.DomainLayer.backend.ProductPackage.Product;
 import org.market.DomainLayer.backend.ProductPackage.ProductController;
 import org.market.Web.Requests.SearchEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SearchEngine implements ISearchEngine {
 
     Map<String, List<Integer>> keyword_srch;// keyword ==> List of product ID's
+
+    @Autowired
+    private ProductController productController;
 
     public SearchEngine(){
         this.keyword_srch = new ConcurrentHashMap<>();
@@ -76,7 +82,7 @@ public class SearchEngine implements ISearchEngine {
     public List<Product> searchbyProdName(String prodName){
         //if(inStore){}
         //else{
-        List<Product> result = ProductController.getInstance().getProducts()
+        List<Product> result = productController.getProducts()
         .stream()
             .filter(product -> product.getName().contains(prodName))
             .collect(Collectors.toList());
@@ -86,13 +92,13 @@ public class SearchEngine implements ISearchEngine {
         //if(inStore){}
         //else{
         List<Integer> ids = CategoryController.getinstance().getCategorybyName(CategoryName).getAllProductIds();
-        List<Product> result = ProductController.getInstance().getProductsByIDs(ids);
+        List<Product> result = productController.getProductsByIDs(ids);
         return result;
     }
     public List<Product> searchbyKeyWord(String KeyWord){
         //if(inStore){}
         //else{
-        List<Product> result = ProductController.getInstance().getProductsByIDs(keyword_srch.get(KeyWord));
+        List<Product> result = productController.getProductsByIDs(keyword_srch.get(KeyWord));
         return result;
     }
 

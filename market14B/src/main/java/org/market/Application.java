@@ -6,6 +6,7 @@ import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * The entry point of the Spring Boot application.
@@ -17,7 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @PWA(name = "Project Base for Vaadin with Spring", shortName = "Project Base")
 @Theme("my-theme")
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 //@EntityScan(basePackages = "org.market.DataAccessLayer.Entity")
 //@EnableJpaRepositories(basePackages = "org.market.DataAccessLayer.Repository")
 public class Application implements AppShellConfigurator {

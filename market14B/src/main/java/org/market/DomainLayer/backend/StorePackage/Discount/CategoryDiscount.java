@@ -3,10 +3,16 @@ package org.market.DomainLayer.backend.StorePackage.Discount;
 import java.util.Map;
 
 import org.market.DomainLayer.backend.ProductPackage.ProductController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 
+@Configurable
 public class CategoryDiscount extends DiscountPolicy{
 
     private int categoryId;
+
+    @Autowired
+    private ProductController productController;
 
     public CategoryDiscount(Discount discountType, double discountPercentage,int categoryId,int id) {
         super(discountType, discountPercentage,id);
@@ -21,7 +27,7 @@ public class CategoryDiscount extends DiscountPolicy{
             productId=entry.getKey();
             arr[0]=entry.getValue()[0];
             arr[2]=entry.getValue()[2];
-            if(ProductController.getInstance().getProductCategory((int)productId)==categoryId){
+            if(productController.getProductCategory((int)productId)==categoryId){
                 arr[1]=discountType.calculateDiscount(discountPercentage,entry.getValue()[1],entry.getValue()[0]);
             }
             else{

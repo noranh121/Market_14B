@@ -2,14 +2,20 @@ package org.market.DomainLayer.backend;
 
 import org.market.DomainLayer.backend.ProductPackage.ProductController;
 import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Configurable
 public class Basket {
     private String username;
     private int storeID;
     private Map<Integer, Integer> products; //-> <productId,quantity>
+
+    @Autowired
+    private ProductController productController;
 
     public Basket(String username, int storeID) {
         this.username = username;
@@ -57,7 +63,7 @@ public class Basket {
             for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
                 Integer productId = entry.getKey();
                 Integer quantity = entry.getValue();
-                String name = ProductController.getInstance().getProductName(productId);
+                String name = productController.getProductName(productId);
                 output.append("  Product: ").append(name).append(", Quantity: ").append(quantity).append("\n");
             }
         }
