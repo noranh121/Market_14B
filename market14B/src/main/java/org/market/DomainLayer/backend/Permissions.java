@@ -1,9 +1,7 @@
 package org.market.DomainLayer.backend;
 
-import org.market.DomainLayer.backend.NotificationPackage.BaseNotifier;
 import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
 import org.market.DomainLayer.backend.NotificationPackage.ImmediateNotifierDecorator;
-import org.market.DomainLayer.backend.NotificationPackage.Notifier;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.User;
@@ -12,11 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -32,9 +26,12 @@ public class Permissions {
     private Map<Integer, Tree> storeOwners = new ConcurrentHashMap<>();
     private Map<String, suspensionInfo> suspendedUsers = new ConcurrentHashMap<>();
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private BaseNotifier baseNotifier = new BaseNotifier();
-    private Notifier ImmediateNotifier = new ImmediateNotifierDecorator(baseNotifier);
-    private Notifier DelayerNotifier = new DelayedNotifierDecorator(baseNotifier);
+
+    @Autowired
+    private ImmediateNotifierDecorator ImmediateNotifier;
+
+    @Autowired
+    private DelayedNotifierDecorator DelayerNotifier;
 
 
 
@@ -43,16 +40,8 @@ public class Permissions {
     @Autowired
     private StoreController storeController;
 
-    private static Permissions instance = null;
-
-    private Permissions() {
-    }
-
-    public static synchronized Permissions getInstance() {
-        if (instance == null)
-            instance = new Permissions();
-        return instance;
-    }
+    @Autowired
+    private UserController userController;
 
     public String initStore(int storeID, String userName) throws Exception {
         if (!storeOwners.containsKey(storeID)) {
@@ -306,7 +295,6 @@ public class Permissions {
     }
 
     private void chooseNotifier(String username, String message) {
-        UserController userController = UserController.getInstance();
         User user = userController.getUser(username);
         if (user.isLoggedIn()) {
             ImmediateNotifier.send(username, message);
@@ -319,10 +307,6 @@ public class Permissions {
     }
 
 
-    // this is for testing
-    public void setToNull() {
-        instance = null;
-    }
 
     public double reviewOffer(int storeId, double price, int productId) throws Exception {
         if(storeOwners.containsKey(storeId)){
@@ -332,7 +316,7 @@ public class Permissions {
             Boolean response=true;
             if (iterator != null) {
                 while (iterator.hasNext()) {
-                    response&=UserController.getInstance().reviewOffer(price, iterator.next());
+                    response&=userController.reviewOffer(price, iterator.next());
                 }
             }
             if(response)

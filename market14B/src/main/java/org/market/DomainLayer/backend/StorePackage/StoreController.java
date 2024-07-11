@@ -22,12 +22,6 @@ public class StoreController {
     private Map<Integer, Store> stores;
     private int idCounter;
 
-    // public static synchronized StoreController getInstance() {
-    //     if (instance == null) {
-    //         instance = new StoreController();
-    //     }
-    //     return instance;
-    // }
 
     private StoreController() {
         idCounter = 0;

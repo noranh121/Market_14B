@@ -2,9 +2,8 @@ package org.market.DomainLayer.backend.UserPackage;
 
 import org.market.DomainLayer.backend.Basket;
 import org.market.DomainLayer.backend.Market;
-import org.market.DomainLayer.backend.NotificationPackage.BaseNotifier;
+import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
 import org.market.DomainLayer.backend.NotificationPackage.ImmediateNotifierDecorator;
-import org.market.DomainLayer.backend.NotificationPackage.Notifier;
 import org.market.DomainLayer.backend.Purchase;
 import org.market.DomainLayer.backend.PurchaseHistory;
 import org.market.DomainLayer.backend.StorePackage.Store;
@@ -27,6 +26,15 @@ public class ShoppingCart {
 //    private DataController dataController;
     @Autowired
     private StoreController storeController;
+    @Autowired
+    private UserController userController;
+    @Autowired
+    private Market market;
+    @Autowired
+    private ImmediateNotifierDecorator ImmediateNotifier;
+
+    @Autowired
+    private DelayedNotifierDecorator DelayerNotifier;
 
     public ShoppingCart() {
         baskets = Collections.synchronizedList(new ArrayList<>());
@@ -113,8 +121,6 @@ public class ShoppingCart {
         // cancelPurchase();
         //}
         UserController.LOGGER.info("Your purchase was successful");
-        BaseNotifier baseNotifier = new BaseNotifier();
-        Notifier ImmediateNotifier = new ImmediateNotifierDecorator(baseNotifier);
         ImmediateNotifier.send(username,"Your purchase was successful");
         return sum;
     }
@@ -146,17 +152,17 @@ public class ShoppingCart {
             store.getLock().unlock();
         }
         // purchase after that discount
-        double age= UserController.getInstance().getUser(username).getAge();
+        double age= userController.getUser(username).getAge();
         if(store.purchase(purchases,age)){
             basketSum=store.calculateDiscount(purchases);
-            while(!Market.getInstance().getSystemManagersLock().tryLock()){
+            while(!market.getSystemManagersLock().tryLock()){
                 Thread.sleep(1000);
             }
             try{
                 Purchase purchase = new Purchase(basket, basketSum, purchases);
                 purchaseHistory.addPurchase(basket.getStoreID(), username, purchase);
             }finally{
-                Market.getInstance().getSystemManagersLock().unlock();
+                market.getSystemManagersLock().unlock();
             }
             
         }

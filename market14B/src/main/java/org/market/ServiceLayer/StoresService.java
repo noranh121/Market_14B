@@ -1,23 +1,18 @@
 package org.market.ServiceLayer;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.market.DomainLayer.backend.Market;
-import org.market.DomainLayer.backend.Permission;
 import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
-import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController.LogicalRule;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
-import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
-import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -169,56 +164,56 @@ public class StoresService {
         }
     }
 
-    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id) throws Exception{
-        try {
-            String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate,id);
-            StoreController.LOGGER.info(result);
-            return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
-    
-    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
-        try {
-            String result = market.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId,immediate,id);
-            StoreController.LOGGER.info(result);
-            return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
-
-    
-    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id) throws Exception{
-        try {
-            String result = market.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId,immediate,id);
-            StoreController.LOGGER.info(result);
-            return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
-
-    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id) throws Exception{
-        try {
-            String result = market.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId,immediate,id);
-            StoreController.LOGGER.info(result);
-            return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
-
-    public String addLogicalPurchase(String username,int storeId,PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
-        try {
-            String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
-            StoreController.LOGGER.info(result);
-            return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
+//    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id) throws Exception{
+//        try {
+//            String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate,id);
+//            StoreController.LOGGER.info(result);
+//            return result;
+//        } catch (Exception e) {
+//            return e.getMessage();
+//        }
+//    }
+//
+//    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
+//        try {
+//            String result = market.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId,immediate,id);
+//            StoreController.LOGGER.info(result);
+//            return result;
+//        } catch (Exception e) {
+//            return e.getMessage();
+//        }
+//    }
+//
+//
+//    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id) throws Exception{
+//        try {
+//            String result = market.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId,immediate,id);
+//            StoreController.LOGGER.info(result);
+//            return result;
+//        } catch (Exception e) {
+//            return e.getMessage();
+//        }
+//    }
+//
+//    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id) throws Exception{
+//        try {
+//            String result = market.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId,immediate,id);
+//            StoreController.LOGGER.info(result);
+//            return result;
+//        } catch (Exception e) {
+//            return e.getMessage();
+//        }
+//    }
+//
+//    public String addLogicalPurchase(String username,int storeId,PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
+//        try {
+//            String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
+//            StoreController.LOGGER.info(result);
+//            return result;
+//        } catch (Exception e) {
+//            return e.getMessage();
+//        }
+//    }
 
     public ArrayList<StoreDTO> getAllStores() {
         ArrayList<StoreDTO> dtoStrs = new ArrayList<>();

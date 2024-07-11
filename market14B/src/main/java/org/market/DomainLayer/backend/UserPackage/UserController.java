@@ -5,6 +5,7 @@ package org.market.DomainLayer.backend.UserPackage;
 import org.market.DomainLayer.backend.AuthenticatorPackage.Authenticator;
 import org.market.DomainLayer.backend.Permissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,18 +20,13 @@ import java.util.logging.SimpleFormatter;
 @Component("BackendUserController")
 public class UserController {
     public static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
-     private static UserController instance;
 
-     @Autowired
-     private Permissions permissions;
+    @Lazy
+    @Autowired
+    private Permissions permissions;
     public static List<String[]> notfications=new ArrayList<String[]>();
 //    private DataController dataController;
 
-    public static synchronized UserController getInstance() {
-        if (instance == null)
-            instance= new UserController();
-        return instance;
-    }
 
     private UserController() {
         try {
@@ -50,7 +46,7 @@ public class UserController {
     // Guest
     public String EnterAsGuest(double age) throws Exception {
         User guest = new GuestUser(idCounter,age);
-        idCounter++; 
+        idCounter++;
         return addToGuestMap(guest);
     }
 
@@ -162,12 +158,13 @@ public class UserController {
     }
 
     public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
-            Boolean storeManager, Boolean[] pType) throws Exception {
+                                  Boolean storeManager, Boolean[] pType) throws Exception {
         LOGGER.info("storeID: " + storeID + ", ownerUserName: " + ownerUserName + ", userName: " + userName
                 + "storeOwner: " + storeOwner);
         if (RegUserMap.containsKey(ownerUserName)) {
             RegisteredUser owner = (RegisteredUser) (RegUserMap.get(ownerUserName));
-            return owner.EditPermissions(storeID, userName, storeOwner, storeManager, pType);
+            return permissions.editPermission(storeID, owner.getUsername(), userName, storeOwner, storeManager,
+                    pType);
         } else {
             LOGGER.severe("ownerUserName not found");
             throw new Exception("ownerUserName not found");
@@ -180,7 +177,6 @@ public class UserController {
         if (RegUserMap.containsKey(ownerUserName)) {
             RegisteredUser owner = (RegisteredUser) (RegUserMap.get(ownerUserName));
             return permissions.addPermission(storeId, owner.getUsername(), username, false, true, pType);
-//            return owner.AssignStoreManager(storeId, username, pType);
         } else {
             LOGGER.severe("ownerUserName not found");
             throw new Exception("ownerUserName not found");
@@ -192,7 +188,7 @@ public class UserController {
         LOGGER.info("ownerUserName: " + ownerUserName + ", username: " + username + "storeOwner: " + storeId);
         if (RegUserMap.containsKey(ownerUserName)) {
             RegisteredUser owner = (RegisteredUser) (RegUserMap.get(ownerUserName));
-            return owner.AssignStoreOwner(storeId, username, pType);
+            return permissions.addPermission(storeId, owner.getUsername(), username, true, false, pType);
         } else {
             LOGGER.severe("ownerUserName not found");
             throw new Exception("ownerUserName not found");
@@ -217,10 +213,6 @@ public class UserController {
         return GuestMap;
     }
 
-    // this is for testing
-    public void setToNull() {
-        instance = null;
-    }
 
     public Boolean reviewOffer(double offer, String username) throws Exception {
         LOGGER.info("offer: " + offer);
