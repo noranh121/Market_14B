@@ -191,7 +191,7 @@ public class Market {
 
     public String Register(String username, String password,double age) throws Exception {
         String response=userController.Register(username, password,age);
-        dataController.Register(username, password, age);
+        // dataController.Register(username, password, age);
         return response;
     }
 

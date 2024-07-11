@@ -1,5 +1,6 @@
 package org.market.DomainLayer.backend.UserPackage;
 
+import org.market.DataAccessLayer.DataController;
 import org.market.DomainLayer.backend.AuthenticatorPackage.Authenticator;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ public class UserController {
     public static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
      private static UserController instance;
     public static List<String[]> notfications=new ArrayList<String[]>();
-
+    private DataController dataController;
+    
     public static synchronized UserController getInstance() {
         if (instance == null)
             instance= new UserController();
@@ -89,8 +91,9 @@ public class UserController {
     }
 
     // Registered user
-    private String addToRegUserMap(User reg) throws Exception {
+    private String addToRegUserMap(User reg,String newPass) throws Exception {
         RegUserMap.put(reg.getUsername(), reg);
+        dataController.Register(reg.getUsername(), newPass,reg.getAge());
         return "guest user added successfully";
     }
 
@@ -109,7 +112,7 @@ public class UserController {
             throw new Exception("username already exists");
         }
         User reg = new RegisteredUser(username, newPass,age);
-        return addToRegUserMap(reg);
+        return addToRegUserMap(reg,newPass);
     }
 
     public double Buy(String username) throws Exception {
