@@ -9,7 +9,6 @@ import org.market.Web.DTOS.StoreDTO;
 import org.market.Web.Requests.PermissionReq;
 import org.market.Web.Requests.ReqUser;
 import org.market.Web.Requests.cartOp;
-import org.market.Web.SocketCommunication.SocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,20 +21,10 @@ public class UserController {
     private ServiceFactory service;
     private TokenService jwtUtil;
 
-    private SocketHandler socketHandler;
-
     @Autowired
-    public UserController(ServiceFactory service, TokenService jwtUtil, SocketHandler socketHandler){
+    public UserController(ServiceFactory service, TokenService jwtUtil){
         this.service = service;
         this.jwtUtil = jwtUtil;
-        this.socketHandler = socketHandler;
-    }
-
-    // TEST
-    @PostMapping("/send-message")
-    public ResponseEntity<Boolean> TestSendMessage(@RequestBody ReqUser user){
-        try{ socketHandler.sendMessage("Waleed", "Attention!! this is a notification.");}catch (Exception e){}
-        return ResponseEntity.ok(true);
     }
 
     // DONE
