@@ -23,7 +23,6 @@ import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -53,7 +52,7 @@ public class Market {
     // private SupplyService supplyService; //=SupplyService.getInstance();
 
 
-    private DataController dataController;// = new DataController();//=DataController.getinstance();
+//    private DataController dataController;// = new DataController();//=DataController.getinstance();
     private StoreController storeController;// = StoreController.getInstance();
     private UserController userController;// = UserController.getInstance();
     private Permissions permissions;// = Permissions.getInstance();
@@ -78,7 +77,7 @@ public class Market {
     }
 
     @Autowired
-    public void setDependencies(DataController dataController,StoreController storeController,UserController userController,Permissions permissions,PurchaseHistory purchaseHistory
+    public void setDependencies(/*DataController dataController,*/StoreController storeController,UserController userController,Permissions permissions,PurchaseHistory purchaseHistory
     ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService){
         this.userController = userController;
         this.storeController = storeController;
@@ -88,7 +87,7 @@ public class Market {
         this.categoryController = categoryController;
         this.paymentService = paymentService;
         this.supplyService = supplyService;
-        this.dataController = dataController;
+        //this.dataController = dataController;
         try {
             //systemManagers=dataController.getSystemManagers(0);
             //Online=dataController.getOnline();

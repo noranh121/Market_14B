@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.market.DataAccessLayer.DataController;
+//import org.market.DataAccessLayer.DataController;
 
 @Component
 public class Permissions {
@@ -38,8 +38,8 @@ public class Permissions {
 
 
 
-    @Autowired
-    private DataController dataController;
+//    @Autowired
+//    private DataController dataController;
     @Autowired
     private StoreController storeController;
 
@@ -353,7 +353,7 @@ public class Permissions {
             if(storeOwners.get(strId).findNode(username) != null) {
                 Permission permission = getPermission(strId, username);
                 if (permission.getStoreManager() || permission.getStoreOwner()) {
-                    stores.add(StoreController.getInstance().getStore(strId));
+                    stores.add(storeController.getStore(strId));
                 }
             }
         }

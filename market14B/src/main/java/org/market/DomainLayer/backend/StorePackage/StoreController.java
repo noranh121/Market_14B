@@ -1,5 +1,8 @@
 package org.market.DomainLayer.backend.StorePackage;
 
+import org.market.Web.DTOS.ProductDTO;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +11,6 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
-import org.market.DataAccessLayer.DataController;
-import org.market.DomainLayer.backend.ProductPackage.Product;
-import org.market.Web.DTOS.ProductDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Component("BackendStoreController")
 public class StoreController {

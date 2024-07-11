@@ -1,14 +1,5 @@
 package org.market.DomainLayer.backend.UserPackage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import org.market.DataAccessLayer.DataController;
 import org.market.DomainLayer.backend.Basket;
 import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.NotificationPackage.BaseNotifier;
@@ -21,11 +12,19 @@ import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 @Configurable
 public class ShoppingCart {
     private List<Basket> baskets;
-    @Autowired
-    private DataController dataController;
+//    @Autowired
+//    private DataController dataController;
     @Autowired
     private StoreController storeController;
 

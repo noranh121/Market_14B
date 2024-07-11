@@ -1,9 +1,11 @@
 package org.market.DomainLayer.backend.UserPackage;
 
-import org.market.DataAccessLayer.DataController;
+//import org.market.DataAccessLayer.DataController;
+
 import org.market.DomainLayer.backend.AuthenticatorPackage.Authenticator;
+import org.market.DomainLayer.backend.Permissions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +20,11 @@ import java.util.logging.SimpleFormatter;
 public class UserController {
     public static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
      private static UserController instance;
+
+     @Autowired
+     private Permissions permissions;
     public static List<String[]> notfications=new ArrayList<String[]>();
-    private DataController dataController;
+//    private DataController dataController;
 
     public static synchronized UserController getInstance() {
         if (instance == null)
@@ -174,7 +179,8 @@ public class UserController {
         LOGGER.info("ownerUserName: " + ownerUserName + ", username: " + username + "storeOwner: " + storeId);
         if (RegUserMap.containsKey(ownerUserName)) {
             RegisteredUser owner = (RegisteredUser) (RegUserMap.get(ownerUserName));
-            return owner.AssignStoreManager(storeId, username, pType);
+            return permissions.addPermission(storeId, owner.getUsername(), username, false, true, pType);
+//            return owner.AssignStoreManager(storeId, username, pType);
         } else {
             LOGGER.severe("ownerUserName not found");
             throw new Exception("ownerUserName not found");
