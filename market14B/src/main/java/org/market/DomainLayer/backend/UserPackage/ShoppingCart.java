@@ -32,6 +32,8 @@ public class ShoppingCart {
     private Market market;
     @Autowired
     private ImmediateNotifierDecorator ImmediateNotifier;
+    @Autowired
+    private PurchaseHistory purchaseHistory;
 
     @Autowired
     private DelayedNotifierDecorator DelayerNotifier;
@@ -129,7 +131,6 @@ public class ShoppingCart {
 
     private double processBasket(Basket basket, Store store, String username) throws Exception {
         double basketSum = 0;
-        PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
         Map<Integer, double[]> purchases = new ConcurrentHashMap<>(); // prodid ==> {quantity, price,weight}
         double[] qp;
         lock.lock();

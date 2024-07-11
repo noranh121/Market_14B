@@ -1,5 +1,7 @@
 package org.market.DomainLayer.backend.ProductPackage;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -7,28 +9,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-//import org.market.DataAccessLayer.DataController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 
 @Component("BackendProductController")
 public class ProductController {
     private static final Logger LOGGER = Logger.getLogger(ProductController.class.getName());
 
-    private static ProductController instance;
 //    @Autowired
 //    private DataController dataController;
 
     private Map<Integer, Product> products;
     private int idCounter;
-
-    public static synchronized ProductController getInstance() {
-        if (instance == null) {
-            instance = new ProductController();
-        }
-        return instance;
-    }
 
     private ProductController() {
         products = new ConcurrentHashMap<>();

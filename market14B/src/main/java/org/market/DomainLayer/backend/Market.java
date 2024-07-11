@@ -14,6 +14,7 @@ import org.market.DomainLayer.backend.StorePackage.Discount.Logical.ORDiscountRu
 import org.market.DomainLayer.backend.StorePackage.Discount.Logical.XORDiscountRule;
 import org.market.DomainLayer.backend.StorePackage.Discount.Numerical.ADDDiscountRule;
 import org.market.DomainLayer.backend.StorePackage.Discount.Numerical.AT_MOSTDiscountRule;
+import org.market.DomainLayer.backend.StorePackage.Purchase.*;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.UserController;
@@ -23,6 +24,7 @@ import org.market.Web.DTOS.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -545,89 +547,89 @@ public class Market {
         }
     }
 
-//    private PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
-//        if(immediate){
-//            return new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
-//        }
-//        else{
-//            return new OfferMethod(quantity, price, date, atLeast, weight, age,storeId,username);
-//        }
-//    }
-//
-//    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id) throws Exception{
-//        if(!permissions.getPermission(storeId, username).getStoreOwner()){
-//            LOGGER.severe(username + " is not store owner");
-//            throw new Exception(username + " is not store owner");
-//        }
-//        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
-//        CategoryPurchase categoryPurchase=new CategoryPurchase(purchaseMethod, categoryId, -1);
-//        storeController.getStore(storeId).addPurchaseComposite(categoryPurchase,id);
-//        LOGGER.info("category purchase policy added");
-//        return "category purchase policy added";
-//    }
-//
-//    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
-//        if(!permissions.getPermission(storeId, username).getStoreOwner()){
-//            LOGGER.severe(username + " is not store owner");
-//            throw new Exception(username + " is not store owner");
-//        }
-//        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
-//        ProductPurchase productPurchase=new ProductPurchase(purchaseMethod, productId, storeId);
-//        storeController.getStore(storeId).addPurchaseComposite(productPurchase,id);
-//        LOGGER.info("product purchase policy added");
-//        return "product purchase policy added";
-//    }
-//
-//    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id) throws Exception{
-//        if(!permissions.getPermission(storeId, username).getStoreOwner()){
-//            LOGGER.severe(username + " is not store owner");
-//            throw new Exception(username + " is not store owner");
-//        }
-//        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
-//        ShoppingCartPurchase ShoppingCartPurchase=new ShoppingCartPurchase(purchaseMethod, -1);
-//        storeController.getStore(storeId).addPurchaseComposite(ShoppingCartPurchase,id);
-//        LOGGER.info("shopping cart purchase policy added");
-//        return "shopping cart purchase policy added";
-//    }
-//
-//    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id) throws Exception{
-//        if(!permissions.getPermission(storeId, username).getStoreOwner()){
-//            LOGGER.severe(username + " is not store owner");
-//            throw new Exception(username + " is not store owner");
-//        }
-//        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
-//        UserPurchase userPurchase=new UserPurchase(purchaseMethod, userAge, storeId);
-//        storeController.getStore(storeId).addPurchaseComposite(userPurchase,id);
-//        LOGGER.info("user purchase policy added");
-//        return "user purchase policy added";
-//    }
-//
-//    public String addLogicalPurchase(String username, int storeId, PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
-//        if(!permissions.getPermission(storeId, username).getStoreOwner()){
-//            LOGGER.severe(username + " is not store owner");
-//            throw new Exception(username + " is not store owner");
-//        }
-//        switch (logicalRule) {
-//            case AND:
-//                ANDPurchaseRule andPurchaseRule=new ANDPurchaseRule(-1);
-//                storeController.getStore(storeId).addPurchaseComposite(andPurchaseRule,id);
-//                LOGGER.info("AND purchase policy added");
-//                return "AND purchase policy added";
-//            case OR:
-//                ORPurchaseRule orPurchaseRule=new ORPurchaseRule(-1);
-//                storeController.getStore(storeId).addPurchaseComposite(orPurchaseRule,id);
-//                LOGGER.info("OR purchase policy added");
-//                return "OR purchase policy added";
-//            case IF_THEN:
-//                IF_THENPurchaseRule if_THENDiscountRule=new IF_THENPurchaseRule(-1);
-//                storeController.getStore(storeId).addPurchaseComposite(if_THENDiscountRule,id);
-//                LOGGER.info("IF_THEN discount policy added");
-//                return "IF_THEN discount policy added";
-//            default:
-//                LOGGER.severe("invaled logical rule");
-//                throw new Exception("invaled logical rule");
-//        }
-//    }
+    private PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
+        if(immediate){
+            return new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
+        }
+        else{
+            return new OfferMethod(quantity, price, date, atLeast, weight, age,storeId,username);
+        }
+    }
+
+    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id) throws Exception{
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+        CategoryPurchase categoryPurchase=new CategoryPurchase(purchaseMethod, categoryId, -1);
+        storeController.getStore(storeId).addPurchaseComposite(categoryPurchase,id);
+        LOGGER.info("category purchase policy added");
+        return "category purchase policy added";
+    }
+
+    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+        ProductPurchase productPurchase=new ProductPurchase(purchaseMethod, productId, storeId);
+        storeController.getStore(storeId).addPurchaseComposite(productPurchase,id);
+        LOGGER.info("product purchase policy added");
+        return "product purchase policy added";
+    }
+
+    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id) throws Exception{
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+        ShoppingCartPurchase ShoppingCartPurchase=new ShoppingCartPurchase(purchaseMethod, -1);
+        storeController.getStore(storeId).addPurchaseComposite(ShoppingCartPurchase,id);
+        LOGGER.info("shopping cart purchase policy added");
+        return "shopping cart purchase policy added";
+    }
+
+    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id) throws Exception{
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+        UserPurchase userPurchase=new UserPurchase(purchaseMethod, userAge, storeId);
+        storeController.getStore(storeId).addPurchaseComposite(userPurchase,id);
+        LOGGER.info("user purchase policy added");
+        return "user purchase policy added";
+    }
+
+    public String addLogicalPurchase(String username, int storeId, PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        switch (logicalRule) {
+            case AND:
+                ANDPurchaseRule andPurchaseRule=new ANDPurchaseRule(-1);
+                storeController.getStore(storeId).addPurchaseComposite(andPurchaseRule,id);
+                LOGGER.info("AND purchase policy added");
+                return "AND purchase policy added";
+            case OR:
+                ORPurchaseRule orPurchaseRule=new ORPurchaseRule(-1);
+                storeController.getStore(storeId).addPurchaseComposite(orPurchaseRule,id);
+                LOGGER.info("OR purchase policy added");
+                return "OR purchase policy added";
+            case IF_THEN:
+                IF_THENPurchaseRule if_THENDiscountRule=new IF_THENPurchaseRule(-1);
+                storeController.getStore(storeId).addPurchaseComposite(if_THENDiscountRule,id);
+                LOGGER.info("IF_THEN discount policy added");
+                return "IF_THEN discount policy added";
+            default:
+                LOGGER.severe("invaled logical rule");
+                throw new Exception("invaled logical rule");
+        }
+    }
 
     // public String EditProductName(int productId,int storeId,String newName,String
     // username) throws Exception {
@@ -699,17 +701,17 @@ public class Market {
                 LOGGER.severe("only system managers can view purchase history");
                 throw new Exception("only system managers can view purchase history");
             }
-            return PurchaseHistory.getInstance().viewPurchaseHistory();
+            return purchaseHistory.viewPurchaseHistory();
         }finally{
             systemManagersLock.unlock();
         }
     }
 
-    // public String addPurchase(int storeId, int userId, Purchase purchase) {
-    // purchaseHistory.addPurchase(storeId, userId, purchase);
-    // LOGGER.info("purcahse added");
-    // return "purchase added";
-    // }
+//     public String addPurchase(int storeId, int userId, Purchase purchase) {
+//     purchaseHistory.addPurchase(storeId, userId, purchase);
+//     LOGGER.info("purcahse added");
+//     return "purchase added";
+//     }
 
     public Lock getSystemManagersLock(){
         return systemManagersLock;
