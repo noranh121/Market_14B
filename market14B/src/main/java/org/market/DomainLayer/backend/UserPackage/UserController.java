@@ -62,6 +62,7 @@ public class UserController {
             LOGGER.severe("guest user cannot be deleted");
             throw new Exception("guest user cannot be deleted");
         }
+
         LOGGER.info("guest existed successfully");
         return "guest existed successfully";
     }
@@ -72,8 +73,14 @@ public class UserController {
         if (user == null || !authenticate(username, password)) {
             LOGGER.severe("username or password are incorrect");
             throw new Exception("username or password are incorrect");
-        } else {
+        }
+        else if(user.isLoggedIn()){
+            LOGGER.severe("Failed to login");
+            throw new Exception("Failed to login");
+        }
+        else {
             LOGGER.info("logged in successfully");
+            user.setLoggedIn(true);
             GuestExit(guest);
             return "logged in successfully";
         }

@@ -43,7 +43,7 @@ public class Node {
 
     public boolean isChild(String userName) {
         for (Node node : children) {
-            if (node.getData().getUserName() == userName) {
+            if (node.getData().getUserName().equals(userName)) {
                 return true;
             }
         }

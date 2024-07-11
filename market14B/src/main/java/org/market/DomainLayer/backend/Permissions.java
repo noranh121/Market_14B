@@ -350,9 +350,11 @@ public class Permissions {
     public List<Store> getUserStores(String username) throws Exception {
         List<Store> stores = new ArrayList<>();
         for(int strId: storeOwners.keySet()){
-            Permission permission = getPermission(strId, username);
-            if(permission.getStoreManager() || permission.getStoreOwner()){
-                stores.add(StoreController.getInstance().getStore(strId));
+            if(storeOwners.get(strId).findNode(username) != null) {
+                Permission permission = getPermission(strId, username);
+                if (permission.getStoreManager() || permission.getStoreOwner()) {
+                    stores.add(StoreController.getInstance().getStore(strId));
+                }
             }
         }
         return stores;

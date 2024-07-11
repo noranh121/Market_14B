@@ -130,7 +130,7 @@ public class ServiceFactory {
         return userService.unassignUser(storeID, ownerUserName, userName);
     }
 
-    public String resign(int storeID, String username) throws Exception {
+    public Response<String> resign(int storeID, String username) throws Exception {
         return userService.resign(storeID, username);
     }
 

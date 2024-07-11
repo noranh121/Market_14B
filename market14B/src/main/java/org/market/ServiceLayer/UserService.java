@@ -154,13 +154,13 @@ public class UserService {
         }
     }
 
-    public String resign(int storeID, String username) throws Exception {
+    public Response<String> resign(int storeID, String username) throws Exception {
         try {
             String result = market.resign(storeID, username);
             UserController.LOGGER.info(result);
-            return result;
+            return Response.successRes(result);
         } catch (Exception e) {
-            return e.getMessage();
+            return Response.failRes(e.getMessage());
         }
     }
 

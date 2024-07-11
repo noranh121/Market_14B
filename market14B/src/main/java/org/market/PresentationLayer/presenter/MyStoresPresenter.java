@@ -39,7 +39,6 @@ public class MyStoresPresenter {
             public void run() {
                 try {
                     if (validateAddForm(name_field, description_field)) {
-                        System.out.println("run");
 
                         String accessToken = (String) VaadinSession.getCurrent().getAttribute("access-token");
                         String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
@@ -60,8 +59,7 @@ public class MyStoresPresenter {
 
                         ErrorHandler.showSuccessNotification(response.getBody());
 
-                        PermissionHandler.loadPermissions(username);
-
+                        PermissionHandler.loadPermissions();
                     }
                 } catch(HttpClientErrorException e){
                     ErrorHandler.handleError(e, this);

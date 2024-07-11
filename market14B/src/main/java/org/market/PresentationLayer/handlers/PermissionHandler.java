@@ -22,12 +22,11 @@ public class PermissionHandler {
             return false;
         }
 
-        if (!(permissions instanceof List<?>)) {
+        if (!(permissions instanceof List<?> permissionList)) {
             // Log the unexpected type
             return false;
         }
 
-        List<?> permissionList = (List<?>) permissions;
         if (permissionList.isEmpty() || !(permissionList.get(0) instanceof PermissionDTO)) {
             // Log the unexpected list content
             return false;
@@ -35,8 +34,6 @@ public class PermissionHandler {
 
         @SuppressWarnings("unchecked")
         List<PermissionDTO> permissionDTOList = (List<PermissionDTO>) permissionList;
-
-        System.out.println(permissionDTOList.size());
 
         PermissionDTO permission = permissionDTOList.stream()
                 .filter(e -> e.getStoreId() == storeId)
@@ -46,12 +43,55 @@ public class PermissionHandler {
             return false;
         }
 
-        return permission.getStoreManager() ||
-                permission.getStoreOwner() ||
-                (type >= 0 && type < permission.getPType().length && permission.getPType()[type]);
+        return permission.getPType()[type];
     }
 
-    public static void loadPermissions(String username) {
+    public static String getRole(int storeId) {
+        VaadinSession currentSession = VaadinSession.getCurrent();
+        if (currentSession == null) {
+            // Log this situation
+            return "User";
+        }
+
+        Object permissions = currentSession.getAttribute("permissions");
+        if (permissions == null) {
+            return "User";
+        }
+
+        if (!(permissions instanceof List<?> permissionList)) {
+            // Log the unexpected type
+            return "User";
+        }
+
+        if (permissionList.isEmpty() || !(permissionList.get(0) instanceof PermissionDTO)) {
+            // Log the unexpected list content
+            return "User";
+        }
+
+        @SuppressWarnings("unchecked")
+        List<PermissionDTO> permissionDTOList = (List<PermissionDTO>) permissionList;
+
+        PermissionDTO permission = permissionDTOList.stream()
+                .filter(e -> e.getStoreId() == storeId)
+                .findFirst()
+                .orElse(null);
+        if (permission == null) {
+            return "User";
+        }
+
+        if(permission.getStoreOwner()){
+            return "Owner";
+        }
+        else if(permission.getStoreManager()){
+            return "Manager";
+        }
+        else {
+            return "User";
+        }
+    }
+
+    public static void loadPermissions() {
+        String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
         RestTemplate restTemplate = new RestTemplate();
 
         String url = "http://localhost:8080/api/users/get-permission/{username}";

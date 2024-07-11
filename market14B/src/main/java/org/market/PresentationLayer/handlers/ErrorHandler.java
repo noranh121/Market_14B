@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 public class ErrorHandler {
 
     public static void handleError(HttpClientErrorException e, Runnable originalRequest) {
-        System.out.println(HttpStatus.UNAUTHORIZED);
         if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
             handleUnauthorizedError(originalRequest);
         } else {

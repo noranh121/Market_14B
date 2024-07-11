@@ -30,6 +30,7 @@ public class StoreController {
         this.jwtUtil = jwtUtil;
     }
 
+    // DONE
     @GetMapping("/all")
     public ResponseEntity<?> getAllStores(){
         try{
@@ -40,6 +41,7 @@ public class StoreController {
         }
     }
 
+    // DONE
     @GetMapping("/products/all")
     public ResponseEntity<?> getAllProducts(){
         try{
@@ -49,6 +51,8 @@ public class StoreController {
             return ResponseEntity.status(404).body("Failed to get all products.");
         }
     }
+
+    // DONE
     @GetMapping("/products/{store_id}")
     public ResponseEntity<?> getStoreProducts(@PathVariable("store_id") int store_id){
         try{
@@ -59,6 +63,7 @@ public class StoreController {
         }
     }
 
+    // DONE
     @GetMapping("/product/{product_id}")
     public ResponseEntity<?> getProductInfo(@PathVariable("product_id") int product_id){
         try{
@@ -69,6 +74,7 @@ public class StoreController {
         }
     }
 
+    // DONE
     @GetMapping("/store/{store_id}")
     public ResponseEntity<?> getStoreInfo(@PathVariable("store_id") int store_id){
         try{
@@ -79,6 +85,7 @@ public class StoreController {
         }
     }
 
+    // DONE
     @GetMapping("/mystores/{username}")
     public ResponseEntity<?> getUserStores(@PathVariable("username") String username){
         try{
@@ -89,6 +96,7 @@ public class StoreController {
         }
     }
 
+    // DONE
     @PostMapping("/add-store")
     public ResponseEntity<?> initStore(@RequestHeader("Authorization") String token,
                                        @RequestBody AddStoreReq request) throws Exception{
@@ -110,6 +118,7 @@ public class StoreController {
         }
     }
 
+    // DONE
     @PostMapping("/add-product")
     public ResponseEntity<?> addProduct(@RequestHeader("Authorization") String token, @RequestBody AddProductReq rstr) throws Exception{
         try{
@@ -135,6 +144,7 @@ public class StoreController {
         }
     }
 
+    // TODO
     @DeleteMapping("/remove-product")
     public ResponseEntity<?> removeProduct(@RequestBody ReqStore rstr){
         try{
@@ -150,27 +160,31 @@ public class StoreController {
         }
     }
 
+    // TODO
     @PutMapping("/edit-product-price")
     public Response<String> EditProducPrice(@RequestBody ReqStore rstr) throws Exception{
         return service.EditProducPrice(rstr.getProdID(), rstr.getStoreID(), rstr.getPrice(),rstr.getUsername());
     }
 
+    // TODO
     @PutMapping("/edit-product-quantity")
     public Response<String> EditProductQuantity(@RequestBody ReqStore rstr) throws Exception{
         return service.EditProductQuantity(rstr.getProdID(), rstr.getStoreID(),rstr.getQuantity(), rstr.getUsername());
     }
 
-
+    // TODO
     @PostMapping("/close-store")
     public Response<String> closeStore(@RequestBody ReqStore rstr) {
         return service.closeStore(rstr.getStoreID(), rstr.getUsername());
     }
 
+    // TODO
     @PostMapping("/open-store")
     public Response<String> openStore(@RequestBody ReqStore rstr) {
         return service.openStore(rstr.getStoreID(), rstr.getUsername());
     }
 
+    // ALTERNATIVE
     @GetMapping("/get-store-info")
     public Response<String> getInfo(@RequestBody ReqStore rstr) {
         return service.getInfo(rstr.getStoreID(), rstr.getUsername());

@@ -22,6 +22,7 @@
 }
 
 .manager-settings-role-section, .manager-settings-permission-section {
+    position: relative;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 10px;
@@ -46,13 +47,14 @@
     margin-bottom: 20px;
 }
 
-.manager-setting-assign-btn-layout{
-    margin-top: 20px;
-    margin-left: 220px;
+.manager-setting-btn-layout{
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
 }
 
 
-.manager-setting-assign-btn{
+.manager-setting-btn{
     border: solid;
     border-radius: 6px;
     background: transparent;

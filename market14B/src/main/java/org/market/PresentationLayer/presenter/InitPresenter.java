@@ -30,6 +30,7 @@ public class InitPresenter {
             notificationHandler.connect(serverUri, username.toString());
         }
         else{
+            //String guest = (String) VaadinSession.getCurrent().getAttribute("guest-user");
             connectGuest();
         }
     }
@@ -56,9 +57,9 @@ public class InitPresenter {
         // Make the POST request
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class, 24.0);
 
-        VaadinSession.getCurrent().setAttribute("guest", response.getBody());
+        VaadinSession.getCurrent().setAttribute("guest-user", response.getBody());
         // Get the response body
-        System.out.println("Guest entered successfully");
+        System.out.println(VaadinSession.getCurrent().getAttribute("guest-user"));
     }
 
     private void disconnectGuest() {

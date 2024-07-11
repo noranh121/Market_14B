@@ -24,7 +24,7 @@ public class MyStoreCard extends HorizontalLayout {
         addAndExpand(new HorizontalLayout());
 
         Icon edit = new Icon(VaadinIcon.EDIT);
-        edit.addClickListener(e-> UI.getCurrent().navigate("dash/settings"));
+        edit.addClickListener(e-> UI.getCurrent().navigate("dash/settings/"+ store.getId()));
         add(edit);
 
         layout.addClickListener(e -> UI.getCurrent().navigate("dash/store/" + store.getId()));

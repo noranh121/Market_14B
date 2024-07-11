@@ -5,7 +5,6 @@ import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.models.AuthResponse;
 import org.market.PresentationLayer.views.LoginView;
 import org.market.Web.Requests.ReqUser;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
 public class LoginPresenter {
@@ -29,7 +28,7 @@ public class LoginPresenter {
 
         if (validateInput(username, password)) {
             try {
-                String guest = VaadinSession.getCurrent().getAttribute("guest").toString();
+                String guest = (String) VaadinSession.getCurrent().getAttribute("guest-user");
 
                 ReqUser authRequest = new ReqUser();
                 authRequest.setUsername(username);
@@ -50,13 +49,17 @@ public class LoginPresenter {
 
                 view.showSuccessNotification("Successful Login");
 
+                VaadinSession.getCurrent().setAttribute("guest-user", null);
+
+
                 // load user permissions
-                PermissionHandler.loadPermissions(username);
+                PermissionHandler.loadPermissions();
 
                 view.NavigateToHomepage();
                 
             } catch (Exception e) {
                 view.showErrorNotification(e.getMessage());
+                view.enableLogin();
             }
         } else {
             view.showErrorNotification("Incorrect Username or Password!");
@@ -65,11 +68,5 @@ public class LoginPresenter {
 
     private boolean validateInput(String username, String password) {
         return username != null && !username.isEmpty() && password != null && !password.isEmpty();
-    }
-
-    private HttpHeaders createAuthHeader(String token) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        return headers;
     }
 }
