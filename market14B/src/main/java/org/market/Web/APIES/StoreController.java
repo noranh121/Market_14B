@@ -1,7 +1,7 @@
 package org.market.Web.APIES;
 
-import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.ServiceFactory;
+import org.market.ServiceLayer.SuspendedException;
 import org.market.ServiceLayer.TokenService;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
@@ -104,17 +104,14 @@ public class StoreController {
             String tokenValue = token.replace("Bearer ", "");
             String username = jwtUtil.extractUsername(tokenValue);
             if (username != null && jwtUtil.validateToken(tokenValue,username)) {
-                Response<String> res = service.initStore(request.getUsername(), request.getName(), request.getDescription());
-                if(res.isError()){
-                    return ResponseEntity.status(400).body(res.getErrorMessage());
-                }
-                else{
-                    return ResponseEntity.ok(res.getValue());
-                }
+                String res = service.initStore(request.getUsername(), request.getName(), request.getDescription());
+                return ResponseEntity.ok(res);
             }
             return ResponseEntity.status(401).build();
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e){
-            return ResponseEntity.status(404).body("Failed to get add store.");
+            return ResponseEntity.status(400).body("Failed to add store.");
         }
     }
 
@@ -125,69 +122,94 @@ public class StoreController {
             String tokenValue = token.replace("Bearer ", "");
             String username = jwtUtil.extractUsername(tokenValue);
             if (username != null && jwtUtil.validateToken(tokenValue,username)) {
-                Response<Integer> response1 = service.initProduct(rstr.getUsername(), rstr.getName(),-1,rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
-                if(!response1.isError()){
-                    String response2 = service.addProduct(response1.getValue(), rstr.getStore_id(), rstr.getPrice(), rstr.getInventory(), rstr.getUsername(), rstr.getWeight());
-                    if(!response2.equals("Product added to store Successfully")) {
-                        return ResponseEntity.badRequest().body(response2);
-                    }else{
-                        return ResponseEntity.ok(response2);
-                    }
-                }
-                else {
-                    return ResponseEntity.badRequest().body(response1.getErrorMessage());
-                }
+                Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),-1,rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
+                String response2 = service.addProduct(response1, rstr.getStore_id(), rstr.getPrice(), rstr.getInventory(), rstr.getUsername(), rstr.getWeight());
+                return ResponseEntity.ok(response2);
             }
             return ResponseEntity.status(401).build();
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e){
-            return ResponseEntity.status(404).body("Failed to retrieve add product.");
+            return ResponseEntity.status(400).body("Failed to add product.");
         }
     }
 
     // TODO
     @DeleteMapping("/remove-product")
-    public ResponseEntity<?> removeProduct(@RequestBody ReqStore rstr){
-        try{
-            Response<String> response = service.removeProduct(rstr.getProdID(), rstr.getStoreID(), rstr.getUsername());
-            if(response.isError()){
-                return ResponseEntity.badRequest().body(response.getErrorMessage());
-            }
-            else{
-                return ResponseEntity.ok(response.getValue());
-            }
+    public ResponseEntity<?> removeProduct(@RequestBody ReqStore rstr) throws Exception{
+        try {
+            String response = service.removeProduct(rstr.getProdID(), rstr.getStoreID(), rstr.getUsername());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e){
-            return ResponseEntity.status(404).body("Failed to remove product.");
+            return ResponseEntity.status(400).body("Failed to remove product.");
         }
     }
 
     // TODO
     @PutMapping("/edit-product-price")
-    public Response<String> EditProducPrice(@RequestBody ReqStore rstr) throws Exception{
-        return service.EditProducPrice(rstr.getProdID(), rstr.getStoreID(), rstr.getPrice(),rstr.getUsername());
+    public ResponseEntity<?> EditProducPrice(@RequestBody ReqStore rstr) throws Exception{
+        try {
+            String response = service.EditProducPrice(rstr.getProdID(), rstr.getStoreID(), rstr.getPrice(),rstr.getUsername());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e){
+            return ResponseEntity.status(400).body("Failed to edit product price.");
+        }
     }
 
     // TODO
     @PutMapping("/edit-product-quantity")
-    public Response<String> EditProductQuantity(@RequestBody ReqStore rstr) throws Exception{
-        return service.EditProductQuantity(rstr.getProdID(), rstr.getStoreID(),rstr.getQuantity(), rstr.getUsername());
+    public ResponseEntity<?> EditProductQuantity(@RequestBody ReqStore rstr) throws Exception{
+        try {
+            String response = service.EditProductQuantity(rstr.getProdID(), rstr.getStoreID(),rstr.getQuantity(), rstr.getUsername());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e){
+            return ResponseEntity.status(400).body("Failed to edit product inventory.");
+        }
     }
 
     // TODO
     @PostMapping("/close-store")
-    public Response<String> closeStore(@RequestBody ReqStore rstr) {
-        return service.closeStore(rstr.getStoreID(), rstr.getUsername());
+    public ResponseEntity<?> closeStore(@RequestBody ReqStore rstr) {
+        try {
+            String response = service.closeStore(rstr.getStoreID(), rstr.getUsername());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e){
+            return ResponseEntity.status(400).body("Failed to close store.");
+        }
     }
 
     // TODO
     @PostMapping("/open-store")
-    public Response<String> openStore(@RequestBody ReqStore rstr) {
-        return service.openStore(rstr.getStoreID(), rstr.getUsername());
+    public ResponseEntity<String> openStore(@RequestBody ReqStore rstr) {
+        try {
+            String response = service.openStore(rstr.getStoreID(), rstr.getUsername());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e){
+            return ResponseEntity.status(400).body("Failed to open store.");
+        }
     }
 
     // ALTERNATIVE
     @GetMapping("/get-store-info")
-    public Response<String> getInfo(@RequestBody ReqStore rstr) {
-        return service.getInfo(rstr.getStoreID(), rstr.getUsername());
+    public ResponseEntity<?> getInfo(@RequestBody ReqStore rstr) {
+        try {
+            String response = service.getInfo(rstr.getStoreID(), rstr.getUsername());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e){
+            return ResponseEntity.status(400).body("Failed to get store info.");
+        }
     }
 
 }

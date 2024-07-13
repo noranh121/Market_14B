@@ -19,6 +19,7 @@ import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.market.ServiceLayer.Response;
+import org.market.ServiceLayer.SuspendedException;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class Market {
     // private SupplyService supplyService; //=SupplyService.getInstance();
 
 
-//    private DataController dataController;// = new DataController();//=DataController.getinstance();
+    //    private DataController dataController;// = new DataController();//=DataController.getinstance();
     private StoreController storeController;// = StoreController.getInstance();
     private UserController userController;// = UserController.getInstance();
     private Permissions permissions;// = Permissions.getInstance();
@@ -63,13 +64,13 @@ public class Market {
     private SupplyService supplyService;//=SupplyService.getInstance();
     private FileHandler fileHandler;
 
-    private Boolean Online = true;
+    private Boolean Online = false;
     private List<String> systemManagers = Collections.synchronizedList(new ArrayList<>());
     private final Lock systemManagersLock = new ReentrantLock();
 
     @Autowired
     public void setDependencies(/*DataController dataController,*/StoreController storeController,UserController userController,Permissions permissions,PurchaseHistory purchaseHistory
-    ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService){
+            ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService){
         this.userController = userController;
         this.storeController = storeController;
         this.permissions = permissions;
@@ -162,8 +163,11 @@ public class Market {
 
     public String Login(String guest, String username, String password) throws Exception {
         if (!Online) {
-            if (systemManagers.contains(username))
-                return userController.Login(guest, username, password);
+            if (systemManagers.contains(username)) {
+                String response = userController.Login(guest, username, password);
+                setMarketOnline(username);
+                return response;
+            }
             else {
                 LOGGER.severe("Market IS OFFLINE");
                 throw new Exception("Market IS OFFLINE");
@@ -187,11 +191,11 @@ public class Market {
     }
 
     public double Buy(String username,String currency,String card_number,int month,int year,String ccv,
-    String address, String city, String country, int zip) throws Exception {
+                      String address, String city, String country, int zip) throws Exception {
         LOGGER.info("username: "+username+" currency: "+currency+" card_number: "+card_number+" month: "+month+" year: "+year+" ccv: "+ccv+" address: "+address+
-        " city: "+city+" country: "+country+" zip: "+zip);
+                " city: "+city+" country: "+country+" zip: "+zip);
         if (permissions.isSuspended(username)) {
-            throw new Exception("can't buy user is suspended");
+            throw new SuspendedException("can't buy user is suspended");
         }
         double total=userController.Buy(username);
         paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
@@ -200,14 +204,14 @@ public class Market {
 //        dataController.cleanShoppingCart(username);
         return total;
     }
-    
+
     private void supplyServiceProccess(String address, String city, String country, int zip,String username) throws Exception {
         Response<Boolean> handshake=paymentService.handshake();
         if(!handshake.isError()){
             Response<Integer> transaction_id=supplyService.supply(username, address, city, country, zip);
             if(transaction_id.isError()){
                 LOGGER.severe(transaction_id.getErrorMessage());
-                throw new Exception(transaction_id.getErrorMessage());    
+                throw new Exception(transaction_id.getErrorMessage());
             }
         }
         else{
@@ -243,7 +247,7 @@ public class Market {
 
     public String addToCart(String username, Integer product, int storeId, int quantity) throws Exception {
         if (permissions.isSuspended(username)) {
-            throw new Exception("can't add to cart user is suspended");
+            throw new SuspendedException("can't add to cart user is suspended");
         }
         String response= userController.addToCart(username, product, storeId, quantity);
 //        dataController.addToCart(username, storeId, product, quantity);
@@ -252,7 +256,7 @@ public class Market {
 
     public String inspectCart(String username) throws Exception {
         if (permissions.isSuspended(username)) {
-            throw new Exception("can't inspect cart user is suspended");
+            throw new SuspendedException("can't inspect cart user is suspended");
         }
         String response= userController.inspectCart(username);
         // I used DataController in ShoppingCart class
@@ -261,7 +265,7 @@ public class Market {
 
     public String removeCartItem(String username, int storeId, int product) throws Exception {
         if (permissions.isSuspended(username)) {
-            throw new Exception("can't remove cart item user is suspended");
+            throw new SuspendedException("can't remove cart item user is suspended");
         }
         String response= userController.removeCartItem(username, storeId, product);
 //        dataController.removeCartItem(username, storeId, product);
@@ -270,7 +274,10 @@ public class Market {
 
     // Permissions
     public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
-            Boolean storeManager, Boolean[] pType) throws Exception {
+                                  Boolean storeManager, Boolean[] pType) throws Exception {
+        if (permissions.isSuspended(ownerUserName)) {
+            throw new SuspendedException("can't edit permissions, user is suspended");
+        }
         String response= userController.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
 //        dataController.EditPermissions(storeID, userName, storeOwner, storeManager,pType[0],pType[1],pType[2]);
         return response;
@@ -281,6 +288,9 @@ public class Market {
             Thread.sleep(1000);
         }
         try{
+            if (permissions.isSuspended(ownerUserName)) {
+                throw new SuspendedException("can't assign store manager, user is suspended");
+            }
             String response= userController.AssignStoreManager(storeId, ownerUserName, username, pType);
 //            dataController.AssignStoreManager(storeId, username);
             return response;
@@ -294,13 +304,16 @@ public class Market {
             Thread.sleep(1000);
         }
         try{
+            if (permissions.isSuspended(ownerUserName)) {
+                throw new SuspendedException("can't assign store owner, user is suspended");
+            }
             String response=userController.AssignStoreOwner(storeId, ownerUserName, username, pType);
 //            dataController.AssignStoreOwner(storeId, username);
             return response;
         }finally{
             systemManagersLock.unlock();
         }
-        
+
     }
 
     public String unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
@@ -308,16 +321,22 @@ public class Market {
             Thread.sleep(1000);
         }
         try{
+            if (permissions.isSuspended(ownerUserName)) {
+                throw new SuspendedException("can't unassign permissions, user is suspended");
+            }
             String response= permissions.deletePermission(storeID, ownerUserName, userName);
 //            dataController.unassignUser(storeID, userName);
             return response;
         }finally{
             systemManagersLock.unlock();
         }
-        
+
     }
 
     public String resign(int storeID, String username) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't resign, user is suspended");
+        }
         String response= permissions.deleteStoreOwner(storeID, username);
 //        dataController.resign(storeID, username);
         return response;
@@ -327,9 +346,14 @@ public class Market {
         systemManagersLock.lock();
         try{
             if (systemManagers.contains(systemManager)) {
-                String response= permissions.suspendUser(username);
+                if(userController.getUser(username) != null) {
+                    String response = permissions.suspendUser(username);
 //                dataController.suspendUser(username);
-                return response;
+                    return response;
+                }
+                else{
+                    throw new Exception(username + " not found");
+                }
             } else {
                 throw new Exception(systemManager + " not a system manager");
             }
@@ -340,10 +364,14 @@ public class Market {
 
     public String suspendUserSeconds(String systemManager, String username, int duration) throws Exception {
         systemManagersLock.lock();
-        try{
+        try {
             if (systemManagers.contains(systemManager)) {
-                return permissions.suspendUserSeconds(username, duration);
-            } else {
+                if (userController.getUser(username) != null) {
+                    return permissions.suspendUserSeconds(username, duration);
+                } else {
+                    throw new Exception(username + " not found");
+                }
+            } else{
                 throw new Exception(systemManager + " not a system manager");
             }
         }finally{
@@ -353,9 +381,14 @@ public class Market {
 
     public String resumeUser(String systemManager, String username) throws Exception {
         if (systemManagers.contains(systemManager)) {
-            String response= permissions.resumeUser(username);
+            if(userController.getUser(username) != null) {
+                String response = permissions.resumeUser(username);
 //            dataController.resumeUser(username);
-            return response;
+                return response;
+            }
+            else{
+                throw new Exception(username + " not found");
+            }
         } else {
             throw new Exception(systemManager + " not a system manager");
         }
@@ -363,7 +396,12 @@ public class Market {
 
     public String resumeUserSeconds(String systemManager, String username, int duration) throws Exception {
         if (systemManagers.contains(systemManager)) {
-            return permissions.resumeTemporarily(username, duration);
+            if(userController.getUser(username) != null) {
+                return permissions.resumeTemporarily(username, duration);
+            }
+            else{
+                throw new Exception(username + " not found");
+            }
         } else {
             throw new Exception(systemManager + " not a system manager");
         }
@@ -400,6 +438,9 @@ public class Market {
             throws Exception {
         LOGGER.info("username: " + username + ",productName : " + productName + ", categoryId: " + categoryId
                 + ", description: " + description + ", brand: " + brand);
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add product, user is suspended");
+        }
         if (true/*systemManagers.contains(username)*/) {
             Category category = categoryController.getCategory(categoryId);
             if(category == null){
@@ -420,6 +461,9 @@ public class Market {
      */
     public String initStore(String userName, String name, String Description) throws Exception {
         LOGGER.info("userName: " + userName + ", Description: " + Description);
+        if (permissions.isSuspended(userName)) {
+            throw new SuspendedException("can't add store, user is suspended");
+        }
         if (userController.isRegistered(userName)) {
             int storeID = storeController.initStore(userName, name, Description);
             String resposnse = permissions.initStore(storeID, userName);
@@ -436,6 +480,9 @@ public class Market {
      */
     public String addProduct(int productId, int storeId, double price, int quantity, String username,double weight) throws Exception {
         if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
+            if (permissions.isSuspended(username)) {
+                throw new SuspendedException("can't add product, user is suspended");
+            }
             String response = storeController.addProduct(productId, storeId, price, quantity,weight);
 //            dataController.addProduct(storeId,productId,price,quantity);
             return response;
@@ -447,6 +494,9 @@ public class Market {
 
     public String RemoveProduct(int productId, int storeId, String username) throws Exception {
         if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
+            if (permissions.isSuspended(username)) {
+                throw new SuspendedException("can't remove product, user is suspended");
+            }
             String response = storeController.removeProduct(productId, storeId);
 //            dataController.removeProduct(storeId, productId);
             return response;
@@ -457,6 +507,9 @@ public class Market {
     }
 
     public String addCategoryDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int categoryId,int storeId,String username,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add discount policy, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -469,6 +522,9 @@ public class Market {
     }
 
     public String addProductDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int productId,int storeId,String username,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add discount policy, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -481,6 +537,9 @@ public class Market {
     }
 
     public String addStoreDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int storeId,String username,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add discount policy, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -502,6 +561,9 @@ public class Market {
     }
 
     public String addNmericalDiscount(String username,int storeId,Boolean ADD,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add numerical discount, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -521,6 +583,9 @@ public class Market {
     }
 
     public String addLogicalDiscount(String username, int storeId, DiscountPolicyController.LogicalRule logicalRule,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add logical discount, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -557,6 +622,9 @@ public class Market {
     }
 
     public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add purchase policy, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -569,6 +637,9 @@ public class Market {
     }
 
     public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add purchase policy, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -581,6 +652,9 @@ public class Market {
     }
 
     public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add purchase policy, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -593,6 +667,9 @@ public class Market {
     }
 
     public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add purchase policy, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -605,6 +682,9 @@ public class Market {
     }
 
     public String addLogicalPurchase(String username, int storeId, PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add logical purchase, user is suspended");
+        }
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -643,6 +723,9 @@ public class Market {
     // }
 
     public String EditProductPrice(int productId, int storeId, Double newPrice, String username) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't edit product price, user is suspended");
+        }
         if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
             return storeController.EditProducPrice(productId, storeId, newPrice);
         } else {
@@ -652,6 +735,9 @@ public class Market {
     }
 
     public String EditProductQuantity(int productId, int storeId, int newQuantity, String username) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't edit product inventory, user is suspended");
+        }
         if (permissions.getPermission(storeId, username).getPType()[Permission.permissionType.editProducts.index]) {
             return storeController.EditProductQuantity(productId, storeId, newQuantity);
         } else {
@@ -661,6 +747,9 @@ public class Market {
     }
 
     public String CloseStore(int storeId, String username) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't close store, user is suspended");
+        }
         if (permissions.getPermission(storeId, username).getStoreOwner()) {
             permissions.updateStoreOwners(storeId, storeId + " store was closed");
             return storeController.closeStore(storeId);
@@ -671,6 +760,9 @@ public class Market {
     }
 
     public String OpenStore(int storeId, String username) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't open store, user is suspended");
+        }
         if (permissions.getPermission(storeId, username).getStoreOwner()) {
             permissions.updateStoreOwners(storeId, storeId + " store was opened");
             return storeController.openStore(storeId);

@@ -16,7 +16,7 @@ public class ErrorHandler {
         if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
             handleUnauthorizedError(originalRequest);
         } else {
-            showErrorNotification(e.getMessage());
+            showErrorNotification(e.getMessage().substring(7, e.getMessage().length()-1));
         }
     }
 

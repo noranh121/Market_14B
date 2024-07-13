@@ -3,11 +3,13 @@ package org.market.Web.APIES;
 import org.market.PresentationLayer.models.AuthResponse;
 import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.ServiceFactory;
+import org.market.ServiceLayer.SuspendedException;
 import org.market.ServiceLayer.TokenService;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.StoreDTO;
 import org.market.Web.Requests.PermissionReq;
 import org.market.Web.Requests.ReqUser;
+import org.market.Web.Requests.SuspendReq;
 import org.market.Web.Requests.cartOp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,6 @@ public class UserController {
         }catch(Exception e){
             return ResponseEntity.status(404).body("Failed to refresh token");
         }
-
     }
 
     // DONE
@@ -55,7 +56,7 @@ public class UserController {
             String res = service.EnterAsGuest(age);
             return ResponseEntity.ok(res);
         }catch(Exception e){
-            return ResponseEntity.status(404).body("Failed to add guest");
+            return ResponseEntity.status(400).body("Failed to add guest");
         }
     }
 
@@ -66,7 +67,7 @@ public class UserController {
             String res = service.GuestExit(username);
             return ResponseEntity.ok(res);
         }catch(Exception e){
-            return ResponseEntity.status(404).body("Failed to remove guest");
+            return ResponseEntity.status(400).body("Failed to remove guest");
         }
     }
 
@@ -74,18 +75,13 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> Login(@RequestBody ReqUser user){
         try{
-            String res =  service.Login(user.getGuest(), user.getUsername(), user.getPassword());
-            if(res.equals("logged in successfully")){
+            service.Login(user.getGuest(), user.getUsername(), user.getPassword());
                 AuthResponse response = new AuthResponse();
                 response.setAccess_token(jwtUtil.generateAccessToken(user.getUsername()));
                 response.setRefresh_token(jwtUtil.generateRefreshToken(user.getUsername()));
                 return ResponseEntity.ok(response);
-            }
-            else{
-                return ResponseEntity.status(400).body(res);
-            }
         }catch(Exception e){
-            return ResponseEntity.status(404).body("Failed to remove guest");
+            return ResponseEntity.status(404).body("Failed to login");
         }
     }
 
@@ -104,13 +100,8 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> Register(@RequestBody ReqUser user){
         try{
-            Response<String> response = service.Register(user.getUsername(), user.getPassword(), user.getAge());
-            if (response.isError()){
-                return ResponseEntity.status(400).body(response.getErrorMessage());
-            }
-            else{
-                return ResponseEntity.ok(response);
-            }
+            String response = service.Register(user.getUsername(), user.getPassword(), user.getAge());
+            return ResponseEntity.ok(response);
         }catch(Exception e) {
             return ResponseEntity.status(404).body("Failed to register");
         }
@@ -125,33 +116,51 @@ public class UserController {
 
     // TODO
     @PostMapping("/add-to-cart")
-    public Response<String> addToCart(@RequestBody cartOp op){
-        return service.addToCart(op.getUsername(), op.getProdID(), op.getStoreID(), op.getQuant());
+    public ResponseEntity<?> addToCart(@RequestBody cartOp op){
+        try{
+            String response = service.addToCart(op.getUsername(), op.getProdID(), op.getStoreID(), op.getQuant());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e) {
+            return ResponseEntity.status(404).body("Failed to add product to cart.");
+        }
     }
 
     // TODO
     @GetMapping("/inspect-cart/{username}")
-    public Response<String> inspectCart(@PathVariable String username) {
-        return service.inspectCart(username);
+    public ResponseEntity<?> inspectCart(@PathVariable String username) {
+        try{
+            String response = service.inspectCart(username);
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e) {
+            return ResponseEntity.status(404).body("Failed inspect cart.");
+        }
     }
 
     // TODO
     @PostMapping("/remove-cart-item")
-    public Response<String> removeCartItem(@RequestBody cartOp op) {
-        return service.removeCartItem(op.getUsername(), op.getStoreID(), op.getProdID());
+    public ResponseEntity<?> removeCartItem(@RequestBody cartOp op) {
+        try{
+            String response = service.removeCartItem(op.getUsername(), op.getStoreID(), op.getProdID());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e) {
+            return ResponseEntity.status(404).body("Failed to remove cart item.");
+        }
     }
 
-    // TODO
+    // DONE
     @PostMapping("/edit-permissions")
     public ResponseEntity<?> EditPermissions(@RequestBody PermissionReq per) throws Exception{
         try{
-            Response<String> res = service.EditPermissions(per.getStoreID(), per.getOwnerUserName(), per.getUsername(), per.getStoreOwner(), per.getStoreManager(), per.getpType());
-            if(res.isError()){
-                return ResponseEntity.status(404).body("Failed edit to user permissions");
-            }
-            else{
-                return ResponseEntity.ok(res.getValue());
-            }
+            String res = service.EditPermissions(per.getStoreID(), per.getOwnerUserName(), per.getUsername(), per.getStoreOwner(), per.getStoreManager(), per.getpType());
+            return ResponseEntity.ok(res);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e) {
             return ResponseEntity.status(404).body("Failed to edit user permissions");
         }
@@ -160,14 +169,11 @@ public class UserController {
     // DONE
     @PostMapping("/assign-store-manager")
     public ResponseEntity<?> AssignStoreManager(@RequestBody PermissionReq per) throws Exception{
-        try{
-            Response<String> res = service.AssignStoreManager(per.getStoreID(), per.getOwnerUserName(), per.getUsername(), per.getpType());
-            if(res.isError()){
-                return ResponseEntity.status(404).body("Failed to assign user");
-            }
-            else{
-                return ResponseEntity.ok(res.getValue());
-            }
+        try {
+            String res = service.AssignStoreManager(per.getStoreID(), per.getOwnerUserName(), per.getUsername(), per.getpType());
+            return ResponseEntity.ok(res);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e) {
             return ResponseEntity.status(404).body("Failed to assign user");
         }
@@ -175,46 +181,38 @@ public class UserController {
 
     // DONE
     @PostMapping("/assign-store-owner")
-    public ResponseEntity<?> AssignStoreOnwer(@RequestBody PermissionReq per) throws Exception{
+    public ResponseEntity<?> AssignStoreOnwer(@RequestBody PermissionReq per) {
         try{
-            Response<String> res = service.AssignStoreOnwer(per.getStoreID(), per.getOwnerUserName(), per.getUsername(), per.getpType());
-            if(res.isError()){
-                return ResponseEntity.status(404).body("Failed to assign user");
-            }
-            else{
-                return ResponseEntity.ok(res.getValue());
-            }
+            String res = service.AssignStoreOnwer(per.getStoreID(), per.getOwnerUserName(), per.getUsername(), per.getpType());
+            return ResponseEntity.ok(res);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e) {
             return ResponseEntity.status(404).body("Failed to assign user");
         }
     }
 
-    // TODO
+    // DONE
     @PostMapping("/unassign-user")
-    public ResponseEntity<?> unassignUser(@RequestBody PermissionReq per) throws Exception{
+    public ResponseEntity<?> unassignUser(@RequestBody PermissionReq per) {
         try{
-            Response<String> res = service.unassignUser(per.getStoreID(), per.getOwnerUserName(), per.getUsername());
-            if(res.isError()){
-                return ResponseEntity.status(404).body("Failed to unassign user");
-            }
-            else{
-                return ResponseEntity.ok(res.getValue());
-            }
+            String res = service.unassignUser(per.getStoreID(), per.getOwnerUserName(), per.getUsername());
+            return ResponseEntity.ok(res);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e) {
             return ResponseEntity.status(404).body("Failed to unassign user");
         }
     }
 
+    // DONE
     @PostMapping("/resign")
     public ResponseEntity<?> resign(@RequestBody PermissionReq per) throws Exception{
         try{
-            Response<String> res = service.resign(per.getStoreID(), per.getOwnerUserName());
-            if(res.isError()){
-                return ResponseEntity.status(404).body("Failed to resign");
-            }
-            else{
-                return ResponseEntity.ok(res.getValue());
-            }
+            String res = service.resign(per.getStoreID(), per.getOwnerUserName());
+            return ResponseEntity.ok(res);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e) {
             return ResponseEntity.status(404).body("Failed to resign");
         }
@@ -226,6 +224,8 @@ public class UserController {
         try{
             List<StoreDTO> usrStores = service.user_stores(username);
             return ResponseEntity.ok().body(usrStores);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e){
             return ResponseEntity.status(404).body("Failed to retrieve stores");
         }
@@ -237,8 +237,67 @@ public class UserController {
         try{
             List<PermissionDTO> pdtos = service.getPermissions(username);
             return ResponseEntity.ok().body(pdtos);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e){
             return ResponseEntity.status(404).body("Failed to retrieve permissions");
+        }
+    }
+
+    // DONE
+    @PostMapping("/suspend-user-indefinitely")
+    public ResponseEntity<?> suspendUserIndefinitely(@RequestBody SuspendReq req) {
+        try{
+            service.suspendUserIndefinitely(req.getManager(),req.getUsername());
+            return ResponseEntity.ok("Successfully suspended user");
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to suspend user");
+        }
+    }
+
+    // DONE
+    @PostMapping("/suspend-user-temporarily")
+    public ResponseEntity<?> suspendUserTemporarily(@RequestBody SuspendReq req){
+        try{
+            service.suspendUserTemporarily(req.getManager(),req.getUsername(), req.getDuration());
+            return ResponseEntity.ok("Successfully suspended user");
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to suspend user");
+        }
+    }
+
+    // DONE
+    @PostMapping("/resume-user-indefinitely")
+    public ResponseEntity<?> resumeUserIndefinitely(@RequestBody SuspendReq req) {
+        try{
+            service.resumeUserIndefinitely(req.getManager(),req.getUsername());
+            return ResponseEntity.ok("Successfully resumed suspended user");
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to resume suspended user");
+        }
+    }
+
+    // DONE
+    @PostMapping("/resume-user-temporarily")
+    public ResponseEntity<?> resumeUser(@RequestBody SuspendReq req) {
+        try{
+            service.resumeUser(req.getManager(),req.getUsername(),req.getDuration());
+            return ResponseEntity.ok("Successfully resumed suspended user");
+        }catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to resume suspended user");
+        }
+    }
+
+    // DONE
+    @GetMapping("/suspended-users/{manager}")
+    public ResponseEntity<?> viewSuspended(@PathVariable("manager") String manager) {
+        try{
+            String res = service.viewSuspended(manager);
+            return ResponseEntity.ok(res);
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve suspended users");
         }
     }
     

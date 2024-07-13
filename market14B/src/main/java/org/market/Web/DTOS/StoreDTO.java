@@ -39,6 +39,8 @@ public class StoreDTO {
         this.id = store.getId();
         this.name = store.getName();
         this.description = store.getDescription();
+        this.isActive = store.isActive();
+        this.firstOwner = store.getFirstOwnerName();
     }
 
     public StoreDTO(){}

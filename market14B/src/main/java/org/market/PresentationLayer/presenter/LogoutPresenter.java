@@ -3,8 +3,8 @@ package org.market.PresentationLayer.presenter;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinSession;
 import org.market.PresentationLayer.views.components.UserMenu;
-import org.market.ServiceLayer.Response;
 import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class LogoutPresenter {
@@ -35,19 +35,24 @@ public class LogoutPresenter {
     }
 
     private void logoutUser(String username) {
-        String url = "http://localhost:8080/api/users/logout/{username}";
+        try {
+            String url = "http://localhost:8080/api/users/logout/{username}";
 
-        // Set up the headers (optional, depending on your API requirements)
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+            // Set up the headers (optional, depending on your API requirements)
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Create the request entity with headers (if you need to send a request body, include it here)
-        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+            // Create the request entity with headers (if you need to send a request body, include it here)
+            HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
-        // Make the POST request
-        ResponseEntity<Response> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Response.class, username);
+            // Make the POST request
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class, username);
 
-        // Get the response body
-        System.out.println(responseEntity.getBody().getValue());
+            // Get the response body
+            System.out.println(responseEntity.getBody());
+        }
+        catch (HttpClientErrorException e){
+
+        }
     }
 }

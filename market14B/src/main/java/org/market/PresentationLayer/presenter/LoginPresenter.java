@@ -1,10 +1,12 @@
 package org.market.PresentationLayer.presenter;
 
 import com.vaadin.flow.server.VaadinSession;
+import org.market.PresentationLayer.handlers.ErrorHandler;
 import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.models.AuthResponse;
 import org.market.PresentationLayer.views.LoginView;
 import org.market.Web.Requests.ReqUser;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class LoginPresenter {
@@ -47,7 +49,7 @@ public class LoginPresenter {
                 System.out.println(response.getAccess_token());
                 System.out.println(response.getRefresh_token());
 
-                view.showSuccessNotification("Successful Login");
+                ErrorHandler.showSuccessNotification("Successful Login");
 
                 VaadinSession.getCurrent().setAttribute("guest-user", null);
 
@@ -57,12 +59,12 @@ public class LoginPresenter {
 
                 view.NavigateToHomepage();
                 
-            } catch (Exception e) {
-                view.showErrorNotification(e.getMessage());
+            } catch (HttpClientErrorException e) {
+                ErrorHandler.handleError(e, ()->{});
                 view.enableLogin();
             }
         } else {
-            view.showErrorNotification("Incorrect Username or Password!");
+            ErrorHandler.showErrorNotification("Incorrect Username or Password!");
         }
     }
 

@@ -5,6 +5,7 @@ import com.vaadin.flow.server.VaadinSession;
 import org.market.PresentationLayer.notifications.NotificationHandler;
 import org.market.PresentationLayer.views.MainLayout;
 import org.springframework.http.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class InitPresenter {
@@ -45,29 +46,8 @@ public class InitPresenter {
     }
 
     private void connectGuest() {
-        String url = "http://localhost:8080/api/users/enter-as-guest/{age}";
-
-        // Set up the headers (optional, depending on your API requirements)
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        // Create the request entity with headers (if you need to send a request body, include it here)
-        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-
-        // Make the POST request
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class, 24.0);
-
-        VaadinSession.getCurrent().setAttribute("guest-user", response.getBody());
-        // Get the response body
-        System.out.println(VaadinSession.getCurrent().getAttribute("guest-user"));
-    }
-
-    private void disconnectGuest() {
-
-        String guest = VaadinSession.getCurrent().getAttribute("guest").toString();
-
-        if(guest != null) {
-            String url = "http://localhost:8080/api/users/guest-exit/{username}";
+        try {
+            String url = "http://localhost:8080/api/users/enter-as-guest/{age}";
 
             // Set up the headers (optional, depending on your API requirements)
             HttpHeaders headers = new HttpHeaders();
@@ -77,10 +57,37 @@ public class InitPresenter {
             HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
             // Make the POST request
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class, guest);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class, 24.0);
 
+            VaadinSession.getCurrent().setAttribute("guest-user", response.getBody());
             // Get the response body
-            System.out.println(response.getBody());
+        }catch(HttpClientErrorException e){
+
+        }
+    }
+
+    private void disconnectGuest() {
+        try {
+
+            String guest = (String) VaadinSession.getCurrent().getAttribute("guest-user");
+
+            if (guest != null) {
+                String url = "http://localhost:8080/api/users/guest-exit/{username}";
+
+                // Set up the headers (optional, depending on your API requirements)
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+
+                // Create the request entity with headers (if you need to send a request body, include it here)
+                HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+                // Make the POST request
+                ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class, guest);
+
+                System.out.println(response.getBody());
+            }
+        }catch (HttpClientErrorException e){
+
         }
     }
 }

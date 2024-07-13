@@ -59,11 +59,19 @@ public class HomeView extends HorizontalLayout implements RouterLayout, AfterNav
         accountLink.add("Account");
         accountLink.addClassName("drawer-link");
 
+        RouterLink manageLink = new RouterLink("", SuspendView.class);
+        Icon manageIcon = new Icon(VaadinIcon.STOP);
+        manageIcon.getStyle().set("width", "20px").set("height", "20px").set("margin", "10px");
+        manageLink.add(manageIcon);
+        manageLink.add("Suspensions");
+        manageLink.addClassName("drawer-link");
+
         drawerLinks.add(marketLink);
         drawerLinks.add(storesLink);
         drawerLinks.add(mystoresLink);
         drawerLinks.add(cartLink);
         drawerLinks.add(accountLink);
+        drawerLinks.add(manageLink);
 
         VerticalLayout drawer = new VerticalLayout(marketLink, storesLink);
 
@@ -77,12 +85,13 @@ public class HomeView extends HorizontalLayout implements RouterLayout, AfterNav
             drawer.add(accountLink);
         }
 
+        drawer.add(manageLink);
+
         drawer.setWidth("200px");
         drawer.addClassName("drawer-links");
 
         add(drawer);
 
-        //this.getUI().ifPresent(ui -> ui.navigate("/dash/market"));
     }
 
     @Override

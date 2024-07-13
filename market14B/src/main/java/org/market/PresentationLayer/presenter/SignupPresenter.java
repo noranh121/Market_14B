@@ -1,12 +1,11 @@
 package org.market.PresentationLayer.presenter;
 
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import org.market.PresentationLayer.handlers.ErrorHandler;
 import org.market.PresentationLayer.views.SignupView;
-import org.market.ServiceLayer.Response;
 import org.market.Web.Requests.ReqUser;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class SignupPresenter {
@@ -38,17 +37,12 @@ public class SignupPresenter {
 
                     String registerUrl = "http://localhost:8080/api/users/register";
 
-                    Response<String> response = restTemplate.postForObject(registerUrl, request, Response.class);
+                    String response = restTemplate.postForObject(registerUrl, request, String.class);
 
-                    if (response != null && response.isError()) {
-                        showErrorNotification("Error: " + response.getErrorMessage());
-                    } else {
-                        assert response != null;
-                        showSuccessNotification(response.getValue());
-                    }
+                    ErrorHandler.showSuccessNotification(response);
                 }
-            }catch(Exception ex){
-                showErrorNotification("Error: " + ex.getMessage());
+            }catch(HttpClientErrorException e){
+                ErrorHandler.handleError(e, ()->{});
             }
     }
 
@@ -68,18 +62,6 @@ public class SignupPresenter {
         }
 
         return isValid;
-    }
-
-    private void showSuccessNotification(String message) {
-        Notification notification = new Notification(message, 3000);
-        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-        notification.open();
-    }
-
-    private void showErrorNotification(String message) {
-        Notification notification = new Notification(message, 3000);
-        notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
-        notification.open();
     }
 
 }

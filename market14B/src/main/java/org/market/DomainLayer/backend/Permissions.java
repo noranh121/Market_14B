@@ -261,8 +261,9 @@ public class Permissions {
 //        }
         StringBuilder result = new StringBuilder();
         for (Entry<String, suspensionInfo> entry : suspendedUsers.entrySet()) {
-            result.append(entry.getKey());
+            result.append(entry.getKey()).append(": ");
             result.append(entry.getValue().toString());
+            result.append("\n");
         }
         return result.toString();
     }

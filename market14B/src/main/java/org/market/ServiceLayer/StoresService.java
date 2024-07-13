@@ -21,147 +21,91 @@ public class StoresService {
     @Autowired
     private Market market;// = Market.getInstance();
 
-    public Response<String> initStore(String userName, String name, String Description) throws Exception {
-        try {
+    public String initStore(String userName, String name, String Description) throws Exception {
             String result = market.initStore(userName, name, Description);
             StoreController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
     public String addProduct(int productId, int storeId, double price, int quantity, String username,double weight) throws Exception {
-        try {
             String result = market.addProduct(productId, storeId, price, quantity, username,weight);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }//@
 
-    public Response<Integer> initProduct(String username,String productName, int categoryId, String description, String brand,double weight){
-        try {
+    public Integer initProduct(String username,String productName, int categoryId, String description, String brand,double weight) throws Exception{
             int result = market.initProduct(username, productName, categoryId, description, brand,weight);
             StoreController.LOGGER.info(String.valueOf(result));
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> removeProduct(int productId, int storeId, String username) {
-        try {
+    public String removeProduct(int productId, int storeId, String username) throws Exception {
             String result = market.RemoveProduct(productId, storeId, username);
             StoreController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
     // public String EditProductName(int productId, int storeId, String newName) {
     // return null;
     // }
 
-    public Response<String> EditProducPrice(int productId, int storeId, Double newPrice, String username) throws Exception {
-        try {
+    public String EditProducPrice(int productId, int storeId, Double newPrice, String username) throws Exception {
             String result = market.EditProductPrice(productId, storeId, newPrice, username);
             StoreController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String>  EditProductQuantity(int productId, int storeId, int newQuantity, String username) throws Exception {
-        try {
+    public String  EditProductQuantity(int productId, int storeId, int newQuantity, String username) throws Exception {
             String result = market.EditProductQuantity(productId, storeId, newQuantity, username);
             StoreController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String>  closeStore(int storeId, String username) {
-        try {
+    public String  closeStore(int storeId, String username) throws Exception {
             String result = market.CloseStore(storeId, username);
             StoreController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> openStore(int storeId, String username) {
-        try {
+    public String openStore(int storeId, String username) throws Exception {
             String result = market.OpenStore(storeId, username);
             StoreController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> getInfo(int storeId, String username) {
-        try {
+    public String getInfo(int storeId, String username) throws Exception {
             String result = market.getInfo(storeId, username);
             StoreController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
     public String addCategoryDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int categoryId,int storeId,String username,int id) throws Exception{
-        try {
             String result = market.addCategoryDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, categoryId, storeId, username,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
     
     public String addProductDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int productId,int storeId,String username,int id) throws Exception{
-        try {
             String result = market.addProductDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, productId, storeId, username,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
     public String addStoreDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int storeId,String username,int id) throws Exception{
-        try {
             String result = market.addStoreDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, storeId, username,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
     public String addNmericalDiscount(String username,int storeId,Boolean ADD,int id) throws Exception{
-        try {
             String result = market.addNmericalDiscount(username, storeId, ADD,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
     public String addLogicalDiscount(String username,int storeId,DiscountPolicyController.LogicalRule logicalRule,int id) throws Exception{
-        try {
             String result = market.addLogicalDiscount(username, storeId, logicalRule,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
 //    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id) throws Exception{
