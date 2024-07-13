@@ -1,5 +1,6 @@
 package org.market.PresentationLayer.presenter;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -8,6 +9,7 @@ import org.market.PresentationLayer.handlers.ErrorHandler;
 import org.market.PresentationLayer.views.StoreView;
 import org.market.Web.DTOS.StoreDTO;
 import org.market.Web.Requests.AddProductReq;
+import org.market.Web.Requests.ReqStore;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -35,6 +37,65 @@ public class StorePresenter {
                     view.updateProductCollection();
                 }
         );
+        this.view.setOpenButtonClickEventListener(e -> {
+                    onOpenStoreClicked();
+                    UI.getCurrent().getPage().reload();
+                }
+        );
+        this.view.setCloseButtonClickEventListener(e -> {
+                    onCloseStoreClicked();
+                    UI.getCurrent().getPage().reload();
+
+                }
+        );
+    }
+
+    private void onCloseStoreClicked() {
+        try{
+            String closeStoreUrl = "http://localhost:8080/api/stores/close-store";
+
+            String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
+
+            ReqStore request = new ReqStore();
+            request.setStoreId(view.getStore_id());
+            request.setUsername(username);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<ReqStore> requestEntity = new HttpEntity<>(request, headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(closeStoreUrl, HttpMethod.POST, requestEntity, String.class);
+
+            ErrorHandler.showSuccessNotification("Store has been closed");
+
+        }catch (HttpClientErrorException e){
+            ErrorHandler.handleError(e, ()->{});
+        }
+    }
+
+    private void onOpenStoreClicked() {
+        try{
+            String openStoreUrl = "http://localhost:8080/api/stores/open-store";
+
+            String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
+
+            ReqStore request = new ReqStore();
+            request.setStoreId(view.getStore_id());
+            request.setUsername(username);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<ReqStore> requestEntity = new HttpEntity<>(request, headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(openStoreUrl, HttpMethod.POST, requestEntity, String.class);
+
+            ErrorHandler.showSuccessNotification("Store has been opened");
+
+        }catch (HttpClientErrorException e){
+            ErrorHandler.handleError(e, ()->{});
+        }
     }
 
     private boolean validateAddForm(TextField name_field, TextField description_field, TextField brand_field,NumberField price_field, NumberField weight_field, IntegerField inventory_field) {

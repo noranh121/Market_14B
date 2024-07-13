@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -301,5 +302,24 @@ public class UserController {
             return ResponseEntity.status(404).body("Failed to retrieve suspended users");
         }
     }
-    
+
+
+    @GetMapping("/purchase-history/{username}")
+    public ResponseEntity<?> getPurchaseHistory(@PathVariable("username") String username) {
+        try{
+            //List<String> res = service.getPurchaseHistory(username);
+            List<String> res = new ArrayList<>();
+            res.add("purchase 1");
+            res.add("purchase 2");
+            res.add("purchase 3");
+            res.add("purchase 4");
+            res.add("purchase 5");
+            res.add("purchase 6");
+            return ResponseEntity.ok(res);
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve users purchase history");
+        }
+    }
 }

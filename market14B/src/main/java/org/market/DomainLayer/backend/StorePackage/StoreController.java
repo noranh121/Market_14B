@@ -123,22 +123,28 @@ public class StoreController {
         return "Product's Quantity Modified in store Successfully";
     }
 
-    public String closeStore(int storeId) {
+    public String closeStore(int storeId) throws Exception {
         // checkStore(storeID)
         LOGGER.info("storeId: " + storeId);
         Store store = getStore(storeId);
         if (store != null) {
+            if(!store.isActive()){
+                throw new Exception("Store is already closed.");
+            }
             store.CloseStore();
             LOGGER.info("Store Closed Successfuly");
         }
         return "Store Closed Successfuly";
     }
 
-    public String openStore(int storeId) {
+    public String openStore(int storeId) throws Exception {
         // checkStore(storeID)
         LOGGER.info("storeId: " + storeId);
         Store store = getStore(storeId);
         if (store != null) {
+            if(store.isActive()){
+                throw new Exception("Store is already opened.");
+            }
             store.OpenStore();
             LOGGER.info("Store Opened Successfuly");
         }

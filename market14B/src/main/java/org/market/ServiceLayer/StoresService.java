@@ -163,8 +163,10 @@ public class StoresService {
         ArrayList<StoreDTO> dtoStrs = new ArrayList<>();
         List<Store> strs = market.getAllStores();
         for(Store s : strs){
-            StoreDTO sdto = new StoreDTO(s);
-            dtoStrs.add(sdto);
+            if(s.isActive()) {
+                StoreDTO sdto = new StoreDTO(s);
+                dtoStrs.add(sdto);
+            }
         }
         return dtoStrs;
     }
@@ -176,8 +178,10 @@ public class StoresService {
         for(Product p : prods){
             double [] price_store = market.findProdInfo(p);
             if(price_store[0] != -1){
-                ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
-                psdto.add(pdto);
+                if(getStore((int)price_store[1]).isActive()) {
+                    ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+                    psdto.add(pdto);
+                }
             }
         }
         return psdto;

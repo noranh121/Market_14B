@@ -66,12 +66,20 @@ public class HomeView extends HorizontalLayout implements RouterLayout, AfterNav
         manageLink.add("Suspensions");
         manageLink.addClassName("drawer-link");
 
+        RouterLink purchaseHistoryLink = new RouterLink("", PurchaseHistoryView.class);
+        Icon purchaseHistoryIcon = new Icon(VaadinIcon.ARCHIVE);
+        purchaseHistoryIcon.getStyle().set("width", "20px").set("height", "20px").set("margin", "10px");
+        purchaseHistoryLink.add(purchaseHistoryIcon);
+        purchaseHistoryLink.add("Purchase History");
+        purchaseHistoryLink.addClassName("drawer-link");
+
         drawerLinks.add(marketLink);
         drawerLinks.add(storesLink);
         drawerLinks.add(mystoresLink);
         drawerLinks.add(cartLink);
         drawerLinks.add(accountLink);
         drawerLinks.add(manageLink);
+        drawerLinks.add(purchaseHistoryLink);
 
         VerticalLayout drawer = new VerticalLayout(marketLink, storesLink);
 
@@ -84,6 +92,11 @@ public class HomeView extends HorizontalLayout implements RouterLayout, AfterNav
         if(VaadinSession.getCurrent().getAttribute("current-user") != null){
             drawer.add(accountLink);
         }
+
+        if(VaadinSession.getCurrent().getAttribute("current-user") != null){
+            drawer.add(purchaseHistoryLink);
+        }
+
 
         var isManager = VaadinSession.getCurrent().getAttribute("isManager");
 

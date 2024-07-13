@@ -199,4 +199,8 @@ public class ServiceFactory {
     public List<PermissionDTO> getPermissions(String username) throws Exception {
         return storesService.getPermissions(username);
     }
+
+    public List<String> getPurchaseHistory(String username) throws Exception {
+        return userService.getPurchaseHistory(username);
+    }
 }

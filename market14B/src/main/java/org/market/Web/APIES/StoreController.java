@@ -138,7 +138,7 @@ public class StoreController {
     @DeleteMapping("/remove-product")
     public ResponseEntity<?> removeProduct(@RequestBody ReqStore rstr) throws Exception{
         try {
-            String response = service.removeProduct(rstr.getProdID(), rstr.getStoreID(), rstr.getUsername());
+            String response = service.removeProduct(rstr.getProductId(), rstr.getStoreId(), rstr.getUsername());
             return ResponseEntity.ok(response);
         }catch(SuspendedException e){
             return ResponseEntity.status(403).body(e.getMessage());
@@ -151,7 +151,7 @@ public class StoreController {
     @PutMapping("/edit-product-price")
     public ResponseEntity<?> EditProducPrice(@RequestBody ReqStore rstr) throws Exception{
         try {
-            String response = service.EditProducPrice(rstr.getProdID(), rstr.getStoreID(), rstr.getPrice(),rstr.getUsername());
+            String response = service.EditProducPrice(rstr.getProductId(), rstr.getStoreId(), rstr.getPrice(),rstr.getUsername());
             return ResponseEntity.ok(response);
         }catch(SuspendedException e){
             return ResponseEntity.status(403).body(e.getMessage());
@@ -164,7 +164,7 @@ public class StoreController {
     @PutMapping("/edit-product-quantity")
     public ResponseEntity<?> EditProductQuantity(@RequestBody ReqStore rstr) throws Exception{
         try {
-            String response = service.EditProductQuantity(rstr.getProdID(), rstr.getStoreID(),rstr.getQuantity(), rstr.getUsername());
+            String response = service.EditProductQuantity(rstr.getProductId(), rstr.getStoreId(),rstr.getQuantity(), rstr.getUsername());
             return ResponseEntity.ok(response);
         }catch(SuspendedException e){
             return ResponseEntity.status(403).body(e.getMessage());
@@ -173,11 +173,11 @@ public class StoreController {
         }
     }
 
-    // TODO
+    // DONE
     @PostMapping("/close-store")
     public ResponseEntity<?> closeStore(@RequestBody ReqStore rstr) {
         try {
-            String response = service.closeStore(rstr.getStoreID(), rstr.getUsername());
+            String response = service.closeStore(rstr.getStoreId(), rstr.getUsername());
             return ResponseEntity.ok(response);
         }catch(SuspendedException e){
             return ResponseEntity.status(403).body(e.getMessage());
@@ -186,11 +186,11 @@ public class StoreController {
         }
     }
 
-    // TODO
+    // DONE
     @PostMapping("/open-store")
     public ResponseEntity<String> openStore(@RequestBody ReqStore rstr) {
         try {
-            String response = service.openStore(rstr.getStoreID(), rstr.getUsername());
+            String response = service.openStore(rstr.getStoreId(), rstr.getUsername());
             return ResponseEntity.ok(response);
         }catch(SuspendedException e){
             return ResponseEntity.status(403).body(e.getMessage());
@@ -203,7 +203,7 @@ public class StoreController {
     @GetMapping("/get-store-info")
     public ResponseEntity<?> getInfo(@RequestBody ReqStore rstr) {
         try {
-            String response = service.getInfo(rstr.getStoreID(), rstr.getUsername());
+            String response = service.getInfo(rstr.getStoreId(), rstr.getUsername());
             return ResponseEntity.ok(response);
         }catch(SuspendedException e){
             return ResponseEntity.status(403).body(e.getMessage());

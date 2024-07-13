@@ -45,4 +45,11 @@ public class StoreDTO {
 
     public StoreDTO(){}
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }

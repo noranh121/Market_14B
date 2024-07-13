@@ -882,4 +882,17 @@ public class Market {
         List<String> managers = getSystemManagers();
         return managers.stream().anyMatch(m -> m.equals(username));
     }
+
+    public List<String> getPurchaseHistoryUser(String username) throws Exception {
+        List<String> result = new ArrayList<>();
+        if(userController.getUser(username) != null) {
+            List<Purchase> purchases = purchaseHistory.getUserPurchaseHistory(username);
+            for(Purchase p : purchases) {
+                result.add(p.FetchInfo());
+            }
+            return result;
+        }else{
+            throw new Exception("User is not registered.");
+        }
+    }
 }

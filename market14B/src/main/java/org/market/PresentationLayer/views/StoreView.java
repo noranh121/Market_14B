@@ -40,6 +40,8 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     private IntegerField inventory_field;
     private Button apply_btn;
     private VerticalLayout products_layout;
+    private Button open_btn;
+    private Button close_btn;
 
     public StoreView(){
         addClassName("store-view");
@@ -57,8 +59,6 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
 
         SearchBar searchBar = new SearchBar(true);
 
-
-
         middle_layout.add(product_title);
         middle_layout.addAndExpand(filler);
         middle_layout.add(searchBar);
@@ -68,6 +68,18 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         add_product_btn.addClassName("add-product-btn");
         middle_layout.add(add_product_btn);
         add_product_btn.setVisible(false);
+
+        this.open_btn = new Button("Open Store");
+        open_btn.setSuffixComponent(VaadinIcon.UNLOCK.create());
+        open_btn.addClassName("open-store-btn");
+        middle_layout.add(open_btn);
+        open_btn.setVisible(false);
+
+        this.close_btn = new Button("Close Store");
+        close_btn.setSuffixComponent(VaadinIcon.LOCK.create());
+        close_btn.addClassName("close-store-btn");
+        middle_layout.add(close_btn);
+        close_btn.setVisible(false);
 
         VerticalLayout dialog_layout = new VerticalLayout();
 
@@ -122,6 +134,14 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         this.apply_btn.addClickListener(event);
     }
 
+    public void setOpenButtonClickEventListener(ComponentEventListener<ClickEvent<Button>> event) {
+        this.open_btn.addClickListener(event);
+    }
+
+    public void setCloseButtonClickEventListener(ComponentEventListener<ClickEvent<Button>> event) {
+        this.close_btn.addClickListener(event);
+    }
+
     public void setStoreLayout(StoreDTO store) {
         VerticalLayout info_layout = new VerticalLayout();
 
@@ -138,6 +158,16 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         info_layout.add(storeNameSpan, description);
 
         this.store_layout.add(info_layout);
+
+        if(PermissionHandler.getRole(store_id).equals("Owner")) {
+            if (store.isActive()) {
+                this.close_btn.setVisible(true);
+                this.open_btn.setVisible(false);
+            } else {
+                this.open_btn.setVisible(true);
+                this.close_btn.setVisible(false);
+            }
+        }
     }
 
     public void updateProductCollection(){

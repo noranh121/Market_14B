@@ -5,7 +5,6 @@ import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RoutePrefix;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.market.PresentationLayer.models.Product;
 import org.market.PresentationLayer.views.components.CartItem;
 
@@ -14,7 +13,6 @@ import java.util.List;
 
 @Route(value = "cart", layout = HomeView.class)
 @RoutePrefix("dash")
-@AnonymousAllowed
 public class CartView extends VerticalLayout {
     private List<Product> products = new ArrayList<>();
     private VerticalLayout productsLayout;

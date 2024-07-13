@@ -1,5 +1,9 @@
 package org.market.DomainLayer.backend;
 
+import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,10 +11,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import org.market.DomainLayer.backend.StorePackage.StoreController;
-import org.market.DomainLayer.backend.UserPackage.UserController;
-import org.springframework.stereotype.Component;
 
 @Component
 public class PurchaseHistory {
@@ -78,10 +78,9 @@ public class PurchaseHistory {
         try{
             UserController.LOGGER.info("userId: " + userId);
             return userHistory.getOrDefault(userId, Collections.synchronizedList(new ArrayList<>()));
-        }finally{
+        }finally {
             purchaseHistoryLock.unlock();
         }
-        
     }
 
     public synchronized String removePurchaseFromStore(int storeId, int purchaseId) throws Exception {

@@ -117,4 +117,8 @@ public class UserService {
         }
         return sdtos;
     }
+
+    public List<String> getPurchaseHistory(String username) throws Exception {
+        return market.getPurchaseHistoryUser(username);
+    }
 }

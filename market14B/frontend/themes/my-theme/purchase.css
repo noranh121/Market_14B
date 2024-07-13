@@ -1,0 +1,35 @@
+.purchase-view {
+    overflow-y: scroll;
+}
+
+.purchase-top-bar {
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    display: flex;
+    align-items: flex-end;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.delete-purchase-btn {
+    border: solid;
+    border-radius: 6px;
+    background: transparent;
+}
+
+.purchase-item-layout {
+    background-color: #f1f1f5;
+    padding: 20px;
+    display: flex;
+    align-items: flex-end;
+    margin-top: -10px;
+    border-radius: 10px;
+}
+
+.purchase-title {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
