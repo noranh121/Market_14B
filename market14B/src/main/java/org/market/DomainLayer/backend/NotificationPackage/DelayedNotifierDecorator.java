@@ -46,10 +46,11 @@ public class DelayedNotifierDecorator{
     //     delayedMessages.remove(user);
     // }
 
-    public List<String> retriveNotifications(String username){
+    public List<String> retrieveNotifications(String username){
         if(delayedMessages.containsKey(username)){
-            List<String> nots = delayedMessages.get(username);
+            List<String> messages = delayedMessages.get(username);
             delayedMessages.remove(username);
+            return messages;
         }
         return null;
     }

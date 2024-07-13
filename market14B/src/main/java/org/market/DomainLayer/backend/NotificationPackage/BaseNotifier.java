@@ -25,6 +25,6 @@ public class BaseNotifier {
     }
 
     public boolean isUserOnline(String user) {
-        return true;
+        return socketHandler.hasUserSession(user);
     }
 }

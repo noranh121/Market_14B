@@ -2,6 +2,7 @@ package org.market.PresentationLayer.notifications;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 
 import java.net.URISyntaxException;
 
@@ -30,27 +31,34 @@ public class NotificationHandler {
     }
 
     public void handleOpen() {
-
+        Notification notification = new Notification("WebSocket connection opened", 3000);
+        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         if (ui != null && ui.isAttached()) {
-            ui.access(() -> Notification.show("WebSocket connection opened"));
+            ui.access(notification::open);
         }
     }
 
     public void handleMessage(String message) {
+        Notification notification = new Notification("Received message: " + message, 3000);
+        notification.addThemeVariants(NotificationVariant.LUMO_CONTRAST);
         if (ui != null && ui.isAttached()) {
-            ui.access(() -> Notification.show("Received message: " + message));
+            ui.access(notification::open);
         }
     }
 
     public void handleClose() {
+        Notification notification = new Notification("WebSocket connection closed", 3000);
+        notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         if (ui != null && ui.isAttached()) {
-            ui.access(() -> Notification.show("WebSocket connection closed"));
+            ui.access(notification::open);
         }
     }
 
     public void handleError(Exception ex) {
+        Notification notification = new Notification("WebSocket error: " + ex.getMessage(), 3000);
+        notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
         if (ui != null && ui.isAttached()) {
-            ui.access(() -> Notification.show("WebSocket error: " + ex.getMessage()));
+            ui.access(notification::open);
         }
     }
 }

@@ -36,9 +36,9 @@ public class SocketHandler extends TextWebSocketHandler {
 
 		if (username != null) {
 			sessions.computeIfAbsent(username, k -> new ArrayList<>()).add(session);
-			List<String> nots = applicationContext.getBean(DelayedNotifierDecorator.class).retriveNotifications(username);
-			if (nots != null) {
-				for (String notification : nots) {
+			List<String> messages = applicationContext.getBean(DelayedNotifierDecorator.class).retrieveNotifications(username);
+			if (messages != null) {
+				for (String notification : messages) {
 					session.sendMessage(new TextMessage(notification));
 				}
 			}
@@ -74,4 +74,8 @@ public class SocketHandler extends TextWebSocketHandler {
 			}
 		}
 	}
+
+    public boolean hasUserSession(String username) {
+		return sessions.get(username) != null;
+    }
 }
