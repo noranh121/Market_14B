@@ -2,14 +2,8 @@ package org.market.DomainLayer.backend.UserPackage;
 
 import org.market.DomainLayer.backend.Basket;
 import org.market.DomainLayer.backend.Market;
-import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
-import org.market.DomainLayer.backend.NotificationPackage.ImmediateNotifierDecorator;
 import org.market.DomainLayer.backend.Purchase;
-import org.market.DomainLayer.backend.PurchaseHistory;
 import org.market.DomainLayer.backend.StorePackage.Store;
-import org.market.DomainLayer.backend.StorePackage.StoreController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,24 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-@Configurable
 public class ShoppingCart {
     private List<Basket> baskets;
-//    @Autowired
-//    private DataController dataController;
-    @Autowired
-    private StoreController storeController;
-    @Autowired
-    private UserController userController;
-    @Autowired
-    private Market market;
-    @Autowired
-    private ImmediateNotifierDecorator ImmediateNotifier;
-    @Autowired
-    private PurchaseHistory purchaseHistory;
-
-    @Autowired
-    private DelayedNotifierDecorator DelayerNotifier;
 
     public ShoppingCart() {
         baskets = Collections.synchronizedList(new ArrayList<>());
@@ -109,7 +87,7 @@ public class ShoppingCart {
         Store store;
 
         for (Basket basket : baskets) {
-            store = storeController.getStore(basket.getStoreID());
+            store = Market.getSC().getStore(basket.getStoreID());
             if (store.check(basket.getProducts())) { // policies
                 sum += processBasket(basket, store, username);
             }
@@ -123,7 +101,7 @@ public class ShoppingCart {
         // cancelPurchase();
         //}
         UserController.LOGGER.info("Your purchase was successful");
-        ImmediateNotifier.send(username,"Your purchase was successful");
+        Market.getIND().send(username,"Your purchase was successful");
         return sum;
     }
 
@@ -153,17 +131,17 @@ public class ShoppingCart {
             store.getLock().unlock();
         }
         // purchase after that discount
-        double age= userController.getUser(username).getAge();
+        double age= Market.getUC().getUser(username).getAge();
         if(store.purchase(purchases,age)){
             basketSum=store.calculateDiscount(purchases);
-            while(!market.getSystemManagersLock().tryLock()){
+            while(!Market.getSystemManagersLock().tryLock()){
                 Thread.sleep(1000);
             }
             try{
                 Purchase purchase = new Purchase(basket, basketSum, purchases);
-                purchaseHistory.addPurchase(basket.getStoreID(), username, purchase);
+                Market.getPH().addPurchase(basket.getStoreID(), username, purchase);
             }finally{
-                market.getSystemManagersLock().unlock();
+                Market.getSystemManagersLock().unlock();
             }
             
         }
@@ -178,7 +156,7 @@ public class ShoppingCart {
     private void cancelPurchase() throws Exception {
         //StoreController storeController = StoreController.getInstance();
         for (Basket basket : baskets) {
-            Store store = storeController.getStore(basket.getStoreID());
+            Store store = Market.getSC().getStore(basket.getStoreID());
             for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>
                 int productId = entry.getKey();
                 int quantity = entry.getValue();

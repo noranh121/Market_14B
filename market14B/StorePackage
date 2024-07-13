@@ -1,0 +1,162 @@
+Jul 14, 2024 12:49:54 AM org.market.DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: admin, Description: a
+Jul 14, 2024 12:49:54 AM org.market.ServiceLayer.StoresService initStore
+INFO: store added successfully
+Jul 14, 2024 12:49:54 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:49:56 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:49:58 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: storeId: 0
+Jul 14, 2024 12:49:58 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:49:58 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:49:58 AM org.market.ServiceLayer.StoresService openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:49:58 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:50:01 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: storeId: 0
+Jul 14, 2024 12:50:01 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:50:01 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:01 AM org.market.ServiceLayer.StoresService closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:01 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:50:22 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:50:27 AM org.market.DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: admin, Description: s
+Jul 14, 2024 12:50:27 AM org.market.ServiceLayer.StoresService initStore
+INFO: store added successfully
+Jul 14, 2024 12:50:27 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:50:27 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:27 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:28 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: storeId: 1
+Jul 14, 2024 12:50:28 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:28 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:50:28 AM org.market.ServiceLayer.StoresService openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:50:29 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:30 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: storeId: 1
+Jul 14, 2024 12:50:30 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:30 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:30 AM org.market.ServiceLayer.StoresService closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:30 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:31 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: storeId: 1
+Jul 14, 2024 12:50:31 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:31 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:50:31 AM org.market.ServiceLayer.StoresService openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:50:31 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:33 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: storeId: 1
+Jul 14, 2024 12:50:33 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:33 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:33 AM org.market.ServiceLayer.StoresService closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:33 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:35 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: storeId: 1
+Jul 14, 2024 12:50:35 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:35 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:50:35 AM org.market.ServiceLayer.StoresService openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:50:35 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:36 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: storeId: 1
+Jul 14, 2024 12:50:36 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:36 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:36 AM org.market.ServiceLayer.StoresService closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:38 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:41 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: storeId: 1
+Jul 14, 2024 12:50:41 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:41 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:50:41 AM org.market.ServiceLayer.StoresService openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:50:42 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:45 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: storeId: 1
+Jul 14, 2024 12:50:45 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:50:45 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:45 AM org.market.ServiceLayer.StoresService closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:50:45 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:51:11 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: storeId: 1
+Jul 14, 2024 12:51:11 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:51:11 AM org.market.DomainLayer.backend.StorePackage.StoreController openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:51:11 AM org.market.ServiceLayer.StoresService openStore
+INFO: Store Opened Successfuly
+Jul 14, 2024 12:51:12 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:51:14 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: storeId: 1
+Jul 14, 2024 12:51:14 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:51:14 AM org.market.DomainLayer.backend.StorePackage.StoreController closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:51:14 AM org.market.ServiceLayer.StoresService closeStore
+INFO: Store Closed Successfuly
+Jul 14, 2024 12:51:14 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:51:23 AM org.market.ServiceLayer.StoresService initProduct
+INFO: 0
+Jul 14, 2024 12:51:23 AM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 1, price: 11.0, quantity: 123
+Jul 14, 2024 12:51:23 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:51:23 AM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 14, 2024 12:51:23 AM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jul 14, 2024 12:51:23 AM org.market.ServiceLayer.StoresService addProduct
+INFO: Product added to store Successfully
+Jul 14, 2024 12:51:36 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:51:36 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:51:40 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 12:51:51 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1
+Jul 14, 2024 12:52:10 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 1

@@ -4,6 +4,8 @@ package org.market.DomainLayer.backend;
 
 import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
 import org.market.DomainLayer.backend.API.SupplyExternalService.SupplyService;
+import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
+import org.market.DomainLayer.backend.NotificationPackage.ImmediateNotifierDecorator;
 import org.market.DomainLayer.backend.ProductPackage.Category;
 import org.market.DomainLayer.backend.ProductPackage.CategoryController;
 import org.market.DomainLayer.backend.ProductPackage.Product;
@@ -53,24 +55,68 @@ public class Market {
     // private SupplyService supplyService; //=SupplyService.getInstance();
 
 
-    //    private DataController dataController;// = new DataController();//=DataController.getinstance();
-    private StoreController storeController;// = StoreController.getInstance();
-    private UserController userController;// = UserController.getInstance();
-    private Permissions permissions;// = Permissions.getInstance();
-    private PurchaseHistory purchaseHistory;// = PurchaseHistory.getInstance();
-    private ProductController productController;// = ProductController.getInstance();
-    private CategoryController categoryController;// = CategoryController.getinstance();
-    private PaymentService paymentService;//=PaymentService.getInstance();
-    private SupplyService supplyService;//=SupplyService.getInstance();
+    //private static DataController dataController;
+    private static StoreController storeController;
+    private static  UserController userController;
+    private static Permissions permissions;
+    private static PurchaseHistory purchaseHistory;
+    private static ProductController productController;
+    private static CategoryController categoryController;
+    private static PaymentService paymentService;
+    private static SupplyService supplyService;
+    private static ImmediateNotifierDecorator immediateNotifierDecorator;
+    private static DelayedNotifierDecorator delayedNotifierDecorator;
     private FileHandler fileHandler;
 
     private Boolean Online = false;
     private List<String> systemManagers = Collections.synchronizedList(new ArrayList<>());
-    private final Lock systemManagersLock = new ReentrantLock();
+    private static final Lock systemManagersLock = new ReentrantLock();
+
+
+    public static ImmediateNotifierDecorator getIND(){
+        return immediateNotifierDecorator;
+    }
+    public static DelayedNotifierDecorator getDND(){
+        return delayedNotifierDecorator;
+    }
+    public static StoreController getSC() {
+        return storeController;
+    }
+
+    public static UserController getUC() {
+        return userController;
+    }
+
+    public static Permissions getP() {
+        return permissions;
+    }
+
+    public static PurchaseHistory getPH() {
+        return purchaseHistory;
+    }
+
+    public static ProductController getPC() {
+        return productController;
+    }
+
+    public static CategoryController getCC() {
+        return categoryController;
+    }
+
+    public static PaymentService getPS() {
+        return paymentService;
+    }
+
+    public static SupplyService getSS() {
+        return supplyService;
+    }
+    // public static DataController getDC(){
+    //     return dataController
+    // }
 
     @Autowired
     public void setDependencies(/*DataController dataController,*/StoreController storeController,UserController userController,Permissions permissions,PurchaseHistory purchaseHistory
-            ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService){
+            ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService, ImmediateNotifierDecorator immediateNotifierDecorator, DelayedNotifierDecorator delayedNotifierDecorator){
         this.userController = userController;
         this.storeController = storeController;
         this.permissions = permissions;
@@ -79,6 +125,8 @@ public class Market {
         this.categoryController = categoryController;
         this.paymentService = paymentService;
         this.supplyService = supplyService;
+        this.immediateNotifierDecorator = immediateNotifierDecorator;
+        this.delayedNotifierDecorator = delayedNotifierDecorator;
         //this.dataController = dataController;
         try {
             //systemManagers=dataController.getSystemManagers(0);
@@ -805,7 +853,7 @@ public class Market {
 //     return "purchase added";
 //     }
 
-    public Lock getSystemManagersLock(){
+    public static Lock getSystemManagersLock(){
         return systemManagersLock;
     }
 

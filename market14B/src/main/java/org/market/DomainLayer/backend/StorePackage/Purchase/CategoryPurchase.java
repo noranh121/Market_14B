@@ -2,17 +2,11 @@ package org.market.DomainLayer.backend.StorePackage.Purchase;
 
 import java.util.Map;
 
-import org.market.DomainLayer.backend.ProductPackage.ProductController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
+import org.market.DomainLayer.backend.Market;
 
-@Configurable
 public class CategoryPurchase extends PurchasePolicy {
 
     private int categoryId;
-
-    @Autowired
-    private ProductController productController;
     
     public CategoryPurchase(PurchaseMethod purchaseMethod, int categoryId,int id) {
         super(purchaseMethod,id);
@@ -24,7 +18,7 @@ public class CategoryPurchase extends PurchasePolicy {
         Boolean output = true;
         for (Map.Entry<Integer, double[]> entry : products.entrySet()) {
             int productId = (int) entry.getKey();
-            if (productController.getProductCategory(productId) == categoryId) {
+            if (Market.getPC().getProductCategory(productId) == categoryId) {
                 output &= purchaseMethod.purchase(productId, (int) products.get(productId)[0], products.get(productId)[1], products.get(productId)[2], age);
             }
         }

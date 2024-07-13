@@ -2,21 +2,12 @@ package org.market.DomainLayer.backend.StorePackage.Purchase;
 
 import java.time.LocalDate;
 
-import org.market.DomainLayer.backend.Permissions;
-import org.market.DomainLayer.backend.UserPackage.UserController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
+import org.market.DomainLayer.backend.Market;
 
-@Configurable
 public class OfferMethod extends PurchaseMethodData implements PurchaseMethod {
 
     private int storeId;
     private String username;
-
-    @Autowired
-    private Permissions permissions;
-    @Autowired
-    private UserController userController;
 
     public OfferMethod(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int storeId,String username) {
         super(quantity, price, date, atLeast, weight, age);
@@ -27,11 +18,11 @@ public class OfferMethod extends PurchaseMethodData implements PurchaseMethod {
     @Override
     public Boolean purchase(int productId, int quantity, double price, double weight, double age) throws Exception {
         if(this.price!=price){
-            double offer=permissions.reviewOffer(this.storeId,this.price,productId);
+            double offer=Market.getP().reviewOffer(this.storeId,this.price,productId);
             if(offer==this.price)
                 return true;
             else
-                return userController.reviewOffer(offer,this.username);
+                return Market.getUC().reviewOffer(offer,this.username);
         }
         else
             return true;
