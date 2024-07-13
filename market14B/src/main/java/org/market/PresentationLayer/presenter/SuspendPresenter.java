@@ -1,6 +1,5 @@
 package org.market.PresentationLayer.presenter;
 
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -26,11 +25,11 @@ public class SuspendPresenter {
     public void initView() {
         this.view.setSuspendClickEventListener(e -> {
             onSuspendButtonClick(view.getUserField(), view.getTimeField(), view.getIndefinitely(), view.getTemporary());
-            UI.getCurrent().getPage().reload();
+            loadSuspendedUsers();
         });
         this.view.setResumeClickEventListener(e -> {
             onResumeButtonClick(view.getUserField(), view.getTimeField(), view.getIndefinitely(), view.getTemporary());
-            UI.getCurrent().getPage().reload();
+            loadSuspendedUsers();
         });
     }
 
@@ -53,6 +52,8 @@ public class SuspendPresenter {
                 HttpEntity<SuspendReq> requestEntity = new HttpEntity<>(request, headers);
 
                 ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+
+                view.createSuspendedUsersLayout(response.getBody());
 
                 ErrorHandler.showSuccessNotification("Successfully suspended " + userField.getValue());
 

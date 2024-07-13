@@ -85,7 +85,11 @@ public class HomeView extends HorizontalLayout implements RouterLayout, AfterNav
             drawer.add(accountLink);
         }
 
-        drawer.add(manageLink);
+        var isManager = VaadinSession.getCurrent().getAttribute("isManager");
+
+        if(isManager != null && (Boolean) isManager){
+            drawer.add(manageLink);
+        }
 
         drawer.setWidth("200px");
         drawer.addClassName("drawer-links");

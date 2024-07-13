@@ -61,12 +61,16 @@ public class ServiceFactory {
         marketService.resumeUserTemporarily(systemManager,username,duration);
     }
 
-    public String viewSuspended(String systemManager)  {
+    public String viewSuspended(String systemManager) throws Exception {
         return marketService.viewSuspended(systemManager);
     }
 
     public void addToSystemManagers(String admin) {
         marketService.addToSystemManagers(admin);
+    }
+
+    public boolean isSystemManager(String username) throws Exception {
+        return marketService.isSystemManager(username);
     }
 
     // UserService

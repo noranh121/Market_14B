@@ -79,6 +79,7 @@ public class UserController {
                 AuthResponse response = new AuthResponse();
                 response.setAccess_token(jwtUtil.generateAccessToken(user.getUsername()));
                 response.setRefresh_token(jwtUtil.generateRefreshToken(user.getUsername()));
+                response.setManager(service.isSystemManager(user.getUsername()));
                 return ResponseEntity.ok(response);
         }catch(Exception e){
             return ResponseEntity.status(404).body("Failed to login");

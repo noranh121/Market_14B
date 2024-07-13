@@ -52,7 +52,7 @@ public class LoginPresenter {
                 ErrorHandler.showSuccessNotification("Successful Login");
 
                 VaadinSession.getCurrent().setAttribute("guest-user", null);
-
+                VaadinSession.getCurrent().setAttribute("isManager", response.isManager());
 
                 // load user permissions
                 PermissionHandler.loadPermissions();

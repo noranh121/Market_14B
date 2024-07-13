@@ -878,4 +878,8 @@ public class Market {
         return pdtos;
     }
 
+    public boolean isSystemManager(String username) {
+        List<String> managers = getSystemManagers();
+        return managers.stream().anyMatch(m -> m.equals(username));
+    }
 }

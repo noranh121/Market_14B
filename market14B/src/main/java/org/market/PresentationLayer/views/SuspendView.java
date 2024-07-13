@@ -33,6 +33,8 @@ public class SuspendView extends VerticalLayout implements BeforeEnterObserver {
 
     public SuspendView(){
         createTopBar();
+        this.suspendedLayout = new VerticalLayout();
+        add(suspendedLayout);
         this.presenter = new SuspendPresenter(this);
     }
 
@@ -72,7 +74,7 @@ public class SuspendView extends VerticalLayout implements BeforeEnterObserver {
     }
 
     public void createSuspendedUsersLayout(String suspended){
-        this.suspendedLayout = new VerticalLayout();
+        this.suspendedLayout.removeAll();
         this.suspendedLayout.add(new Span("Suspended Users:"));
 
         if(suspended != null) {
@@ -84,8 +86,6 @@ public class SuspendView extends VerticalLayout implements BeforeEnterObserver {
             span.getElement().setProperty("innerHTML", htmlText);
             this.suspendedLayout.add(span);
         }
-
-        add(suspendedLayout);
     }
 
     public void setSuspendClickEventListener(ComponentEventListener<ClickEvent<Button>> e){

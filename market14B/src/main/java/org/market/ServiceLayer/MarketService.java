@@ -24,66 +24,46 @@ public class MarketService {
     }
 
     public String addCatagory(int storeId, String catagory, String username) throws Exception{
-        try {
             String result = market.addCatagory(storeId, catagory, username);
             Market.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String suspendUserIndefinitely(String systemManager, String username) {
-        try {
+    public String suspendUserIndefinitely(String systemManager, String username) throws Exception {
             String result = market.suspendUser(systemManager, username);
             Market.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String suspendUserTemporarily(String systemManager,String username, int duration) {
-        try {
+    public String suspendUserTemporarily(String systemManager,String username, int duration) throws Exception{
             String result = market.suspendUserSeconds(systemManager, username,duration);
             Market.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String resumeUserIndefinitely(String systemManager, String username) {
-        try {
+    public String resumeUserIndefinitely(String systemManager, String username) throws Exception {
             String result = market.resumeUser(systemManager, username);
             Market.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String resumeUserTemporarily(String systemManager,String username, int duration) {
-        try {
+    public String resumeUserTemporarily(String systemManager,String username, int duration) throws Exception {
             String result = market.resumeUserSeconds(systemManager, username,duration);
             Market.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String viewSuspended(String systemManager) {
-        try {
+    public String viewSuspended(String systemManager) throws Exception {
             String result = market.viewSuspended(systemManager);
             Market.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
     public void addToSystemManagers(String admin) {
         market.addToSystemManagers(admin);
+    }
+
+    public boolean isSystemManager(String username) throws Exception {
+        return market.isSystemManager(username);
     }
 }
