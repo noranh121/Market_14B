@@ -2,14 +2,10 @@ package org.market.DataAccessLayer.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
+// import javax.persistence.Embeddable;
+// import javax.persistence.JoinColumn;
 
-import com.vaadin.flow.component.template.Id;
-
-import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 
 
 @Embeddable

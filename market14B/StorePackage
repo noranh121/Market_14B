@@ -160,3 +160,127 @@ Jul 14, 2024 12:51:51 AM org.market.DomainLayer.backend.StorePackage.StoreContro
 INFO: storeID: 1
 Jul 14, 2024 12:52:10 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
 INFO: storeID: 1
+Jul 14, 2024 3:51:18 AM org.market.DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: maged, Description: qwe
+Jul 14, 2024 3:51:18 AM org.market.ServiceLayer.StoresService initStore
+INFO: store added successfully
+Jul 14, 2024 3:51:18 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:51:19 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:51:29 AM org.market.ServiceLayer.StoresService initProduct
+INFO: 0
+Jul 14, 2024 3:51:29 AM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 1.0, quantity: 1
+Jul 14, 2024 3:51:29 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:51:29 AM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 14, 2024 3:51:29 AM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jul 14, 2024 3:51:29 AM org.market.ServiceLayer.StoresService addProduct
+INFO: Product added to store Successfully
+Jul 14, 2024 3:51:45 AM org.market.ServiceLayer.StoresService initProduct
+INFO: 1
+Jul 14, 2024 3:51:45 AM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 1, storeId 0, price: 1.0, quantity: 1
+Jul 14, 2024 3:51:45 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:51:45 AM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 14, 2024 3:51:45 AM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jul 14, 2024 3:51:45 AM org.market.ServiceLayer.StoresService addProduct
+INFO: Product added to store Successfully
+Jul 14, 2024 3:51:54 AM org.market.ServiceLayer.StoresService initProduct
+INFO: 2
+Jul 14, 2024 3:51:54 AM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 2, storeId 0, price: 1.0, quantity: 1
+Jul 14, 2024 3:51:54 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:51:54 AM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 14, 2024 3:51:54 AM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jul 14, 2024 3:51:54 AM org.market.ServiceLayer.StoresService addProduct
+INFO: Product added to store Successfully
+Jul 14, 2024 3:52:02 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:07 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:07 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:07 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:11 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:11 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:11 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:14 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:14 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:14 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:36 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:36 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:36 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:49 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:49 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:49 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:55 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:55 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:52:55 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:53:06 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:53:06 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:53:06 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:53:14 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:53:14 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:53:14 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:55:00 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:55:00 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:55:00 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:56:31 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:56:31 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:56:31 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:56:52 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:56:52 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:56:52 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:57:07 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:57:07 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:57:07 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:57:39 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:57:39 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 14, 2024 3:57:39 AM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
