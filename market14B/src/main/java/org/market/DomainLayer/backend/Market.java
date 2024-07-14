@@ -1,6 +1,7 @@
 package org.market.DomainLayer.backend;
 
 import org.market.DataAccessLayer.DataController;
+import org.market.DomainLayer.SearchEngine;
 
 //import org.market.DataAccessLayer.DataController;
 
@@ -26,7 +27,9 @@ import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.SuspendedException;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
+import org.market.Web.Requests.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -68,6 +71,7 @@ public class Market {
     private static SupplyService supplyService;
     private static ImmediateNotifierDecorator immediateNotifierDecorator;
     private static DelayedNotifierDecorator delayedNotifierDecorator;
+    private static SearchEngine searchEngine;
     private FileHandler fileHandler;
 
     private Boolean Online = false;
@@ -130,7 +134,8 @@ public class Market {
 
     @Autowired
     public void setDependencies(DataController dataController,StoreController storeController,UserController userController,Permissions permissions,PurchaseHistory purchaseHistory
-            ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService, ImmediateNotifierDecorator immediateNotifierDecorator, DelayedNotifierDecorator delayedNotifierDecorator){
+            ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService, ImmediateNotifierDecorator immediateNotifierDecorator,
+             DelayedNotifierDecorator delayedNotifierDecorator,SearchEngine searchEngine){
         this.userController = userController;
         this.storeController = storeController;
         this.permissions = permissions;
@@ -142,6 +147,7 @@ public class Market {
         this.immediateNotifierDecorator = immediateNotifierDecorator;
         this.delayedNotifierDecorator = delayedNotifierDecorator;
         this.dataController = dataController;
+        this.searchEngine = searchEngine;
         try {
             //systemManagers=dataController.getSystemManagers(0);
             //Online=dataController.getOnline();
@@ -908,9 +914,13 @@ public class Market {
         return prods;
     }
 
-    public double[] findProdInfo(Product p) {
+    public static double[] findProdInfo(Product p) {
         int prodid = p.getId();
         return storeController.getProdInfo(prodid);
+    }
+    public static double[] findProdInfo(Product p, int storeID) {
+        int prodid = p.getId();
+        return storeController.getProdInfo(prodid,storeID);
     }
 
     public List<Store> getUserStores(String username) throws Exception {
@@ -956,5 +966,36 @@ public class Market {
         }else{
             throw new Exception("User is not registered.");
         }
+    }
+
+    public List<ProductDTO> search(SearchEntity entity){
+        return this.searchEngine.HandleSearch(entity);
+    }
+
+    public static List<ProductDTO> convertProds(List<Product> prods){
+        List<ProductDTO> psdto = new ArrayList<>();
+        for(Product p : prods){
+            double [] price_store = findProdInfo(p);
+            if(price_store[0] != -1){
+                if(storeController.getStore(((int)price_store[1])).isActive()) {
+                    ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+                    psdto.add(pdto);
+                }
+            }
+        }
+        return psdto;
+    }
+    public static List<ProductDTO> convertProds(List<Product> result, int storeID) {
+        List<ProductDTO> psdto = new ArrayList<>();
+        for(Product p : result){
+            double [] price_store = findProdInfo(p,storeID);
+            if(price_store[0] != -1){
+                if(storeController.getStore(((int)price_store[1])).isActive()){
+                    ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+                    psdto.add(pdto);
+                }
+            }
+        }
+        return psdto;
     }
 }

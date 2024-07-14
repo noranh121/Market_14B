@@ -1,6 +1,10 @@
 package org.market.ServiceLayer;
 
+import java.util.List;
+
 import org.market.DomainLayer.backend.Market;
+import org.market.Web.DTOS.ProductDTO;
+import org.market.Web.Requests.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -65,5 +69,9 @@ public class MarketService {
 
     public boolean isSystemManager(String username) throws Exception {
         return market.isSystemManager(username);
+    }
+
+    public List<ProductDTO> search(SearchEntity entity){
+            return this.market.search(entity);
     }
 }

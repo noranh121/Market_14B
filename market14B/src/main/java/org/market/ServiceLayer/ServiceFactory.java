@@ -3,6 +3,7 @@ package org.market.ServiceLayer;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
+import org.market.Web.Requests.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -203,4 +204,8 @@ public class ServiceFactory {
     public List<String> getPurchaseHistory(String username) throws Exception {
         return userService.getPurchaseHistory(username);
     }
+
+    public List<ProductDTO> search(SearchEntity entity){
+        return marketService.search(entity);
+}
 }
