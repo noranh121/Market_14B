@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://sadna.database.windows.net:1433;database=market14B;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    url: jdbc:sqlserver://sadna.database.windows.net:1433;database=market14B-test;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
     username: maged
     password: sadna14B
   jpa:
@@ -10,4 +10,4 @@ spring:
       dialect : org.hibernate.dialect.SQLServer2012Dialect
 
 server:
-  port: 9090
+  port: 8080
