@@ -191,9 +191,10 @@ public class StoreController {
     }
 
     // this is for testing
-    public void setToNull() {
+    public void clear() {
         //instance = null;
         stores.clear();
+        idCounter=0;
     }
 
 //    public List<Store> getAllStores() {

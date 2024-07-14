@@ -3,6 +3,7 @@ package org.market.DomainLayer.backend.UserPackage;
 //import org.market.DataAccessLayer.DataController;
 
 import org.market.DomainLayer.backend.AuthenticatorPackage.Authenticator;
+import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.Permissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -42,6 +43,14 @@ public class UserController {
     private Map<String, User> GuestMap = new ConcurrentHashMap<>(); // ?
     private int idCounter = 0;
     private Map<String, User> RegUserMap = new ConcurrentHashMap<>();
+
+    //this is for testing
+    public void clear(){
+        GuestMap.clear();
+        RegUserMap.clear();
+        idCounter=0;
+        notfications.clear();
+    }
 
     // Guest
     public String EnterAsGuest(double age) throws Exception {
@@ -101,7 +110,7 @@ public class UserController {
     // Registered user
     private String addToRegUserMap(User reg,String newPass) throws Exception {
         RegUserMap.put(reg.getUsername(), reg);
-        //dataController.Register(reg.getUsername(), newPass,reg.getAge());
+        //Market.getDC().Register(reg.getUsername(), newPass,reg.getAge());
         return "User registered successfully";
     }
 

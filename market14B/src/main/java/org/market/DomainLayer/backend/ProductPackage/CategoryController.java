@@ -19,6 +19,12 @@ public class CategoryController {
         return instance;
     }
 
+    //this is for testing
+    public void clear(){
+        categories.clear();
+        counterID=0;
+    }
+
     private CategoryController() {
         categories = new ConcurrentHashMap<>();
         counterID = 0;

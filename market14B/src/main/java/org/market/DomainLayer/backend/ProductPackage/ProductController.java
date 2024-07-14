@@ -45,6 +45,13 @@ public class ProductController {
         
     // }
 
+
+    //this is for tesing
+    public void clear(){
+        products.clear();
+        idCounter=0;
+    }
+
     public synchronized String removeProduct(int productID) throws Exception {
         if (products.containsKey(productID)) {
             products.remove(productID);

@@ -37,6 +37,14 @@ public class PurchaseHistory {
         return instance;
     }
 
+    //this is for testing
+    public void clear(){
+        storeHistory.clear();
+        userHistory.clear();
+        allPurchases.clear();
+        counterID=0;
+    }
+
     // id's should be checked in an earlier stage
     public synchronized void addPurchase(int storeId, String userId, Purchase purchase) {
         purchaseHistoryLock.lock();
