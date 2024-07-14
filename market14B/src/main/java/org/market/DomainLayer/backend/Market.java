@@ -1,5 +1,7 @@
 package org.market.DomainLayer.backend;
 
+import org.market.DataAccessLayer.DataController;
+
 //import org.market.DataAccessLayer.DataController;
 
 import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
@@ -55,7 +57,7 @@ public class Market {
     // private SupplyService supplyService; //=SupplyService.getInstance();
 
 
-    //private static DataController dataController;
+    private static DataController dataController;
     private static StoreController storeController;
     private static  UserController userController;
     private static Permissions permissions;
@@ -110,12 +112,24 @@ public class Market {
     public static SupplyService getSS() {
         return supplyService;
     }
-    // public static DataController getDC(){
-    //     return dataController
-    // }
+    public static DataController getDC(){
+        return dataController;
+    }
+
+    //this is for tesing
+    public void clear(){
+        systemManagers.clear();
+        Online=false;
+        storeController.clear();
+        userController.clear();
+        permissions.clear();
+        purchaseHistory.clear();
+        productController.clear();
+        categoryController.clear();
+    }
 
     @Autowired
-    public void setDependencies(/*DataController dataController,*/StoreController storeController,UserController userController,Permissions permissions,PurchaseHistory purchaseHistory
+    public void setDependencies(DataController dataController,StoreController storeController,UserController userController,Permissions permissions,PurchaseHistory purchaseHistory
             ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService, ImmediateNotifierDecorator immediateNotifierDecorator, DelayedNotifierDecorator delayedNotifierDecorator){
         this.userController = userController;
         this.storeController = storeController;
@@ -127,7 +141,7 @@ public class Market {
         this.supplyService = supplyService;
         this.immediateNotifierDecorator = immediateNotifierDecorator;
         this.delayedNotifierDecorator = delayedNotifierDecorator;
-        //this.dataController = dataController;
+        this.dataController = dataController;
         try {
             //systemManagers=dataController.getSystemManagers(0);
             //Online=dataController.getOnline();
@@ -166,7 +180,7 @@ public class Market {
     public void setMarketOFFLINE(String username) throws Exception {
         if (!systemManagers.contains(username)) {
             LOGGER.severe("only system managers can change market's activity");
-            throw new Exception("only system mfanagers can change market's activity");
+            throw new Exception("only system managers can change market's activity");
         }
         LOGGER.info("market is OFFLINE");
         Online = false;
@@ -246,8 +260,8 @@ public class Market {
             throw new SuspendedException("can't buy user is suspended");
         }
         double total=userController.Buy(username);
-        paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
-        supplyServiceProccess(address,city,country,zip,username);
+        //paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
+        //supplyServiceProccess(address,city,country,zip,username);
         userController.getUser(username).cleanShoppingCart();
 //        dataController.cleanShoppingCart(username);
         return total;
