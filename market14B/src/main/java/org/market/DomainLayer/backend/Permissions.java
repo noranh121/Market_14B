@@ -95,7 +95,7 @@ public class Permissions {
         Permission permission = new Permission(userName, storeOwner, storeManager, pType);
         Node permissionNode = new Node(permission);
         if (storeOwners.containsKey(storeID)) {
-            if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
+            if ((storeOwners.get(storeID).findNode(ownerUserName)!=null)&&(storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner())) {
                 addLock.lock();
                 try {
                     if (storeOwners.get(storeID).findNode(userName) == null) {

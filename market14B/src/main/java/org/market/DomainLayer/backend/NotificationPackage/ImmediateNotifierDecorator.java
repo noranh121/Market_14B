@@ -22,12 +22,12 @@ public class ImmediateNotifierDecorator {
 
     public void send(String user, String message) {
         try{
+            notfications.add(new String[] {user, message});
             //send to socketImmediately
             if (!wrappedNotifier.isUserOnline(user)) {
                 LOGGER.info("User " + user + " is offline. Ignoring message.");
             } else {
                 wrappedNotifier.send(user, message);;
-                notfications.add(new String[] {user, message});
             }
         }catch(Exception ex){
             System.out.println(ex.getMessage());

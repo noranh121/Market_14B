@@ -28,7 +28,6 @@ public class DelayedNotifierDecorator{
     public void send(String user, String message) {
         if (wrappedNotifier.isUserOnline(user)) {
             wrappedNotifier.send(user, message);
-            notfications.add(new String[] {user, message});
         } else {
             LOGGER.info("User " + user + " is offline. Saving message for later.");
             if(!delayedMessages.containsKey(user)){
@@ -36,6 +35,7 @@ public class DelayedNotifierDecorator{
             }
             delayedMessages.get(user).add(message);
         }
+        notfications.add(new String[] {user, message});
     }
 
     // public void sendDelayedMessages(String user) {

@@ -74,8 +74,8 @@ public class Market {
     private static SearchEngine searchEngine;
     private FileHandler fileHandler;
 
-    private Boolean Online = false;
-    private List<String> systemManagers = Collections.synchronizedList(new ArrayList<>());
+    private static Boolean Online = false;
+    private static List<String> systemManagers = Collections.synchronizedList(new ArrayList<>());
     private static final Lock systemManagersLock = new ReentrantLock();
 
 
@@ -121,7 +121,7 @@ public class Market {
     }
 
     //this is for tesing
-    public void clear(){
+    public static void clear(){
         systemManagers.clear();
         Online=false;
         storeController.clear();
