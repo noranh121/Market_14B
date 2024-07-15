@@ -1,5 +1,11 @@
 package org.market.ServiceLayer;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
+import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
@@ -34,32 +40,36 @@ public class ServiceFactory {
     }
 
     // MarketService
-    public void setMarketOnline(String username) throws Exception {
-        marketService.setMarketOnline(username);
+    public String setMarketOnline(String username) throws Exception {
+        return marketService.setMarketOnline(username);
     }
 
-    public void setMarketOFFLINE(String username) throws Exception {
-        marketService.setMarketOFFLINE(username);
+    public String setMarketOFFLINE(String username) throws Exception {
+        return marketService.setMarketOFFLINE(username);
     }
 
-    public void addCatagory(int storeId, String catagory, String username) throws Exception {
-        marketService.addCatagory(storeId, catagory, username);
+    public List<String> getSystemManagers(){
+        return marketService.getSystemManagers();
     }
 
-    public void suspendUserIndefinitely(String systemManager, String username) throws Exception {
-        marketService.suspendUserIndefinitely(systemManager,username);
+    public String addCatagory(int storeId, String catagory, String username) throws Exception {
+        return marketService.addCatagory(storeId, catagory, username);
     }
 
-    public void suspendUserTemporarily(String systemManager, String username, int durationInSeconds) throws Exception {
-        marketService.suspendUserTemporarily(systemManager,username,durationInSeconds);
+    public String suspendUserIndefinitely(String systemManager, String username) throws Exception {
+        return marketService.suspendUserIndefinitely(systemManager,username);
     }
 
-    public void resumeUserIndefinitely(String systemManager, String username) throws Exception {
-        marketService.resumeUserIndefinitely(systemManager,username);
+    public String suspendUserTemporarily(String systemManager, String username, int durationInSeconds) throws Exception{
+        return marketService.suspendUserTemporarily(systemManager,username,durationInSeconds);
     }
 
-    public void resumeUser(String systemManager, String username, int duration) throws Exception {
-        marketService.resumeUserTemporarily(systemManager,username,duration);
+    public String resumeUserIndefinitely(String systemManager, String username) throws Exception {
+        return marketService.resumeUserIndefinitely(systemManager,username);
+    }
+
+    public String resumeUser(String systemManager, String username, int duration) throws Exception {
+        return marketService.resumeUserTemporarily(systemManager,username,duration);
     }
 
     public String viewSuspended(String systemManager) throws Exception {
@@ -72,6 +82,10 @@ public class ServiceFactory {
 
     public boolean isSystemManager(String username) throws Exception {
         return marketService.isSystemManager(username);
+    }
+    
+    public String viewSystemPurchaseHistory(String username){
+        return marketService.viewSystemPurchaseHistory(username);
     }
 
     // UserService
@@ -93,7 +107,7 @@ public class ServiceFactory {
 
     public String Register(String username, String password,double age) throws Exception {
         return userService.Register(username, password,age);
-    }//@
+    }
 
     public String Buy(String username,String currency,String card_number,int month,int year,String ccv,
                                 String address, String city, String country, int zip) throws Exception {
@@ -208,4 +222,60 @@ public class ServiceFactory {
     public List<ProductDTO> search(SearchEntity entity){
         return marketService.search(entity);
 }
+    public String addCategoryDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int categoryId,int storeId,String username,int id) throws Exception{
+        return storesService.addCategoryDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, categoryId, storeId, username, id);
+    }
+
+    public String addProductDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int productId,int storeId,String username,int id) throws Exception{
+        return storesService.addProductDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, productId, storeId, username, id);
+    }
+
+    public String addStoreDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int storeId,String username,int id) throws Exception{
+        return storesService.addStoreDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, storeId, username, id);
+    }    
+
+    public String addNmericalDiscount(String username,int storeId,Boolean ADD,int id) throws Exception{
+        return storesService.addNmericalDiscount(username, storeId, ADD, id);
+    }
+
+    public String addLogicalDiscount(String username,int storeId,DiscountPolicyController.LogicalRule logicalRule,int id){
+        return storesService.addLogicalDiscount(username, storeId, logicalRule, id);
+    }
+
+    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id){
+        return storesService.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId, immediate, id);
+    }
+
+    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id){
+        return storesService.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId, immediate, id);
+    }
+
+    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id){
+        return storesService.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, id, username, storeId, immediate, id);
+    }
+
+    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id){
+        return storesService.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId, immediate, id);
+    }
+
+    public String addLogicalPurchase(String username,int storeId,PurchasePolicyController.LogicalRule logicalRule,int id){
+        return storesService.addLogicalPurchase(username, storeId, logicalRule, id);
+    }   
+
+    public String getStorePurchaseHistory(int storeId){
+        return storesService.getStorePurchaseHistory(storeId);
+    }
+
+    public String getUserPurchaseHistory(String userId){
+        return storesService.getUserPurchaseHistory(userId);
+    }
+
+    public String removePurchaseFromStore(int storeId, int purchaseId){
+        return storesService.removePurchaseFromStore(storeId, purchaseId);
+    }
+
+
+    public String removePurchaseFromUser(String userId, int purchaseId){
+        return storesService.removePurchaseFromUser(userId, purchaseId);
+    }
 }

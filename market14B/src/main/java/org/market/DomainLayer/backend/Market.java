@@ -173,7 +173,7 @@ public class Market {
     //     }
     // }
 
-    public void setMarketOnline(String username) throws Exception {
+    public String setMarketOnline(String username) throws Exception {
         if (!systemManagers.contains(username)) {
             LOGGER.severe("only system managers can change market's activity");
             throw new Exception("only system managers can change market's activity");
@@ -181,9 +181,10 @@ public class Market {
         LOGGER.info("market is Online");
         Online = true;
         dataController.setMarketOnline();
+        return "market is Online";
     }
 
-    public void setMarketOFFLINE(String username) throws Exception {
+    public String setMarketOFFLINE(String username) throws Exception {
         if (!systemManagers.contains(username)) {
             LOGGER.severe("only system managers can change market's activity");
             throw new Exception("only system managers can change market's activity");
@@ -191,6 +192,7 @@ public class Market {
         LOGGER.info("market is OFFLINE");
         Online = false;
         dataController.setMarketOFFLINE();
+        return "market is OFFLINE";
     }
 
     public List<String> getSystemManagers() {

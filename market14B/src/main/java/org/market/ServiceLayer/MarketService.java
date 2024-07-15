@@ -19,12 +19,29 @@ public class MarketService {
     // public MarketService(Market market){
     //     this.market = market;
     // }
-    public void setMarketOnline(String username) throws Exception {
-        market.setMarketOnline(username);
+    public String setMarketOnline(String username) throws Exception {
+        try{
+            return market.setMarketOnline(username);
+        } catch(Exception exception){
+            return exception.getMessage();
+        }
+        
     }
 
-    public void setMarketOFFLINE(String username) throws Exception {
-        market.setMarketOFFLINE(username);
+    public String setMarketOFFLINE(String username) throws Exception {
+        try{
+            return market.setMarketOFFLINE(username);
+        } catch(Exception exception){
+            return exception.getMessage();
+        }
+    }
+
+    public List<String> getSystemManagers(){
+        return market.getSystemManagers();
+    }
+
+    public void addToSystemManagers(String admin) {
+        market.addToSystemManagers(admin);
     }
 
     public String addCatagory(int storeId, String catagory, String username) throws Exception{
@@ -63,8 +80,12 @@ public class MarketService {
             return result;
     }
 
-    public void addToSystemManagers(String admin) {
-        market.addToSystemManagers(admin);
+    public String viewSystemPurchaseHistory(String username) {
+        try{
+            return market.viewSystemPurchaseHistory(username);
+        }catch(Exception exception){
+            return exception.getMessage();
+        }
     }
 
     public boolean isSystemManager(String username) throws Exception {
