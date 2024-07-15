@@ -180,7 +180,7 @@ public class Market {
         }
         LOGGER.info("market is Online");
         Online = true;
-//        dataController.setMarketOnline();
+        dataController.setMarketOnline();
     }
 
     public void setMarketOFFLINE(String username) throws Exception {
@@ -190,7 +190,7 @@ public class Market {
         }
         LOGGER.info("market is OFFLINE");
         Online = false;
-//        dataController.setMarketOFFLINE();
+        dataController.setMarketOFFLINE();
     }
 
     public List<String> getSystemManagers() {
@@ -242,19 +242,19 @@ public class Market {
             }
         }
         String response= userController.Login(guest, username, password);
-//        dataController.Login(username);
+        dataController.Login(username);
         return response;
     }
 
     public String Logout(String username) throws Exception {
         String response= userController.Logout(username);
-//        dataController.Logout(username);
+        dataController.Logout(username);
         return response;
     }
 
     public String Register(String username, String password,double age) throws Exception {
         String response=userController.Register(username, password,age);
-        // dataController.Register(username, password, age);
+        dataController.Register(username, password, age);
         return response;
     }
 
@@ -269,7 +269,7 @@ public class Market {
         //paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
         //supplyServiceProccess(address,city,country,zip,username);
         userController.getUser(username).cleanShoppingCart();
-//        dataController.cleanShoppingCart(username);
+        dataController.cleanShoppingCart(username);
         return total;
     }
 
@@ -318,7 +318,7 @@ public class Market {
             throw new SuspendedException("can't add to cart user is suspended");
         }
         String response= userController.addToCart(username, product, storeId, quantity);
-//        dataController.addToCart(username, storeId, product, quantity);
+        dataController.addToCart(username, storeId, product, quantity);
         return response;
     }
 
@@ -336,7 +336,7 @@ public class Market {
             throw new SuspendedException("can't remove cart item user is suspended");
         }
         String response= userController.removeCartItem(username, storeId, product);
-//        dataController.removeCartItem(username, storeId, product);
+        dataController.removeCartItem(username, storeId, product);
         return response;
     }
 
@@ -347,7 +347,7 @@ public class Market {
             throw new SuspendedException("can't edit permissions, user is suspended");
         }
         String response= userController.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
-//        dataController.EditPermissions(storeID, userName, storeOwner, storeManager,pType[0],pType[1],pType[2]);
+        dataController.EditPermissions(storeID, userName, storeOwner, storeManager,pType[0],pType[1],pType[2]);
         return response;
     }
 
@@ -360,7 +360,7 @@ public class Market {
                 throw new SuspendedException("can't assign store manager, user is suspended");
             }
             String response= userController.AssignStoreManager(storeId, ownerUserName, username, pType);
-//            dataController.AssignStoreManager(storeId, username);
+            dataController.AssignStoreManager(storeId, username);
             return response;
         } finally{
             systemManagersLock.unlock();
@@ -376,7 +376,7 @@ public class Market {
                 throw new SuspendedException("can't assign store owner, user is suspended");
             }
             String response=userController.AssignStoreOwner(storeId, ownerUserName, username, pType);
-//            dataController.AssignStoreOwner(storeId, username);
+            dataController.AssignStoreOwner(storeId, username);
             return response;
         }finally{
             systemManagersLock.unlock();
@@ -393,7 +393,7 @@ public class Market {
                 throw new SuspendedException("can't unassign permissions, user is suspended");
             }
             String response= permissions.deletePermission(storeID, ownerUserName, userName);
-//            dataController.unassignUser(storeID, userName);
+            dataController.unassignUser(storeID, userName);
             return response;
         }finally{
             systemManagersLock.unlock();
@@ -406,7 +406,7 @@ public class Market {
             throw new SuspendedException("can't resign, user is suspended");
         }
         String response= permissions.deleteStoreOwner(storeID, username);
-//        dataController.resign(storeID, username);
+        dataController.resign(storeID, username);
         return response;
     }
 
@@ -416,7 +416,7 @@ public class Market {
             if (systemManagers.contains(systemManager)) {
                 if(userController.getUser(username) != null) {
                     String response = permissions.suspendUser(username);
-//                dataController.suspendUser(username);
+                dataController.suspendUser(username);
                     return response;
                 }
                 else{
@@ -451,7 +451,7 @@ public class Market {
         if (systemManagers.contains(systemManager)) {
             if(userController.getUser(username) != null) {
                 String response = permissions.resumeUser(username);
-//            dataController.resumeUser(username);
+            dataController.resumeUser(username);
                 return response;
             }
             else{
@@ -489,7 +489,7 @@ public class Market {
         LOGGER.info("storeId: " + storeId + ", category: " + catagory + ", username: " + username);
         if (systemManagers.contains(username)) {
             int categoryId = categoryController.addCategory(catagory);
-            //dataController.addCategory(catagory,categoryId);
+            dataController.addCategory(catagory,categoryId);
             LOGGER.info("category added successfully");
             return "category added successfully";
         } else {
@@ -535,7 +535,7 @@ public class Market {
         if (userController.isRegistered(userName)) {
             int storeID = storeController.initStore(userName, name, Description);
             String resposnse = permissions.initStore(storeID, userName);
-//            dataController.initStore(userName,Description);
+            dataController.initStore(userName,Description,storeID);
             return resposnse;
         } else {
             LOGGER.severe(userName + " is not registered");
@@ -552,7 +552,7 @@ public class Market {
                 throw new SuspendedException("can't add product, user is suspended");
             }
             String response = storeController.addProduct(productId, storeId, price, quantity,weight);
-//            dataController.addProduct(storeId,productId,price,quantity);
+            dataController.addProduct(storeId,productId,price,quantity);
             return response;
         } else {
             LOGGER.severe(username + " has no permission to add products");
@@ -566,7 +566,7 @@ public class Market {
                 throw new SuspendedException("can't remove product, user is suspended");
             }
             String response = storeController.removeProduct(productId, storeId);
-//            dataController.removeProduct(storeId, productId);
+            dataController.removeProduct(storeId, productId);
             return response;
         } else {
             LOGGER.severe(username + " has no permission to edit products");
@@ -896,12 +896,12 @@ public class Market {
     }
 
     public synchronized String removePurchaseFromStore(int storeId, int purchaseId) throws Exception {
-//        dataController.removePurchaseHistory(purchaseId);
+        dataController.removePurchaseHistory(purchaseId);
         return purchaseHistory.removePurchaseFromStore(storeId, purchaseId);
     }
 
     public synchronized String removePurchaseFromUser(String userId, int purchaseId) throws Exception {
-//        dataController.removePurchaseHistory(purchaseId);
+        dataController.removePurchaseHistory(purchaseId);
         return purchaseHistory.removePurchaseFromUser(userId, purchaseId);
     }
 

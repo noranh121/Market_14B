@@ -9,6 +9,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -19,11 +21,14 @@ public class MarketUnitTest {
     @BeforeEach
     public void setUp() {
         market=(Market) context.getBean(Market.class);
+        org.market.DataAccessLayer.Entity.Market dataMarket=new org.market.DataAccessLayer.Entity.Market(0,true,new ArrayList<>());
+        Market.getDC().getMarketRepository().save(dataMarket);
     }
 
     @AfterEach
     void tearDown() {
         market.clear();
+        Market.getDC().clearAll();
     }
     @Test
     public void testSetMarketOnlineSuccess() throws Exception {
@@ -31,6 +36,7 @@ public class MarketUnitTest {
         market.getSystemManagers().add(systemManager);
         market.setMarketOnline(systemManager);
         assertTrue(market.getOnline());
+        assertTrue(Market.getDC().getOnline());
     }
 
     @Test
@@ -42,6 +48,7 @@ public class MarketUnitTest {
             market.setMarketOnline(nonSystemManager);
         });
         assertEquals("only system managers can change market's activity", exception.getMessage());
+        assertFalse(Market.getDC().getOnline());
     }
 
     @Test
@@ -50,6 +57,7 @@ public class MarketUnitTest {
         market.getSystemManagers().add(systemManager);
         market.setMarketOFFLINE(systemManager);
         assertFalse(market.getOnline());
+        assertFalse(Market.getDC().getOnline());
     }
 
     @Test
@@ -69,6 +77,8 @@ public class MarketUnitTest {
             market.Register("ali","123",18);
             String result = market.initStore("ali", "stroe name","Store Description");
             assertEquals("store added successfully", result);
+            assertEquals(Market.getDC().getStore(0).getStoreID(), 0);
+            assertEquals(Market.getDC().getStore(0).getName(), "stroe name");
         } catch (Exception e) {
             fail("Exception thrown: " + e.getMessage());
         }
@@ -84,6 +94,7 @@ public class MarketUnitTest {
             market.Register("ali", "123", 18);
             String result=market.suspendUser("admin", "ali");
             assertEquals("suspended successfully", result);
+            assertTrue(Market.getDC().getUserRepository().getReferenceById("ali").getSuspended());
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
         }
@@ -101,6 +112,7 @@ public class MarketUnitTest {
             fail();
         }catch(Exception e){
             assertEquals(e.getMessage(),"bob not a system manager");
+            assertFalse(Market.getDC().getUserRepository().getReferenceById("ali").getSuspended());
         }
     }
 
@@ -131,6 +143,7 @@ public class MarketUnitTest {
             fail();
         }catch(Exception e){
             assertEquals(e.getMessage(),"bob not a system manager");
+            assertFalse(Market.getDC().getUserRepository().getReferenceById("ali").getSuspended());
         }
     }
 
@@ -145,6 +158,7 @@ public class MarketUnitTest {
             market.suspendUser("admin", "ali");
             String result=market.resumeUser(systemManager, "ali");
             assertEquals(result, "ali unsuspended");
+            assertFalse(Market.getDC().getUserRepository().getReferenceById("ali").getSuspended());
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
         }

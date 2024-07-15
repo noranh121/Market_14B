@@ -6,6 +6,7 @@ import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.ProductPackage.Category;
 import org.market.DomainLayer.backend.ProductPackage.Product;
 import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
+import org.market.DomainLayer.backend.StorePackage.Purchase.OfferMethod;
 import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
@@ -20,6 +21,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.market.DomainLayer.backend.UserPackage.UserController.notfications;
+
+import java.util.ArrayList;
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
@@ -45,6 +48,8 @@ public class integrationTests {
         market=(Market) context.getBean(Market.class);
         storeController = Market.getSC();
         userController = Market.getUC();
+        org.market.DataAccessLayer.Entity.Market dataMarket=new org.market.DataAccessLayer.Entity.Market(0,true,new ArrayList<>());
+        Market.getDC().getMarketRepository().save(dataMarket);
         u1 = new GuestUser(0, 18);
         u2 = new RegisteredUser("ali", "123", 18);
         u3 = new RegisteredUser("malek", "456", 18);
@@ -59,6 +64,7 @@ public class integrationTests {
     @AfterEach
     void tearDown() {
         market.clear();
+        Market.getDC().clearAll();
     }
 
     @Test
@@ -759,6 +765,27 @@ public class integrationTests {
             assertEquals("added to cart",res2);
         }catch (Exception e){
             fail("test must not fail");
+        }
+    }
+
+    @Test
+    public void testOfferMethodSuccess(){
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.Register("malek", "456", 18);
+            market.initStore("ali","name", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            OfferMethod offerMethod=new OfferMethod(3, -1, null, 0, -1, 18, 0, "ali");
+            //storeController.getStore(0).addPurchaseComposite(offerMethod,0);
+        }catch(Exception ex){
+            fail(ex.getMessage());
         }
     }
 

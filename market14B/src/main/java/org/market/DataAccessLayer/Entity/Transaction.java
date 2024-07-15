@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "transactions")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Transaction {
+public class Transaction  implements java.io.Serializable{
     
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="username",referencedColumnName = "username")

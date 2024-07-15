@@ -58,7 +58,21 @@ public class DataController {
        }
    }
 
-   public   void setMarketOnline(){
+   public void clearAll(){
+    basketRepository.deleteAll();
+    categoryRepository.deleteAll();
+    inventoryRepository.deleteAll();
+    notificationRepository.deleteAll();
+    permissionsRepository.deleteAll();
+    productRepository.deleteAll();
+    purchaseHistoryRepository.deleteAll();
+    storeRepository.deleteAll();
+    transactionRepository.deleteAll();
+    marketRepository.deleteAll();
+    userRepository.deleteAll();
+   }
+
+   public void setMarketOnline(){
        Market market=marketRepository.findById(0).get();
        market.setOnline(true);
        marketRepository.save(market);
@@ -101,7 +115,7 @@ public class DataController {
        LOGGER.info("user is offline at the DataBase");
    }
 
-   public   void Register(String username,String password,double age) {
+   public void Register(String username,String password,double age) {
        User user=new User();
        user.setUsername(username);
        user.setAge(age);
@@ -216,8 +230,9 @@ public class DataController {
 
    public   void EditPermissions(Integer storeID,String username,Boolean storeOwner,Boolean storeManager,
    Boolean editProducts,Boolean addOrEditPurchaseHistory,Boolean addOrEditDiscountHistory){
+    Store store=storeRepository.findById(storeID).get();
        // get relevant permission for the store
-       Permissions permissions=permissionsRepository.findById(storeID).get();
+       Permissions permissions=permissionsRepository.findById(store).get();
 
        // get the tree
        EmployerAndEmployeeEntity employerAndEmployeeEntity=permissions.getEmployer();
@@ -237,8 +252,9 @@ public class DataController {
    }
 
    public   void AssignStoreManager(Integer storeID,String username){
+    Store store=storeRepository.findById(storeID).get();
        // get relevant permission for the store
-       Permissions permissions=permissionsRepository.findById(storeID).get();
+       Permissions permissions=permissionsRepository.findById(store).get();
 
        // get the tree
        EmployerAndEmployeeEntity employerAndEmployeeEntity=permissions.getEmployer();
@@ -253,8 +269,9 @@ public class DataController {
    }
 
    public   void AssignStoreOwner(Integer storeID,String username){
+        Store store=storeRepository.findById(storeID).get();
        // get relevant permission for the store
-       Permissions permissions=permissionsRepository.findById(storeID).get();
+       Permissions permissions=permissionsRepository.findById(store).get();
 
        // get the tree
        EmployerAndEmployeeEntity employerAndEmployeeEntity=permissions.getEmployer();
@@ -269,8 +286,9 @@ public class DataController {
    }
 
    public   void unassignUser(Integer storeID,String username){
+    Store store=storeRepository.findById(storeID).get();
        // get relevant permission for the store
-       Permissions permissions=permissionsRepository.findById(storeID).get();
+       Permissions permissions=permissionsRepository.findById(store).get();
 
        // get the tree
        EmployerAndEmployeeEntity employerAndEmployeeEntity=permissions.getEmployer();
@@ -330,7 +348,7 @@ public class DataController {
        LOGGER.info("added product to db");
    }
 
-   public   void initStore(String username, String description) {
+   public   void initStore(String username, String description,int id) {
        Optional<User> optionalUser=userRepository.findById(username);
        if(optionalUser.isPresent()){
 
@@ -344,6 +362,7 @@ public class DataController {
            inv.setStoreID(store);
            //store.setInventory(inventoryRepository.save(inv));
            store.setRating(0);
+           store.setStoreID(id);
            storeRepository.save(store);
            LOGGER.info("added store to db");
        }
@@ -415,5 +434,49 @@ public class DataController {
        //get all stores
        return new ArrayList<>();
    }
+
+   public BasketRepository getBasketRepository() {
+    return basketRepository;
+}
+
+public CategoryRepository getCategoryRepository() {
+    return categoryRepository;
+}
+
+public InventoryRepository getInventoryRepository() {
+    return inventoryRepository;
+}
+
+public NotificationRepository getNotificationRepository() {
+    return notificationRepository;
+}
+
+public PermissionsRepository getPermissionsRepository() {
+    return permissionsRepository;
+}
+
+public ProductRepository getProductRepository() {
+    return productRepository;
+}
+
+public PurchaseHistoryRepository getPurchaseHistoryRepository() {
+    return purchaseHistoryRepository;
+}
+
+public StoreRepository getStoreRepository() {
+    return storeRepository;
+}
+
+public TransactionRepository getTransactionRepository() {
+    return transactionRepository;
+}
+
+public MarketRepository getMarketRepository() {
+    return marketRepository;
+}
+
+public UserRepository getUserRepository() {
+    return userRepository;
+}
 
 }

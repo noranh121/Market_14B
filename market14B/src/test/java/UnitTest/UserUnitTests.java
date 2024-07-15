@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
  public class UserUnitTests {
     UserController userController;
      User u1;
@@ -40,13 +39,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
      @AfterEach
      void tearDown(){
-         userController.clear();
+        userController.clear();
+        //Market.getDC().clearAll();
      }
 
      @Test
      //@DirtiesContext
      public void testEnterAsGuestSuccess() throws Exception {
-        //UserController userController=Market.getUC();
+        
          String result = userController.EnterAsGuest(18);
          assertNotNull(result);
          assertEquals("0", result);
@@ -56,8 +56,6 @@ import static org.junit.jupiter.api.Assertions.*;
     @Test
     //@DirtiesContext
     public void testEnterAsGuestSuccess2() throws Exception {
-        //UserController userController = (UserController) context.getBean("BackendUserController");
-        //UserController userController=Market.getUC();
         String result1 = userController.EnterAsGuest(18);
         String result2 = userController.EnterAsGuest(18);
         String result3 = userController.EnterAsGuest(18);
@@ -69,10 +67,8 @@ import static org.junit.jupiter.api.Assertions.*;
         assertEquals(4, userController.getGuestUserMap().size());
     }
     @Test
-    //@DirtiesContext
     public void testGuestExit_Success() {
         try {
-            //UserController userController=Market.getUC();
             userController.getGuestUserMap().put(u1.getUsername(), u1);
             String result = userController.GuestExit(u1.getUsername());
             assertEquals("guest existed successfully", result);
@@ -83,10 +79,8 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testGuestExit_Failure() {
-        try {
-            //UserController userController=Market.getUC();
+        try {  
             userController.GuestExit("nonExistentUser");
             fail("Exception should have been thrown");
         } catch (Exception e) {
@@ -96,12 +90,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
     @Test
-    //@DirtiesContext
     public void testLogin_Success() {
         try {
-            //UserController userController=Market.getUC();
             userController.getGuestUserMap().put(u1.getUsername(), u1);
-            //userController.getRegUserMap().put(u3.getUsername(), u3);
             userController.Register(u3.getUsername(),"123",18);
             String result = userController.Login(u1.getUsername(), u3.getUsername(),"123");
             assertEquals("logged in successfully", result);
@@ -112,10 +103,8 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testLogin_IncorrectUsername() {
-        try {
-            //UserController userController=Market.getUC();
+        try { 
             userController.getGuestUserMap().put(u1.getUsername(), u1);
             userController.getRegUserMap().put(u3.getUsername(), u3);
             String result = userController.Login(u1.getUsername(), "wrong","123");
@@ -126,10 +115,8 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testLogin_IncorrectPassword() {
-        try {
-            //UserController userController=Market.getUC();
+        try { 
             userController.getGuestUserMap().put(u1.getUsername(), u1);
             userController.getRegUserMap().put(u3.getUsername(), u3);
             String result = userController.Login(u1.getUsername(), u3.getUsername(),"11111");
@@ -140,11 +127,8 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testLogout_Success() {
         try {
-            //UserController userController=Market.getUC();
-            //userController.getRegUserMap().put(u3.getUsername(), u3);
             userController.Register(u3.getUsername(),"123",18);
             userController.getRegUserMap().get(u3.getUsername()).setLoggedIn(true);
             String result = userController.Logout(u3.getUsername());
@@ -157,10 +141,9 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testLogout_UserNotFound() {
         try {
-            //UserController userController=Market.getUC();
+            
             String nonExistentUser = "nonExistentUser";
             userController.Logout(nonExistentUser);
             fail("Exception should have been thrown");
@@ -170,11 +153,10 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testRegister_Success() {
         String username = "newUser";
         String password = "password123";
-        //UserController userController=Market.getUC();
+        
         try {
             String result = userController.Register(username, password,18);
             assertEquals("User registered successfully", result);
@@ -186,11 +168,10 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testRegisterDoubleRegistration() {
         String username = "newUser";
         String password = "password123";
-        //UserController userController=Market.getUC();
+        
         try {
             String result = userController.Register(username, password,18);
             assertEquals("User registered successfully", result);
@@ -202,11 +183,10 @@ import static org.junit.jupiter.api.Assertions.*;
         }
     }
     @Test
-    //@DirtiesContext
     public void testRegisterUsernameExists() {
         String username = "existingUser";
         String password = "password123";
-        //UserController userController=Market.getUC();
+        
         try {
             userController.Register(username, password,18);
         } catch (Exception e) {
@@ -221,9 +201,8 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testBuySuccess() throws Exception {
-        //UserController userController=Market.getUC();
+        
         userController.getRegUserMap().put(u3.getUsername(), u3);
         Store s=new Store(u1.getUsername(),"s1","desc",0);
         Market.getSC().GetStores().put(0,s);
@@ -242,9 +221,8 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testBuyGuestUserExists() throws Exception {
-        //UserController userController=Market.getUC();
+        
         userController.getGuestUserMap().put(u1.getUsername(), u1);
         Store s=new Store(u1.getUsername(),"s1","desc",0);
         Market.getSC().GetStores().put(0,s);
@@ -262,9 +240,8 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testBuyUserNotExists() {
-        //UserController userController=Market.getUC();
+        
         String nonExistentUser = "nonExistentUser";
         try {
             userController.Buy(nonExistentUser);
@@ -275,9 +252,8 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testBuyNotEnoughSupply() throws Exception {
-        //UserController userController=Market.getUC();
+        
         userController.getGuestUserMap().put(u1.getUsername(), u1);
         Store s=new Store(u1.getUsername(),"s1","desc",0);
         Market.getSC().GetStores().put(0,s);
@@ -298,9 +274,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
     @Test
-    //@DirtiesContext
     public void testGetUser_RegisteredUserExists() {
-        //UserController userController=Market.getUC();
+        
         String username = "registeredUser";
         RegisteredUser registeredUser = new RegisteredUser(username, "password",18);
         userController.getRegUserMap().put(username, registeredUser);
@@ -308,9 +283,8 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testGetUser_GuestUserExists() {
-        //UserController userController=Market.getUC();
+        
         String username = "guestUser";
         GuestUser guestUser = new GuestUser(1,18);
         userController.getGuestUserMap().put(username, guestUser);
@@ -318,18 +292,16 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testGetUser_UserNotExists() {
-        //UserController userController=Market.getUC();
+        
         String nonExistentUsername = "nonExistentUser";
         assertNull(userController.getUser(nonExistentUsername));
     }
 
     @Test
-    //@DirtiesContext
     public void testAddToCart() {
         try {
-            //UserController userController=Market.getUC();
+            
             userController.getRegUserMap().put(u3.getUsername(), u3);
             Category c=new Category(0,"cat");
             Product p1=new Product("a","d","b",c,5);
@@ -343,27 +315,24 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void inspectCartTest(){
-        //UserController userController=Market.getUC();
+        
         userController.getRegUserMap().put(u3.getUsername(), u3);
         String res=userController.inspectCart(u3.getUsername());
         assertTrue(res.length()==0);
     }
 
     @Test
-    //@DirtiesContext
     public void testRemoveEmptyCartItem(){
-        //UserController userController=Market.getUC();
+        
         userController.getRegUserMap().put(u3.getUsername(), u3);
         String res=userController.removeCartItem(u3.getUsername(),0,0);
         assertTrue(res.contains("no such item"));
     }
 
     @Test
-    //@DirtiesContext
     public void testRemoveCartItemSuccess() throws Exception {
-        //UserController userController=Market.getUC();
+        
         userController.getRegUserMap().put(u3.getUsername(), u3);
         Category c=new Category(0,"cat");
         Product p1=new Product("a","d","b",c,5);
@@ -375,17 +344,15 @@ import static org.junit.jupiter.api.Assertions.*;
     }
 
     @Test
-    //@DirtiesContext
     public void testIsRegisteredSuccess() throws Exception {
-        //UserController userController=Market.getUC();
+        
         userController.getRegUserMap().put(u3.getUsername(), u3);
         assertTrue(userController.isRegistered(u3.getUsername()));
     }
 
     @Test
-    //@DirtiesContext
     public void testIsRegisteredFail() {
-        //UserController userController=Market.getUC();
+        
         String nonExistentUsername = "nonExistentUser";
         Exception exception = assertThrows(Exception.class, () -> {
             userController.isRegistered(nonExistentUsername);

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Table(name="PurchaseHistory")
 @NoArgsConstructor
 @AllArgsConstructor
-public class PurchaseHistory {
+public class PurchaseHistory implements java.io.Serializable {
 
     @Id
     @Column(name = "purchaseID")

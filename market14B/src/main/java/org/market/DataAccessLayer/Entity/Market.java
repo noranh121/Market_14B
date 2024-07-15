@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Table(name="market")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Market {
+public class Market implements java.io.Serializable{
     @Id
     @Column(name="marketID")
     private Integer marketID=0;

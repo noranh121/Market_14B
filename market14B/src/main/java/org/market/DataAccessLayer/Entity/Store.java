@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Store implements java.io.Serializable{
 
     @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="storeID")
     private Integer storeID;
 

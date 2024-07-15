@@ -32,6 +32,7 @@ public class AccTestImpl extends AcceptanceTests{
     @AfterEach
     void tearDown() {
         Market.clear();
+        Market.getDC().clearAll();
     }
     @Test
     void testSetMarketOnlineSuccess() throws Exception {

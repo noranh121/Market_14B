@@ -27,6 +27,7 @@ public class ConcurrencyTestImpl {
     @AfterEach
     void tearDown(){
         market.clear();
+        Market.getDC().clearAll();
     }
 
     //2 users try to but the same last product at the same time
