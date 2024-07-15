@@ -19,9 +19,12 @@ import org.market.DomainLayer.backend.StorePackage.Discount.Numerical.AT_MOSTDis
 import org.market.DomainLayer.backend.StorePackage.Purchase.*;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.market.DomainLayer.backend.UserPackage.ShoppingCart;
+import org.market.DomainLayer.backend.UserPackage.User;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.SuspendedException;
+import org.market.Web.DTOS.CartItemDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -546,6 +549,7 @@ public class Market {
                 throw new SuspendedException("can't remove product, user is suspended");
             }
             String response = storeController.removeProduct(productId, storeId);
+            String res = productController.removeProduct(productId);
 //            dataController.removeProduct(storeId, productId);
             return response;
         } else {
@@ -941,6 +945,76 @@ public class Market {
             return result;
         }else{
             throw new Exception("User is not registered.");
+        }
+    }
+
+    public List<String> getPurchaseHistoryStore(int storeId) throws Exception {
+        List<String> result = new ArrayList<>();
+        if(storeController.getStore(storeId) != null) {
+            List<Purchase> purchases = purchaseHistory.getStorePurchaseHistory(storeId);
+            for(Purchase p : purchases) {
+                result.add(p.FetchInfo());
+            }
+            return result;
+        }else{
+            throw new Exception("Store does not exist.");
+        }
+    }
+
+    public String removePurchaseStore(Integer storeId, Integer purchaseId) throws Exception {
+        if(storeController.getStore(storeId) != null) {
+            return purchaseHistory.removePurchaseFromStore(storeId, purchaseId);
+        }else{
+            throw new Exception("Store does not exist.");
+        }
+    }
+
+    public String removePurchaseUser(String username, Integer purchaseId) throws Exception {
+        if(userController.getUser(username) != null) {
+            return purchaseHistory.removePurchaseFromUser(username, purchaseId);
+        }else{
+            throw new Exception("User is not registered.");
+        }
+    }
+
+    public Integer getCategory(String name) {
+        Category category = categoryController.getCategorybyName(name);
+        if(category == null){
+            return categoryController.addCategory(name);
+        }
+        else{
+            return category.getId();
+        }
+    }
+
+    public List<CartItemDTO> getCart(String username) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't retrieve cart is suspended");
+        }
+        List<CartItemDTO> result = new ArrayList<>();
+        User user = userController.getUser(username);
+        if(user != null){
+            ShoppingCart cart = user.getShoppingCart();
+            List<Basket> baskets = cart.getBaskets();
+            for(Basket b : baskets){
+                for(Map.Entry<Integer,Integer> entry : b.getProducts().entrySet()){
+                    CartItemDTO item = new CartItemDTO();
+                    item.setProductId(entry.getKey());
+                    item.setQuantity(entry.getValue());
+                    item.setUsername(username);
+                    item.setStoreId(b.getStoreID());
+                    item.setName(productController.getProductName(entry.getKey()));
+                    double [] price_store = findProdInfo(getProduct(entry.getKey()));
+                    if(price_store[0] == -1){
+                        throw new Exception("Price is Out Of Stock");
+                    }
+                    item.setPrice(price_store[0]);
+                    result.add(item);
+                }
+            }
+            return result;
+        }else{
+            throw new Exception("User does not exist.");
         }
     }
 }

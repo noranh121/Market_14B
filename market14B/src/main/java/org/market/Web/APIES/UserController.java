@@ -5,17 +5,14 @@ import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.ServiceFactory;
 import org.market.ServiceLayer.SuspendedException;
 import org.market.ServiceLayer.TokenService;
+import org.market.Web.DTOS.CartItemDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.StoreDTO;
-import org.market.Web.Requests.PermissionReq;
-import org.market.Web.Requests.ReqUser;
-import org.market.Web.Requests.SuspendReq;
-import org.market.Web.Requests.cartOp;
+import org.market.Web.Requests.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -109,27 +106,47 @@ public class UserController {
         }
     }
 
-    // TODO
-    @PostMapping("/buy/{username}")
-    public Response<String> Buy(@PathVariable String username) {
-        return Response.failRes("Not implemented");
-       // return service.Buy(username);
-    }
-
-    // TODO
-    @PostMapping("/add-to-cart")
-    public ResponseEntity<?> addToCart(@RequestBody cartOp op){
+    // DONE
+    @GetMapping("/cart/{username}")
+    public ResponseEntity<?> getCart(@PathVariable String username) {
         try{
-            String response = service.addToCart(op.getUsername(), op.getProdID(), op.getStoreID(), op.getQuant());
+            List<CartItemDTO> response = service.getCart(username);
             return ResponseEntity.ok(response);
         }catch(SuspendedException e){
             return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e) {
-            return ResponseEntity.status(404).body("Failed to add product to cart.");
+            return ResponseEntity.status(404).body("Failed inspect cart.");
         }
     }
 
     // TODO
+    @PostMapping("/buy")
+    public ResponseEntity<?> Buy(@RequestBody PaymentReq request) {
+        try{
+            String response = service.Buy(request.getUsername(), request.getCurrency(),request.getCard(),request.getMonth()
+            ,request.getYear(),request.getCcv(),request.getAddress(), request.getCity(), request.getCountry(), request.getZip());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+
+    // DONE
+    @PostMapping("/add-to-cart")
+    public ResponseEntity<?> addToCart(@RequestBody cartOp op){
+        try{
+            String response = service.addToCart(op.getUsername(), op.getProductId(), op.getStoreId(), op.getQuantity());
+            return ResponseEntity.ok(response);
+        }catch(SuspendedException e){
+            return ResponseEntity.status(403).body(e.getMessage());
+        }catch(Exception e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+
+    // ALTERNATIVE
     @GetMapping("/inspect-cart/{username}")
     public ResponseEntity<?> inspectCart(@PathVariable String username) {
         try{
@@ -142,11 +159,11 @@ public class UserController {
         }
     }
 
-    // TODO
+    // DONE
     @PostMapping("/remove-cart-item")
     public ResponseEntity<?> removeCartItem(@RequestBody cartOp op) {
         try{
-            String response = service.removeCartItem(op.getUsername(), op.getStoreID(), op.getProdID());
+            String response = service.removeCartItem(op.getUsername(), op.getStoreId(), op.getProductId());
             return ResponseEntity.ok(response);
         }catch(SuspendedException e){
             return ResponseEntity.status(403).body(e.getMessage());
@@ -304,22 +321,30 @@ public class UserController {
     }
 
 
+    // DONE
     @GetMapping("/purchase-history/{username}")
     public ResponseEntity<?> getPurchaseHistory(@PathVariable("username") String username) {
         try{
-            //List<String> res = service.getPurchaseHistory(username);
-            List<String> res = new ArrayList<>();
-            res.add("purchase 1");
-            res.add("purchase 2");
-            res.add("purchase 3");
-            res.add("purchase 4");
-            res.add("purchase 5");
-            res.add("purchase 6");
+            List<String> res = service.getPurchaseHistory(username);
             return ResponseEntity.ok(res);
 
         }
         catch(Exception e){
-            return ResponseEntity.status(404).body("Failed to retrieve users purchase history");
+            return ResponseEntity.status(404).body("Failed to retrieve user purchase history");
+        }
+    }
+
+    // DONE
+    @PostMapping("/remove-purchase/user={username}&purchase={purchase_id}")
+    public ResponseEntity<?> removePurchaseStore(@PathVariable("username") String username,
+                                                 @PathVariable("purchase_id") Integer purchase_id) {
+        try{
+            String res = service.removePurchaseUser(username, purchase_id);
+            return ResponseEntity.ok(res);
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to remove user purchase history");
         }
     }
 }

@@ -1,5 +1,6 @@
 package org.market.ServiceLayer;
 
+import org.market.Web.DTOS.CartItemDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
@@ -202,5 +203,25 @@ public class ServiceFactory {
 
     public List<String> getPurchaseHistory(String username) throws Exception {
         return userService.getPurchaseHistory(username);
+    }
+
+    public List<String> getStorePurchaseHistory(int storeId) throws Exception {
+        return storesService.getStorePurchaseHistory(storeId);
+    }
+
+    public String removePurchaseStore(Integer storeId, Integer purchaseId) throws Exception {
+        return storesService.removePurchaseStore(storeId, purchaseId);
+    }
+
+    public String removePurchaseUser(String username, Integer purchaseId) throws Exception {
+        return userService.removePurchaseUser(username, purchaseId);
+    }
+
+    public Integer getCategory(String name) {
+        return marketService.getCategory(name);
+    }
+
+    public List<CartItemDTO> getCart(String username) throws Exception {
+        return userService.getCart(username);
     }
 }

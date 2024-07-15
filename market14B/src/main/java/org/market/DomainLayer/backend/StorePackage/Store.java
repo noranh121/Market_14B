@@ -1,11 +1,5 @@
 package org.market.DomainLayer.backend.StorePackage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import org.market.DomainLayer.backend.ProductPackage.Inventory;
 import org.market.DomainLayer.backend.ProductPackage.Product;
 import org.market.DomainLayer.backend.StorePackage.Discount.CompositeDiscountPolicy;
@@ -15,6 +9,12 @@ import org.market.DomainLayer.backend.StorePackage.Purchase.ANDPurchaseRule;
 import org.market.DomainLayer.backend.StorePackage.Purchase.CompositePurchasePolicy;
 import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 import org.market.Web.DTOS.ProductDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Store {
     private int id;

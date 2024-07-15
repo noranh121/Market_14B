@@ -83,24 +83,25 @@ public class HomeView extends HorizontalLayout implements RouterLayout, AfterNav
 
         VerticalLayout drawer = new VerticalLayout(marketLink, storesLink);
 
-        if(VaadinSession.getCurrent().getAttribute("current-user") != null){
+        String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
+
+        if(username != null){
             drawer.add(mystoresLink);
         }
 
         drawer.add(cartLink);
 
-        if(VaadinSession.getCurrent().getAttribute("current-user") != null){
+        if(username != null){
             drawer.add(accountLink);
         }
 
-        if(VaadinSession.getCurrent().getAttribute("current-user") != null){
+        if(username != null){
             drawer.add(purchaseHistoryLink);
         }
 
-
         var isManager = VaadinSession.getCurrent().getAttribute("isManager");
 
-        if(isManager != null && (Boolean) isManager){
+        if(isManager != null && (Boolean) isManager && username != null){
             drawer.add(manageLink);
         }
 

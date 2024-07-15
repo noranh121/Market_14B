@@ -6,6 +6,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -14,12 +15,14 @@ import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.presenter.ManagerSettingPresenter;
+import org.market.PresentationLayer.views.components.PurchaseHistory;
 import org.market.Web.DTOS.StoreDTO;
 
 @Route(value = "settings", layout = HomeView.class)
 @RoutePrefix("dash")
 public class ManagerSettingsView extends VerticalLayout implements HasUrlParameter<String>, BeforeEnterObserver {
 
+    private VerticalLayout history_layout;
     private int store_id;
     private StoreDTO store;
     private HorizontalLayout topBar;
@@ -51,6 +54,9 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         HorizontalLayout mainContent = new HorizontalLayout(assignRoleSection, permissionSection);
         mainContent.addClassName("manager-settings-main-content");
         add(mainContent);
+
+        this.history_layout = new VerticalLayout();
+        add(history_layout);
     }
 
     public void createTopBar() {
@@ -182,6 +188,15 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         if(PermissionHandler.getRole(store_id).equals("Owner")){
             this.permissionSection.add(resign_btn_layout);
         }
+    }
+
+    public void createHistorySection() {
+        this.history_layout.removeAll();
+        Hr separator = new Hr();
+        separator.addClassName("purchase-separator");
+        PurchaseHistory history = new PurchaseHistory(store.getId());
+        this.history_layout.add(separator);
+        this.history_layout.add(history);
     }
 
     public void setAssignRoleClickEventListener(ComponentEventListener<ClickEvent<Button>> e){

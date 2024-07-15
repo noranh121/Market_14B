@@ -31,6 +31,7 @@ public class ManagerSettingPresenter {
         view.createTopBar();
         view.createAssignRoleSection("Assign Role");
         view.createPermissionSection("Permissions");
+        view.createHistorySection();
 
         view.setAssignRoleClickEventListener(e ->
                 onAssignRoleClick(view.getStore_id(), view.getRoleField(), view.getIsOwner().getValue(),

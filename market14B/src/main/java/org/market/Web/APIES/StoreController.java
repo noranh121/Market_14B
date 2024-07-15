@@ -122,7 +122,8 @@ public class StoreController {
             String tokenValue = token.replace("Bearer ", "");
             String username = jwtUtil.extractUsername(tokenValue);
             if (username != null && jwtUtil.validateToken(tokenValue,username)) {
-                Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),-1,rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
+                Integer category = service.getCategory(rstr.getCategory());
+                Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),category,rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
                 String response2 = service.addProduct(response1, rstr.getStore_id(), rstr.getPrice(), rstr.getInventory(), rstr.getUsername(), rstr.getWeight());
                 return ResponseEntity.ok(response2);
             }
@@ -134,7 +135,7 @@ public class StoreController {
         }
     }
 
-    // TODO
+    // DONE
     @DeleteMapping("/remove-product")
     public ResponseEntity<?> removeProduct(@RequestBody ReqStore rstr) throws Exception{
         try {
@@ -147,7 +148,7 @@ public class StoreController {
         }
     }
 
-    // TODO
+    // DONE
     @PutMapping("/edit-product-price")
     public ResponseEntity<?> EditProducPrice(@RequestBody ReqStore rstr) throws Exception{
         try {
@@ -160,7 +161,7 @@ public class StoreController {
         }
     }
 
-    // TODO
+    // DONE
     @PutMapping("/edit-product-quantity")
     public ResponseEntity<?> EditProductQuantity(@RequestBody ReqStore rstr) throws Exception{
         try {
@@ -209,6 +210,33 @@ public class StoreController {
             return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e){
             return ResponseEntity.status(400).body("Failed to get store info.");
+        }
+    }
+
+    // DONE
+    @GetMapping("/purchase-history/{store_id}")
+    public ResponseEntity<?> getPurchaseHistory(@PathVariable("store_id") Integer store_id) {
+        try{
+            List<String> res = service.getStorePurchaseHistory(store_id);
+            return ResponseEntity.ok(res);
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve store purchase history");
+        }
+    }
+
+    // DONE
+    @PostMapping("/remove-purchase/store={store_id}&purchase={purchase_id}")
+    public ResponseEntity<?> removePurchaseStore(@PathVariable("store_id") Integer store_id,
+                                                @PathVariable("purchase_id") Integer purchase_id) {
+        try{
+            String res = service.removePurchaseStore(store_id, purchase_id);
+            return ResponseEntity.ok(res);
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to remove store purchase history");
         }
     }
 

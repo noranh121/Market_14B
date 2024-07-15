@@ -66,4 +66,8 @@ public class MarketService {
     public boolean isSystemManager(String username) throws Exception {
         return market.isSystemManager(username);
     }
+
+    public Integer getCategory(String name) {
+        return market.getCategory(name);
+    }
 }

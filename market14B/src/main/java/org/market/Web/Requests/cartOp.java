@@ -14,17 +14,37 @@ public class cartOp {
         this.Quantity = quantity;
     }
 
-    public String getUsername(){
-        return this.username;
+    public cartOp(){}
+
+    public String getUsername() {
+        return username;
     }
-    public Integer getProdID(){
-        return this.ProductId;
+
+    public void setUsername(String username) {
+        this.username = username;
     }
-    public Integer getStoreID(){
-        return this.StoreId;
+
+    public Integer getProductId() {
+        return ProductId;
     }
-    public Integer getQuant(){
-        return this.Quantity;
+
+    public void setProductId(Integer productId) {
+        ProductId = productId;
     }
-    
+
+    public Integer getStoreId() {
+        return StoreId;
+    }
+
+    public void setStoreId(Integer storeId) {
+        StoreId = storeId;
+    }
+
+    public Integer getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        Quantity = quantity;
+    }
 }
