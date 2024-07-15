@@ -33,6 +33,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     private HorizontalLayout store_layout;
     private Dialog add_product_dialog;
     private TextField name_field;
+    private TextField category_field;
     private TextField brand_field;
     private TextField description_field;
     private NumberField price_field;
@@ -91,6 +92,10 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         this.description_field.setRequired(true);
         this.description_field.setRequiredIndicatorVisible(true);
 
+        this.category_field = new TextField("Category");
+        this.category_field.setRequired(true);
+        this.category_field.setRequiredIndicatorVisible(true);
+
         this.brand_field = new TextField("Brand");
         this.brand_field.setRequired(true);
         this.brand_field.setRequiredIndicatorVisible(true);
@@ -119,7 +124,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         apply_btn.addClassName("store-apply-btn");
         apply_layout.addClassName("store-apply-layout");
 
-        dialog_layout.add(name_field, description_field, brand_field, price_field, weight_field, inventory_field, apply_layout);
+        dialog_layout.add(name_field, description_field, category_field, brand_field, price_field, weight_field, inventory_field, apply_layout);
         this.add_product_dialog = new Dialog(dialog_layout);
         this.add_product_btn.addClickListener(e -> add_product_dialog.open());
 
@@ -187,7 +192,9 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     public TextField getDescription_field() {
         return description_field;
     }
-
+    public TextField getCategory_field() {
+        return category_field;
+    }
     public TextField getBrand_field() {
         return brand_field;
     }

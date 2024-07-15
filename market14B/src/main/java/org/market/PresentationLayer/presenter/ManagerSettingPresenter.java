@@ -31,6 +31,7 @@ public class ManagerSettingPresenter {
         view.createTopBar();
         view.createAssignRoleSection("Assign Role");
         view.createPermissionSection("Permissions");
+        view.createHistorySection();
         view.createDiscountSection("Discount Policies");
         view.createPolicySection("Purchase Policies");
         // loadPolicies();

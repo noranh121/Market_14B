@@ -11,6 +11,7 @@ public class ProductDTO {
     private String brand;
     private Double weigth;
     private int storeid;
+    private String category;
 
     public ProductDTO(Product product){
         this.id = product.getId();
@@ -86,4 +87,12 @@ public class ProductDTO {
     public void setWeigth(Double weigth) {
         this.weigth = weigth;
     }
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
 }

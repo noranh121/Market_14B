@@ -8,6 +8,7 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.presenter.ManagerSettingPresenter;
+import org.market.PresentationLayer.views.components.PurchaseHistory;
 import org.market.Web.DTOS.StoreDTO;
 import org.springframework.security.access.method.P;
 
@@ -34,6 +36,7 @@ import org.springframework.security.access.method.P;
 @RoutePrefix("dash")
 public class ManagerSettingsView extends VerticalLayout implements HasUrlParameter<String>, BeforeEnterObserver {
 
+    private VerticalLayout history_layout;
     private int store_id;
     private StoreDTO store;
     private HorizontalLayout topBar;
@@ -98,6 +101,9 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         mainContent.addClassName("manager-settings-main-content");
         secondContent.addClassName("manager-settings-second-content");
         add(mainContent);
+
+        this.history_layout = new VerticalLayout();
+        add(history_layout);
         add(secondContent);
     }
 
@@ -230,6 +236,16 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         if(PermissionHandler.getRole(store_id).equals("Owner")){
             this.permissionSection.add(resign_btn_layout);
         }
+    }
+
+
+    public void createHistorySection() {
+        this.history_layout.removeAll();
+        Hr separator = new Hr();
+        separator.addClassName("purchase-separator");
+        PurchaseHistory history = new PurchaseHistory(store.getId());
+        this.history_layout.add(separator);
+        this.history_layout.add(history);
     }
 
     public void createDiscountSection(String sectionTitle) {
@@ -443,6 +459,7 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         date.clear();
         price.clear();
         policyOn.clear();
+
     }
 
     public void setAssignRoleClickEventListener(ComponentEventListener<ClickEvent<Button>> e){

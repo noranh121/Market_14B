@@ -205,10 +205,20 @@ public class StoresService {
             throw new Exception("Price is Out Of Stock");
         }
         ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+        pdto.setCategory(p.getCategory().getName());
         return pdto;
     }
 
     public List<PermissionDTO> getPermissions(String username) throws Exception {
         return market.getPermissions(username);
+    }
+
+    public List<String> getStorePurchaseHistory(int storeId) throws Exception {
+        return market.getPurchaseHistoryStore(storeId);
+    }
+
+    public String removePurchaseStore(Integer storeId, Integer purchaseId) throws Exception {
+        return market.removePurchaseStore(storeId, purchaseId);
+
     }
 }

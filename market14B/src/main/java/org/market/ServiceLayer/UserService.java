@@ -3,6 +3,7 @@ package org.market.ServiceLayer;
 import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.market.Web.DTOS.CartItemDTO;
 import org.market.Web.DTOS.StoreDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -120,5 +121,13 @@ public class UserService {
 
     public List<String> getPurchaseHistory(String username) throws Exception {
         return market.getPurchaseHistoryUser(username);
+    }
+
+    public String removePurchaseUser(String username, Integer purchaseId) throws Exception {
+        return market.removePurchaseUser(username, purchaseId);
+    }
+
+    public List<CartItemDTO> getCart(String username) throws Exception {
+        return market.getCart(username);
     }
 }
