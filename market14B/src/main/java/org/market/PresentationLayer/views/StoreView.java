@@ -88,6 +88,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         offer_btn.addClassName("view-offer-btn");
         middle_layout.add(offer_btn);
         offer_btn.setVisible(false);
+        offer_btn.addClickListener(e -> NavigateToOfferPage());
 
         VerticalLayout dialog_layout = new VerticalLayout();
 
@@ -152,10 +153,6 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
 
     public void setCloseButtonClickEventListener(ComponentEventListener<ClickEvent<Button>> event) {
         this.close_btn.addClickListener(event);
-    }
-
-    public void viewOfferButtonClickEventListener(ComponentEventListener<ClickEvent<Button>> event) {
-        this.offer_btn.addClickListener(event);
     }
 
     public void setStoreLayout(StoreDTO store) {
@@ -223,7 +220,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     }
 
     public void NavigateToOfferPage(){
-        this.getUI().ifPresent(ui -> ui.navigate("/dash/store/offers"));
+        this.getUI().ifPresent(ui -> ui.navigate("dash/offers"));
     }
 
     @Override

@@ -48,10 +48,6 @@ public class StorePresenter {
 
                 }
         );
-        this.view.viewOfferButtonClickEventListener(e -> {
-                    onViewOfferClicked();
-                    UI.getCurrent().getPage().reload();
-        });
     }
 
     private void onCloseStoreClicked() {
