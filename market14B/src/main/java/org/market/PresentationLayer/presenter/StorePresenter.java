@@ -48,6 +48,10 @@ public class StorePresenter {
 
                 }
         );
+        this.view.viewOfferButtonClickEventListener(e -> {
+                    onViewOfferClicked();
+                    UI.getCurrent().getPage().reload();
+        });
     }
 
     private void onCloseStoreClicked() {
@@ -94,6 +98,15 @@ public class StorePresenter {
             ErrorHandler.showSuccessNotification("Store has been opened");
 
         }catch (HttpClientErrorException e){
+            ErrorHandler.handleError(e, ()->{});
+        }
+    }
+
+    private void onViewOfferClicked() {
+        try{
+            view.NavigateToOfferPage();
+        }
+        catch (HttpClientErrorException e){
             ErrorHandler.handleError(e, ()->{});
         }
     }

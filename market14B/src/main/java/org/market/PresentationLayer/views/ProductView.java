@@ -3,6 +3,7 @@ package org.market.PresentationLayer.views;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
@@ -36,8 +37,11 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
     private ProductPresenter presenter;
     private Button open_edit;
     private Button save_edit;
+    private Button makeOfferButton;
+    private Button sendOfferButton;
     private NumberField new_price_field;
     private IntegerField new_inventory_field;
+    private Dialog makeOfferDialog;
 
 
 
@@ -76,6 +80,45 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         addToCartButton.addClassName("add-to-cart-btn");
         addToCartButton.setSuffixComponent(VaadinIcon.PLUS_CIRCLE_O.create());
 
+        // offer code
+        makeOfferButton = new Button();
+        makeOfferButton.addClassName("make-offer-btn");
+        makeOfferButton.setIcon(VaadinIcon.PLUS_MINUS.create());
+
+        makeOfferButton.getStyle().set("border-radius", "50%");
+        makeOfferButton.getStyle().set("width", "50px");
+        makeOfferButton.getStyle().set("height", "50px");
+        makeOfferButton.getStyle().set("padding", "0");
+        makeOfferButton.getStyle().set("min-width", "50px");
+
+        makeOfferDialog = new Dialog();
+        makeOfferDialog.setCloseOnEsc(true);
+        makeOfferDialog.setCloseOnOutsideClick(true);
+        VerticalLayout dialogLayout = new VerticalLayout();
+        H2 dialogTitle = new H2("Make an Offer");
+        IntegerField offerPriceField = new IntegerField("Price");
+        sendOfferButton = new Button("Send");
+        dialogLayout.add(dialogTitle, offerPriceField, sendOfferButton);
+        makeOfferDialog.add(dialogLayout);
+
+        makeOfferButton.addClickListener(e -> makeOfferDialog.open());
+        
+        sendOfferButton.addClassName("send-offer-btn");
+        makeOfferDialog.addClassName("make-offer-dialog");
+        dialogLayout.addClassName("dialog-layout");
+
+        makeOfferDialog.getElement().getStyle().set("width", "300px");
+        dialogLayout.getStyle().set("align-items", "center");
+        offerPriceField.getStyle().set("width", "100%");
+        sendOfferButton.getStyle().set("margin-top", "20px");
+
+        sendOfferButton.addClickListener(e -> {
+            offerPriceField.clear();
+            makeOfferDialog.close();
+        });
+
+        //end offer code
+
         VerticalLayout productLayout = new VerticalLayout();
 
         this.edit_layout = new HorizontalLayout();
@@ -105,7 +148,7 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
 
 
         HorizontalLayout quantity_price = new HorizontalLayout(quantityField, price);
-        VerticalLayout button_layout = new VerticalLayout(addToCartButton);
+        VerticalLayout button_layout = new VerticalLayout(addToCartButton, makeOfferButton);
 
         button_layout.getStyle().set("width", "auto");
         button_layout.getStyle().set("margin-top", "80px");

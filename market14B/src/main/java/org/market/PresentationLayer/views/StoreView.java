@@ -43,6 +43,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     private VerticalLayout products_layout;
     private Button open_btn;
     private Button close_btn;
+    private Button offer_btn;
 
     public StoreView(){
         addClassName("store-view");
@@ -81,6 +82,12 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         close_btn.addClassName("close-store-btn");
         middle_layout.add(close_btn);
         close_btn.setVisible(false);
+
+        this.offer_btn = new Button("View Offers");
+        offer_btn.setSuffixComponent(VaadinIcon.PLUS_MINUS.create());
+        offer_btn.addClassName("view-offer-btn");
+        middle_layout.add(offer_btn);
+        offer_btn.setVisible(false);
 
         VerticalLayout dialog_layout = new VerticalLayout();
 
@@ -147,6 +154,10 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         this.close_btn.addClickListener(event);
     }
 
+    public void viewOfferButtonClickEventListener(ComponentEventListener<ClickEvent<Button>> event) {
+        this.offer_btn.addClickListener(event);
+    }
+
     public void setStoreLayout(StoreDTO store) {
         VerticalLayout info_layout = new VerticalLayout();
 
@@ -211,6 +222,10 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         return inventory_field;
     }
 
+    public void NavigateToOfferPage(){
+        this.getUI().ifPresent(ui -> ui.navigate("/dash/store/offers"));
+    }
+
     @Override
     public void setParameter(BeforeEvent beforeEvent, String s) {
         try {
@@ -221,6 +236,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
                 products_layout.add(products);
                 if(PermissionHandler.hasPermission(this.store_id, 0)){
                     add_product_btn.setVisible(true);
+                    offer_btn.setVisible(true);
                 }
             } else {
                 System.out.println("Invalid or empty parameter provided.");
