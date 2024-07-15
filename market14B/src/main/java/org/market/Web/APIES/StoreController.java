@@ -8,6 +8,8 @@ import org.market.Web.DTOS.StoreDTO;
 import org.market.Web.Requests.AddProductReq;
 import org.market.Web.Requests.AddStoreReq;
 import org.market.Web.Requests.ReqStore;
+import org.market.Web.Requests.addDiscountReq;
+import org.market.Web.Requests.addPurchaseReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -211,5 +213,55 @@ public class StoreController {
             return ResponseEntity.status(400).body("Failed to get store info.");
         }
     }
+
+    // public ResponseEntity<?> addCategoryDiscount(@RequestBody addDiscountReq rdt) {
+    //     try {
+    //         String response = service.addCategoryDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getCategoryId(),rdt.getStoreId(),rdt.getUsername(),0);
+    //     }
+    // }
+
+    // public ResponseEntity<?> addProductDiscount(@RequestBody addDiscountReq rdt) {
+    //     try {
+    //         String response = service.addProductDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getProductId(),rdt.getStoreId(),rdt.getUsername(),0);
+    //     }
+    // }
+
+    // public ResponseEntity<?> addStoreDiscount(@RequestBody addDiscountReq rdt) {
+    //     try {
+    //         String response = service.addStoreDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getStoreId(),rdt.getUsername(),0);
+    //     }
+    // }
+
+    // public ResponseEntity<?> addLogicalDiscount(@RequestBody addDiscountReq rdt) {
+    //     try {
+    //         String response = service.addLogicalDiscountPolicy(rdt.getUsername(),rdt.getStoreId(),rdt.getLogicalRule(),0);
+    //     }
+    // }
+
+    // public ResponseEntity<?> addCategoryPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+    //     try {
+    //         String response = service.addCategoryPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getCategoryId(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+    //     }
+    // }
+
+    // public ResponseEntity<?> addProductPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+    //     try {
+    //         String response = service.addProductPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getProductId(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+    //     }
+    // }
+
+    // public ResponseEntity<?> addShoppingCartPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+    //     try {
+    //         String response = service.addShoppingCartPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+    //     }
+    // }
+
+    // public ResponseEntity<?> addUserPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+    //     try {
+    //         String response = service.addUserPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+    //     }
+    // }
+    
+
 
 }
