@@ -5,11 +5,7 @@ import org.market.ServiceLayer.SuspendedException;
 import org.market.ServiceLayer.TokenService;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
-import org.market.Web.Requests.AddProductReq;
-import org.market.Web.Requests.AddStoreReq;
-import org.market.Web.Requests.ReqStore;
-import org.market.Web.Requests.addDiscountReq;
-import org.market.Web.Requests.addPurchaseReq;
+import org.market.Web.Requests.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -243,54 +239,101 @@ public class StoreController {
 
     @PostMapping("/add-category-discount")
     public ResponseEntity<?> addCategoryDiscount(@RequestBody addDiscountReq rdt) {
-         try {
-             String response = service.addCategoryDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getCategoryId(),rdt.getStoreId(),rdt.getUsername(),0);
-         }
+        try{
+            String res = service.addCategoryDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getCategoryName(),rdt.getStoreId(),rdt.getUsername(),0);
+            return ResponseEntity.ok(res);
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add category discount policy");
+        }
      }
 
     @PostMapping("/add-product-discount")
     public ResponseEntity<?> addProductDiscount(@RequestBody addDiscountReq rdt) {
-         try {
-             String response = service.addProductDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getProductId(),rdt.getStoreId(),rdt.getUsername(),0);
-         }
+        try{
+            String res = service.addProductDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getProductName(),rdt.getStoreId(),rdt.getUsername(),0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add product discount policy");
+        }
      }
 
     @PostMapping("/add-store-discount")
     public ResponseEntity<?> addStoreDiscount(@RequestBody addDiscountReq rdt) {
-         try {
-             String response = service.addStoreDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getStoreId(),rdt.getUsername(),0);
-         }
+        try{
+            String res = service.addStoreDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getStoreId(),rdt.getUsername(),0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add store discount policy");
+        }
      }
 
     @PostMapping("/add-logical-discount")
     public ResponseEntity<?> addLogicalDiscount(@RequestBody addDiscountReq rdt) {
-         try {
-             String response = service.addLogicalDiscountPolicy(rdt.getUsername(),rdt.getStoreId(),rdt.getLogicalRule(),0);
-         }
+        try{
+            String res = service.addLogicalDiscountPolicy(rdt.getUsername(),rdt.getStoreId(),rdt.getLogicalRule(),0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add logical discount policy");
+        }
      }
 
-    // public ResponseEntity<?> addCategoryPurchasePolicy(@RequestBody addPurchaseReq rpt) {
-    //     try {
-    //         String response = service.addCategoryPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getCategoryId(), rpt.getUsername(), rpt.getStoreId(), true, 0);
-    //     }
-    // }
+    @PostMapping("/add-category-purchase")
+    public ResponseEntity<?> addCategoryPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addCategoryPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getCategoryName(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add category purchase policy");
+        }
+     }
 
-    // public ResponseEntity<?> addProductPurchasePolicy(@RequestBody addPurchaseReq rpt) {
-    //     try {
-    //         String response = service.addProductPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getProductId(), rpt.getUsername(), rpt.getStoreId(), true, 0);
-    //     }
-    // }
+    @PostMapping("/add-product-purchase")
+    public ResponseEntity<?> addProductPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addProductPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getProductName(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add product purchase policy");
+        }
+     }
 
-    // public ResponseEntity<?> addShoppingCartPurchasePolicy(@RequestBody addPurchaseReq rpt) {
-    //     try {
-    //         String response = service.addShoppingCartPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getUsername(), rpt.getStoreId(), true, 0);
-    //     }
-    // }
+    @PostMapping("/add-shoppingcart-purchase")
+    public ResponseEntity<?> addShoppingCartPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addShoppingCartPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add shopping cart purchase policy");
+        }
+     }
 
-    // public ResponseEntity<?> addUserPurchasePolicy(@RequestBody addPurchaseReq rpt) {
-    //     try {
-    //         String response = service.addUserPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getUsername(), rpt.getStoreId(), true, 0);
-    //     }
-    // }
+    @PostMapping("/add-user-purchase")
+    public ResponseEntity<?> addUserPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addUserPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add user purchase policy");
+        }
+     }
 
+    @PostMapping("/add-logical-purchase")
+    public ResponseEntity<?> addLogicalPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addLogicalPurchasePolicy(rpt.getUsername(), rpt.getStoreId(), rpt.getLogicalRule(), 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add logical purchase policy");
+        }
+    }
 }

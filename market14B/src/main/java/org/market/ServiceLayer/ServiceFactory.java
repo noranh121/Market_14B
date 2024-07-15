@@ -1,5 +1,9 @@
 package org.market.ServiceLayer;
 
+import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
+import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 import org.market.Web.DTOS.CartItemDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
@@ -7,6 +11,7 @@ import org.market.Web.DTOS.StoreDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -223,5 +228,79 @@ public class ServiceFactory {
 
     public List<CartItemDTO> getCart(String username) throws Exception {
         return userService.getCart(username);
+    }
+
+    public String addCategoryDiscountPolicy(boolean b, int price, int quantity, double percentage, String categoryName, int storeId, String username, int i) throws Exception {
+        if(marketService.hasCategory(categoryName)){
+            int category = marketService.getCategory(categoryName);
+            return storesService.addCategoryDiscountPolicy(b, price, quantity, percentage, category, storeId, username, i);
+        }
+        else{
+            throw new Exception("category does not exist.");
+        }
+    }
+
+    public String addProductDiscountPolicy(boolean b, int price, int quantity, double percentage, String productName, int storeId, String username, int i) throws Exception {
+        int productId = -1;
+        for(Product p : Market.getPC().getProducts()){
+            if(p.getName().equals(productName)){
+                productId = p.getId();
+            }
+        }
+        if(productId == -1){
+            throw new Exception("Product does not exist");
+        }
+        return storesService.addProductDiscountPolicy(b, price, quantity, percentage, productId, storeId, username, i);
+    }
+
+    public String addStoreDiscountPolicy(boolean b, int price, int quantity, double percentage, int storeId, String username, int i) throws Exception {
+        return storesService.addStoreDiscountPolicy(b, price, quantity, percentage, storeId, username, i);
+    }
+
+    public String addLogicalDiscountPolicy(String username, int storeId, String logicalRule, int i) throws Exception {
+        DiscountPolicyController.LogicalRule rule = logicalRule.equals("AND") ? DiscountPolicyController.LogicalRule.AND :
+                logicalRule.equals("OR") ? DiscountPolicyController.LogicalRule.OR :
+                        logicalRule.equals("XOR") ? DiscountPolicyController.LogicalRule.XOR :
+                        DiscountPolicyController.LogicalRule.IF_THEN;
+        return storesService.addLogicalDiscount(username, storeId, rule, i);
+    }
+
+    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age, String categoryName, String username, int storeId, boolean b, int i) throws Exception {
+        if(marketService.hasCategory(categoryName)){
+            int category = marketService.getCategory(categoryName);
+            return storesService.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, category, username, storeId, b, i);
+        }
+        else{
+            throw new Exception("category does not exist.");
+        }
+    }
+
+    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age, String productName, String username, int storeId, boolean b, int i) throws Exception {
+        int productId = -1;
+        for(Product p : Market.getPC().getProducts()){
+            if(p.getName().equals(productName)){
+                productId = p.getId();
+            }
+        }
+        if(productId == -1){
+            throw new Exception("Product does not exist");
+        }
+        return storesService.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId,b, i);
+    }
+
+    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId, boolean b, int i) throws Exception {
+        return storesService.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId, b, i);
+    }
+
+    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId, boolean b, int i) throws Exception {
+        return storesService.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, age, username, storeId, b, i);
+    }
+
+    public String addLogicalPurchasePolicy(String username, int storeId, String logicalRule, int i) throws Exception {
+        PurchasePolicyController.LogicalRule rule = logicalRule.equals("AND") ? PurchasePolicyController.LogicalRule.AND :
+                logicalRule.equals("OR") ? PurchasePolicyController.LogicalRule.OR :
+                        logicalRule.equals("XOR") ? PurchasePolicyController.LogicalRule.OR :
+                                PurchasePolicyController.LogicalRule.IF_THEN;
+        return storesService.addLogicalPurchase(username, storeId, rule, i);
     }
 }

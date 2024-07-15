@@ -11,13 +11,13 @@ import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
@@ -45,7 +45,7 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
     private TextField roleField;
     private TextField discountTitle;
     private TextField purchaseTitle;
-    private IntegerField discountPercentage;
+    private NumberField discountPercentage;
     private IntegerField minPrice;
     private IntegerField minQuantity;
     private IntegerField quantity;
@@ -265,11 +265,13 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         VerticalLayout discountFields = new VerticalLayout();
 
         selectdp = new Select<>();
-        selectdp.setItems("none","And", "Or","Xor", "If-Then"); 
+        selectdp.setItems("none","AND", "OR","XOR", "IF_THEN");
         selectdp.setValue("none");
         discountFields.add(selectdp);
         this.discountTitle = new TextField("Discount Title");
-        this.discountPercentage = new IntegerField("Discount Percentage");
+        this.discountPercentage = new NumberField("Discount Percentage");
+        this.discountPercentage.setMax(1);
+        this.discountPercentage.setMin(0);
 
         this.dpolicyType = new RadioButtonGroup<>();
         dpolicyType.setLabel("Policy Type");
@@ -298,15 +300,15 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
 
         addDiscount_btn = new Button("Add");
         this.discountSection.add(addDiscount_btn);
-        addDiscountClickEventListener(e -> addNewDPolicy(discountTitle.getValue()));
+        //addDiscountClickEventListener(e -> addNewDPolicy(discountTitle.getValue()));
     }
 
-    public void addNewDPolicy(String policy) {
-        currentDiscountPolicies.add(policy);
-        updateCurrentDiscoutLayout();
-        clearDPolicyFields();
-        Notification.show("Discount Policy added");
-    }
+//    public void addNewDPolicy(String policy) {
+//        currentDiscountPolicies.add(policy);
+//        updateCurrentDiscoutLayout();
+//        clearDPolicyFields();
+//        Notification.show("Discount Policy added");
+//    }
 
     public void updateCurrentDiscoutLayout() {
         currentDiscountsLayout.removeAll();
@@ -354,7 +356,7 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         VerticalLayout purchaseFields = new VerticalLayout();
 
         selectpp = new Select<>();
-        selectpp.setItems("none","And", "Or","Xor", "If-Then"); 
+        selectpp.setItems("none","AND", "OR","XOR", "IF_THEN");
         selectpp.setValue("none");
         purchaseFields.add(selectpp);
         purchaseTitle = new TextField("purchase policy title");
@@ -406,16 +408,16 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
 
         addPurchase_btn = new Button("Add");
         this.policySection.add(addPurchase_btn);
-        addPurchaseClickEventListener(e -> addNewPPolicy(purchaseTitle.getValue()));
+//        addPurchaseClickEventListener(e -> addNewPPolicy(purchaseTitle.getValue()));
 
     }
 
-    public void addNewPPolicy(String policy) {
-        currentPurchasePolicies.add(policy);
-        updateCurrentPurchasePolicyLayout();
-        clearPPolicyFields();
-        Notification.show("Purchase Policy added");
-    }
+//    public void addNewPPolicy(String policy) {
+//        //currentPurchasePolicies.add(policy);
+//        updateCurrentPurchasePolicyLayout();
+//        clearPPolicyFields();
+//        Notification.show("Purchase Policy added");
+//    }
 
     public void updateCurrentPurchasePolicyLayout() {
         currentPoliciesLayout.removeAll();
@@ -535,7 +537,7 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         return editDiscountHistory;
     }
 
-    public IntegerField getDiscountPercentage() {
+    public NumberField getDiscountPercentage() {
         return discountPercentage;
     }
 

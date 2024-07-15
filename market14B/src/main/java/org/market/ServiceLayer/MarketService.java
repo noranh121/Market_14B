@@ -70,4 +70,8 @@ public class MarketService {
     public Integer getCategory(String name) {
         return market.getCategory(name);
     }
+
+    public boolean hasCategory(String name) {
+        return market.hasCategory(name);
+    }
 }
