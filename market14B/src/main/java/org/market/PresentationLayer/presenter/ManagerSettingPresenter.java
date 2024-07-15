@@ -32,6 +32,9 @@ public class ManagerSettingPresenter {
         view.createAssignRoleSection("Assign Role");
         view.createPermissionSection("Permissions");
         view.createHistorySection();
+        view.createDiscountSection("Discount Policies");
+        view.createPolicySection("Purchase Policies");
+        // loadPolicies();
 
         view.setAssignRoleClickEventListener(e ->
                 onAssignRoleClick(view.getStore_id(), view.getRoleField(), view.getIsOwner().getValue(),
@@ -59,6 +62,14 @@ public class ManagerSettingPresenter {
                         view.getIsManager().getValue(),
                         new Boolean[]{view.getEditProducts().getValue(), view.getEditPurchaseHistory().getValue(),
                                 view.getEditDiscountHistory().getValue()})
+        );
+
+        view.addDiscountClickEventListener(e ->
+                onAddDiscountClicked()
+        );
+
+        view.addPurchaseClickEventListener(e ->
+                onAddPurchaseClicked()
         );
     }
 
@@ -158,6 +169,18 @@ public class ManagerSettingPresenter {
             ErrorHandler.handleError(e, () -> {
             });
         }
+    }
+
+    private void onAddDiscountClicked() {
+
+    }
+
+    private void onAddPurchaseClicked() {
+
+    }
+
+    private boolean validateAddDiscount() {
+        return false;
     }
 
 
