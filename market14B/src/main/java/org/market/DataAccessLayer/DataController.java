@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,6 +44,10 @@ public class DataController {
    private  MarketRepository marketRepository;
    @Autowired
    private  UserRepository userRepository;
+   @Autowired
+   private PurchaseRepository purchaseRepository;
+   @Autowired
+   private DiscountRepository discountRepository;
 
    private FileHandler fileHandler;
 
@@ -480,5 +486,54 @@ public MarketRepository getMarketRepository() {
 public UserRepository getUserRepository() {
     return userRepository;
 }
+
+public void addDiscountPolicy(Boolean standard, double conditionalPrice, double conditionalQuantity,
+        double discountPercentage, int categoryId, int productId, int storeId, String username, int parentid, String type) {
+    DiscountPolicy discountPolicy=new DiscountPolicy();
+    discountPolicy.setStandard(standard);
+    discountPolicy.setConditionalPrice(conditionalPrice);
+    discountPolicy.setConditionalQuantity(conditionalQuantity);
+    discountPolicy.setDiscountPercentage(discountPercentage);
+    discountPolicy.setCategoryId(categoryId);
+    discountPolicy.setProductId(productId);
+    Store store=storeRepository.findById(storeId).get();
+    discountPolicy.setStoreId(store);
+    discountPolicy.setUsername(username);
+    DiscountPolicy dp=discountRepository.findById(parentid).get();
+    discountPolicy.setParentDiscount(dp);
+    discountPolicy.setType(type);
+    discountRepository.save(discountPolicy);
+    List<DiscountPolicy> subDiscountPolicies=dp.getSubDiscounts();
+    subDiscountPolicies.add(discountPolicy);
+    dp.setSubDiscounts(subDiscountPolicies);
+    discountRepository.save(dp);
+}
+
+public void addPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,
+        double userAge, int categoryId, int productId, String username, int storeId, Boolean immediate, int parentid, String type) {
+    PurchasePolicy purchasePolicy=new PurchasePolicy();
+    purchasePolicy.setQuantity(quantity);
+    purchasePolicy.setPrice(price);
+    purchasePolicy.setDate(date.toString());
+    purchasePolicy.setAtLeast(atLeast);
+    purchasePolicy.setWeight(weight);
+    purchasePolicy.setAge(userAge);
+    purchasePolicy.setUserAge(userAge);
+    purchasePolicy.setCategoryId(categoryId);
+    purchasePolicy.setProductId(productId);
+    purchasePolicy.setUsername(username);
+    Store store=storeRepository.findById(storeId).get();
+    purchasePolicy.setStoreId(store);
+    purchasePolicy.setImmediate(immediate);
+    PurchasePolicy pp=purchaseRepository.findById(parentid).get();
+    purchasePolicy.setParentPurchase(pp);
+    purchasePolicy.setType(type);
+    purchaseRepository.save(purchasePolicy);
+    List<PurchasePolicy> subPurchasePolicies=pp.getSubPurchases();
+    subPurchasePolicies.add(purchasePolicy);
+    pp.setSubPurchases(subPurchasePolicies);
+    purchaseRepository.save(pp);
+}
+
 
 }

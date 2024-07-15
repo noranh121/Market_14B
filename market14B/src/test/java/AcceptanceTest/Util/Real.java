@@ -187,7 +187,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.AND;
-        market.addLogicalDiscount("ali",0,role,0);
+        market.addLogicalDiscount("ali",0,"And",0);
         market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
         market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
         market.addToCart("ali", 0, 0, 5);
@@ -208,7 +208,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.AND;
-        market.addLogicalDiscount("ali",0,role,0);
+        market.addLogicalDiscount("ali",0,"And",0);
         market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
         market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
         market.addToCart("ali", 0, 0, 5);
@@ -229,7 +229,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.XOR;
-        market.addLogicalDiscount("ali",0,role,0);
+        market.addLogicalDiscount("ali",0,"Xor",0);
         market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
         market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
         market.addToCart("ali", 0, 0, 5);
@@ -273,7 +273,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.AND;
-        market.addLogicalPurchase("ali",0,role,0);
+        market.addLogicalPurchase("ali",0,"And",0);
         market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addToCart("ali", 0, 0, 4);
@@ -295,7 +295,7 @@ public class Real implements Bridge {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.AND;
-            market.addLogicalPurchase("ali",0,role,0);
+            market.addLogicalPurchase("ali",0,"And",0);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 4);
@@ -319,7 +319,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.OR;
-        market.addLogicalPurchase("ali",0,role,0);
+        market.addLogicalPurchase("ali",0,"Or",0);
         market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addToCart("ali", 0, 0, 4);
@@ -341,7 +341,7 @@ public class Real implements Bridge {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.OR;
-            market.addLogicalPurchase("ali",0,role,0);
+            market.addLogicalPurchase("ali",0,"Or",0);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 2);
@@ -365,11 +365,11 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         DiscountPolicyController.LogicalRule role1=DiscountPolicyController.LogicalRule.AND;
-        market.addLogicalDiscount("ali",0,role1,0);
+        market.addLogicalDiscount("ali",0,"And",0);
         market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
         market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
         DiscountPolicyController.LogicalRule role2=DiscountPolicyController.LogicalRule.OR;
-        market.addLogicalDiscount("ali",0,role2,1);
+        market.addLogicalDiscount("ali",0,"Or",1);
         market.addStoreDiscountPolicy(true, 0, 0, 0.1, 0,  "ali",4);
         market.addToCart("ali", 0, 0, 5);
         return market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
@@ -389,11 +389,11 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         PurchasePolicyController.LogicalRule role1=PurchasePolicyController.LogicalRule.AND;
-        market.addLogicalPurchase("ali",0,role1,0);
+        market.addLogicalPurchase("ali",0,"And",0);
         market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
         PurchasePolicyController.LogicalRule role2=PurchasePolicyController.LogicalRule.OR;
-        market.addLogicalPurchase("ali",0,role2,1);
+        market.addLogicalPurchase("ali",0,"Or",1);
         market.addUserPurchasePolicy(3,-1,null,0,-1,18,19,"ali",0,true,4);
         market.addToCart("ali", 0, 0, 5);
         return market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);

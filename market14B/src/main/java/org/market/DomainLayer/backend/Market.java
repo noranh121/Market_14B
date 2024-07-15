@@ -582,6 +582,7 @@ public class Market {
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         CategoryDiscount categoryDiscount=new CategoryDiscount(discountType, discountPercentage, categoryId, -1);
         storeController.getStore(storeId).addDiscountComposite(categoryDiscount,id);
+        dataController.addDiscountPolicy(standard,conditionalPrice,conditionalQuantity,discountPercentage,categoryId,-1,storeId,username,id,"category");
         LOGGER.info("category discount policy added");
         return "category discount policy added";
     }
@@ -597,6 +598,7 @@ public class Market {
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         ProductDiscount productDiscount=new ProductDiscount(discountType, discountPercentage,productId,-1);
         storeController.getStore(storeId).addDiscountComposite(productDiscount,id);
+        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1,id, storeId, username, id,"product");
         LOGGER.info("product discount policy added");
         return "product discount policy added";
     }
@@ -612,6 +614,7 @@ public class Market {
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         StoreDiscount storeDiscount=new StoreDiscount(discountType, discountPercentage,-1);
         storeController.getStore(storeId).addDiscountComposite(storeDiscount,id);
+        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1, -1, storeId, username, id, "store");
         LOGGER.info("store discount policy added");
         return "store discount policy added";
     }
@@ -636,12 +639,14 @@ public class Market {
         if(ADD){
             ADDDiscountRule addDiscountRule=new ADDDiscountRule(-1);
             storeController.getStore(storeId).addDiscountComposite(addDiscountRule,id);
+            dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "add");
             LOGGER.info("ADD discount policy added");
             return "ADD discount policy added";
         }
         else{
             AT_MOSTDiscountRule at_MOSTDiscountRule=new AT_MOSTDiscountRule(-1);
             storeController.getStore(storeId).addDiscountComposite(at_MOSTDiscountRule,id);
+            dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "atmost");
             LOGGER.info("AT_MOST discount policy added");
             return "AT_MOST discount policy added";
         }
@@ -675,16 +680,19 @@ public class Market {
             case AND:
                 ANDDiscountRule andDiscountRule=new ANDDiscountRule(-1);
                 storeController.getStore(storeId).addDiscountComposite(andDiscountRule,id);
+                dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "and");
                 LOGGER.info("AND discount policy added");
                 return "AND discount policy added";
             case OR:
                 ORDiscountRule orDiscountRule=new ORDiscountRule(-1);
                 storeController.getStore(storeId).addDiscountComposite(orDiscountRule,id);
+                dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "or");
                 LOGGER.info("OR discount policy added");
                 return "OR discount policy added";
             case XOR:
                 XORDiscountRule xorDiscountRule=new XORDiscountRule(-1);
                 storeController.getStore(storeId).addDiscountComposite(xorDiscountRule,id);
+                dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "xor");
                 LOGGER.info("XOR discount policy added");
                 return "XOR discount policy added";
             default:
@@ -713,6 +721,7 @@ public class Market {
         PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         CategoryPurchase categoryPurchase=new CategoryPurchase(purchaseMethod, categoryId, -1);
         storeController.getStore(storeId).addPurchaseComposite(categoryPurchase,id);
+        dataController.addPurchasePolicy(quantity,price,date,atLeast,weight,age,-1,categoryId,-1,username,storeId,immediate,id,"category");
         LOGGER.info("category purchase policy added");
         return "category purchase policy added";
     }
@@ -728,6 +737,7 @@ public class Market {
         PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         ProductPurchase productPurchase=new ProductPurchase(purchaseMethod, productId, storeId);
         storeController.getStore(storeId).addPurchaseComposite(productPurchase,id);
+        dataController.addPurchasePolicy(quantity, price, date, atLeast, weight, age,-1, -1,productId, username, storeId, immediate, id,"product");
         LOGGER.info("product purchase policy added");
         return "product purchase policy added";
     }
@@ -743,6 +753,7 @@ public class Market {
         PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         ShoppingCartPurchase ShoppingCartPurchase=new ShoppingCartPurchase(purchaseMethod, -1);
         storeController.getStore(storeId).addPurchaseComposite(ShoppingCartPurchase,id);
+        dataController.addPurchasePolicy(quantity, price, date, atLeast, weight, age,-1, -1, -1, username, storeId, immediate, id,"shoppingcart");
         LOGGER.info("shopping cart purchase policy added");
         return "shopping cart purchase policy added";
     }
@@ -758,6 +769,7 @@ public class Market {
         PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
         UserPurchase userPurchase=new UserPurchase(purchaseMethod, userAge, storeId);
         storeController.getStore(storeId).addPurchaseComposite(userPurchase,id);
+        dataController.addPurchasePolicy(quantity, price, date, atLeast, weight, age,userAge, -1, -1, username, storeId, immediate, id,"user");
         LOGGER.info("user purchase policy added");
         return "user purchase policy added";
     }
@@ -790,16 +802,19 @@ public class Market {
             case AND:
                 ANDPurchaseRule andPurchaseRule=new ANDPurchaseRule(-1);
                 storeController.getStore(storeId).addPurchaseComposite(andPurchaseRule,id);
+                dataController.addPurchasePolicy(0, 0, null, 0, 0, 0, 0,0, 0, username, storeId, false, id, logicalRule);
                 LOGGER.info("AND purchase policy added");
                 return "AND purchase policy added";
             case OR:
                 ORPurchaseRule orPurchaseRule=new ORPurchaseRule(-1);
                 storeController.getStore(storeId).addPurchaseComposite(orPurchaseRule,id);
+                dataController.addPurchasePolicy(0, 0, null, 0, 0, 0, 0,0, 0, username, storeId, false, id, logicalRule);
                 LOGGER.info("OR purchase policy added");
                 return "OR purchase policy added";
             case IF_THEN:
                 IF_THENPurchaseRule if_THENDiscountRule=new IF_THENPurchaseRule(-1);
                 storeController.getStore(storeId).addPurchaseComposite(if_THENDiscountRule,id);
+                dataController.addPurchasePolicy(0, 0, null, 0, 0, 0, 0,0, 0, username, storeId, false, id, logicalRule);
                 LOGGER.info("IF_THEN discount policy added");
                 return "IF_THEN discount policy added";
             default:
