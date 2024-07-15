@@ -1,13 +1,10 @@
 package org.market.DataAccessLayer.Entity;
-// import javax.persistence.*;
-
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-//@Table(name="PurchaseHistory",catalog = "Market")
 @Table(name="PurchaseHistory")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,12 +16,10 @@ public class PurchaseHistory implements java.io.Serializable {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="productID",referencedColumnName = "productID")
-    // @JoinColumn(name = "productID")
     private Product productID;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="storeID",referencedColumnName = "storeID")
-    // @JoinColumn (name = "storeID")
     private Store storeID;
 
     @ManyToOne(fetch=FetchType.LAZY)

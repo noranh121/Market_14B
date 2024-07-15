@@ -3,15 +3,11 @@ package org.market.DataAccessLayer.Entity;
 import java.io.Serializable;
 import java.util.*;
 
-// import javax.persistence.*;
-
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-//@Table(name="Inventory",catalog = "Market")
 @Table(name="Inventory")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +15,6 @@ public class Inventory implements Serializable{
 
     @Id
     @JoinColumn(name="storeID",referencedColumnName = "storeID")
-    // @JoinColumn(name="storeID")
     private Store storeID;
 
     @Column(name = "products")

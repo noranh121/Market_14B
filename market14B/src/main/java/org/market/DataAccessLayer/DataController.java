@@ -14,10 +14,8 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 @Service
-// @Transactional
 public class DataController {
 
    public static final Logger LOGGER = Logger.getLogger(DataController.class.getName());
@@ -374,7 +372,8 @@ public class DataController {
        Product product = productRepository.getReferenceById(productId);
        //Store tempStore = storeRepository.getReferenceById(storeId);
        //tempStore.getInventory().addProduct(product, price, quantity);
-       Inventory inventory = inventoryRepository.findById(storeId).get();
+       Store store=storeRepository.findById(storeId).get();
+       Inventory inventory = inventoryRepository.findById(store).get();
        inventory.addProduct(product, price, quantity);
        inventoryRepository.save(inventory);
        LOGGER.info("added product to the store in db");
@@ -383,7 +382,8 @@ public class DataController {
    public   void removeProduct(int storeId, int productId) {
        Product product = productRepository.getReferenceById(productId);
        //Store tempStore = storeRepository.getReferenceById(storeId);
-       Inventory inventory = inventoryRepository.findById(storeId).get();
+       Store store=storeRepository.findById(storeId).get();
+       Inventory inventory = inventoryRepository.findById(store).get();
        inventory.removeProduct(product);
        inventoryRepository.save(inventory);
        LOGGER.info("removed product from store in db");
@@ -392,7 +392,8 @@ public class DataController {
    public   void EditProductPrice(int productId, int storeId, Double newPrice) {
        Product product = productRepository.getReferenceById(productId);
        //Store tempStore = storeRepository.getReferenceById(storeId);
-       Inventory inventory = inventoryRepository.findById(storeId).get();
+       Store store=storeRepository.findById(storeId).get();
+       Inventory inventory = inventoryRepository.findById(store).get();
        inventory.editPrice(product,newPrice);
        inventoryRepository.save(inventory);
        LOGGER.info("replaced price in db");
@@ -401,7 +402,8 @@ public class DataController {
    public   void EditProductQuantity(int productId, int storeId, int newQuantity) {
        Product product = productRepository.getReferenceById(productId);
        //Store tempStore = storeRepository.getReferenceById(storeId);
-       Inventory inventory = inventoryRepository.findById(storeId).get();
+       Store store=storeRepository.findById(storeId).get();
+       Inventory inventory = inventoryRepository.findById(store).get();
        inventory.editQuantity(product,newQuantity);
        inventoryRepository.save(inventory);
        LOGGER.info("replaced quantity in db");

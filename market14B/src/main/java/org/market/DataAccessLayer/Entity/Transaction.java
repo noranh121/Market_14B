@@ -17,7 +17,6 @@ public class Transaction  implements java.io.Serializable{
     
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="username",referencedColumnName = "username")
-    // @JoinColumn(name="username")
     private User user;
 
     @Id

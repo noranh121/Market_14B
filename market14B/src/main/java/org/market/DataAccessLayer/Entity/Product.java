@@ -1,15 +1,11 @@
 package org.market.DataAccessLayer.Entity;
 
-// import javax.persistence.*;
-
-
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-//@Table(name="Product",catalog = "Market")
 @Table(name="Product")
 @NoArgsConstructor
 @AllArgsConstructor

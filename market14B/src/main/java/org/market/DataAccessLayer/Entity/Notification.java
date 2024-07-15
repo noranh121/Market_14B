@@ -1,6 +1,4 @@
 package org.market.DataAccessLayer.Entity;
-// import javax.persistence.*;
-
 
 import java.io.Serializable;
 
@@ -10,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-//@Table(name="Notification",catalog = "Market")
 @Table(name="Notifications")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,6 +25,15 @@ public class Notification implements Serializable{
 
     @Column(name = "message")
     private String message;
+
+    
+    public Integer getNotificationID() {
+        return notificationID;
+    }
+
+    public void setNotificationID(Integer notificationID) {
+        this.notificationID = notificationID;
+    }
 
     public User getUsername() {
         return username;

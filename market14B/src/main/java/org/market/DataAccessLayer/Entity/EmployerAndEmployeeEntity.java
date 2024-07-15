@@ -4,7 +4,6 @@ import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-// import javax.persistence.*;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,7 +14,6 @@ public class EmployerAndEmployeeEntity implements Serializable{
     @Id
     @JoinColumn(name = "employer", referencedColumnName = "username")
     @Column(name = "employer")
-    // @JoinColumn(name="username")
     private EmployerPermission employerUsername;
 
     public EmployerPermission getEmployerUsername() {

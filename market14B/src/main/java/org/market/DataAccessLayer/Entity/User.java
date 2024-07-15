@@ -5,12 +5,9 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-// import javax.persistence.*;
-
 import jakarta.persistence.*;
 
 @Entity
-//@Table(name="User",catalog = "Market")
 @Table(name="Users")
 @NoArgsConstructor
 @AllArgsConstructor
