@@ -1,8 +1,10 @@
 package org.market.ServiceLayer;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.StorePackage.Purchase.PurchaseMethod;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.Requests.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +96,9 @@ public class MarketService {
 
     public List<ProductDTO> search(SearchEntity entity){
             return this.market.search(entity);
+    }
+
+    public PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
+        return market.initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
+import org.market.DomainLayer.backend.StorePackage.Purchase.PurchaseMethod;
 import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
@@ -238,7 +239,7 @@ public class ServiceFactory {
         return storesService.addNmericalDiscount(username, storeId, ADD, id);
     }
 
-    public String addLogicalDiscount(String username,int storeId,DiscountPolicyController.LogicalRule logicalRule,int id){
+    public String addLogicalDiscount(String username,int storeId,String logicalRule,int id){
         return storesService.addLogicalDiscount(username, storeId, logicalRule, id);
     }
 
@@ -251,14 +252,14 @@ public class ServiceFactory {
     }
 
     public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id){
-        return storesService.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, id, username, storeId, immediate, id);
+        return storesService.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId, immediate, id);
     }
 
     public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id){
         return storesService.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId, immediate, id);
     }
 
-    public String addLogicalPurchase(String username,int storeId,PurchasePolicyController.LogicalRule logicalRule,int id){
+    public String addLogicalPurchase(String username,int storeId,String logicalRule,int id){
         return storesService.addLogicalPurchase(username, storeId, logicalRule, id);
     }   
 
@@ -278,4 +279,8 @@ public class ServiceFactory {
     public String removePurchaseFromUser(String userId, int purchaseId){
         return storesService.removePurchaseFromUser(userId, purchaseId);
     }
+
+    private PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
+        return marketService.initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+    } 
 }

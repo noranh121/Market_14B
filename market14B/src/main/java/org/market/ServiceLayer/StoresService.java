@@ -105,7 +105,7 @@ public class StoresService {
             return result;
     }
 
-    public String addLogicalDiscount(String username,int storeId,DiscountPolicyController.LogicalRule logicalRule,int id){
+    public String addLogicalDiscount(String username,int storeId,String logicalRule,int id){
         try {
             String result = market.addLogicalDiscount(username, storeId, logicalRule,id);
             StoreController.LOGGER.info(result);
@@ -156,7 +156,7 @@ public class StoresService {
         }
     }
 
-    public String addLogicalPurchase(String username,int storeId,PurchasePolicyController.LogicalRule logicalRule,int id){
+    public String addLogicalPurchase(String username,int storeId,String logicalRule,int id){
         try {
             String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
             StoreController.LOGGER.info(result);

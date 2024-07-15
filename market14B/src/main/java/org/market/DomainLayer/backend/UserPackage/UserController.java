@@ -1,7 +1,5 @@
 package org.market.DomainLayer.backend.UserPackage;
 
-//import org.market.DataAccessLayer.DataController;
-
 import org.market.DomainLayer.backend.AuthenticatorPackage.Authenticator;
 import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.Permissions;
@@ -26,7 +24,6 @@ public class UserController {
     @Autowired
     private Permissions permissions;
     public static List<String[]> notfications=new ArrayList<String[]>();
-//    private DataController dataController;
 
 
     private UserController() {
@@ -110,7 +107,7 @@ public class UserController {
     // Registered user
     private String addToRegUserMap(User reg,String newPass) throws Exception {
         RegUserMap.put(reg.getUsername(), reg);
-        //Market.getDC().Register(reg.getUsername(), newPass,reg.getAge());
+        Market.getDC().Register(reg.getUsername(), newPass,reg.getAge());
         return "User registered successfully";
     }
 

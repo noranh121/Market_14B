@@ -3,8 +3,6 @@ package org.market.DomainLayer.backend;
 import org.market.DataAccessLayer.DataController;
 import org.market.DomainLayer.SearchEngine;
 
-//import org.market.DataAccessLayer.DataController;
-
 import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
 import org.market.DomainLayer.backend.API.SupplyExternalService.SupplyService;
 import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
@@ -29,7 +27,6 @@ import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.Requests.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -149,8 +146,8 @@ public class Market {
         this.dataController = dataController;
         this.searchEngine = searchEngine;
         try {
-            //systemManagers=dataController.getSystemManagers(0);
-            //Online=dataController.getOnline();
+            systemManagers=dataController.getSystemManagers(0);
+            Online=dataController.getOnline();
             fileHandler= new FileHandler("Market.log",true);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
@@ -256,7 +253,6 @@ public class Market {
 
     public String Register(String username, String password,double age) throws Exception {
         String response=userController.Register(username, password,age);
-        dataController.Register(username, password, age);
         return response;
     }
 
@@ -268,8 +264,8 @@ public class Market {
             throw new SuspendedException("can't buy user is suspended");
         }
         double total=userController.Buy(username);
-        //paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
-        //supplyServiceProccess(address,city,country,zip,username);
+        paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
+        supplyServiceProccess(address,city,country,zip,username);
         userController.getUser(username).cleanShoppingCart();
         dataController.cleanShoppingCart(username);
         return total;
@@ -504,14 +500,13 @@ public class Market {
     /*
      * new product in the system
      */
-    public int initProduct(String username, String productName, int categoryId, String description, String brand,double weight)
-            throws Exception {
+    public int initProduct(String username, String productName, int categoryId, String description, String brand,double weight) throws Exception {
         LOGGER.info("username: " + username + ",productName : " + productName + ", categoryId: " + categoryId
                 + ", description: " + description + ", brand: " + brand);
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add product, user is suspended");
         }
-        if (true/*systemManagers.contains(username)*/) {
+        if (systemManagers.contains(username)) {
             Category category = categoryController.getCategory(categoryId);
             if(category == null){
                 int catId = categoryController.addCategory("None");
@@ -519,10 +514,10 @@ public class Market {
             }
             // I used datacontroller in productController class
             return productController.addProduct(productName, category, description, brand,weight);
-        } else {
-            LOGGER.severe(username + " is not system manager");
-            throw new Exception(username + " is not system manager");
         }
+        LOGGER.severe(username + " is not system manager");
+        throw new Exception(username + " is not system manager");
+        
     }
 
     // Store
@@ -652,7 +647,7 @@ public class Market {
         }
     }
 
-    public String addLogicalDiscount(String username, int storeId, DiscountPolicyController.LogicalRule logicalRule,int id) throws Exception{
+    public String addLogicalDiscount(String username, int storeId, String logicalRule,int id) throws Exception{
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add logical discount, user is suspended");
         }
@@ -660,7 +655,23 @@ public class Market {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
+        DiscountPolicyController.LogicalRule logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
         switch (logicalRule) {
+            case "And":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
+                break;
+            case "Xor":
+            logicalRuleENUM=DiscountPolicyController.LogicalRule.XOR;
+            break;
+
+            case "Or":
+            logicalRuleENUM=DiscountPolicyController.LogicalRule.OR;
+            break;
+        
+            default:
+                break;
+        }
+        switch (logicalRuleENUM) {
             case AND:
                 ANDDiscountRule andDiscountRule=new ANDDiscountRule(-1);
                 storeController.getStore(storeId).addDiscountComposite(andDiscountRule,id);
@@ -682,7 +693,7 @@ public class Market {
         }
     }
 
-    private PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
+    public PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
         if(immediate){
             return new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
         }
@@ -751,7 +762,7 @@ public class Market {
         return "user purchase policy added";
     }
 
-    public String addLogicalPurchase(String username, int storeId, PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
+    public String addLogicalPurchase(String username, int storeId, String logicalRule,int id) throws Exception{
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add logical purchase, user is suspended");
         }
@@ -759,7 +770,23 @@ public class Market {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
+        DiscountPolicyController.LogicalRule logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
         switch (logicalRule) {
+            case "And":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
+                break;
+            case "Or":
+            logicalRuleENUM=DiscountPolicyController.LogicalRule.OR;
+            break;
+
+            case "If-Then":
+            logicalRuleENUM=DiscountPolicyController.LogicalRule.IF_THEN;
+            break;
+        
+            default:
+                break;
+        }
+        switch (logicalRuleENUM) {
             case AND:
                 ANDPurchaseRule andPurchaseRule=new ANDPurchaseRule(-1);
                 storeController.getStore(storeId).addPurchaseComposite(andPurchaseRule,id);
