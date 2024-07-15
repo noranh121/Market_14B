@@ -596,6 +596,9 @@ public class Market {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
+        if(storeController.getStore(storeId) == null){
+            throw new Exception("Store does not exist");
+        }
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         StoreDiscount storeDiscount=new StoreDiscount(discountType, discountPercentage,-1);
         storeController.getStore(storeId).addDiscountComposite(storeDiscount,id);
@@ -985,6 +988,10 @@ public class Market {
         else{
             return category.getId();
         }
+    }
+
+    public boolean hasCategory(String name){
+        return categoryController.getCategorybyName(name) != null;
     }
 
     public List<CartItemDTO> getCart(String username) throws Exception {

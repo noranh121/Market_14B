@@ -7,7 +7,7 @@ public class addDiscountReq {
     String categoryName;
     String logicalRule;
     int price;
-    int percentage;
+    double percentage;
     int quantity;
     // int id;
 
@@ -47,11 +47,11 @@ public class addDiscountReq {
         this.price = price;
     }
 
-    public int getPercentage() {
+    public double getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(int percentage) {
+    public void setPercentage(double percentage) {
         this.percentage = percentage;
     }
 
