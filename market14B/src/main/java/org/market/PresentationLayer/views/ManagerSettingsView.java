@@ -2,7 +2,6 @@ package org.market.PresentationLayer.views;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -14,23 +13,21 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.presenter.ManagerSettingPresenter;
 import org.market.PresentationLayer.views.components.PurchaseHistory;
 import org.market.Web.DTOS.StoreDTO;
-import org.springframework.security.access.method.P;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Route(value = "settings", layout = HomeView.class)
 @RoutePrefix("dash")
@@ -48,13 +45,13 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
     private TextField roleField;
     private TextField discountTitle;
     private TextField purchaseTitle;
-    private TextField discountPercentage;
-    private TextField minPrice;
-    private TextField minQuantity;
-    private TextField quantity;
-    private TextField price; //purchase policy
-    private TextField weight; //purchase policy
-    private TextField age; //purchase policy
+    private IntegerField discountPercentage;
+    private IntegerField minPrice;
+    private IntegerField minQuantity;
+    private IntegerField quantity;
+    private IntegerField price; //purchase policy
+    private IntegerField weight; //purchase policy
+    private IntegerField age; //purchase policy
     private DatePicker date; //purchase policy
     private Checkbox isOwner;
     private Checkbox isManager;
@@ -78,12 +75,10 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
     private List<String> currentPurchasePolicies = new ArrayList<>();
     private Select<String> selectpp;
     private Select<String> selectdp;
-    private Select<String> categoryIddp;
-    private Select<String> categoryIdpp;
-    private Select<String> productIddp;
-    private Select<String> productIdpp;
-    private Select<String> storeIddp;
-    private Select<String> storeIdpp;
+    private TextField categoryNamedp;
+    private TextField categoryNamepp;
+    private TextField productNamedp;
+    private TextField productNamepp;
 
     public ManagerSettingsView() {
         addClassName("manager-settings-view");
@@ -151,6 +146,7 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         });
 
         HorizontalLayout roleLayout = new HorizontalLayout(this.roleField, this.isOwner, this.isManager);
+        roleLayout.addClassName("manager-setting-role-layout");
         roleLayout.addClassName("manager-setting-role-layout");
         this.assignRoleSection.add(roleLayout);
 
@@ -246,9 +242,14 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         PurchaseHistory history = new PurchaseHistory(store.getId());
         this.history_layout.add(separator);
         this.history_layout.add(history);
+
+        Hr separator2 = new Hr();
+        separator2.addClassName("purchase-separator");
+        this.history_layout.add(separator2);
     }
 
     public void createDiscountSection(String sectionTitle) {
+
         this.discountSection.addClassName("manager-settings-discount-section");
 
         H2 title = new H2(sectionTitle);
@@ -268,36 +269,30 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         selectdp.setValue("none");
         discountFields.add(selectdp);
         this.discountTitle = new TextField("Discount Title");
-        this.discountPercentage = new TextField("Discount Percentage");
+        this.discountPercentage = new IntegerField("Discount Percentage");
 
         this.dpolicyType = new RadioButtonGroup<>();
         dpolicyType.setLabel("Policy Type");
         dpolicyType.setItems("Product", "Category","Store");
 
         // TODO add selection options
-        categoryIddp = new Select<>();
-        storeIddp = new Select<>(); 
-        productIddp = new Select<>();
-        categoryIddp.setPlaceholder("choose category");
-        storeIddp.setPlaceholder("choose store");
-        productIddp.setPlaceholder("choose product");
-        categoryIddp.setVisible(false);
-        storeIddp.setVisible(false);
-        productIddp.setVisible(false);
+        categoryNamedp = new TextField();
+        productNamedp = new TextField();
+        categoryNamedp.setPlaceholder("choose category");
+        productNamedp.setPlaceholder("choose product");
+        categoryNamedp.setVisible(false);
+        productNamedp.setVisible(false);
 
-        this.minPrice = new TextField("minimum price");
-        minPrice.setValue("0");
-        minPrice.setPattern("[0-9]*");
-        this.minQuantity = new TextField("minimum quantity");
-        minQuantity.setValue("0");
-        minPrice.setPattern("[0-9]*");
-        discountFields.add(discountTitle,discountPercentage,dpolicyType,categoryIddp,storeIddp,productIddp,minPrice,minQuantity);
+        this.minPrice = new IntegerField("minimum price");
+        minPrice.setValue(0);
+        this.minQuantity = new IntegerField("minimum quantity");
+        minQuantity.setValue(0);
+        discountFields.add(discountTitle,discountPercentage,dpolicyType,categoryNamedp,productNamedp,minPrice,minQuantity);
 
         dpolicyType.addValueChangeListener(e-> {
             String selected = e.getValue();
-            categoryIddp.setVisible("Category".equals(selected));
-            productIddp.setVisible("Product".equals(selected));
-            storeIddp.setVisible("Store".equals(selected));
+            categoryNamedp.setVisible("Category".equals(selected));
+            productNamedp.setVisible("Product".equals(selected));
         });
         this.discountSection.add(discountFields);
 
@@ -370,26 +365,23 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         ppolicyType.setItems("Product", "Category","User","Shopping Cart");
         
         // TODO add selection options
-        categoryIdpp = new Select<>();
-        categoryIdpp.setPlaceholder("choose category");
-        storeIdpp = new Select<>(); 
-        storeIdpp.setPlaceholder("choose store");
-        productIdpp = new Select<>();
-        productIdpp.setPlaceholder("choose product");
-        categoryIdpp.setVisible(false);
-        storeIdpp.setVisible(false);
-        productIdpp.setVisible(false);
+        categoryNamepp = new TextField();
+        categoryNamepp.setPlaceholder("choose category");
+        productNamepp = new TextField();
+        productNamepp.setPlaceholder("choose product");
+        categoryNamepp.setVisible(false);
+        productNamepp.setVisible(false);
         
         this.atLeast = new RadioButtonGroup<>("", "min", "max");
-        purchaseFields.add(ppolicyType,categoryIdpp,storeIdpp,productIdpp, atLeast);
+        purchaseFields.add(ppolicyType,categoryNamepp,productNamepp, atLeast);
         
         policyOn = new RadioButtonGroup<>("", "Quantity", "Age", "Weight", "Price");
         purchaseFields.add(policyOn);
         
-        this.quantity = new TextField("quantity");
-        this.age = new TextField("age");
-        this.weight = new TextField("weight");
-        this.price = new TextField("price");
+        this.quantity = new IntegerField("quantity");
+        this.age = new IntegerField("age");
+        this.weight = new IntegerField("weight");
+        this.price = new IntegerField("price");
         purchaseFields.add(quantity, age, weight, price);
         quantity.setVisible(false);
         age.setVisible(false);
@@ -408,9 +400,8 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         
         ppolicyType.addValueChangeListener(e-> {
             String selected = e.getValue();
-            categoryIdpp.setVisible("Category".equals(selected));
-            productIdpp.setVisible("Product".equals(selected));
-            storeIdpp.setVisible("Store".equals(selected));
+            categoryNamepp.setVisible("Category".equals(selected));
+            productNamepp.setVisible("Product".equals(selected));
         });
 
         addPurchase_btn = new Button("Add");
@@ -524,10 +515,6 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
         return roleField;
     }
 
-    public TextField getdiscountPercentage() {
-        return discountPercentage;
-    }
-
     public Checkbox getIsOwner() {
         return isOwner;
     }
@@ -546,6 +533,122 @@ public class ManagerSettingsView extends VerticalLayout implements HasUrlParamet
 
     public Checkbox getEditDiscountHistory() {
         return editDiscountHistory;
+    }
+
+    public IntegerField getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public IntegerField getMinPrice() {
+        return minPrice;
+    }
+
+    public IntegerField getMinQuantity() {
+        return minQuantity;
+    }
+
+    public IntegerField getQuantity() {
+        return quantity;
+    }
+
+    public IntegerField getPrice() {
+        return price;
+    }
+
+    public IntegerField getWeight() {
+        return weight;
+    }
+
+    public IntegerField getAge() {
+        return age;
+    }
+
+    public DatePicker getDate() {
+        return date;
+    }
+
+    public RadioButtonGroup<String> getPpolicyType() {
+        return ppolicyType;
+    }
+
+    public RadioButtonGroup<String> getDpolicyType() {
+        return dpolicyType;
+    }
+
+    public RadioButtonGroup<String> getAtLeast() {
+        return atLeast;
+    }
+
+    public RadioButtonGroup<String> getPolicyOn() {
+        return policyOn;
+    }
+
+    public Button getAssign_btn() {
+        return assign_btn;
+    }
+
+    public Button getUpdate_btn() {
+        return update_btn;
+    }
+
+    public Button getUnassign_btn() {
+        return unassign_btn;
+    }
+
+    public Button getResign_btn() {
+        return resign_btn;
+    }
+
+    public Button getDelete_btn() {
+        return delete_btn;
+    }
+
+    public Button getAddDiscount_btn() {
+        return addDiscount_btn;
+    }
+
+    public Button getAddPurchase_btn() {
+        return addPurchase_btn;
+    }
+
+    public VerticalLayout getCurrentDiscountsLayout() {
+        return currentDiscountsLayout;
+    }
+
+    public VerticalLayout getCurrentPoliciesLayout() {
+        return currentPoliciesLayout;
+    }
+
+    public List<String> getCurrentDiscountPolicies() {
+        return currentDiscountPolicies;
+    }
+
+    public List<String> getCurrentPurchasePolicies() {
+        return currentPurchasePolicies;
+    }
+
+    public Select<String> getSelectpp() {
+        return selectpp;
+    }
+
+    public Select<String> getSelectdp() {
+        return selectdp;
+    }
+
+    public TextField getCategoryNamedp() {
+        return categoryNamedp;
+    }
+
+    public TextField getCategoryNamepp() {
+        return categoryNamepp;
+    }
+
+    public TextField getProductNamedp() {
+        return productNamedp;
+    }
+
+    public TextField getProductNamepp() {
+        return productNamepp;
     }
 
 }

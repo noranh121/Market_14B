@@ -241,29 +241,33 @@ public class StoreController {
         }
     }
 
-    // public ResponseEntity<?> addCategoryDiscount(@RequestBody addDiscountReq rdt) {
-    //     try {
-    //         String response = service.addCategoryDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getCategoryId(),rdt.getStoreId(),rdt.getUsername(),0);
-    //     }
-    // }
+    @PostMapping("/add-category-discount")
+    public ResponseEntity<?> addCategoryDiscount(@RequestBody addDiscountReq rdt) {
+         try {
+             String response = service.addCategoryDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getCategoryId(),rdt.getStoreId(),rdt.getUsername(),0);
+         }
+     }
 
-    // public ResponseEntity<?> addProductDiscount(@RequestBody addDiscountReq rdt) {
-    //     try {
-    //         String response = service.addProductDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getProductId(),rdt.getStoreId(),rdt.getUsername(),0);
-    //     }
-    // }
+    @PostMapping("/add-product-discount")
+    public ResponseEntity<?> addProductDiscount(@RequestBody addDiscountReq rdt) {
+         try {
+             String response = service.addProductDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getProductId(),rdt.getStoreId(),rdt.getUsername(),0);
+         }
+     }
 
-    // public ResponseEntity<?> addStoreDiscount(@RequestBody addDiscountReq rdt) {
-    //     try {
-    //         String response = service.addStoreDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getStoreId(),rdt.getUsername(),0);
-    //     }
-    // }
+    @PostMapping("/add-store-discount")
+    public ResponseEntity<?> addStoreDiscount(@RequestBody addDiscountReq rdt) {
+         try {
+             String response = service.addStoreDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getStoreId(),rdt.getUsername(),0);
+         }
+     }
 
-    // public ResponseEntity<?> addLogicalDiscount(@RequestBody addDiscountReq rdt) {
-    //     try {
-    //         String response = service.addLogicalDiscountPolicy(rdt.getUsername(),rdt.getStoreId(),rdt.getLogicalRule(),0);
-    //     }
-    // }
+    @PostMapping("/add-logical-discount")
+    public ResponseEntity<?> addLogicalDiscount(@RequestBody addDiscountReq rdt) {
+         try {
+             String response = service.addLogicalDiscountPolicy(rdt.getUsername(),rdt.getStoreId(),rdt.getLogicalRule(),0);
+         }
+     }
 
     // public ResponseEntity<?> addCategoryPurchasePolicy(@RequestBody addPurchaseReq rpt) {
     //     try {

@@ -3,8 +3,8 @@ package org.market.Web.Requests;
 public class addDiscountReq {
     String username;
     int storeId;
-    int productId;
-    int categoryId;
+    String productName;
+    String categoryName;
     String logicalRule;
     int price;
     int percentage;
@@ -63,20 +63,20 @@ public class addDiscountReq {
         this.quantity = quantity;
     }
 
-    public int getProductId() {
-        return productId;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     

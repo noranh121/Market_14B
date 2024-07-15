@@ -8,6 +8,7 @@ import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.views.ManagerSettingsView;
 import org.market.Web.DTOS.StoreDTO;
 import org.market.Web.Requests.PermissionReq;
+import org.market.Web.Requests.addDiscountReq;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -172,7 +173,42 @@ public class ManagerSettingPresenter {
     }
 
     private void onAddDiscountClicked() {
+        if(validateAddDiscount()){
+            try {
+                String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
+                String addLogicalUrl = "http://localhost:8080/api/stores/add-logical-discount";
+                String addCategoryUrl = "http://localhost:8080/api/stores/add-category-discount";
+                String addProductUrl = "http://localhost:8080/api/stores/add-product-discount";
+                String addStoreUrl = "http://localhost:8080/api/stores/add-store-discount";
 
+                String url = view.getSelectdp().getValue().equals("none");
+
+                addDiscountReq request = new addDiscountReq();
+                request.setUsername(username);
+                request.setPercentage(view.getDiscountPercentage().getValue());
+                request.setProductName(view.getProductNamedp().getValue());
+                request.setCategoryName(view.getCategoryNamedp().getValue());
+                request.setPrice(view.getPrice().getValue());
+                request.setQuantity(view.getQuantity().getValue());
+                request.setStoreId(view.getStore_id());
+                request.setLogicalRule(view.getSelectdp().getValue());
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+
+                HttpEntity<addDiscountReq> requestEntity = new HttpEntity<>(request, headers);
+
+                ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+
+                ErrorHandler.showSuccessNotification("Successfully resigned from store");
+
+                UI.getCurrent().navigate("dash/mystores");
+
+            } catch (HttpClientErrorException e) {
+                ErrorHandler.handleError(e, () -> {
+                });
+            }
+        }
     }
 
     private void onAddPurchaseClicked() {
@@ -180,7 +216,21 @@ public class ManagerSettingPresenter {
     }
 
     private boolean validateAddDiscount() {
-        return false;
+        boolean isValid = true;
+
+        if (view.getDpolicyType().getValue().equals("Product") && view.getProductNamedp().isEmpty()) {
+            view.getProductNamedp().setInvalid(true);
+            isValid = false;
+        }
+        if (view.getDpolicyType().getValue().equals("Category") && view.getCategoryNamedp().isEmpty()) {
+            view.getCategoryNamedp().setInvalid(true);
+            isValid = false;
+        }
+        if (view.getDiscountPercentage().isEmpty()) {
+            view.getDiscountPercentage().setInvalid(true);
+            isValid = false;
+        }
+        return isValid;
     }
 
 
