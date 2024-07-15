@@ -90,4 +90,8 @@ public class Inventory {
         }
         return map;
     }
+
+    public void updateProductPrice(int productId, double offerPrice) {
+        products.get(productId)[1]=offerPrice;
+    }
 }

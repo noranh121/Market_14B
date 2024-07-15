@@ -277,4 +277,8 @@ public class Store {
         return prods;
     }
 
+    public void updateProductPrice(String username, int productId, double offerPrice) {
+        inventory.updateProductPrice(productId,offerPrice);
+    }
+
 }

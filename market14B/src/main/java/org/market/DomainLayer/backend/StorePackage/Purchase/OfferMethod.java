@@ -17,10 +17,13 @@ public class OfferMethod extends PurchaseMethodData implements PurchaseMethod {
 
     @Override
     public Boolean purchase(int productId, int quantity, double price, double weight, double age) throws Exception {
-        if(this.price!=price){
-            double offer=Market.getP().reviewOffer(this.storeId,this.price,productId);
-            if(offer==this.price)
+        double offerPrice=Market.getUC().getUser(username).offerPrice(username,this.storeId,price,productId);
+        if(offerPrice!=price){
+            double offer=Market.getP().reviewOffer(this.storeId,offerPrice,productId);
+            if(offer==offerPrice){
+                Market.getSC().getStore(storeId).updateProductPrice(username,productId,offerPrice);
                 return true;
+            }
             else
                 return Market.getUC().reviewOffer(offer,this.username);
         }
