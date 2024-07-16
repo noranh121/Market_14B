@@ -49,7 +49,7 @@ public class integrationTests {
 
     @BeforeEach
     void setUp() {
-        Market.getDC().clearAll();
+        //Market.getDC().clearAll();
         market=(Market) context.getBean(Market.class);
         storeController = Market.getSC();
         userController = Market.getUC();

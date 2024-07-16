@@ -35,7 +35,7 @@ public class Basket implements java.io.Serializable{
 
     @Column(name = "products")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ProductEntity> products = new ArrayList<>(); //<product,quantity>
+    private List<ProductBasket> products = new ArrayList<>(); //<product,quantity>
 
     public BasketId getBasketId() {
         return basketId;
@@ -61,11 +61,11 @@ public class Basket implements java.io.Serializable{
         this.basketId.setStoreID(storeID);
     }
 
-    public List<ProductEntity> getProducts() {
+    public List<ProductBasket> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductEntity> products) {
+    public void setProducts(List<ProductBasket> products) {
         this.products = products;
     }
 

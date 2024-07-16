@@ -72,34 +72,34 @@ public class DataController {
     }
 
     public void clearAll() {
-        //discountRepository.deleteAll();
-        
+        discountRepository.deleteAll();
+        inventoryRepository.deleteAll();
         // basketRepository.deleteAll();
-        // inventoryRepository.deleteAll();
-        // purchaseHistoryRepository.deleteAll();
-        // productRepository.deleteAll();
+        purchaseHistoryRepository.deleteAll();
+        productRepository.deleteAll();
+        categoryRepository.deleteAll();
+        notificationRepository.deleteAll();
+        employerPermissionRepository.deleteAll();
+        storeRepository.deleteAll();
+        transactionRepository.deleteAll();
+        marketRepository.deleteAll();
+        userRepository.deleteAll();
+        basketRepository.deleteAll();
+        productEntityRepository.deleteAll();
+        purchaseRepository.deleteAll();
+
+        // basketRepository.deleteAll();
         // categoryRepository.deleteAll();
+        // inventoryRepository.deleteAll();
         // notificationRepository.deleteAll();
         // employerPermissionRepository.deleteAll();
+        // productRepository.deleteAll();
+        // purchaseHistoryRepository.deleteAll();
         // storeRepository.deleteAll();
         // transactionRepository.deleteAll();
         // marketRepository.deleteAll();
         // userRepository.deleteAll();
         // productEntityRepository.deleteAll();
-        //purchaseRepository.deleteAll();
-
-        basketRepository.deleteAll();
-        categoryRepository.deleteAll();
-        inventoryRepository.deleteAll();
-        notificationRepository.deleteAll();
-        employerPermissionRepository.deleteAll();
-        productRepository.deleteAll();
-        purchaseHistoryRepository.deleteAll();
-        storeRepository.deleteAll();
-        transactionRepository.deleteAll();
-        marketRepository.deleteAll();
-        userRepository.deleteAll();
-        productEntityRepository.deleteAll();
     }
 
     public void setMarketOnline() {
@@ -140,8 +140,8 @@ public class DataController {
             org.market.DomainLayer.backend.Market.getUC().loudUser(user.getUsername(), user.getPassword(), user.getAge());
             List<Basket> baskets=user.getBaskets();
             for(Basket basket : baskets){
-                List<ProductEntity> productEntities=basket.getProducts();
-                for(ProductEntity productEntity : productEntities){
+                List<ProductBasket> productEntities=basket.getProducts();
+                for(ProductBasket productEntity : productEntities){
                     org.market.DomainLayer.backend.Market.getUC().getUser(user.getUsername()).addToCart(productEntity.getProductID(),basket.getStoreID(),productEntity.getQuantity());
                 }
             }
@@ -332,7 +332,7 @@ public class DataController {
 
             // init product entity to add it to the relevant basket
             double price = productEntityRepository.findById(productID).get().getPrice();
-            ProductEntity productEntity = new ProductEntity();
+            ProductBasket productEntity = new ProductBasket();
             Product product = productRepository.findById(productID).get();
             productEntity.setProductID(product);
             productEntity.setQuantity(quantity);
@@ -353,13 +353,13 @@ public class DataController {
             if (basket.isPresent()) {
                 // if existed add the product to the basket
                 Basket existedBasket = basket.get();
-                List<ProductEntity> products = existedBasket.getProducts();
+                List<ProductBasket> products = existedBasket.getProducts();
                 products.add(productEntity);
                 existedBasket.setProducts(products);
                 basketRepository.save(existedBasket);
             } else {
                 // if not; init new basket and add it to the baskets
-                List<ProductEntity> products = Collections.synchronizedList(new ArrayList<>());
+                List<ProductBasket> products = Collections.synchronizedList(new ArrayList<>());
                 products.add(productEntity);
                 newBasket.setProducts(products);
                 basketRepository.save(newBasket);
@@ -401,10 +401,10 @@ public class DataController {
             Basket basket = baskets.stream().filter(b -> b.equals(newBasket)).findFirst().get();
 
             // get the products from the basket
-            List<ProductEntity> products = basket.getProducts();
+            List<ProductBasket> products = basket.getProducts();
 
             // get the relevant product entity and remove it
-            ProductEntity productEntity = products.stream().filter(p -> p.getProductID() == productID).findFirst()
+            ProductBasket productEntity = products.stream().filter(p -> p.getProductID() == productID).findFirst()
                     .get();
             products.remove(productEntity);
 

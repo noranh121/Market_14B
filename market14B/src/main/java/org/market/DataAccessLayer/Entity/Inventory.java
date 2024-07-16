@@ -3,6 +3,8 @@ package org.market.DataAccessLayer.Entity;
 import java.io.Serializable;
 import java.util.*;
 
+import org.springframework.context.annotation.DependsOn;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
