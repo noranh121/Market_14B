@@ -352,7 +352,7 @@ public class StoreController {
     @PostMapping("/approve-offer")
     public ResponseEntity<?> approveOffer(@RequestBody OfferReq request) {
         try{
-            String res = service.approveOffer(request.getUsername(), request.getOfferUsername(), request.getStoreId(), request.getProductId());
+            String res = service.approveOffer(request.getUsername(), request.getOfferUsername(), request.getStoreId(), request.getProductId(), request.getOffer());
             return ResponseEntity.ok(res);
         }
         catch(Exception e){

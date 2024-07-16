@@ -147,7 +147,7 @@ public class UserController {
         return getUser(username).addToCart(product, storeId, quantity);
     }
 
-    public String addToCartOffer(String username, Integer product, int price, int storeId) throws Exception {
+    public String addToCartOffer(String username, Integer product, double price, int storeId) throws Exception {
         LOGGER.info("username: " + username + ", product: " + product + ", price: " + price);
         return getUser(username).addToCartOffer(product, storeId, price);
     }

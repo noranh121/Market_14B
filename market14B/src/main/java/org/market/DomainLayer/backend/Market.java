@@ -304,13 +304,13 @@ public class Market {
         return response;
     }
 
-    public String addToCartOffer(String username, Integer product, int storeId,int price) throws Exception {
-        if (permissions.isSuspended(username)) {
-            throw new SuspendedException("can't add to cart user is suspended");
-        }
-        String response= userController.addToCartOffer(username, product,price, storeId);
-        return response;
-    }
+    // public String addToCartOffer(String username, Integer product, int storeId,int price) throws Exception {
+    //     if (permissions.isSuspended(username)) {
+    //         throw new SuspendedException("can't add to cart user is suspended");
+    //     }
+    //     String response= userController.addToCartOffer(username, product,price, storeId);
+    //     return response;
+    // }
 
     public String inspectCart(String username) throws Exception {
         if (permissions.isSuspended(username)) {
@@ -1026,13 +1026,25 @@ public class Market {
                     result.add(item);
                 }
             }
+            for (Basket b : baskets) {
+                for (Map.Entry<Integer, Double> entry : b.getProdOffer().entrySet()) {
+                    CartItemDTO item = new CartItemDTO();
+                    item.setProductId(entry.getKey());
+                    item.setQuantity(1);
+                    item.setUsername(username);
+                    item.setStoreId(b.getStoreID());
+                    item.setName(productController.getProductName(entry.getKey()));
+                    item.setPrice(entry.getValue());
+                    result.add(item);
+                }
+            }
             return result;
         } else {
             throw new Exception("User does not exist.");
         }
     }
 
-    public String approveOffer(String username,String offerName, int storeId, int productId) throws Exception {
+    public String approveOffer(String username,String offerName, int storeId, int productId, double price) throws Exception {
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
@@ -1042,6 +1054,7 @@ public class Market {
         switch (i) {
             case 1:
                 message = "your offer for " + productId +" was accepted!";
+                userController.addToCartOffer(offerName, productId, price, storeId);
                 break;
             case -1:
                 message = "your offer for " + productId +" was rejected";

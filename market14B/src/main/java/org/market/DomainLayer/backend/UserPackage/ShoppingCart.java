@@ -41,7 +41,7 @@ public class ShoppingCart {
         UserController.LOGGER.info("added to cart");
     }
 
-    public void addToCartOffer(String username, Integer product,int price, int storeId) throws Exception {
+    public void addToCartOffer(String username, Integer product,double price, int storeId) throws Exception {
         Basket basket = getBasket(username, storeId);
         basket.addOfferPrice(product, price);
         UserController.LOGGER.info("added to cart");
@@ -125,7 +125,11 @@ public class ShoppingCart {
             for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>
                 int productId = entry.getKey();
                 int quantity = entry.getValue();
-                double price = store.getProdPrice(productId);
+                double price;
+                if (basket.getProdOffer().containsKey(productId)) {
+                    price = basket.getOfferPrice(productId);
+                }
+                price = store.getProdPrice(productId);
                 double weight=store.getProdWeight(productId);
                 // basketSum += price * quantity;
                 store.subQuantity(productId, quantity);

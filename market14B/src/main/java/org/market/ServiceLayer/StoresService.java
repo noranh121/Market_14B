@@ -206,8 +206,8 @@ public class StoresService {
     }
 
 
-        public String approveOffer(String username, String offerName, int storeId, int productId) throws Exception {
-                return market.approveOffer(username, offerName, storeId,productId);
+        public String approveOffer(String username, String offerName, int storeId, int productId, double price) throws Exception {
+                return market.approveOffer(username, offerName, storeId,productId, price);
         }
         public String rejectOffer(String username,String offerName, int storeId, int productId) throws Exception {
                 return market.rejectOffer(username,offerName, storeId,productId);

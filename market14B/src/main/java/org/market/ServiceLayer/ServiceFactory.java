@@ -112,9 +112,6 @@ public class ServiceFactory {
         return userService.addToCart(username, product, storeId, quantity);
     }
 
-    public String addToCartOffer(String username, Integer product, int storeId, int price) throws Exception {
-        return userService.addToCartOffer(username, product, storeId, price);
-    }
 
     public String inspectCart(String username) throws Exception {
         return userService.inspectCart(username);
@@ -314,8 +311,8 @@ public class ServiceFactory {
         return storesService.getOffers(storeId,username);
     }
 
-    public String approveOffer(String username, String offerName, int storeId, int productId) throws Exception {
-        return storesService.approveOffer(username, offerName, storeId,productId);
+    public String approveOffer(String username, String offerName, int storeId, int productId, double price) throws Exception {
+        return storesService.approveOffer(username, offerName, storeId,productId , price);
     }
 
     public String rejectOffer(String username, String offerName, int storeId, int productId) throws Exception {

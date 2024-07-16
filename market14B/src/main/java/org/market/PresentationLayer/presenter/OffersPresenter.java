@@ -52,7 +52,7 @@ public class OffersPresenter {
         return offers;
     }
 
-    public void approveOffer(Integer storeId, int productId, String offerUsername) {
+    public void approveOffer(Integer storeId, int productId, String offerUsername, double offerPrice) {
         try {
             String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
             String url = "http://localhost:8080/api/stores/approve-offer";
@@ -62,6 +62,7 @@ public class OffersPresenter {
             request.setUsername(username);
             request.setProductId(productId);
             request.setStoreId(storeId);
+            request.setPrice(offerPrice);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

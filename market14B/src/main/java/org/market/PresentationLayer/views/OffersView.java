@@ -53,7 +53,7 @@ public class OffersView extends VerticalLayout implements HasUrlParameter<Intege
             Button approveBtn = new Button(VaadinIcon.CHECK.create());
             approveBtn.addClassName("approve-btn");
             approveBtn.getStyle().set("border-radius", "50%");
-            approveBtn.addClickListener(e -> this.presenter.approveOffer(this.store_id, offer.getProductId(), offer.getUsername()));
+            approveBtn.addClickListener(e -> this.presenter.approveOffer(this.store_id, offer.getProductId(), offer.getUsername(), offer.getPrice()));
 
             Button disapproveBtn = new Button(VaadinIcon.CLOSE.create());
             disapproveBtn.addClassName("disapprove-btn");

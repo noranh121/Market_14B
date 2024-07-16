@@ -64,11 +64,11 @@ public class UserService {
             return result;
     }
 
-    public String addToCartOffer(String username, Integer product, int storeId, int price) throws Exception {
-        String result = market.addToCartOffer(username, product, storeId, price);
-        UserController.LOGGER.info(result);
-        return result;
-}
+//     public String addToCartOffer(String username, Integer product, int storeId, int price) throws Exception {
+//         String result = market.addToCartOffer(username, product, storeId, price);
+//         UserController.LOGGER.info(result);
+//         return result;
+//         }
 
     public String inspectCart(String username)throws Exception {
             String result = market.inspectCart(username);
