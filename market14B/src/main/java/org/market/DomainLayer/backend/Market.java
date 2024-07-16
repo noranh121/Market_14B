@@ -1,5 +1,7 @@
 package org.market.DomainLayer.backend;
 
+import org.apache.commons.compress.archivers.dump.DumpArchiveEntry.PERMISSION;
+
 //import org.market.DataAccessLayer.DataController;
 
 import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
@@ -25,6 +27,7 @@ import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.SuspendedException;
 import org.market.Web.DTOS.CartItemDTO;
+import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1023,5 +1026,54 @@ public class Market {
         }else{
             throw new Exception("User does not exist.");
         }
+    }
+
+    public String approveOffer(String username,String offerName, int storeId, int productId) throws Exception {
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        int i = storeController.approveOffer(permissions.numOfStoreOwners(storeId),username, storeId, productId);
+        String message = "";
+        switch (i) {
+            case 1:
+                message = "your offer for " + productId +" was accepted!";
+            case -1:
+                message = "your offer for " + productId +" was rejected";
+            default:
+                break;
+        }
+        permissions.updateUser(offerName, message); 
+        return "approval sent";
+    }
+
+    public String rejectOffer(String username,String offerName, int storeId, int productId) throws Exception {
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        int i = storeController.rejectOffer(permissions.numOfStoreOwners(storeId),username, storeId, productId);
+        String message = "";
+        switch (i) {
+            case 1:
+                message = "your offer for " + productId +" was accepted!";
+            case -1:
+                message = "your offer for " + productId +" was rejected";
+            default:
+                break;
+        }
+        permissions.updateUser(offerName, message); 
+        return "rejection sent";
+    }
+
+    public String sendOffer(String username, int storeId, int productId, Double price, Double offerPrice) {
+        String s = storeController.sendOffer(productId,  productController.getProductName(productId) ,username, price , offerPrice,storeId);
+        permissions.updateStoreOwners(storeId,"a new offer was sent");
+        return s;
+    }
+
+    public List<OfferDTO> getOffers(int storeId, String username) {
+        List<OfferDTO> offers = storeController.getStoreOffers(storeId);
+        return offers;
     }
 }

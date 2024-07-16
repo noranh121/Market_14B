@@ -7,7 +7,9 @@ import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyContro
 import org.market.DomainLayer.backend.StorePackage.Discount.Logical.ANDDiscountRule;
 import org.market.DomainLayer.backend.StorePackage.Purchase.ANDPurchaseRule;
 import org.market.DomainLayer.backend.StorePackage.Purchase.CompositePurchasePolicy;
+import org.market.DomainLayer.backend.StorePackage.Purchase.Offer;
 import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
+import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.ProductDTO;
 
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class Store {
     private DiscountPolicyController compositeDiscountPolicy;
     private PurchasePolicyController compositePurchasePolicy;
     private final Lock storeLock = new ReentrantLock();
+    private List<Offer> offers;
 
     private int discountPolicyIDCounter;
     private int purchasePolicyIDCounter;
@@ -45,6 +48,7 @@ public class Store {
         compositePurchasePolicy=new ANDPurchaseRule(purchasePolicyIDCounter);
         discountPolicyIDCounter++;
         purchasePolicyIDCounter++;
+        offers = new ArrayList<>();
     }
     
     // Discount Policy
@@ -275,6 +279,54 @@ public class Store {
             prods.add(pdto);
         }
         return prods;
+    }
+
+    public List<OfferDTO> bringOffers() {
+        List<OfferDTO> offersDTOs = new ArrayList<>();
+        for (Offer offer : offers) {
+            OfferDTO dto = new OfferDTO(offer);
+            offersDTOs.add(dto);
+        }
+        return offersDTOs;
+    }
+
+    public String sendOffer(int productId, String productName ,String username, Double price, Double offerPrice) {
+        Offer offer = new Offer(productId, productName ,username, price, offerPrice, this.id);
+        offers.add(offer);
+        return "sent";
+    }
+
+    public Offer getOffer(String username, int productId) {
+        for (Offer offer: offers) {
+            if (offer.getUsername() == username && offer.getProductId() == productId) {
+                return offer;
+            }
+        }
+        return null;
+    }
+
+    public int approveOffer(int num, String username, int productId) {
+        Offer offer = getOffer(username, productId);
+        offer.addNumOfApprovals();
+        if (offer.getVotes() == num) {
+            if (offer.getNumOfApprovals() == offer.getVotes())
+                return 1; // the offer was accepted by everyone
+            else
+                return -1; // the offer was regected by some
+        }
+        return 0; // not everyone voted yet
+    }
+
+    public int rejectOffer(int num, String username, int productId) {
+        Offer offer = getOffer(username, productId);
+        offer.addnumOfRejections();
+        if (offer.getVotes() == num) {
+            if (offer.getnumOfRejections() == offer.getVotes())
+                return -1; // the offer was accepted by everyone
+            else
+                return 1; // the offer was rejected by some
+        }
+        return 0; // not everyone voted yet
     }
 
 }

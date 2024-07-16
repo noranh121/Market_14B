@@ -1,5 +1,7 @@
 package org.market.DomainLayer.backend.StorePackage;
 
+import org.market.DomainLayer.backend.StorePackage.Purchase.Offer;
+import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.springframework.stereotype.Component;
 
@@ -223,5 +225,33 @@ public class StoreController {
             return stores.get(store_id).bringProds();
         }
         return new ArrayList<>();
+    }
+
+    public List<OfferDTO> getStoreOffers(int storeId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).bringOffers();
+        }
+        return new ArrayList<>();
+    }
+
+    public String sendOffer(int productId, String productName ,String username, Double price, Double offerPrice, int storeId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).sendOffer(productId, productName ,username, price, offerPrice);
+        }
+        return "No such store!";
+    }
+
+    public int approveOffer(int num , String username, int storeId, int productId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).approveOffer(num, username,productId);
+        }
+        return 0;
+    }
+
+    public int rejectOffer(int numOfStoreOwners, String username, int storeId, int productId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).rejectOffer(numOfStoreOwners, username,productId);
+        }
+        return 0;
     }
 }

@@ -6,6 +6,7 @@ import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyContro
 import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
@@ -203,4 +204,21 @@ public class StoresService {
         return market.removePurchaseStore(storeId, purchaseId);
 
     }
+
+
+        public String approveOffer(String username, String offerName, int storeId, int productId) throws Exception {
+                return market.approveOffer(username, offerName, storeId,productId);
+        }
+        public String rejectOffer(String username,String offerName, int storeId, int productId) throws Exception {
+                return market.rejectOffer(username,offerName, storeId,productId);
+        }
+
+        public String sendOffer(String username, int storeId, int productId,Double price, Double offerPrice) {
+                return market.sendOffer(username, storeId, productId, price , offerPrice);
+        }
+
+
+        public List<OfferDTO> getOffers(int storeId, String username) {
+                return market.getOffers(storeId,username);
+        }
 }

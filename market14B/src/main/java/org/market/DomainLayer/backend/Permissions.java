@@ -356,4 +356,32 @@ public class Permissions {
         return map;
     }
 
+    public int numOfStoreOwners(int storeId) throws Exception {
+        if (!storeOwners.containsKey(storeId)) {
+            UserController.LOGGER.severe("Store ID " + storeId + " does not exist");
+            throw new Exception("Store ID " + storeId + " does not exist");
+        }
+
+        Tree tree = storeOwners.get(storeId);
+        return countStoreOwnersInTree(tree.getRoot());
+    }
+
+    private int countStoreOwnersInTree(Node node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int count = 0;
+        if (node.getData().getStoreOwner()) {
+            count++;
+        }
+
+        for (Node child : node.getChildren()) {
+            count += countStoreOwnersInTree(child);
+        }
+
+        return count;
+    }
+    
+
 }
