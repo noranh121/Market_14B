@@ -7,6 +7,6 @@ import org.market.DataAccessLayer.Entity.Inventory;
 import org.market.DataAccessLayer.Entity.Store;
 
 @Repository
-public interface InventoryRepository extends JpaRepository<Inventory,Store>{
+public interface InventoryRepository extends JpaRepository<Inventory,Integer>{
 
 }

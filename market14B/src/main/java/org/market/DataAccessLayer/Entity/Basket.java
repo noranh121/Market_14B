@@ -32,6 +32,11 @@ public class Basket implements java.io.Serializable{
     @EmbeddedId
     private BasketId basketId;
 
+
+    @Column(name = "products")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductEntity> products = new ArrayList<>(); //<product,quantity>
+
     public BasketId getBasketId() {
         return basketId;
     }
@@ -40,11 +45,7 @@ public class Basket implements java.io.Serializable{
         this.basketId = basketId;
     }
 
-    @Column(name = "products")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ProductEntity> products = new ArrayList<>(); //<product,quantity>
-
-    public User getUsername() {
+    public String getUsername() {
         return basketId.getUsername();
     }
 
@@ -52,7 +53,7 @@ public class Basket implements java.io.Serializable{
         this.basketId.setUsername(username);
     }
 
-    public Store getStoreID() {
+    public Integer getStoreID() {
         return basketId.getStoreID();
     }
 

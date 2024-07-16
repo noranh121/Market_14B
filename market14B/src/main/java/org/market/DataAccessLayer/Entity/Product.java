@@ -28,7 +28,7 @@ public class Product implements java.io.Serializable {
     private Double weight;
 
     @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="catagory",referencedColumnName = "categoryID")
+    @JoinColumn(name="catagory_",referencedColumnName = "categoryID")
     private Category catagoryID;
 
     public Integer getProductID() {

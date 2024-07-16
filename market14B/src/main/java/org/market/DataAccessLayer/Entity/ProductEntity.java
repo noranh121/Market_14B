@@ -16,7 +16,7 @@ public class ProductEntity implements Serializable{
 
     @Id
     @JoinColumn(name="productID",referencedColumnName = "productID")
-    private Product productID;
+    private Integer productID;
 
     @Column(name="price")
     private double price;
@@ -24,12 +24,12 @@ public class ProductEntity implements Serializable{
     @Column(name="quantity")
     private int quantity;
 
-    public Product getProductID() {
+    public Integer getProductID() {
         return productID;
     }
 
     public void setProductID(Product productID) {
-        this.productID = productID;
+        this.productID = productID.getProductID();
     }
 
     public double getPrice() {

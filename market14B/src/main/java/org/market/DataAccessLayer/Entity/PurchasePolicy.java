@@ -81,10 +81,10 @@ public class PurchasePolicy implements java.io.Serializable{
     private Boolean immediate;
 
     @ManyToOne
-    @JoinColumn(name = "parentDiscountID")
+    @JoinColumn(name = "parentPurchaseID")
     private PurchasePolicy parentPurchase;
 
-    @OneToMany(mappedBy = "parentDiscount", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentPurchase", cascade = CascadeType.ALL)
     private List<PurchasePolicy> subPurchases;
 
     public Integer getPurchaseId() {

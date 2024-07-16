@@ -126,6 +126,7 @@ public class ShoppingCart {
                 qp = new double[]{quantity,price,weight};
                 purchases.put(productId, qp);
             }
+            
         }finally{
             lock.unlock();
             store.getLock().unlock();
@@ -150,6 +151,7 @@ public class ShoppingCart {
             UserController.LOGGER.severe("purchase failed");
             throw new Exception("purchase failed");
         }
+        Market.getDC().updateQuantity(store);
         return basketSum;
     }
 

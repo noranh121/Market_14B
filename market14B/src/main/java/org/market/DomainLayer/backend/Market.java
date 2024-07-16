@@ -264,8 +264,8 @@ public class Market {
             throw new SuspendedException("can't buy user is suspended");
         }
         double total=userController.Buy(username);
-        paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
-        supplyServiceProccess(address,city,country,zip,username);
+        //paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
+        //supplyServiceProccess(address,city,country,zip,username);
         userController.getUser(username).cleanShoppingCart();
         dataController.cleanShoppingCart(username);
         return total;
@@ -581,8 +581,8 @@ public class Market {
         }
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         CategoryDiscount categoryDiscount=new CategoryDiscount(discountType, discountPercentage, categoryId, -1);
-        storeController.getStore(storeId).addDiscountComposite(categoryDiscount,id);
-        dataController.addDiscountPolicy(standard,conditionalPrice,conditionalQuantity,discountPercentage,categoryId,-1,storeId,username,id,"category");
+        int selfid=storeController.getStore(storeId).addDiscountComposite(categoryDiscount,id);
+        dataController.addDiscountPolicy(standard,conditionalPrice,conditionalQuantity,discountPercentage,categoryId,-1,storeId,username,id,"category",selfid);
         LOGGER.info("category discount policy added");
         return "category discount policy added";
     }
@@ -603,8 +603,8 @@ public class Market {
         }
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         ProductDiscount productDiscount=new ProductDiscount(discountType, discountPercentage,productId,-1);
-        storeController.getStore(storeId).addDiscountComposite(productDiscount,id);
-        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1,id, storeId, username, id,"product");
+        int selfid=storeController.getStore(storeId).addDiscountComposite(productDiscount,id);
+        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1,id, storeId, username, id,"product",selfid);
         LOGGER.info("product discount policy added");
         return "product discount policy added";
     }
@@ -625,8 +625,8 @@ public class Market {
         }
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         StoreDiscount storeDiscount=new StoreDiscount(discountType, discountPercentage,-1);
-        storeController.getStore(storeId).addDiscountComposite(storeDiscount,id);
-        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1, -1, storeId, username, id, "store");
+        int selfid=storeController.getStore(storeId).addDiscountComposite(storeDiscount,id);
+        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1, -1, storeId, username, id, "store",selfid);
         LOGGER.info("store discount policy added");
         return "store discount policy added";
     }
@@ -656,15 +656,15 @@ public class Market {
         }
         if(ADD){
             ADDDiscountRule addDiscountRule=new ADDDiscountRule(-1);
-            storeController.getStore(storeId).addDiscountComposite(addDiscountRule,id);
-            dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "add");
+            int selfid=storeController.getStore(storeId).addDiscountComposite(addDiscountRule,id);
+            dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "add",selfid);
             LOGGER.info("ADD discount policy added");
             return "ADD discount policy added";
         }
         else{
             AT_MOSTDiscountRule at_MOSTDiscountRule=new AT_MOSTDiscountRule(-1);
-            storeController.getStore(storeId).addDiscountComposite(at_MOSTDiscountRule,id);
-            dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "atmost");
+            int selfid=storeController.getStore(storeId).addDiscountComposite(at_MOSTDiscountRule,id);
+            dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "atmost",selfid);
             LOGGER.info("AT_MOST discount policy added");
             return "AT_MOST discount policy added";
         }
@@ -708,20 +708,20 @@ public class Market {
         switch (logicalRuleENUM) {
             case AND:
                 ANDDiscountRule andDiscountRule=new ANDDiscountRule(-1);
-                storeController.getStore(storeId).addDiscountComposite(andDiscountRule,id);
-                dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "and");
+                int selfid1=storeController.getStore(storeId).addDiscountComposite(andDiscountRule,id);
+                dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "and",selfid1);
                 LOGGER.info("AND discount policy added");
                 return "AND discount policy added";
             case OR:
                 ORDiscountRule orDiscountRule=new ORDiscountRule(-1);
-                storeController.getStore(storeId).addDiscountComposite(orDiscountRule,id);
-                dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "or");
+                int selfid2=storeController.getStore(storeId).addDiscountComposite(orDiscountRule,id);
+                dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "or",selfid2);
                 LOGGER.info("OR discount policy added");
                 return "OR discount policy added";
             case XOR:
                 XORDiscountRule xorDiscountRule=new XORDiscountRule(-1);
-                storeController.getStore(storeId).addDiscountComposite(xorDiscountRule,id);
-                dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "xor");
+                int selfid3=storeController.getStore(storeId).addDiscountComposite(xorDiscountRule,id);
+                dataController.addDiscountPolicy(false, -1, -1, -1, -1, -1, storeId, username, id, "xor",selfid3);
                 LOGGER.info("XOR discount policy added");
                 return "XOR discount policy added";
             default:

@@ -10,13 +10,13 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 @Entity
 //@Table(name="Category",catalog = "Market")
-@Table(name="Category")
+@Table(name="Category_")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category implements java.io.Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="categoryID")
     private Integer categoryID;
     

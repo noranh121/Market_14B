@@ -8,6 +8,9 @@ import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+
+import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +19,7 @@ import org.checkerframework.checker.units.qual.t;
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
+//@Transactional
 //@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class StoreUnitTest {
     private StoreController storeController ;

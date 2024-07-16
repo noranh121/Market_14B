@@ -12,6 +12,10 @@ public class Inventory {
     public static final int WEIGHT = 2;
     private Map<Integer, double[]> products; // prodiD ==> {quant,price}
 
+    public Map<Integer, double[]> getProducts() {
+        return products;
+    }
+
     public Inventory() {
         this.products = new ConcurrentHashMap<>();
     }

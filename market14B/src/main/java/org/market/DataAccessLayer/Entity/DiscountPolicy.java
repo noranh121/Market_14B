@@ -14,7 +14,7 @@ import jakarta.persistence.*;
 public class DiscountPolicy implements java.io.Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer discountId;
 
     @Column(name="type")
@@ -33,7 +33,7 @@ public class DiscountPolicy implements java.io.Serializable {
     private double discountPercentage;
     
     @JoinColumn(name = "storeID", referencedColumnName = "storeID")
-    private Store storeId;
+    private Integer storeId;
     
     @Column
     private String username;
@@ -107,12 +107,12 @@ public class DiscountPolicy implements java.io.Serializable {
         this.discountPercentage = discountPercentage;
     }
 
-    public Store getStoreId() {
+    public Integer getStoreId() {
         return storeId;
     }
 
     public void setStoreId(Store storeId) {
-        this.storeId = storeId;
+        this.storeId = storeId.getStoreID();
     }
 
     public Integer getCategoryId() {

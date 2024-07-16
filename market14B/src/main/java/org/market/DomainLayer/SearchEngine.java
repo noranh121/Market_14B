@@ -94,7 +94,7 @@ public class SearchEngine implements ISearchEngine {
     }
     public List<ProductDTO> searchbyCategory(String CategoryName,SearchEntity entity){
         List<ProductDTO> pdtos = new ArrayList<>();
-        List<Integer> ids = CategoryController.getinstance().getCategorybyName(CategoryName).getAllProductIds();
+        List<Integer> ids = Market.getCC().getCategorybyName(CategoryName).getAllProductIds();
         List<Product> result = Market.getPC().getProductsByIDs(ids);
         if(entity.isInStore()){
             pdtos = Market.convertProds(result,entity.getStoreID());
