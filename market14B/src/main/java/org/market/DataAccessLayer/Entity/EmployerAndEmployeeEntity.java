@@ -29,7 +29,7 @@ public class EmployerAndEmployeeEntity implements Serializable{
     }
 
     public void deleteEmployee(String username){
-        if (employerUsername.getUsername().getUsername().equals(username)) {
+        if (employerUsername.getUsername().equals(username)) {
             employerUsername = null; // If root matches, delete the whole tree
         }
         employerUsername.deleteEmployee(username);

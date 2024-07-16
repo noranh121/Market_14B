@@ -18,6 +18,10 @@ public class PurchaseHistory {
     private static PurchaseHistory instance;
     private static int counterID;
 
+    public static void setCounterID(int counterID) {
+        PurchaseHistory.counterID = counterID;
+    }
+
     private Map<Integer, List<Purchase>> storeHistory; // storeid ==> purchases
     private Map<String, List<Purchase>> userHistory; // userid ==> purchases
     private Map<Integer, Purchase> allPurchases; // purchaseid ==> purchase

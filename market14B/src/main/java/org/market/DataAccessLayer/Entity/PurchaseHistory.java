@@ -16,17 +16,15 @@ public class PurchaseHistory implements java.io.Serializable {
     @Column(name = "purchaseID")
     private Integer purchaseID;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @Column
+    @Column(name = "products")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductEntity> products;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="storeID",referencedColumnName = "storeID")
-    private Store storeID;
+    @JoinColumn(name="storeID")
+    private Integer storeID;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="username",referencedColumnName = "username")
-    private User username;
+    @JoinColumn(name="username")
+    private String username;
 
 
     @Column(name = "ovlprice")
@@ -40,19 +38,19 @@ public class PurchaseHistory implements java.io.Serializable {
         this.purchaseID = purchaseID;
     }
 
-    public Store getStoreID() {
+    public Integer getStoreID() {
         return storeID;
     }
 
-    public void setStoreID(Store storeID) {
+    public void setStoreID(Integer storeID) {
         this.storeID = storeID;
     }
 
-    public User getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(User username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

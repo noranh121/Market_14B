@@ -12,6 +12,10 @@ public class CategoryController {
     private Map<Integer, Category> categories; // catID ==> category
     private int counterID;
 
+    public void setCounterID(int counterID) {
+        this.counterID = counterID;
+    }
+
     public static synchronized CategoryController getinstance() {
         if (instance == null) {
             instance = new CategoryController();

@@ -22,6 +22,10 @@ public class ProductController {
     private Map<Integer, Product> products;
     private int idCounter;
 
+    public void setIdCounter(int idCounter) {
+        this.idCounter = idCounter;
+    }
+
     private ProductController() {
         products = new ConcurrentHashMap<>();
     }

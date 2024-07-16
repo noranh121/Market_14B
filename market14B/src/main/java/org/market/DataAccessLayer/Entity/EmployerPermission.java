@@ -14,28 +14,30 @@ import lombok.NoArgsConstructor;
 public class EmployerPermission implements Serializable{
 
     @Id
-    @JoinColumn(name="storeID",referencedColumnName = "storeID")
-    private Store storeID;
+    private Integer permissionId;
 
-    public Store getStoreID() {
+    @JoinColumn(name="storeID")
+    private Integer storeID;
+
+    public Integer getStoreID() {
         return storeID;
     }
 
-    public void setStoreID(Store storeID) {
+    public void setStoreID(Integer storeID) {
         this.storeID = storeID;
     }
 
-    @JoinColumn(name = "username", referencedColumnName = "username")
-    private User username;
+    @JoinColumn(name = "username")
+    private String username;
 
-    @JoinColumn(name = "username", referencedColumnName = "username")
-    private User parentusername;
+    @JoinColumn(name = "username")
+    private String parentusername;
 
-    public User getParentusername() {
+    public String getParentusername() {
         return parentusername;
     }
 
-    public void setParentusername(User parentusername) {
+    public void setParentusername(String parentusername) {
         this.parentusername = parentusername;
     }
 
@@ -67,11 +69,11 @@ public class EmployerPermission implements Serializable{
 
     
 
-    public User getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(User username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -116,7 +118,7 @@ public class EmployerPermission implements Serializable{
     }
 
     public EmployerPermission findEmployee(String username) {
-        if(this.username.getUsername().equals(username)){
+        if(this.username.equals(username)){
             return this;
         }
         for(EmployerPermission emplyee : employees){
@@ -131,7 +133,7 @@ public class EmployerPermission implements Serializable{
     public Boolean deleteEmployee(String username) {
         for (int i = 0; i < employees.size(); i++) {
             EmployerPermission child = employees.get(i);
-            if (child.getUsername().getUsername().equals(username)) {
+            if (child.getUsername().equals(username)) {
                 employees.remove(i);
                 return true;
             }
