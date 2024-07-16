@@ -34,8 +34,6 @@ public class DataController {
     @Autowired
     private NotificationRepository notificationRepository;
     @Autowired
-    private PermissionsRepository permissionsRepository;
-    @Autowired
     private ProductRepository productRepository;
     @Autowired
     private PurchaseHistoryRepository purchaseHistoryRepository;
@@ -56,6 +54,10 @@ public class DataController {
    @Autowired
    private EmployerPermissionRepository employerPermissionRepository;
 
+    public EmployerPermissionRepository getEmployerPermissionRepository() {
+    return employerPermissionRepository;
+}
+
     private FileHandler fileHandler;
 
     public DataController() {
@@ -74,7 +76,7 @@ public class DataController {
         categoryRepository.deleteAll();
         inventoryRepository.deleteAll();
         notificationRepository.deleteAll();
-        permissionsRepository.deleteAll();
+        employerPermissionRepository.deleteAll();
         productRepository.deleteAll();
         purchaseHistoryRepository.deleteAll();
         storeRepository.deleteAll();
@@ -201,18 +203,18 @@ public class DataController {
         // permissions
         List<EmployerPermission> permissions=employerPermissionRepository.findAll();
         for(EmployerPermission permission : permissions){
-            int storeId=permission.getStoreID();
+            int storeId=permission.getPermissionId().getStoreID();
             List<EmployerPermission> employees=permission.getEmployees();
             if(!org.market.DomainLayer.backend.Market.getP().storeExist(storeId)){
-                org.market.DomainLayer.backend.Market.getP().initStore(storeId, permission.getUsername());
+                org.market.DomainLayer.backend.Market.getP().initStore(storeId, permission.getPermissionId().getUsername());
             }
             else{
                 Boolean[] pType={permission.getEditProducts(),permission.getAddOrEditPurchaseHistory(),permission.getAddOrEditDiscountHistory()};
-                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, permission.getParentusername(), permission.getUsername(), permission.getStoreOwner(), permission.getStoreManager(), pType);
+                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, permission.getParentusername(), permission.getPermissionId().getUsername(), permission.getStoreOwner(), permission.getStoreManager(), pType);
             }
             for(EmployerPermission employee : employees){
                 Boolean[] pType={employee.getEditProducts(),employee.getAddOrEditPurchaseHistory(),employee.getAddOrEditDiscountHistory()};
-                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, employee.getParentusername(), employee.getUsername(), employee.getStoreOwner(), employee.getStoreManager(), pType);
+                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, employee.getParentusername(), employee.getPermissionId().getUsername(), employee.getStoreOwner(), employee.getStoreManager(), pType);
             }
         }
 
@@ -400,72 +402,60 @@ public class DataController {
 
     public void EditPermissions(Integer storeID, String username, Boolean storeOwner, Boolean storeManager,
             Boolean editProducts, Boolean addOrEditPurchaseHistory, Boolean addOrEditDiscountHistory) {
-        Store store = storeRepository.findById(storeID).get();
-        // get relevant permission for the store
-        Permissions permissions = permissionsRepository.findById(store).get();
+        PermissionId permissionId=new PermissionId();
+        permissionId.setStoreID(storeID);
+        permissionId.setUsername(username);
+        EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
 
-        // get the tree
-        EmployerAndEmployeeEntity employerAndEmployeeEntity = permissions.getEmployer();
+        employerPermission.setStoreOwner(storeOwner);
+        employerPermission.setStoreManager(storeManager);
+        employerPermission.setEditProducts(editProducts);
+        employerPermission.setAddOrEditPurchaseHistory(addOrEditPurchaseHistory);
+        employerPermission.setAddOrEditDiscountHistory(addOrEditDiscountHistory);
 
-        // find the employee
-        EmployerPermission employee = employerAndEmployeeEntity.findEmployee(username);
-        employee.setStoreOwner(storeOwner);
-        employee.setStoreManager(storeManager);
-        employee.setEditProducts(editProducts);
-        employee.setAddOrEditPurchaseHistory(addOrEditPurchaseHistory);
-        employee.setAddOrEditDiscountHistory(addOrEditDiscountHistory);
-
-        permissionsRepository.save(permissions);
+        employerPermissionRepository.save(employerPermission);
 
         LOGGER.info("permission updated at the DataBase");
 
     }
 
     public void AssignStoreManager(Integer storeID, String username) {
-        Store store = storeRepository.findById(storeID).get();
-        // get relevant permission for the store
-        Permissions permissions = permissionsRepository.findById(store).get();
+        PermissionId permissionId=new PermissionId();
+        permissionId.setStoreID(storeID);
+        permissionId.setUsername(username);
+        EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
 
-        // get the tree
-        EmployerAndEmployeeEntity employerAndEmployeeEntity = permissions.getEmployer();
+        employerPermission.setStoreManager(true);
 
-        // find the employee
-        EmployerPermission employee = employerAndEmployeeEntity.findEmployee(username);
-        employee.setStoreManager(true);
-        permissionsRepository.save(permissions);
+        employerPermissionRepository.save(employerPermission);
 
         LOGGER.info("user assigned as store manager at the DataBase");
 
     }
 
     public void AssignStoreOwner(Integer storeID, String username) {
-        Store store = storeRepository.findById(storeID).get();
-        // get relevant permission for the store
-        Permissions permissions = permissionsRepository.findById(store).get();
+        PermissionId permissionId=new PermissionId();
+        permissionId.setStoreID(storeID);
+        permissionId.setUsername(username);
+        EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
 
-        // get the tree
-        EmployerAndEmployeeEntity employerAndEmployeeEntity = permissions.getEmployer();
+        employerPermission.setStoreOwner(true);
 
-        // find the employee
-        EmployerPermission employee = employerAndEmployeeEntity.findEmployee(username);
-        employee.setStoreOwner(true);
-        permissionsRepository.save(permissions);
+        employerPermissionRepository.save(employerPermission);
 
         LOGGER.info("user assigned as store owner at the DataBase");
 
     }
 
     public void unassignUser(Integer storeID, String username) {
-        Store store = storeRepository.findById(storeID).get();
-        // get relevant permission for the store
-        Permissions permissions = permissionsRepository.findById(store).get();
+        PermissionId permissionId=new PermissionId();
+        permissionId.setStoreID(storeID);
+        permissionId.setUsername(username);
+        EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
 
-        // get the tree
-        EmployerAndEmployeeEntity employerAndEmployeeEntity = permissions.getEmployer();
+        employerPermission.deleteEmployees();
 
-        // find the employee
-        employerAndEmployeeEntity.deleteEmployee(username);
-        permissionsRepository.save(permissions);
+        employerPermissionRepository.delete(employerPermission);
 
         LOGGER.info("user unassigned from the DataBase");
 
@@ -628,10 +618,6 @@ public class DataController {
 
     public NotificationRepository getNotificationRepository() {
         return notificationRepository;
-    }
-
-    public PermissionsRepository getPermissionsRepository() {
-        return permissionsRepository;
     }
 
     public ProductRepository getProductRepository() {

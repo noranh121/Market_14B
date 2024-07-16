@@ -1,0 +1,100 @@
+Jul 16, 2024 5:18:10 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 5, storeId 10, price: 10.0, quantity: 0
+Jul 16, 2024 5:18:10 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 10
+Jul 16, 2024 5:18:10 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+SEVERE: Trying to retrieve A non existing StoreID
+Jul 16, 2024 5:18:10 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 5:18:10 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 5:18:10 PM org.market.DomainLayer.backend.StorePackage.StoreController EditProducPrice
+INFO: productId: 0, storeId 0, newPrice: 55.0
+Jul 16, 2024 5:18:10 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 16, 2024 5:18:10 PM org.market.DomainLayer.backend.StorePackage.Store EditProductPrice
+INFO: Product's price edited successfully
+Jul 16, 2024 5:18:10 PM org.market.DomainLayer.backend.StorePackage.StoreController EditProducPrice
+INFO: Product's Price Modified in store Successfully
+Jul 16, 2024 5:18:11 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 10.0, quantity: 0
+Jul 16, 2024 5:18:11 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 16, 2024 5:18:11 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 5:18:11 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jul 16, 2024 5:18:13 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 5:18:13 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 5:18:13 PM org.market.DomainLayer.backend.StorePackage.StoreController EditProductQuantity
+INFO: productId: 0, storeId 20, newQuantity: 55
+Jul 16, 2024 5:18:13 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 20
+Jul 16, 2024 5:18:13 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+SEVERE: Trying to retrieve A non existing StoreID
+Jul 16, 2024 5:18:13 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 16, 2024 5:18:14 PM org.market.DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: ali, Description: d
+Jul 16, 2024 5:18:14 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 10.0, quantity: 5
+Jul 16, 2024 5:18:14 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 16, 2024 5:18:14 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 5:18:14 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jul 16, 2024 5:18:15 PM org.market.DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: ali, Description: description
+Jul 16, 2024 5:18:16 PM org.market.DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: ali, Description: description
+Jul 16, 2024 6:13:10 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 5, storeId 10, price: 10.0, quantity: 0
+Jul 16, 2024 6:13:10 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 10
+Jul 16, 2024 6:13:10 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+SEVERE: Trying to retrieve A non existing StoreID
+Jul 16, 2024 6:13:11 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 6:13:11 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 6:13:11 PM org.market.DomainLayer.backend.StorePackage.StoreController EditProducPrice
+INFO: productId: 0, storeId 0, newPrice: 55.0
+Jul 16, 2024 6:13:11 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 16, 2024 6:13:11 PM org.market.DomainLayer.backend.StorePackage.Store EditProductPrice
+INFO: Product's price edited successfully
+Jul 16, 2024 6:13:11 PM org.market.DomainLayer.backend.StorePackage.StoreController EditProducPrice
+INFO: Product's Price Modified in store Successfully
+Jul 16, 2024 6:13:12 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 10.0, quantity: 0
+Jul 16, 2024 6:13:12 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 16, 2024 6:13:12 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 6:13:12 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.StorePackage.StoreController EditProductQuantity
+INFO: productId: 0, storeId 20, newQuantity: 55
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 20
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+SEVERE: Trying to retrieve A non existing StoreID
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.StorePackage.StoreController initStore
+INFO: userName: ali, Description: d
+Jul 16, 2024 6:13:15 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: productId: 0, storeId 0, price: 10.0, quantity: 5
+Jul 16, 2024 6:13:15 PM org.market.DomainLayer.backend.StorePackage.StoreController getStore
+INFO: storeID: 0
+Jul 16, 2024 6:13:15 PM org.market.DomainLayer.backend.StorePackage.Store AddProduct
+INFO: product added successfully
+Jul 16, 2024 6:13:15 PM org.market.DomainLayer.backend.StorePackage.StoreController addProduct
+INFO: Product added to store Successfully

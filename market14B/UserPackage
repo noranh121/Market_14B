@@ -30,3 +30,75 @@ Jul 16, 2024 5:06:17 PM org.market.DomainLayer.backend.UserPackage.UserControlle
 INFO: username: admin, password: password
 Jul 16, 2024 5:06:18 PM org.market.ServiceLayer.UserService Register
 INFO: User registered successfully
+Jul 16, 2024 5:18:04 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: admin, password: password
+Jul 16, 2024 5:18:05 PM org.market.ServiceLayer.UserService Register
+INFO: User registered successfully
+Jul 16, 2024 5:18:13 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 12
+Jul 16, 2024 5:18:14 PM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 16, 2024 5:18:14 PM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 16, 2024 5:18:14 PM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 16, 2024 5:18:14 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 16, 2024 5:18:15 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 16, 2024 5:18:15 PM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 16, 2024 5:18:15 PM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 16, 2024 5:18:15 PM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 16, 2024 5:18:15 PM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 16, 2024 5:18:15 PM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 16, 2024 5:18:15 PM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 16, 2024 5:18:16 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 16, 2024 5:18:16 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 16, 2024 5:18:16 PM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 16, 2024 5:18:16 PM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 16, 2024 5:18:16 PM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 16, 2024 5:18:16 PM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 16, 2024 5:18:16 PM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 16, 2024 5:18:16 PM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 16, 2024 5:19:08 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: admin, password: password
+Jul 16, 2024 5:19:09 PM org.market.ServiceLayer.UserService Register
+INFO: User registered successfully
+Jul 16, 2024 5:20:49 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: admin, password: password
+Jul 16, 2024 5:20:50 PM org.market.ServiceLayer.UserService Register
+INFO: User registered successfully
+Jul 16, 2024 6:10:38 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: admin, password: password
+Jul 16, 2024 6:10:39 PM org.market.ServiceLayer.UserService Register
+INFO: User registered successfully
+Jul 16, 2024 6:13:04 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: admin, password: password
+Jul 16, 2024 6:13:05 PM org.market.ServiceLayer.UserService Register
+INFO: User registered successfully
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 12
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 16, 2024 6:13:14 PM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 16, 2024 6:13:15 PM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 16, 2024 6:13:15 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 16, 2024 6:13:15 PM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
