@@ -23,7 +23,7 @@ public class User implements java.io.Serializable{
     @Column(name="age")
     private double age;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Basket> baskets = new ArrayList<>();
 
     @Column(name="LoggedIn")

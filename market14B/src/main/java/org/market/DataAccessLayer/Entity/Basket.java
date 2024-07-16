@@ -34,7 +34,7 @@ public class Basket implements java.io.Serializable{
 
 
     @Column(name = "products")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductEntity> products = new ArrayList<>(); //<product,quantity>
 
     public BasketId getBasketId() {

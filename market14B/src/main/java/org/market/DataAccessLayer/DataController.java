@@ -72,6 +72,22 @@ public class DataController {
     }
 
     public void clearAll() {
+        //discountRepository.deleteAll();
+        
+        // basketRepository.deleteAll();
+        // inventoryRepository.deleteAll();
+        // purchaseHistoryRepository.deleteAll();
+        // productRepository.deleteAll();
+        // categoryRepository.deleteAll();
+        // notificationRepository.deleteAll();
+        // employerPermissionRepository.deleteAll();
+        // storeRepository.deleteAll();
+        // transactionRepository.deleteAll();
+        // marketRepository.deleteAll();
+        // userRepository.deleteAll();
+        // productEntityRepository.deleteAll();
+        //purchaseRepository.deleteAll();
+
         basketRepository.deleteAll();
         categoryRepository.deleteAll();
         inventoryRepository.deleteAll();
@@ -83,7 +99,7 @@ public class DataController {
         transactionRepository.deleteAll();
         marketRepository.deleteAll();
         userRepository.deleteAll();
-        productEntityRepository.deleteAll(); 
+        productEntityRepository.deleteAll();
     }
 
     public void setMarketOnline() {
@@ -536,7 +552,7 @@ public class DataController {
 
     @Transactional
     public void addProduct(int storeId, int productId, double price, int quantity) {
-        Product product = productRepository.getReferenceById(productId);
+        Product product = productRepository.findById(productId).get();
         // Store tempStore = storeRepository.getReferenceById(storeId);
         // tempStore.getInventory().addProduct(product, price, quantity);
         Store store = storeRepository.findById(storeId).get();
@@ -587,7 +603,7 @@ public class DataController {
     }
 
     public Store getStore(int storeId) {
-        return storeRepository.getReferenceById(storeId);
+        return storeRepository.findById(storeId).get();
     }
 
     public void removePurchaseHistory(int purchaseId) {
@@ -708,13 +724,22 @@ public class DataController {
     }
 
     public void updateQuantity(org.market.DomainLayer.backend.StorePackage.Store store){
-        Inventory inv=inventoryRepository.getReferenceById(store.getId());
+        Inventory inv=inventoryRepository.findById(store.getId()).get();
         org.market.DomainLayer.backend.ProductPackage.Inventory inventory=store.getInventory();
         for(Map.Entry<Integer, double[]> entry:inventory.getProducts().entrySet()){
             Product proc=productRepository.findById(entry.getKey()).get();
             inv.editQuantity(proc, (int)entry.getValue()[0]);
         }
         inventoryRepository.save(inv);
+    }
+
+    public void addSystemManager(String username){
+        User user=userRepository.findById(username).get();
+        Market market = marketRepository.findById(0).get();
+        List<User> users=market.getSystemManagers();
+        users.add(user);
+        market.setSystemManagers(users);
+        marketRepository.save(market);
     }
 
 }

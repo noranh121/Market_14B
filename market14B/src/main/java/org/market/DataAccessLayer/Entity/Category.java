@@ -27,7 +27,7 @@ public class Category implements java.io.Serializable{
     @JoinColumn(name = "parentCategoryID")
     private Category parentCategory;
     
-    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
     private List<Category> subCategories;
 
     public List<Category> getSubCategories() {

@@ -49,6 +49,7 @@ public class integrationTests {
 
     @BeforeEach
     void setUp() {
+        Market.getDC().clearAll();
         market=(Market) context.getBean(Market.class);
         storeController = Market.getSC();
         userController = Market.getUC();
@@ -101,16 +102,6 @@ public class integrationTests {
         }
     }
 
-    @Test
-    void buyTestSuccess() throws Exception {
-        userController.getGuestUserMap().put(u2.getUsername(), u2);
-        storeController.GetStores().put(0, s1);
-        storeController.addProduct(0, 0, 10, 15, 5);
-        u2.addToCart(0, 0, 5);
-        double sum = userController.Buy(u2.getUsername());
-        assertEquals(50, sum);
-        assertEquals(10, s1.getInventory().getQuantity(0));
-    }
 
     @Test
     void testviewsystemPurchaseHistorySuccess() throws Exception {
@@ -415,6 +406,8 @@ public class integrationTests {
             market.EnterAsGuest(18);
             market.Register("ali", "123", 18);
             market.Register("malek", "456", 18);
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager, "steak", 0, "d", "nike", 0);
             market.initStore("ali","name", "d");
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",0);

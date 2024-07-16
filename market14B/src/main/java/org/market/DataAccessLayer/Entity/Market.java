@@ -19,7 +19,7 @@ public class Market implements java.io.Serializable{
     @Column(name="online")
     private Boolean online;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch =FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch =FetchType.EAGER)
     private List<User> systemManagers = new ArrayList<>();
 
     public Integer getMarketID() {

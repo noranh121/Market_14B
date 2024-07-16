@@ -32,12 +32,12 @@ public class ServiceFactory {
         this.marketService = marketService;
         this.userService= userService;
         this.storesService = storesService;
-        try {
-            Register("admin", "password", 24);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        addToSystemManagers("admin");
+        // try {
+        //     Register("admin", "password", 24);
+        // } catch (Exception e) {
+        //     throw new RuntimeException(e);
+        // }
+        // addToSystemManagers("admin");
     }
 
     // MarketService

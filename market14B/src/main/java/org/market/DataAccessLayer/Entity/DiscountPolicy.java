@@ -56,7 +56,7 @@ public class DiscountPolicy implements java.io.Serializable {
     @JoinColumn(name = "parentDiscountID")
     private DiscountPolicy parentDiscount;
 
-    @OneToMany(mappedBy = "parentDiscount", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentDiscount", cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     private List<DiscountPolicy> subDiscounts;
 
     public Integer getDiscountId() {

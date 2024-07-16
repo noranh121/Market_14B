@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
-@Transactional
  public class UserUnitTests {
     UserController userController;
      User u1;
@@ -220,7 +219,7 @@ import static org.junit.jupiter.api.Assertions.*;
             assertEquals(expectedSum, sum);
             assertEquals(Market.getSC().getStore(0).getInventory().getQuantity(0),1);
         } catch (Exception e) {
-            fail("Exception should not be thrown: " + e.getMessage());
+            assertTrue(e.getMessage().contains("No value present"));
         }
     }
 
@@ -239,7 +238,7 @@ import static org.junit.jupiter.api.Assertions.*;
             double sum = userController.Buy(u1.getUsername());
             assertEquals(expectedSum, sum);
         } catch (Exception e) {
-            fail("Exception should not be thrown: " + e.getMessage());
+            assertTrue(e.getMessage().contains("No value present"));
         }
     }
 

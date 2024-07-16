@@ -25,7 +25,7 @@ public class Inventory implements Serializable{
     // private Store storeID;
 
     @Column(name = "products")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductEntity> products;
 
     public Integer getStoreID() {
@@ -36,7 +36,7 @@ public class Inventory implements Serializable{
         this.storeID = storeID.getStoreID();
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<ProductEntity> getProducts() {
         return products;
     }
@@ -50,6 +50,9 @@ public class Inventory implements Serializable{
         pe.setPrice(price);
         pe.setProductID(product);
         pe.setQuantity(quantity);
+        if (this.products==null) {
+            this.products=new ArrayList<>();
+        }
         this.products.add(pe);
     }
 
