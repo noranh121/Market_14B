@@ -18,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
+
+import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.market.DomainLayer.backend.UserPackage.UserController.notfications;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
+//@Transactional
 public class integrationTests {
     @Autowired
     private ApplicationContext context;
@@ -486,6 +490,7 @@ public class integrationTests {
 
 
     @Test
+    @Transactional
     public void testXORDiscountPolicySuccess(){
         try{
             String systemManager = "admin";

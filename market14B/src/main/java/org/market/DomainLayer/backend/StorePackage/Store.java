@@ -52,10 +52,10 @@ public class Store {
         return compositeDiscountPolicy;
     }
 
-    public void addDiscountComposite(CompositeDiscountPolicy discountPolicy,int id){
+    public int addDiscountComposite(CompositeDiscountPolicy discountPolicy,int id){
         discountPolicy.setId(discountPolicyIDCounter);
         compositeDiscountPolicy.addComposite(discountPolicy,id);
-        discountPolicyIDCounter++;
+        return discountPolicyIDCounter++;
     }
 
     public void removeDiscountComposite(int discountPolicyId) throws Exception{

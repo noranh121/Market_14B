@@ -12,32 +12,32 @@ import jakarta.persistence.*;
 public class BasketId implements Serializable {
 
     @JoinColumn(name = "username", referencedColumnName = "username")
-    private User username;
+    private String username;
     @JoinColumn(name = "storeID", referencedColumnName = "storeID")
-    private Store storeID;
+    private Integer storeID;
 
     public BasketId() {
     }
 
     public BasketId(User username, Store storeID) {
-        this.username = username;
-        this.storeID = storeID;
+        this.username = username.getUsername();
+        this.storeID = storeID.getStoreID();
     }
 
-    public User getUsername() {
+    public String getUsername() {
         return username;
     }
 
     public void setUsername(User username) {
-        this.username = username;
+        this.username = username.getUsername();
     }
 
-    public Store getStoreID() {
+    public Integer getStoreID() {
         return storeID;
     }
 
     public void setStoreID(Store storeID) {
-        this.storeID = storeID;
+        this.storeID = storeID.getStoreID();
     }
 
     @Override

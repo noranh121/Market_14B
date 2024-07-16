@@ -17,10 +17,14 @@ import org.market.DomainLayer.backend.ProductPackage.Category;
  //import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
+
+import jakarta.transaction.Transactional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
+@Transactional
  public class UserUnitTests {
     UserController userController;
      User u1;

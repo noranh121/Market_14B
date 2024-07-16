@@ -14,12 +14,16 @@ public class Store implements java.io.Serializable{
     @Column(name="storeID")
     private Integer storeID;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name="username")
     private User firstOwner;
 
     @Column(name = "name")
     private String name;
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Column(name="active")
     private boolean active;
