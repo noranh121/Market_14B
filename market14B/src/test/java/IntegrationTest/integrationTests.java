@@ -419,7 +419,7 @@ public class integrationTests {
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",0);
             market.addToCart("ali", 0, 0, 5);
-            double sum=market.Buy("ali","USD","2222333344445555",4,2021,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             assertEquals(sum, 45.0);
             assertEquals(notfications.size(),1);
             assertEquals(notfications.get(0)[0],"ali");
@@ -448,7 +448,7 @@ public class integrationTests {
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
             market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
             market.addToCart("ali", 0, 0, 5);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             assertEquals(sum, 36.0);
             assertEquals(notfications.size(),1);
             assertEquals(notfications.get(0)[0],"ali");
@@ -478,7 +478,7 @@ public class integrationTests {
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
             market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
             market.addToCart("ali", 0, 0, 5);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             assertEquals(sum, 36.0);
             assertEquals(notfications.size(),1);
             assertEquals(notfications.get(0)[0],"ali");
@@ -509,7 +509,7 @@ public class integrationTests {
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
             market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
             market.addToCart("ali", 0, 0, 5);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             assertEquals(sum, 45.0);
             assertEquals(notfications.size(),1);
             assertEquals(notfications.get(0)[0],"ali");
@@ -535,7 +535,7 @@ public class integrationTests {
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,0);
             market.addToCart("ali", 0, 0, 2);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             fail("the test must fail");
         }catch(Exception e){
             assertEquals( "purchase failed",e.getMessage());
@@ -561,7 +561,7 @@ public class integrationTests {
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 4);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             assertEquals(sum, 40.0);
             assertEquals(notfications.size(),1);
             assertEquals(notfications.get(0)[0],"ali");
@@ -590,7 +590,7 @@ public class integrationTests {
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 4);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             fail("the test must fail");
         }catch(Exception e){
             assertEquals( "purchase failed",e.getMessage());
@@ -617,7 +617,7 @@ public class integrationTests {
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 4);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             assertEquals(sum, 40.0);
             assertEquals(notfications.size(),1);
             assertEquals(notfications.get(0)[0],"ali");
@@ -646,7 +646,7 @@ public class integrationTests {
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 2);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             fail("the test must fail");
         }catch(Exception e){
             assertEquals( "purchase failed",e.getMessage());
@@ -675,7 +675,7 @@ public class integrationTests {
             market.addLogicalDiscount("ali",0,"Or",1);
             market.addStoreDiscountPolicy(true, 0, 0, 0.1, 0,  "ali",4);
             market.addToCart("ali", 0, 0, 5);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             assertEquals(sum, 32.400000000000006);
             assertEquals(notfications.size(),1);
             assertEquals(notfications.get(0)[0],"ali");
@@ -707,7 +707,7 @@ public class integrationTests {
             market.addLogicalPurchase("ali",0,"Or",1);
             market.addUserPurchasePolicy(3,-1,null,0,-1,18,19,"ali",0,true,4);
             market.addToCart("ali", 0, 0, 5);
-            double sum=market.Buy("ali","dollar","123",5,2027,"123","Ab2","city","country",434);
+            double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
             assertEquals(sum, 50);
             assertEquals(notfications.size(),1);
             assertEquals(notfications.get(0)[0],"ali");

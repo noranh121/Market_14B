@@ -14,7 +14,7 @@ public class ProxySupply implements SupplyBridge {
     }
 
     @Override
-    public int supply(String name, String address, String city, String country, int zip) {
+    public int supply(String name, String address, String city, String country, String zip) {
         return realSupply.supply(name, address, city, country, zip);
     }
 

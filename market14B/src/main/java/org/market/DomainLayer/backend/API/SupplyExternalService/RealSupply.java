@@ -1,9 +1,5 @@
 package org.market.DomainLayer.backend.API.SupplyExternalService;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.*;
-
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -16,20 +12,6 @@ public class RealSupply implements SupplyBridge {
 
     public RealSupply(){
         postRequestService=new PostRequestService();
-        // loadConfig();
-    }
-
-    public void loadConfig() {
-        Properties properties = new Properties();
-        try {
-            File configFile = new File("market14B\\src\\main\\java\\org\\market\\DomainLayer\\backend\\API\\config.properties");
-            FileInputStream fileInputStream = new FileInputStream(configFile);
-            properties.load(fileInputStream);
-            url = properties.getProperty("url");
-            fileInputStream.close();
-        } catch (Exception e) {
-            throw new RuntimeException("Error occurred while loading configuration from config.properties file.", e);
-        }
     }
 
     @Override
@@ -40,14 +22,14 @@ public class RealSupply implements SupplyBridge {
     }
 
     @Override
-    public int supply(String name, String address, String city, String country, int zip) {
+    public int supply(String name, String address, String city, String country, String zip) {
         MultiValueMap<String, String> postContent = new LinkedMultiValueMap<>();
         postContent.add("action_type", "supply");
         postContent.add("name", name);
         postContent.add("address", address);
         postContent.add("city", city);
         postContent.add("country", country);
-        postContent.add("zip", String.valueOf(zip));
+        postContent.add("zip", zip);
         String response=postRequestService.sendPostRequest(url, postContent);
         try{
             return Integer.parseInt(response);
@@ -71,9 +53,11 @@ public class RealSupply implements SupplyBridge {
 
 
 //     public static void main(String[] args) {
-//        RealSupply supply = new RealSupply();
-//        String handshake=supply.handshake();
-//        Integer cancellationResult = supply.cancel_supply(1234);
+//        RealSupply supplyService = new RealSupply();
+//        String handshake=supplyService.handshake();
+//        int supply=supplyService.supply("Israel Israelovice","Rager Blvd 12","Beer Sheva","Israel","8458527");
+//        Integer cancellationResult = supplyService.cancel_supply(1234);
+//        System.out.println("supply: " + supply);
 //        System.out.println("handshake: " + handshake);
 //        System.out.println("cancel: " + cancellationResult);
 //    }
