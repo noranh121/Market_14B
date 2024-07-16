@@ -31,6 +31,9 @@ public class ProductEntity implements Serializable{
     }
 
     public void setProductID(Product productID) {
+        if(inventoryProductId==null){
+            this.inventoryProductId=new ProductEntityId();
+        }
         this.inventoryProductId.setProductID(productID.getProductID());
     }
 

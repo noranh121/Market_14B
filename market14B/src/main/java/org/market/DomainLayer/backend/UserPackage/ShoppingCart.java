@@ -141,6 +141,8 @@ public class ShoppingCart {
             try{
                 Purchase purchase = new Purchase(basket, basketSum, purchases);
                 Market.getPH().addPurchase(basket.getStoreID(), username, purchase);
+                //id , list products ,  storeid , username ,
+                //Market.getDC().
             }finally{
                 Market.getSystemManagersLock().unlock();
             }

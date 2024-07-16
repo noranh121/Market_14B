@@ -336,6 +336,8 @@ public class DataController {
             Product product = productRepository.findById(productID).get();
             productEntity.setProductID(product);
             productEntity.setQuantity(quantity);
+            productEntity.setUsername(username);
+            productEntity.setStoreID(storeID);
             productEntity.setPrice(price);
             // init basket with the same id to find it in the list of baskets
             Basket newBasket = new Basket();

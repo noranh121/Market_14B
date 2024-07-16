@@ -43,6 +43,9 @@ public class ProductBasket implements Serializable{
     }
 
     public void setProductID(Product productID) {
+        if (this.productBasketId==null) {
+            this.productBasketId=new ProductBasketId();
+        }
         this.productBasketId.setProdID(productID.getProductID());
     }
 
