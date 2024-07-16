@@ -14,8 +14,8 @@ public class ProxyPayment implements PaymentBridge{
     }
 
     @Override
-    public int pay(double amount, String currency, String card_number, int month, int year, String holder, String ccv) {
-        return realPayment.pay(amount, currency, card_number, month, year, holder, ccv);
+    public int pay(String amount, String currency, String card_number, String month, String year, String holder, String ccv,String id) {
+        return realPayment.pay(amount, currency, card_number, month, year, holder, ccv,id);
     }
 
     @Override

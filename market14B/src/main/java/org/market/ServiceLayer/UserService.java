@@ -49,8 +49,8 @@ public class UserService {
     }
 
     public String Buy(String username,String currency,String card_number,int month,int year,String ccv,
-    String address, String city, String country, int zip) throws Exception{
-            double sum = market.Buy(username, currency, card_number, month, year, ccv, address, city, country, zip);
+    String address, String city, String country, int zip,String id) throws Exception{
+            double sum = market.Buy(username, currency, card_number, String.valueOf(month), String.valueOf(year), ccv, address, city, country, String.valueOf(zip),id);
             // result = payment method TODO
             // LOGGER.info(result);
             // return result;

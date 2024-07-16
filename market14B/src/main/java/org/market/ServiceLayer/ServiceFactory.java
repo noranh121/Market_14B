@@ -113,7 +113,7 @@ public class ServiceFactory {
     public String Buy(String username,String currency,String card_number,int month,int year,String ccv,
                                 String address, String city, String country, int zip) throws Exception {
         return userService.Buy(username,currency,card_number,month,year,ccv,
-                address, city, country, zip);
+                address, city, country, zip,"20444444");
     }
 
     public String addToCart(String username, Integer product, int storeId, int quantity) throws Exception {

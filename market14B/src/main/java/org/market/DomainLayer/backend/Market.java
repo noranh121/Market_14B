@@ -257,22 +257,22 @@ public class Market {
         return response;
     }
 
-    public double Buy(String username,String currency,String card_number,int month,int year,String ccv,
-                      String address, String city, String country, int zip) throws Exception {
+    public double Buy(String username,String currency,String card_number,String month,String year,String ccv,
+                      String address, String city, String country, String zip,String id) throws Exception {
         LOGGER.info("username: "+username+" currency: "+currency+" card_number: "+card_number+" month: "+month+" year: "+year+" ccv: "+ccv+" address: "+address+
                 " city: "+city+" country: "+country+" zip: "+zip);
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't buy user is suspended");
         }
         double total=userController.Buy(username);
-        //paymentServiceProccess(username, currency, card_number, month, year, ccv, total);
-        //supplyServiceProccess(address,city,country,zip,username);
+        // paymentServiceProccess(username, currency, card_number, month, year, ccv, String.valueOf(total),id);
+        // supplyServiceProccess(address,city,country,zip,username);
         userController.getUser(username).cleanShoppingCart();
         dataController.cleanShoppingCart(username);
         return total;
     }
 
-    private void supplyServiceProccess(String address, String city, String country, int zip,String username) throws Exception {
+    private void supplyServiceProccess(String address, String city, String country, String zip,String username) throws Exception {
         Response<Boolean> handshake=paymentService.handshake();
         if(!handshake.isError()){
             Response<Integer> transaction_id=supplyService.supply(username, address, city, country, zip);
@@ -287,10 +287,10 @@ public class Market {
         }
     }
 
-    private void paymentServiceProccess(String username,String currency,String card_number,int month,int year,String ccv,double amount) throws Exception{
+    private void paymentServiceProccess(String username,String currency,String card_number,String month,String year,String ccv,String amount,String id) throws Exception{
         Response<Boolean> handshake=paymentService.handshake();
         if(!handshake.isError()){
-            Response<Integer> transaction_id=paymentService.pay(amount, currency, card_number, month, year, card_number, ccv);
+            Response<Integer> transaction_id=paymentService.pay(amount, currency, card_number, month, year, card_number, ccv,id);
             if(transaction_id.isError()){
                 LOGGER.severe(transaction_id.getErrorMessage());
                 throw new Exception(transaction_id.getErrorMessage());
