@@ -147,15 +147,15 @@ public class DataController {
         // store inventories
         List<Inventory> inventories=inventoryRepository.findAll();
         for(Inventory inventory : inventories){
-            Integer storeId=inventory.getStoreID().getStoreID();
+            Integer storeId=inventory.getStoreID();
             List<ProductEntity> productEntities=inventory.getProducts();
             for(ProductEntity productEntity : productEntities){
                 // int productId, int storeId, double price, int quantity,double weight
-                int productId=productEntity.getProductID().getProductID();
-                int storeID=inventory.getStoreID().getStoreID();
+                int productId=productEntity.getProductID();
+                int storeID=inventory.getStoreID();
                 double price=productEntity.getPrice();
                 int quantity=productEntity.getQuantity();
-                double weight=productRepository.findById(productEntity.getProductID().getProductID()).get().getWeight();
+                double weight=productRepository.findById(productEntity.getProductID()).get().getWeight();
                 org.market.DomainLayer.backend.Market.getSC().addProduct(productId, storeID, price, quantity, weight);
             }
         }
@@ -173,7 +173,7 @@ public class DataController {
             Map<Integer, double[]> productsMap=new ConcurrentHashMap<>();
             for(ProductEntity productEntity : purchaseEntity.getProducts()){
                 double[] QP={productEntity.getQuantity(),productEntity.getPrice()};
-                productsMap.put(productEntity.getProductID().getProductID(),QP);
+                productsMap.put(productEntity.getProductID(),QP);
             }
             Purchase purchase=new Purchase(purchaseEntity.getUsername().getUsername(),purchaseEntity.getStoreID().getStoreID(), purchaseEntity.getOvlprice(), productsMap); 
             org.market.DomainLayer.backend.Market.getPH().addPurchase(purchaseEntity.getStoreID().getStoreID(), purchaseEntity.getUsername().getUsername(), purchase);
@@ -202,20 +202,20 @@ public class DataController {
         for(DiscountPolicy discountPolicy : discountPolicies){
             switch (discountPolicy.getType()) {
                 case "category":
-                    org.market.DomainLayer.backend.Market.loudCategoryDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId().getStoreID(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudCategoryDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
                     break;
                 case "product":
-                    org.market.DomainLayer.backend.Market.loudProductDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId().getStoreID(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudProductDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
                     break;
                 case "store":
-                    org.market.DomainLayer.backend.Market.loudStoreDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId().getStoreID(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudStoreDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
                     break;
                 case "add":
-                    org.market.DomainLayer.backend.Market.loudNmericalDiscount(discountPolicy.getUsername(),discountPolicy.getStoreId().getStoreID(),true,discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudNmericalDiscount(discountPolicy.getUsername(),discountPolicy.getStoreId(),true,discountPolicy.getParentDiscount().getDiscountId());
                     break;
                 
                 default:
-                    org.market.DomainLayer.backend.Market.loudLogicalDiscount(discountPolicy.getUsername(), discountPolicy.getStoreId().getStoreID(), discountPolicy.getType(), discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudLogicalDiscount(discountPolicy.getUsername(), discountPolicy.getStoreId(), discountPolicy.getType(), discountPolicy.getParentDiscount().getDiscountId());
                     break;
             }
         }
