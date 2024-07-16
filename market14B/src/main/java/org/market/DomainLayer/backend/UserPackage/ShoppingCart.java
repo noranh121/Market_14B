@@ -41,6 +41,12 @@ public class ShoppingCart {
         UserController.LOGGER.info("added to cart");
     }
 
+    public void addToCartOffer(String username, Integer product,int price, int storeId) throws Exception {
+        Basket basket = getBasket(username, storeId);
+        basket.addOfferPrice(product, price);
+        UserController.LOGGER.info("added to cart");
+    }
+
     public Basket getBasket(String username, int storeId) {
         for (Basket basket : baskets) {
             if (basket.getStoreID() == storeId) {

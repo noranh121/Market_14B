@@ -8,6 +8,7 @@ public class Basket {
     private String username;
     private int storeID;
     private Map<Integer, Integer> products; //-> <productId,quantity>
+    private Map<Integer, Integer> prodOffer; //-> <productId,price>
 
 
     public Basket(String username, int storeID) {
@@ -71,5 +72,13 @@ public class Basket {
         }
         UserController.LOGGER.severe("couldn't find item");
         return "couldn't find item";
+    }
+
+    public void addOfferPrice(int productId, int price) {
+        prodOffer.put(productId,price);
+    }
+
+    public int getOfferPrice(int product) {
+        return prodOffer.get(product);
     }
 }

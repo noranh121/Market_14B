@@ -304,6 +304,14 @@ public class Market {
         return response;
     }
 
+    public String addToCartOffer(String username, Integer product, int storeId,int price) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't add to cart user is suspended");
+        }
+        String response= userController.addToCartOffer(username, product,price, storeId);
+        return response;
+    }
+
     public String inspectCart(String username) throws Exception {
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't inspect cart user is suspended");

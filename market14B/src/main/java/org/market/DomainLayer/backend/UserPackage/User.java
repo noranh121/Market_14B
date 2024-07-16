@@ -58,6 +58,12 @@ public abstract class User {
         return "added to cart";
     }
 
+    public String addToCartOffer(Integer product, int storeId, int price) throws Exception {
+        shoppingCart.addToCartOffer(this.username, product, price, storeId);
+        UserController.LOGGER.info("added to cart");
+        return "added to cart";
+    }
+
     /**
      * extract cart baskets and items ....
      * 

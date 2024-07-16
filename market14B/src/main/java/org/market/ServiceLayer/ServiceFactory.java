@@ -112,6 +112,10 @@ public class ServiceFactory {
         return userService.addToCart(username, product, storeId, quantity);
     }
 
+    public String addToCartOffer(String username, Integer product, int storeId, int price) throws Exception {
+        return userService.addToCartOffer(username, product, storeId, price);
+    }
+
     public String inspectCart(String username) throws Exception {
         return userService.inspectCart(username);
     }
