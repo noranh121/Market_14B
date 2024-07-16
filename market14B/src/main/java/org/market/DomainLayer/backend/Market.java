@@ -1000,19 +1000,19 @@ public class Market {
         }
         List<CartItemDTO> result = new ArrayList<>();
         User user = userController.getUser(username);
-        if(user != null){
+        if (user != null) {
             ShoppingCart cart = user.getShoppingCart();
             List<Basket> baskets = cart.getBaskets();
-            for(Basket b : baskets){
-                for(Map.Entry<Integer,Integer> entry : b.getProducts().entrySet()){
+            for (Basket b : baskets) {
+                for (Map.Entry<Integer, Integer> entry : b.getProducts().entrySet()) {
                     CartItemDTO item = new CartItemDTO();
                     item.setProductId(entry.getKey());
                     item.setQuantity(entry.getValue());
                     item.setUsername(username);
                     item.setStoreId(b.getStoreID());
                     item.setName(productController.getProductName(entry.getKey()));
-                    double [] price_store = findProdInfo(getProduct(entry.getKey()));
-                    if(price_store[0] == -1){
+                    double[] price_store = findProdInfo(getProduct(entry.getKey()));
+                    if (price_store[0] == -1) {
                         throw new Exception("Price is Out Of Stock");
                     }
                     item.setPrice(price_store[0]);
@@ -1020,7 +1020,7 @@ public class Market {
                 }
             }
             return result;
-        }else{
+        } else {
             throw new Exception("User does not exist.");
         }
     }

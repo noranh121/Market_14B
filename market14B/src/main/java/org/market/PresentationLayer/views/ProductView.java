@@ -42,7 +42,7 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
     private NumberField new_price_field;
     private IntegerField new_inventory_field;
     private Dialog makeOfferDialog;
-
+    private NumberField offerPriceField;
 
 
     public ProductView() {
@@ -96,7 +96,7 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         makeOfferDialog.setCloseOnOutsideClick(true);
         VerticalLayout dialogLayout = new VerticalLayout();
         H2 dialogTitle = new H2("Make an Offer");
-        IntegerField offerPriceField = new IntegerField("Price");
+        this.offerPriceField = new NumberField("Price");
         sendOfferButton = new Button("Send");
         dialogLayout.add(dialogTitle, offerPriceField, sendOfferButton);
         makeOfferDialog.add(dialogLayout);
@@ -111,11 +111,6 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         dialogLayout.getStyle().set("align-items", "center");
         offerPriceField.getStyle().set("width", "100%");
         sendOfferButton.getStyle().set("margin-top", "20px");
-
-        sendOfferButton.addClickListener(e -> {
-            offerPriceField.clear();
-            makeOfferDialog.close();
-        });
 
         //end offer code
 
@@ -211,6 +206,10 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         this.addToCartButton.addClickListener(e);
     }
 
+    public void setSendOfferButtonClickEventListener(ComponentEventListener<ClickEvent<Button>> e){
+        this.sendOfferButton.addClickListener(e);
+    }
+
     public int getProduct_id() {
         return product_id;
     }
@@ -227,6 +226,10 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
 
     public IntegerField getNew_inventory_field() {
         return new_inventory_field;
+    }
+
+    public NumberField getOfferPriceField() {
+        return offerPriceField;
     }
 
     @Override

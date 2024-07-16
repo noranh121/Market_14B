@@ -4,10 +4,7 @@ import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.ProductPackage.Product;
 import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
 import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
-import org.market.Web.DTOS.CartItemDTO;
-import org.market.Web.DTOS.PermissionDTO;
-import org.market.Web.DTOS.ProductDTO;
-import org.market.Web.DTOS.StoreDTO;
+import org.market.Web.DTOS.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -302,5 +299,21 @@ public class ServiceFactory {
                         logicalRule.equals("XOR") ? PurchasePolicyController.LogicalRule.OR :
                                 PurchasePolicyController.LogicalRule.IF_THEN;
         return storesService.addLogicalPurchase(username, storeId, rule, i);
+    }
+
+    public List<OfferDTO> getOffers(int storeId, String username) {
+        return null;
+    }
+
+    public String rejectOffer(String username, String offerUsername, int storeId, int productId) {
+        return null;
+    }
+
+    public String approveOffer(String username, String offerUsername, int storeId, int productId) {
+        return null;
+    }
+
+    public String sendOffer(String username, int storeId, int productId, double offer) {
+        return null;
     }
 }
