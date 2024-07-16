@@ -9,6 +9,7 @@ import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
+import org.market.Web.DTOS.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -320,4 +321,5 @@ public class ServiceFactory {
     public String sendOffer(String username, int storeId, int productId,Double price, Double offerPrice) {
         return storesService.sendOffer(username, storeId,productId,price, offerPrice);
     }
+
 }

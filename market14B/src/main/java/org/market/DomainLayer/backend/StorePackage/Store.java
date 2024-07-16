@@ -284,7 +284,12 @@ public class Store {
     public List<OfferDTO> bringOffers() {
         List<OfferDTO> offersDTOs = new ArrayList<>();
         for (Offer offer : offers) {
-            OfferDTO dto = new OfferDTO(offer);
+            OfferDTO dto = new OfferDTO();
+            dto.setName(offer.getProductName());
+            dto.setOffer(offer.getOfferPrice());
+            dto.setPrice(offer.getPrice());
+            dto.setProductId(offer.getProductId());
+            dto.setUsername(offer.getUsername());
             offersDTOs.add(dto);
         }
         return offersDTOs;

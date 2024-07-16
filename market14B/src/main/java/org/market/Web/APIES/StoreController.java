@@ -3,6 +3,7 @@ package org.market.Web.APIES;
 import org.market.ServiceLayer.ServiceFactory;
 import org.market.ServiceLayer.SuspendedException;
 import org.market.ServiceLayer.TokenService;
+import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
 import org.market.Web.Requests.*;
@@ -334,6 +335,50 @@ public class StoreController {
         }
         catch(Exception e){
             return ResponseEntity.status(404).body("Failed to add logical purchase policy");
+        }
+    }
+
+    @GetMapping("/offers/user={username}&store={store_id}")
+    public ResponseEntity<?> getOffers(@PathVariable("username") String username, @PathVariable("store_id") Integer store_id) {
+        try{
+            List<OfferDTO> res = service.getOffers(store_id, username);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve store offers");
+        }
+    }
+
+    @PostMapping("/approve-offer")
+    public ResponseEntity<?> approveOffer(@RequestBody OfferReq request) {
+        try{
+            String res = service.approveOffer(request.getUsername(), request.getOfferUsername(), request.getStoreId(), request.getProductId());
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to approve offer");
+        }
+    }
+
+    @PostMapping("/reject-offer")
+    public ResponseEntity<?> rejectOffer(@RequestBody OfferReq request) {
+        try{
+            String res = service.rejectOffer(request.getUsername(), request.getOfferUsername(), request.getStoreId(), request.getProductId());
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to reject offer");
+        }
+    }
+
+    @PostMapping("/send-offer")
+    public ResponseEntity<?> sendOffer(@RequestBody OfferReq request) {
+        try{
+            String res = service.sendOffer(request.getUsername(), request.getStoreId(), request.getProductId(), request.getOffer());
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to send offer");
         }
     }
 }

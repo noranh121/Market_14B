@@ -220,7 +220,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     }
 
     public void NavigateToOfferPage(){
-        this.getUI().ifPresent(ui -> ui.navigate("dash/offers"));
+        this.getUI().ifPresent(ui -> ui.navigate("dash/offers/" + store_id));
     }
 
     @Override

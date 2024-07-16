@@ -7,6 +7,7 @@ import com.vaadin.flow.server.VaadinSession;
 import org.market.PresentationLayer.handlers.ErrorHandler;
 import org.market.PresentationLayer.views.ProductView;
 import org.market.Web.DTOS.ProductDTO;
+import org.market.Web.Requests.OfferReq;
 import org.market.Web.Requests.ReqStore;
 import org.market.Web.Requests.cartOp;
 import org.springframework.core.ParameterizedTypeReference;
@@ -41,7 +42,8 @@ public class ProductPresenter {
                 UI.getCurrent().getPage().reload();
             }
         });
-        this.view.setAddToCartButtonClickEventListener(e-> onAddToCart());
+        this.view.setAddToCartButtonClickEventListener(e -> onAddToCart());
+        this.view.setSendOfferButtonClickEventListener(e -> onSendOffer());
     }
 
     private ProductDTO getProduct(int product_id) {
@@ -139,6 +141,32 @@ public class ProductPresenter {
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
 
             ErrorHandler.showSuccessNotification("Successfully added product to cart");
+
+        } catch (HttpClientErrorException e) {
+            ErrorHandler.handleError(e, () -> {
+            });
+        }
+    }
+
+    private void onSendOffer() {
+        try {
+            String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
+            String url = "http://localhost:8080/api/stores/send-offer";
+
+            OfferReq request = new OfferReq();
+            request.setStoreId(view.getStore_id());
+            request.setProductId(view.getProduct_id());
+            request.setOffer(view.getOfferPriceField().getValue());
+            request.setUsername(username);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<OfferReq> requestEntity = new HttpEntity<>(request, headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+
+            ErrorHandler.showSuccessNotification("Successfully made an offer");
 
         } catch (HttpClientErrorException e) {
             ErrorHandler.handleError(e, () -> {
