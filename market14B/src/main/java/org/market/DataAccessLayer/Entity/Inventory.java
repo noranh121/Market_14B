@@ -58,6 +58,15 @@ public class Inventory implements Serializable{
         this.products.add(pe);
     }
 
+    public double getProdPrice(Integer prodID){
+        for(ProductEntity prod: products ){
+            if(prod.getProductID() == prodID){
+                return prod.getPrice();
+            }
+        }
+        return -1;
+    }
+
     public void removeProduct(Product product) {
         products.remove(products.get(product.getProductID()));
     }

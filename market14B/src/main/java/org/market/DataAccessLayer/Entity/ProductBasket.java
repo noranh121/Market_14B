@@ -14,9 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductBasket implements Serializable{
 
-    @Id
-    @JoinColumn(name="productID",referencedColumnName = "productID")
-    private Integer productID;
+    // @Id
+    // @JoinColumn(name="productID",referencedColumnName = "productID")
+    // private Integer productID;
+    @EmbeddedId
+    private ProductBasketId productBasketId;
 
     @Column(name="price")
     private double price;
@@ -25,11 +27,23 @@ public class ProductBasket implements Serializable{
     private int quantity;
 
     public Integer getProductID() {
-        return productID;
+        return productBasketId.getProdID();
+    }
+    public String getUsername() {
+        return productBasketId.getUsername();
+    }
+    public void setUsername(String username) {
+        this.productBasketId.setUsername(username);
+    }
+    public Integer getStoreID() {
+        return this.productBasketId.getStoreID();
+    }
+    public void setStoreID(Integer storeID) {
+        this.productBasketId.setStoreID(storeID);
     }
 
     public void setProductID(Product productID) {
-        this.productID = productID.getProductID();
+        this.productBasketId.setProdID(productID.getProductID());
     }
 
     public double getPrice() {

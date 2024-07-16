@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://sadna.database.windows.net:1433;database=market14B;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    url: jdbc:sqlserver://sadna-server.database.windows.net:1433;database=market14B-Prod;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
     username: maged
     password: sadna14B
   jpa:

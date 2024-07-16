@@ -331,7 +331,7 @@ public class DataController {
             User user = optionalUser.get();
 
             // init product entity to add it to the relevant basket
-            double price = productEntityRepository.findById(productID).get().getPrice();
+            double price = inventoryRepository.findById(storeID).get().getProdPrice(productID);
             ProductBasket productEntity = new ProductBasket();
             Product product = productRepository.findById(productID).get();
             productEntity.setProductID(product);
