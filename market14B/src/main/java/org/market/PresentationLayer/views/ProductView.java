@@ -29,6 +29,7 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
 
     private int product_id;
     private int store_id;
+    private double price;
     private HorizontalLayout top_layout;
     private VerticalLayout specificationsLayout;
     private IntegerField quantityField;
@@ -58,6 +59,7 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
 
     public void setTopLayout(ProductDTO product){
         this.store_id = product.getStoreid();
+        this.price = product.getPrice();
 
         Image img = new Image("icons/headphones.jpg", "product-view-image");
         img.addClassName("product-image");
@@ -252,5 +254,9 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         this.open_edit.setVisible(!visible);
         this.new_price_field.setVisible(visible);
         this.new_inventory_field.setVisible(visible);
+    }
+
+    public double getPrice() {
+        return price;
     }
 }

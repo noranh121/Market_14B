@@ -1,9 +1,5 @@
 package org.market.DomainLayer.backend;
 
-import org.apache.commons.compress.archivers.dump.DumpArchiveEntry.PERMISSION;
-
-//import org.market.DataAccessLayer.DataController;
-
 import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
 import org.market.DomainLayer.backend.API.SupplyExternalService.SupplyService;
 import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
@@ -1033,17 +1029,19 @@ public class Market {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        int i = storeController.approveOffer(permissions.numOfStoreOwners(storeId),username, storeId, productId);
+        int i = storeController.approveOffer(permissions.numOfStoreOwners(storeId),offerName, storeId, productId);
         String message = "";
         switch (i) {
             case 1:
                 message = "your offer for " + productId +" was accepted!";
+                break;
             case -1:
                 message = "your offer for " + productId +" was rejected";
+                break;
             default:
                 break;
         }
-        permissions.updateUser(offerName, message); 
+        permissions.updateUser(offerName, message);
         return "approval sent";
     }
 
@@ -1052,13 +1050,15 @@ public class Market {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
-        int i = storeController.rejectOffer(permissions.numOfStoreOwners(storeId),username, storeId, productId);
+        int i = storeController.rejectOffer(permissions.numOfStoreOwners(storeId),offerName, storeId, productId);
         String message = "";
         switch (i) {
             case 1:
                 message = "your offer for " + productId +" was accepted!";
+                break;
             case -1:
                 message = "your offer for " + productId +" was rejected";
+                break;
             default:
                 break;
         }

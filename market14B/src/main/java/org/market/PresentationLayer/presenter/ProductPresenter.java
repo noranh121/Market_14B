@@ -157,6 +157,7 @@ public class ProductPresenter {
             request.setStoreId(view.getStore_id());
             request.setProductId(view.getProduct_id());
             request.setOffer(view.getOfferPriceField().getValue());
+            request.setPrice(view.getPrice());
             request.setUsername(username);
 
             HttpHeaders headers = new HttpHeaders();

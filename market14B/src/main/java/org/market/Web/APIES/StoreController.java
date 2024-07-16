@@ -356,7 +356,7 @@ public class StoreController {
             return ResponseEntity.ok(res);
         }
         catch(Exception e){
-            return ResponseEntity.status(404).body("Failed to approve offer");
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 
@@ -367,14 +367,14 @@ public class StoreController {
             return ResponseEntity.ok(res);
         }
         catch(Exception e){
-            return ResponseEntity.status(404).body("Failed to reject offer");
+            return ResponseEntity.status(404).body(e.getMessage());
         }
     }
 
     @PostMapping("/send-offer")
     public ResponseEntity<?> sendOffer(@RequestBody OfferReq request) {
         try{
-            String res = service.sendOffer(request.getUsername(), request.getStoreId(), request.getProductId(), request.getOffer());
+            String res = service.sendOffer(request.getUsername(), request.getStoreId(), request.getProductId(), request.getPrice(), request.getOffer());
             return ResponseEntity.ok(res);
         }
         catch(Exception e){

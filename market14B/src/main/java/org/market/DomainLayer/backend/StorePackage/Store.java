@@ -303,7 +303,7 @@ public class Store {
 
     public Offer getOffer(String username, int productId) {
         for (Offer offer: offers) {
-            if (offer.getUsername() == username && offer.getProductId() == productId) {
+            if (offer.getUsername().equals(username) && offer.getProductId() == productId) {
                 return offer;
             }
         }
@@ -314,10 +314,14 @@ public class Store {
         Offer offer = getOffer(username, productId);
         offer.addNumOfApprovals();
         if (offer.getVotes() == num) {
-            if (offer.getNumOfApprovals() == offer.getVotes())
+            if (offer.getNumOfApprovals() == offer.getVotes()) {
+                offers.remove(offer);
                 return 1; // the offer was accepted by everyone
-            else
+            }
+            else {
+                offers.remove(offer);
                 return -1; // the offer was regected by some
+            }
         }
         return 0; // not everyone voted yet
     }
@@ -326,10 +330,14 @@ public class Store {
         Offer offer = getOffer(username, productId);
         offer.addnumOfRejections();
         if (offer.getVotes() == num) {
-            if (offer.getnumOfRejections() == offer.getVotes())
+            if (offer.getnumOfRejections() == offer.getVotes()) {
+                offers.remove(offer);
                 return -1; // the offer was accepted by everyone
-            else
+            }
+            else{
+                offers.remove(offer);
                 return 1; // the offer was rejected by some
+            }
         }
         return 0; // not everyone voted yet
     }

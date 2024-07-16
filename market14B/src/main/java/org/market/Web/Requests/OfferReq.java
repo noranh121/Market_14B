@@ -6,6 +6,7 @@ public class OfferReq {
     private String username;
     private String offerUsername;
     private double offer;
+    private double price;
 
     public OfferReq(){}
 
@@ -47,5 +48,13 @@ public class OfferReq {
 
     public void setOffer(double offer) {
         this.offer = offer;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
