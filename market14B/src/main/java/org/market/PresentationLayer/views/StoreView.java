@@ -21,7 +21,10 @@ import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.presenter.StorePresenter;
 import org.market.PresentationLayer.views.components.ProductCollection;
 import org.market.PresentationLayer.views.components.SearchBar;
+import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
+
+import java.util.List;
 
 @Route(value = "store", layout = HomeView.class)
 @RoutePrefix("dash")
@@ -44,6 +47,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     private Button open_btn;
     private Button close_btn;
     private Button offer_btn;
+    private ProductCollection collection;
 
     public StoreView(){
         addClassName("store-view");
@@ -59,7 +63,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         HorizontalLayout filler = new HorizontalLayout();
         filler.getStyle().set("width", "100%");
 
-        SearchBar searchBar = new SearchBar(true);
+        SearchBar searchBar = new SearchBar(null, this, true,true,true, store_id);
 
         middle_layout.add(product_title);
         middle_layout.addAndExpand(filler);
@@ -185,7 +189,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
 
     public void updateProductCollection(){
         products_layout.removeAll();
-        ProductCollection collection = new ProductCollection(store_id);
+        this.collection = new ProductCollection(store_id);
         products_layout.add(collection);
     }
 
@@ -241,5 +245,9 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         } catch (NumberFormatException e) {
             System.out.println("Invalid number format: " + e.getMessage());
         }
+    }
+
+    public void loadResults(List<ProductDTO> productDTOS) {
+        collection.loadProducts(productDTOS);
     }
 }

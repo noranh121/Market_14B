@@ -42,7 +42,7 @@ public class MyStoresView extends VerticalLayout implements BeforeEnterObserver 
         HorizontalLayout topBar = new HorizontalLayout();
         topBar.addClassName("top-bar");
 
-        SearchBar searchBar = new SearchBar(false);
+        SearchBar searchBar = new SearchBar( null, null, false, false, false, -1);
         this.add_store_btn = new Button("Add Store");
         add_store_btn.setSuffixComponent(VaadinIcon.PLUS_CIRCLE_O.create());
         add_store_btn.addClassName("add-store-btn");

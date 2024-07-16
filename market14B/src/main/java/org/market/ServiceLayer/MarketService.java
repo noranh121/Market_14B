@@ -1,8 +1,12 @@
 package org.market.ServiceLayer;
 
 import org.market.DomainLayer.backend.Market;
+import org.market.Web.DTOS.ProductDTO;
+import org.market.Web.Requests.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class MarketService {
@@ -73,5 +77,9 @@ public class MarketService {
 
     public boolean hasCategory(String name) {
         return market.hasCategory(name);
+    }
+
+    public List<ProductDTO> search(SearchEntity entity){
+        return this.market.search(entity);
     }
 }

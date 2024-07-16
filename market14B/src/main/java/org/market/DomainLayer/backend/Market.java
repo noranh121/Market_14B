@@ -1,5 +1,6 @@
 package org.market.DomainLayer.backend;
 
+import org.market.DomainLayer.SearchEngine;
 import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
 import org.market.DomainLayer.backend.API.SupplyExternalService.SupplyService;
 import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
@@ -26,6 +27,7 @@ import org.market.Web.DTOS.CartItemDTO;
 import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
+import org.market.Web.Requests.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -68,6 +70,7 @@ public class Market {
     private static SupplyService supplyService;
     private static ImmediateNotifierDecorator immediateNotifierDecorator;
     private static DelayedNotifierDecorator delayedNotifierDecorator;
+    private static SearchEngine searchEngine;
     private FileHandler fileHandler;
 
     private Boolean Online = false;
@@ -118,7 +121,8 @@ public class Market {
 
     @Autowired
     public void setDependencies(/*DataController dataController,*/StoreController storeController,UserController userController,Permissions permissions,PurchaseHistory purchaseHistory
-            ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService, ImmediateNotifierDecorator immediateNotifierDecorator, DelayedNotifierDecorator delayedNotifierDecorator){
+            ,ProductController productController,CategoryController categoryController,PaymentService paymentService,SupplyService supplyService, ImmediateNotifierDecorator immediateNotifierDecorator, DelayedNotifierDecorator delayedNotifierDecorator,
+                                                                  SearchEngine searchEngine){
         this.userController = userController;
         this.storeController = storeController;
         this.permissions = permissions;
@@ -129,6 +133,7 @@ public class Market {
         this.supplyService = supplyService;
         this.immediateNotifierDecorator = immediateNotifierDecorator;
         this.delayedNotifierDecorator = delayedNotifierDecorator;
+        this.searchEngine = searchEngine;
         //this.dataController = dataController;
         try {
             //systemManagers=dataController.getSystemManagers(0);
@@ -900,7 +905,7 @@ public class Market {
         return prods;
     }
 
-    public double[] findProdInfo(Product p) {
+    public static double[] findProdInfo(Product p) {
         int prodid = p.getId();
         return storeController.getProdInfo(prodid);
     }
@@ -1075,5 +1080,41 @@ public class Market {
     public List<OfferDTO> getOffers(int storeId, String username) {
         List<OfferDTO> offers = storeController.getStoreOffers(storeId);
         return offers;
+    }
+
+    public static double[] findProdInfo(Product p, int storeID) {
+        int prodid = p.getId();
+        return storeController.getProdInfo(prodid,storeID);
+    }
+
+    public List<ProductDTO> search(SearchEntity entity){
+        return this.searchEngine.HandleSearch(entity);
+    }
+
+    public static List<ProductDTO> convertProds(List<Product> prods){
+        List<ProductDTO> psdto = new ArrayList<>();
+        for(Product p : prods){
+            double [] price_store = findProdInfo(p);
+            if(price_store[0] != -1){
+                if(storeController.getStore(((int)price_store[1])).isActive()) {
+                    ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+                    psdto.add(pdto);
+                }
+            }
+        }
+        return psdto;
+    }
+    public static List<ProductDTO> convertProds(List<Product> result, int storeID) {
+        List<ProductDTO> psdto = new ArrayList<>();
+        for(Product p : result){
+            double [] price_store = findProdInfo(p,storeID);
+            if(price_store[0] != -1){
+                if(storeController.getStore(((int)price_store[1])).isActive()){
+                    ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+                    psdto.add(pdto);
+                }
+            }
+        }
+        return psdto;
     }
 }

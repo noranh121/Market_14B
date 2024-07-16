@@ -1,6 +1,5 @@
 package org.market.DomainLayer.backend.StorePackage;
 
-import org.market.DomainLayer.backend.StorePackage.Purchase.Offer;
 import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.springframework.stereotype.Component;
@@ -253,5 +252,15 @@ public class StoreController {
             return stores.get(storeId).rejectOffer(numOfStoreOwners, username,productId);
         }
         return 0;
+    }
+
+    public double [] getProdInfo(int prodid, int storeid){
+        for(Store s: stores.values()){
+            if(s.getId() == storeid){
+                double [] info = s.bring(prodid);
+                if(info[0] != -1) return info;
+            }
+        }
+        return new double[]{-1, -1};
     }
 }

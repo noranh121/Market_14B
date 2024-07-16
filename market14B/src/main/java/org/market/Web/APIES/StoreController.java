@@ -381,4 +381,17 @@ public class StoreController {
             return ResponseEntity.status(404).body("Failed to send offer");
         }
     }
+
+    @PostMapping("/search-products")
+    public ResponseEntity<?> searchProducts(@RequestBody SearchEntity entity){
+        try{
+            List<ProductDTO> res = service.search(entity);
+            for(ProductDTO p : res){
+                System.out.println(p.getName());
+            }
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve search result.");
+        }
+    }
 }
