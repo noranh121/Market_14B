@@ -23,6 +23,14 @@ public class Purchase {
         StoreController.LOGGER.info("Purchase captured!");
     }
 
+    public Purchase(String username,int storeId,double calculatedPrice, Map<Integer, double[]> purchases){
+        purchases = new ConcurrentHashMap<>();
+        this.username =username;
+        this.storeId = storeId;
+        this.Ovlprice = calculatedPrice; 
+        this.purchases = purchases;
+    }
+
     public void setID(int purchaseid) {
         this.purchaseid = purchaseid;
     }

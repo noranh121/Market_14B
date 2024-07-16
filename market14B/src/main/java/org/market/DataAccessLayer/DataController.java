@@ -2,6 +2,8 @@ package org.market.DataAccessLayer;
 
 import org.market.DataAccessLayer.Entity.*;
 import org.market.DataAccessLayer.Repository.*;
+import org.market.DomainLayer.backend.Purchase;
+import org.market.DomainLayer.backend.StorePackage.Discount.CategoryDiscount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,6 +52,8 @@ public class DataController {
    private PurchaseRepository purchaseRepository;
    @Autowired
    private DiscountRepository discountRepository;
+   @Autowired
+   private EmployerPermissionRepository employerPermissionRepository;
 
    private FileHandler fileHandler;
 
@@ -98,6 +104,140 @@ public class DataController {
            systemManagers.add(user.getUsername());
        }
        return systemManagers;
+   }
+
+   public void loadData() throws Exception{
+        // system managers
+        Market market=marketRepository.findById(0).get();
+        List<User> systemManagersEntity=market.getSystemManagers();
+        for(User user : systemManagersEntity){
+            org.market.DomainLayer.backend.Market.addToSystemManagers(user.getUsername());
+        }
+        // usercontroller
+        List<User> users=new ArrayList<>();
+        users=userRepository.findAll();
+        for(User user : users){
+            org.market.DomainLayer.backend.Market.getUC().loudUser(user.getUsername(), user.getPassword(), user.getAge());
+        }
+
+        // store controller
+        List<Store> stores=new ArrayList<>();
+        stores=storeRepository.findAll();
+        Integer maxId=-1;
+        for(Store store : stores){
+            if(maxId<store.getStoreID())
+                maxId=store.getStoreID();
+            org.market.DomainLayer.backend.Market.getSC().loudStore(store.getStoreID(),store.getFirstOwner().getUsername(),store.getName(),store.getDesciption());
+        }
+        org.market.DomainLayer.backend.Market.getSC().setCounterID(maxId);
+
+        // category controller
+        List<Category> categories=categoryRepository.findAll();
+        for(Category category : categories){
+            org.market.DomainLayer.backend.Market.getCC().addCategory(category.getCategoryName());
+            for(Category subCategory : category.getSubCategories()){
+                org.market.DomainLayer.backend.Market.getCC().addCategory(subCategory.getCategoryName(), category.getCategoryID());
+            }
+        }
+
+        // store inventories
+        List<Inventory> inventories=inventoryRepository.findAll();
+        for(Inventory inventory : inventories){
+            Integer storeId=inventory.getStoreID().getStoreID();
+            List<ProductEntity> productEntities=inventory.getProducts();
+            for(ProductEntity productEntity : productEntities){
+                // int productId, int storeId, double price, int quantity,double weight
+                int productId=productEntity.getProductID().getProductID();
+                int storeID=inventory.getStoreID().getStoreID();
+                double price=productEntity.getPrice();
+                int quantity=productEntity.getQuantity();
+                double weight=productRepository.findById(productEntity.getProductID().getProductID()).get().getWeight();
+                org.market.DomainLayer.backend.Market.getSC().addProduct(productId, storeID, price, quantity, weight);
+            }
+        }
+
+        // product controller
+        List<Product> products=productRepository.findAll();
+        for(Product product : products){
+            org.market.DomainLayer.backend.ProductPackage.Category category=org.market.DomainLayer.backend.Market.getCC().getCategory(product.getCatagoryID().getCategoryID());
+            org.market.DomainLayer.backend.Market.getPC().addProduct(product.getProductName(), category, product.getDescription(), product.getBrand(), product.getWeight());
+        }
+
+        // purchase history
+        List<PurchaseHistory> purchases=purchaseHistoryRepository.findAll();
+        for(PurchaseHistory purchaseEntity : purchases){
+            Map<Integer, double[]> productsMap=new ConcurrentHashMap<>();
+            for(ProductEntity productEntity : purchaseEntity.getProducts()){
+                double[] QP={productEntity.getQuantity(),productEntity.getPrice()};
+                productsMap.put(productEntity.getProductID().getProductID(),QP);
+            }
+            Purchase purchase=new Purchase(purchaseEntity.getUsername().getUsername(),purchaseEntity.getStoreID().getStoreID(), purchaseEntity.getOvlprice(), productsMap); 
+            org.market.DomainLayer.backend.Market.getPH().addPurchase(purchaseEntity.getStoreID().getStoreID(), purchaseEntity.getUsername().getUsername(), purchase);
+        }
+
+        // permissions
+        List<EmployerPermission> permissions=employerPermissionRepository.findAll();
+        for(EmployerPermission permission : permissions){
+            int storeId=permission.getStoreID().getStoreID();
+            List<EmployerPermission> employees=permission.getEmployees();
+            if(!org.market.DomainLayer.backend.Market.getP().storeExist(storeId)){
+                org.market.DomainLayer.backend.Market.getP().initStore(storeId, permission.getUsername().getUsername());
+            }
+            else{
+                Boolean[] pType={permission.getEditProducts(),permission.getAddOrEditPurchaseHistory(),permission.getAddOrEditDiscountHistory()};
+                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, permission.getParentusername().getUsername(), permission.getUsername().getUsername(), permission.getStoreOwner(), permission.getStoreManager(), pType);
+            }
+            for(EmployerPermission employee : employees){
+                Boolean[] pType={employee.getEditProducts(),employee.getAddOrEditPurchaseHistory(),employee.getAddOrEditDiscountHistory()};
+                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, employee.getParentusername().getUsername(), employee.getUsername().getUsername(), employee.getStoreOwner(), employee.getStoreManager(), pType);
+            }
+        }
+
+        // discount policy
+        List<DiscountPolicy> discountPolicies=discountRepository.findAll();
+        for(DiscountPolicy discountPolicy : discountPolicies){
+            switch (discountPolicy.getType()) {
+                case "category":
+                    org.market.DomainLayer.backend.Market.loudCategoryDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId().getStoreID(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
+                    break;
+                case "product":
+                    org.market.DomainLayer.backend.Market.loudProductDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId().getStoreID(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
+                    break;
+                case "store":
+                    org.market.DomainLayer.backend.Market.loudStoreDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId().getStoreID(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
+                    break;
+                case "add":
+                    org.market.DomainLayer.backend.Market.loudNmericalDiscount(discountPolicy.getUsername(),discountPolicy.getStoreId().getStoreID(),true,discountPolicy.getParentDiscount().getDiscountId());
+                    break;
+                
+                default:
+                    org.market.DomainLayer.backend.Market.loudLogicalDiscount(discountPolicy.getUsername(), discountPolicy.getStoreId().getStoreID(), discountPolicy.getType(), discountPolicy.getParentDiscount().getDiscountId());
+                    break;
+            }
+        }
+
+        // purchase policy
+        List<PurchasePolicy> purchasePolicies=purchaseRepository.findAll();
+        for(PurchasePolicy purchasePolicy : purchasePolicies){
+            switch (purchasePolicy.getType()) {
+                case "category":
+                    org.market.DomainLayer.backend.Market.loudCategoryPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    break;
+                case "product":
+                    org.market.DomainLayer.backend.Market.loudProductPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    break;
+                case "shoppingcart":
+                    org.market.DomainLayer.backend.Market.loudShoppingCartPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    break;
+                case "user":
+                    org.market.DomainLayer.backend.Market.loudUserPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    break;
+            
+                default:
+                    org.market.DomainLayer.backend.Market.loudLogicalPurchase(purchasePolicy.getUsername(),purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getType(),purchasePolicy.getParentPurchase().getProductId());
+                    break;
+            }
+        }
    }
 
    public   Boolean getOnline(){

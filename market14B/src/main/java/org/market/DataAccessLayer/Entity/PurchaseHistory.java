@@ -1,5 +1,7 @@
 package org.market.DataAccessLayer.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -15,8 +17,8 @@ public class PurchaseHistory implements java.io.Serializable {
     private Integer purchaseID;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="productID",referencedColumnName = "productID")
-    private Product productID;
+    @Column
+    private List<ProductEntity> products;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="storeID",referencedColumnName = "storeID")
@@ -26,11 +28,6 @@ public class PurchaseHistory implements java.io.Serializable {
     @JoinColumn(name="username",referencedColumnName = "username")
     private User username;
 
-    @Column(name = "quantity")
-    private Integer quantity;
-
-    @Column(name = "price")
-    private Integer price;
 
     @Column(name = "ovlprice")
     private Integer ovlprice;
@@ -41,14 +38,6 @@ public class PurchaseHistory implements java.io.Serializable {
 
     public void setPurchaseID(Integer purchaseID) {
         this.purchaseID = purchaseID;
-    }
-
-    public Product getProductID() {
-        return productID;
-    }
-
-    public void setProductID(Product productID) {
-        this.productID = productID;
     }
 
     public Store getStoreID() {
@@ -67,22 +56,6 @@ public class PurchaseHistory implements java.io.Serializable {
         this.username = username;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
     public Integer getOvlprice() {
         return ovlprice;
     }
@@ -91,5 +64,11 @@ public class PurchaseHistory implements java.io.Serializable {
         this.ovlprice = ovlprice;
     }
 
-    
+    public List<ProductEntity> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductEntity> products) {
+        this.products = products;
+    }    
 }

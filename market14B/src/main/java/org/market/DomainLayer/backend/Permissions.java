@@ -64,6 +64,10 @@ public class Permissions {
         }
     }
 
+    public Boolean storeExist(int storeID){
+        return storeOwners.containsKey(storeID);
+    }
+
     public Permission getPermission(int storeID, String userName) throws Exception {
         while (!deleteLock.tryLock()) {
             Thread.sleep(1000);

@@ -43,6 +43,21 @@ public class ProductController {
         return id;
     }
 
+    public synchronized int loadProduct(String name, Category category, String description, String brand,double weight) throws Exception {
+        for(Product product : products.values()){
+            if(product.getName().equals(name)){
+                LOGGER.severe("product already exits in the system");
+                throw new Exception("product already exits in the system");
+            }
+        }
+        Product prod = new Product(name, description, brand, category,weight);
+        int id = idCounter++;
+        prod.setId(id);
+        category.addProduct(prod.getId());
+        products.put(prod.getId(), prod);
+        return id;
+    }
+
     // private boolean contains(String name, Category category) {
         
     // }

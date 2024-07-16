@@ -62,6 +62,20 @@ public class StoreController {
 
     }
 
+    public String loudStore(Integer id, String username, String name, String Description) {
+        // add to database
+        Store store = new Store(name, name, Description, idCounter);
+        stores.put(id, store);
+        idCounter++;
+        LOGGER.info("store added");
+        return "store added";
+
+    }
+
+    public void setCounterID(Integer id){
+        idCounter=id;
+    }
+
     public String removeStore(int id) throws Exception {
         // remove from database
         if (!stores.containsKey(id)) {
@@ -236,8 +250,5 @@ public class StoreController {
         }
         return new ArrayList<>();
     }
-
-
-    
 
 }

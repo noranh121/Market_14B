@@ -196,7 +196,7 @@ public class Market {
         return systemManagers;
     }
 
-    public void addToSystemManagers(String admin) {
+    public static void addToSystemManagers(String admin) {
         systemManagers.add(admin);
     }
 
@@ -587,6 +587,12 @@ public class Market {
         return "category discount policy added";
     }
 
+    public static void loudCategoryDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int categoryId,int storeId,String username,int id) throws Exception{
+        Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
+        CategoryDiscount categoryDiscount=new CategoryDiscount(discountType, discountPercentage, categoryId, -1);
+        storeController.getStore(storeId).addDiscountComposite(categoryDiscount,id);
+    }
+
     public String addProductDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int productId,int storeId,String username,int id) throws Exception{
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add discount policy, user is suspended");
@@ -601,6 +607,12 @@ public class Market {
         dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1,id, storeId, username, id,"product");
         LOGGER.info("product discount policy added");
         return "product discount policy added";
+    }
+
+    public static void loudProductDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int productId,int storeId,String username,int id) throws Exception{
+        Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
+        ProductDiscount productDiscount=new ProductDiscount(discountType, discountPercentage,productId,-1);
+        storeController.getStore(storeId).addDiscountComposite(productDiscount,id);
     }
 
     public String addStoreDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int storeId,String username,int id) throws Exception{
@@ -619,7 +631,13 @@ public class Market {
         return "store discount policy added";
     }
 
-    public Discount initDiscount(Boolean standard,double conditionalPrice,double conditionalQuantity){
+    public static void loudStoreDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int productId,int storeId,String username,int id) throws Exception{
+        Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
+        StoreDiscount storeDiscount=new StoreDiscount(discountType, discountPercentage,-1);
+        storeController.getStore(storeId).addDiscountComposite(storeDiscount,id);
+    }
+
+    public static Discount initDiscount(Boolean standard,double conditionalPrice,double conditionalQuantity){
         if(standard){
             return new StandardDiscount();
         }
@@ -652,6 +670,17 @@ public class Market {
         }
     }
 
+    public static void loudNmericalDiscount(String username,int storeId,Boolean ADD,int id) throws Exception{
+        if(ADD){
+            ADDDiscountRule addDiscountRule=new ADDDiscountRule(-1);
+            storeController.getStore(storeId).addDiscountComposite(addDiscountRule,id);
+        }
+        else{
+            AT_MOSTDiscountRule at_MOSTDiscountRule=new AT_MOSTDiscountRule(-1);
+            storeController.getStore(storeId).addDiscountComposite(at_MOSTDiscountRule,id);
+        }
+    }
+
     public String addLogicalDiscount(String username, int storeId, String logicalRule,int id) throws Exception{
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add logical discount, user is suspended");
@@ -666,12 +695,12 @@ public class Market {
                 logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
                 break;
             case "Xor":
-            logicalRuleENUM=DiscountPolicyController.LogicalRule.XOR;
-            break;
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.XOR;
+                break;
 
             case "Or":
-            logicalRuleENUM=DiscountPolicyController.LogicalRule.OR;
-            break;
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.OR;
+                break;
         
             default:
                 break;
@@ -701,7 +730,42 @@ public class Market {
         }
     }
 
-    public PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
+    public static void loudLogicalDiscount(String username, int storeId, String logicalRule,int id) throws Exception{
+        DiscountPolicyController.LogicalRule logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
+        switch (logicalRule) {
+            case "And":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
+                break;
+            case "Xor":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.XOR;
+                break;
+
+            case "Or":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.OR;
+                break;
+        
+            default:
+                break;
+        }
+        switch (logicalRuleENUM) {
+            case AND:
+                ANDDiscountRule andDiscountRule=new ANDDiscountRule(-1);
+                storeController.getStore(storeId).addDiscountComposite(andDiscountRule,id);
+                break;
+            case OR:
+                ORDiscountRule orDiscountRule=new ORDiscountRule(-1);
+                storeController.getStore(storeId).addDiscountComposite(orDiscountRule,id);
+                break;
+            case XOR:
+                XORDiscountRule xorDiscountRule=new XORDiscountRule(-1);
+                storeController.getStore(storeId).addDiscountComposite(xorDiscountRule,id);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public static PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
         if(immediate){
             return new ImmediatePurchase(quantity, price, date, atLeast, weight, age);
         }
@@ -726,6 +790,12 @@ public class Market {
         return "category purchase policy added";
     }
 
+    public static void loudCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id) throws Exception{
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+        CategoryPurchase categoryPurchase=new CategoryPurchase(purchaseMethod, categoryId, -1);
+        storeController.getStore(storeId).addPurchaseComposite(categoryPurchase,id);
+    }
+
     public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add purchase policy, user is suspended");
@@ -740,6 +810,12 @@ public class Market {
         dataController.addPurchasePolicy(quantity, price, date, atLeast, weight, age,-1, -1,productId, username, storeId, immediate, id,"product");
         LOGGER.info("product purchase policy added");
         return "product purchase policy added";
+    }
+
+    public static void loudProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+        ProductPurchase productPurchase=new ProductPurchase(purchaseMethod, productId, storeId);
+        storeController.getStore(storeId).addPurchaseComposite(productPurchase,id);
     }
 
     public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id) throws Exception{
@@ -758,6 +834,12 @@ public class Market {
         return "shopping cart purchase policy added";
     }
 
+    public static void loudShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+        ShoppingCartPurchase ShoppingCartPurchase=new ShoppingCartPurchase(purchaseMethod, -1);
+        storeController.getStore(storeId).addPurchaseComposite(ShoppingCartPurchase,id);
+    }
+
     public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id) throws Exception{
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add purchase policy, user is suspended");
@@ -772,6 +854,12 @@ public class Market {
         dataController.addPurchasePolicy(quantity, price, date, atLeast, weight, age,userAge, -1, -1, username, storeId, immediate, id,"user");
         LOGGER.info("user purchase policy added");
         return "user purchase policy added";
+    }
+
+    public static void loudUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id) throws Exception{
+        PurchaseMethod purchaseMethod=initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+        UserPurchase userPurchase=new UserPurchase(purchaseMethod, userAge, storeId);
+        storeController.getStore(storeId).addPurchaseComposite(userPurchase,id);
     }
 
     public String addLogicalPurchase(String username, int storeId, String logicalRule,int id) throws Exception{
@@ -820,6 +908,41 @@ public class Market {
             default:
                 LOGGER.severe("invaled logical rule");
                 throw new Exception("invaled logical rule");
+        }
+    }
+
+    public static void loudLogicalPurchase(String username, int storeId, String logicalRule,int id) throws Exception{
+        DiscountPolicyController.LogicalRule logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
+        switch (logicalRule) {
+            case "And":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
+                break;
+            case "Or":
+            logicalRuleENUM=DiscountPolicyController.LogicalRule.OR;
+            break;
+
+            case "If-Then":
+            logicalRuleENUM=DiscountPolicyController.LogicalRule.IF_THEN;
+            break;
+        
+            default:
+                break;
+        }
+        switch (logicalRuleENUM) {
+            case AND:
+                ANDPurchaseRule andPurchaseRule=new ANDPurchaseRule(-1);
+                storeController.getStore(storeId).addPurchaseComposite(andPurchaseRule,id);
+                break;
+            case OR:
+                ORPurchaseRule orPurchaseRule=new ORPurchaseRule(-1);
+                storeController.getStore(storeId).addPurchaseComposite(orPurchaseRule,id);
+                break;
+            case IF_THEN:
+                IF_THENPurchaseRule if_THENDiscountRule=new IF_THENPurchaseRule(-1);
+                storeController.getStore(storeId).addPurchaseComposite(if_THENDiscountRule,id);
+                break;
+            default:
+                break;
         }
     }
 

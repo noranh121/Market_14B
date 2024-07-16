@@ -117,6 +117,17 @@ public class UserController {
         return EnterAsGuest(RegUserMap.get(username).getAge());
     }
 
+    public void loudUser(String username, String password,double age) throws Exception {
+        LOGGER.info("username: " + username + ", password: " + password);
+        String newPass = Authenticator.encodePassword(password);
+        if (RegUserMap.containsKey(username)) {
+            LOGGER.severe("username already exists");
+            throw new Exception("username already exists");
+        }
+        User reg = new RegisteredUser(username, newPass,age);
+        RegUserMap.put(reg.getUsername(), reg);
+    }
+
     // both
     public String Register(String username, String password,double age) throws Exception {
         LOGGER.info("username: " + username + ", password: " + password);

@@ -14,11 +14,41 @@ import lombok.NoArgsConstructor;
 public class EmployerPermission implements Serializable{
 
     @Id
+    @JoinColumn(name="storeID",referencedColumnName = "storeID")
+    private Store storeID;
+
+    public Store getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(Store storeID) {
+        this.storeID = storeID;
+    }
+
     @JoinColumn(name = "username", referencedColumnName = "username")
     private User username;
 
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private User parentusername;
+
+    public User getParentusername() {
+        return parentusername;
+    }
+
+    public void setParentusername(User parentusername) {
+        this.parentusername = parentusername;
+    }
+
     @OneToMany(mappedBy = "username", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<EmployerPermission> employees;
+
+    public List<EmployerPermission> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<EmployerPermission> employees) {
+        this.employees = employees;
+    }
 
     @Column(name="storeOwner")
     private Boolean storeOwner;

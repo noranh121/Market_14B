@@ -22,7 +22,7 @@ public class ProductEntity implements Serializable{
     private double price;
 
     @Column(name="quantity")
-    private double quantity;
+    private int quantity;
 
     public Product getProductID() {
         return productID;
@@ -40,11 +40,11 @@ public class ProductEntity implements Serializable{
         this.price = price;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
