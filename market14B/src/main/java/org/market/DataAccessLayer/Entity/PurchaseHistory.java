@@ -18,7 +18,7 @@ public class PurchaseHistory implements java.io.Serializable {
 
     @Column(name = "products")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ProductEntity> products;
+    private List<ProductScreenShot> products;
 
     @JoinColumn(name="storeID")
     private Integer storeID;
@@ -62,11 +62,11 @@ public class PurchaseHistory implements java.io.Serializable {
         this.ovlprice = ovlprice;
     }
 
-    public List<ProductEntity> getProducts() {
+    public List<ProductScreenShot> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductEntity> products) {
+    public void setProducts(List<ProductScreenShot> products) {
         this.products = products;
     }    
 }

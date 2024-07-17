@@ -142,7 +142,7 @@ public class ShoppingCart {
                 Purchase purchase = new Purchase(basket, basketSum, purchases);
                 Market.getPH().addPurchase(basket.getStoreID(), username, purchase);
                 //id , list products ,  storeid , username ,
-                //Market.getDC().
+                Market.getDC().addToPurchaseHistory(purchase.getID(), purchases, store.getId(), username, (int)basketSum);
             }finally{
                 Market.getSystemManagersLock().unlock();
             }

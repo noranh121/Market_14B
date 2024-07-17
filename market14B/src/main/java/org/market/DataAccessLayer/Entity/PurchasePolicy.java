@@ -8,13 +8,13 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Purcahse")
+@Table(name = "PurchasePolicy")
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchasePolicy implements java.io.Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer purchaseId;
 
     @Column
@@ -29,7 +29,7 @@ public class PurchasePolicy implements java.io.Serializable{
     }
 
     @JoinColumn(name = "storeID", referencedColumnName = "storeID")
-    private Store storeId;
+    private Integer storeId;
     
     @Column
     private int quantity;
@@ -95,12 +95,12 @@ public class PurchasePolicy implements java.io.Serializable{
         this.purchaseId = purchaseId;
     }
 
-    public Store getStoreId() {
+    public Integer getStoreId() {
         return storeId;
     }
 
     public void setStoreId(Store storeId) {
-        this.storeId = storeId;
+        this.storeId = storeId.getStoreID();
     }
 
     public int getQuantity() {

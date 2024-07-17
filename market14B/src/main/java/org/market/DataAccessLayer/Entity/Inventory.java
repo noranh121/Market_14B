@@ -50,7 +50,7 @@ public class Inventory implements Serializable{
     public void addProduct(Product product, double price, int quantity) {
         ProductEntity pe = new ProductEntity();
         pe.setPrice(price);
-        pe.setProductID(product);
+        pe.setProductID(product.getProductID());
         pe.setInventoryID(inventoryID);
         pe.setQuantity(quantity);
         if (this.products==null) {
