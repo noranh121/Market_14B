@@ -8,12 +8,14 @@ public class Basket {
     private String username;
     private int storeID;
     private Map<Integer, Integer> products; //-> <productId,quantity>
+    private Map<Integer, Double> prodOffer; //-> <productId,price>
 
 
     public Basket(String username, int storeID) {
         this.username = username;
         this.storeID = storeID;
         this.products = new ConcurrentHashMap<>();
+        this.prodOffer = new ConcurrentHashMap<>();
     }
 
     public String getUsername() {
@@ -69,7 +71,24 @@ public class Basket {
             UserController.LOGGER.info("item removed successfully");
             return "item removed successfully";
         }
+        else if (prodOffer.containsKey(product)) {
+            prodOffer.remove(product);
+        }
         UserController.LOGGER.severe("couldn't find item");
         return "couldn't find item";
     }
+
+    public void addOfferPrice(int productId, double price) {
+        prodOffer.put(productId,price);
+    }
+
+    public double getOfferPrice(int product) {
+        return prodOffer.get(product);
+    }
+
+    public Map<Integer, Double> getProdOffer() {
+        return prodOffer;
+    }
+
+    
 }

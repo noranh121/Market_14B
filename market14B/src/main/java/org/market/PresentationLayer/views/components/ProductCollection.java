@@ -29,6 +29,7 @@ public class ProductCollection extends HorizontalLayout {
         removeAll();
         for (ProductDTO product : products) {
             ProductCard card = new ProductCard(product, this.store_id != -1);
+            card.setRemoveProductClickEventListener(e -> presenter.removeProduct(product.getId()));
             add(card);
         }
     }
