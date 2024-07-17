@@ -23,7 +23,7 @@ public class StoresView extends VerticalLayout {
         HorizontalLayout filler = new HorizontalLayout();
         filler.getStyle().set("width", "100%");
 
-        SearchBar searchBar = new SearchBar(true);
+        SearchBar searchBar = new SearchBar( null,null, false, false, true, -1);
 
         stores_bar.add(product_title);
         stores_bar.addAndExpand(filler);

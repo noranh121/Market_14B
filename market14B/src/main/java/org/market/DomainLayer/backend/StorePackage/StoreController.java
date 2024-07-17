@@ -1,6 +1,7 @@
 package org.market.DomainLayer.backend.StorePackage;
 
 import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.springframework.stereotype.Component;
 
@@ -251,4 +252,41 @@ public class StoreController {
         return new ArrayList<>();
     }
 
+    public List<OfferDTO> getStoreOffers(int storeId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).bringOffers();
+        }
+        return new ArrayList<>();
+    }
+
+    public String sendOffer(int productId, String productName ,String username, Double price, Double offerPrice, int storeId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).sendOffer(productId, productName ,username, price, offerPrice);
+        }
+        return "No such store!";
+    }
+
+    public int approveOffer(int num , String username, int storeId, int productId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).approveOffer(num, username,productId);
+        }
+        return 0;
+    }
+
+    public int rejectOffer(int numOfStoreOwners, String username, int storeId, int productId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).rejectOffer(numOfStoreOwners, username,productId);
+        }
+        return 0;
+    }
+
+    // public double [] getProdInfo(int prodid, int storeid){
+    //     for(Store s: stores.values()){
+    //         if(s.getId() == storeid){
+    //             double [] info = s.bring(prodid);
+    //             if(info[0] != -1) return info;
+    //         }
+    //     }
+    //     return new double[]{-1, -1};
+    // }
 }

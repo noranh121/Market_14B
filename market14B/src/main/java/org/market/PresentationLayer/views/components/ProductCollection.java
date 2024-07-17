@@ -5,7 +5,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.market.PresentationLayer.presenter.ProductCollectionPresenter;
 import org.market.Web.DTOS.ProductDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCollection extends HorizontalLayout {
@@ -25,10 +24,11 @@ public class ProductCollection extends HorizontalLayout {
         this.presenter = new ProductCollectionPresenter(this, store_id);
     }
 
-    public void loadProducts(ArrayList<ProductDTO> products) {
+    public void loadProducts(List<ProductDTO> products) {
         removeAll();
         for (ProductDTO product : products) {
             ProductCard card = new ProductCard(product, this.store_id != -1);
+            card.setRemoveProductClickEventListener(e -> presenter.removeProduct(product.getId()));
             add(card);
         }
     }

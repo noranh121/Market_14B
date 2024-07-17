@@ -32,7 +32,7 @@ public class StorePresenter {
         StoreDTO store = getStore(this.view.getStore_id());
         this.view.setStoreLayout(store);
         this.view.setApplyButtonClickEventListener(e -> {
-                    onApplyAddProductClicked(view.getName_field(), view.getDescription_field(),
+                    onApplyAddProductClicked(view.getName_field(), view.getDescription_field(), view.getCategory_field(),
                             view.getBrand_field(), view.getPrice_field(), view.getWeight_field(), view.getInventory_field());
                     view.updateProductCollection();
                 }
@@ -98,7 +98,16 @@ public class StorePresenter {
         }
     }
 
-    private boolean validateAddForm(TextField name_field, TextField description_field, TextField brand_field,NumberField price_field, NumberField weight_field, IntegerField inventory_field) {
+    private void onViewOfferClicked() {
+        try{
+            view.NavigateToOfferPage();
+        }
+        catch (HttpClientErrorException e){
+            ErrorHandler.handleError(e, ()->{});
+        }
+    }
+
+    private boolean validateAddForm(TextField name_field, TextField description_field, TextField category_field, TextField brand_field,NumberField price_field, NumberField weight_field, IntegerField inventory_field) {
         boolean isValid = true;
 
         if (name_field.isEmpty()) {
@@ -109,6 +118,11 @@ public class StorePresenter {
         if (description_field.isEmpty()) {
             description_field.setInvalid(true);
             description_field.setErrorMessage("Description is required");
+            isValid = false;
+        }
+        if (category_field.isEmpty()) {
+            category_field.setInvalid(true);
+            category_field.setErrorMessage("Category is required");
             isValid = false;
         }
         if (brand_field.isEmpty()) {
@@ -155,12 +169,12 @@ public class StorePresenter {
         }
     }
 
-    private void onApplyAddProductClicked(TextField name_field, TextField description_field, TextField brand_field,NumberField price_field, NumberField weight_field, IntegerField inventory_field) {
+    private void onApplyAddProductClicked(TextField name_field, TextField description_field, TextField category_field, TextField brand_field, NumberField price_field, NumberField weight_field, IntegerField inventory_field) {
         Runnable originalRequest = new Runnable() {
             @Override
             public void run() {
                 try {
-                    if (validateAddForm(name_field, description_field, brand_field, price_field, weight_field, inventory_field)) {
+                    if (validateAddForm(name_field, description_field, category_field, brand_field, price_field, weight_field, inventory_field)) {
 
                         String accessToken = (String) VaadinSession.getCurrent().getAttribute("access-token");
                         String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
@@ -173,6 +187,7 @@ public class StorePresenter {
                         AddProductReq request = new AddProductReq();
                         request.setName(name_field.getValue());
                         request.setDescription(description_field.getValue());
+                        request.setCategory(category_field.getValue());
                         request.setBrand(brand_field.getValue());
                         request.setPrice(price_field.getValue());
                         request.setWeight(weight_field.getValue());

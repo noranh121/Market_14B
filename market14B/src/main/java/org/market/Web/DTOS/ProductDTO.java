@@ -41,10 +41,6 @@ public class ProductDTO {
         }
     }
 
-    public String getCategory(){
-        return this.category;
-    }
-
     public ProductDTO(){}
 
     public int getId() {
@@ -105,4 +101,12 @@ public class ProductDTO {
     public void setWeigth(Double weigth) {
         this.weigth = weigth;
     }
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
 }

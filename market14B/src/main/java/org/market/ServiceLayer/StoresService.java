@@ -6,6 +6,7 @@ import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyContro
 import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
@@ -115,55 +116,55 @@ public class StoresService {
         }
     }
 
-    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id){
-        try {
+    // public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id){
+    //     try {
+    //         String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate,id);
+    //         StoreController.LOGGER.info(result);
+    //         return result;
+    //     } catch (Exception e) {
+    //         return e.getMessage();
+    //     }
+    // }
+    
+    // public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id){
+    //     try {
+    //         String result = market.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId,immediate,id);
+    //         StoreController.LOGGER.info(result);
+    //         return result;
+    //     } catch (Exception e) {
+    //         return e.getMessage();
+    //     }
+    // }
+
+    public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age, int categoryId, String username, int storeId, Boolean immediate, int id) throws Exception{
             String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
-    
-    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id){
-        try {
+
+    public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id) throws Exception{
             String result = market.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId,immediate,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    
-    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id){
-        try {
+
+    public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id) throws Exception{
             String result = market.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId,immediate,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id){
-        try {
+    public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id) throws Exception{
             String result = market.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId,immediate,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String addLogicalPurchase(String username,int storeId,String logicalRule,int id){
-        try {
+    public String addLogicalPurchase(String username, int storeId, String logicalRule, int id) throws Exception{
             String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
             StoreController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
     public ArrayList<StoreDTO> getAllStores() {
@@ -212,6 +213,7 @@ public class StoresService {
             throw new Exception("Price is Out Of Stock");
         }
         ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+        pdto.setCategory(p.getCategory().getName());
         return pdto;
     }
 
@@ -224,13 +226,13 @@ public class StoresService {
         
     }
 
-    public String getStorePurchaseHistory(int storeId) {
-        try{
-            return market.getStorePurchaseHistory(storeId);
-        }catch(Exception exception){
-            return exception.getMessage();
-        }
-    }
+    // public String getStorePurchaseHistory(int storeId) {
+    //     try{
+    //         return market.getStorePurchaseHistory(storeId);
+    //     }catch(Exception exception){
+    //         return exception.getMessage();
+    //     }
+    // }
 
     public String getUserPurchaseHistory(String userId) {
         try{
@@ -255,4 +257,30 @@ public class StoresService {
             return exception.getMessage();
         }
     }
+
+    public List<String> getStorePurchaseHistory(int storeId) throws Exception {
+        return market.getPurchaseHistoryStore(storeId);
+    }
+
+    public String removePurchaseStore(Integer storeId, Integer purchaseId) throws Exception {
+        return market.removePurchaseStore(storeId, purchaseId);
+
+    }
+
+
+        public String approveOffer(String username, String offerName, int storeId, int productId) throws Exception {
+                return market.approveOffer(username, offerName, storeId,productId);
+        }
+        public String rejectOffer(String username,String offerName, int storeId, int productId) throws Exception {
+                return market.rejectOffer(username,offerName, storeId,productId);
+        }
+
+        public String sendOffer(String username, int storeId, int productId,Double price, Double offerPrice) {
+                return market.sendOffer(username, storeId, productId, price , offerPrice);
+        }
+
+
+        public List<OfferDTO> getOffers(int storeId, String username) {
+                return market.getOffers(storeId,username);
+        }
 }

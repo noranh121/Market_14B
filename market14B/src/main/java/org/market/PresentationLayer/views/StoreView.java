@@ -21,7 +21,10 @@ import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.presenter.StorePresenter;
 import org.market.PresentationLayer.views.components.ProductCollection;
 import org.market.PresentationLayer.views.components.SearchBar;
+import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
+
+import java.util.List;
 
 @Route(value = "store", layout = HomeView.class)
 @RoutePrefix("dash")
@@ -33,6 +36,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     private HorizontalLayout store_layout;
     private Dialog add_product_dialog;
     private TextField name_field;
+    private TextField category_field;
     private TextField brand_field;
     private TextField description_field;
     private NumberField price_field;
@@ -42,6 +46,8 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     private VerticalLayout products_layout;
     private Button open_btn;
     private Button close_btn;
+    private Button offer_btn;
+    private ProductCollection collection;
 
     public StoreView(){
         addClassName("store-view");
@@ -57,7 +63,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         HorizontalLayout filler = new HorizontalLayout();
         filler.getStyle().set("width", "100%");
 
-        SearchBar searchBar = new SearchBar(true);
+        SearchBar searchBar = new SearchBar(null, this, true,true,true, store_id);
 
         middle_layout.add(product_title);
         middle_layout.addAndExpand(filler);
@@ -81,6 +87,13 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         middle_layout.add(close_btn);
         close_btn.setVisible(false);
 
+        this.offer_btn = new Button("View Offers");
+        offer_btn.setSuffixComponent(VaadinIcon.PLUS_MINUS.create());
+        offer_btn.addClassName("view-offer-btn");
+        middle_layout.add(offer_btn);
+        offer_btn.setVisible(false);
+        offer_btn.addClickListener(e -> NavigateToOfferPage());
+
         VerticalLayout dialog_layout = new VerticalLayout();
 
         this.name_field = new TextField("Name");
@@ -90,6 +103,10 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         this.description_field = new TextField("Description");
         this.description_field.setRequired(true);
         this.description_field.setRequiredIndicatorVisible(true);
+
+        this.category_field = new TextField("Category");
+        this.category_field.setRequired(true);
+        this.category_field.setRequiredIndicatorVisible(true);
 
         this.brand_field = new TextField("Brand");
         this.brand_field.setRequired(true);
@@ -119,7 +136,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         apply_btn.addClassName("store-apply-btn");
         apply_layout.addClassName("store-apply-layout");
 
-        dialog_layout.add(name_field, description_field, brand_field, price_field, weight_field, inventory_field, apply_layout);
+        dialog_layout.add(name_field, description_field, category_field, brand_field, price_field, weight_field, inventory_field, apply_layout);
         this.add_product_dialog = new Dialog(dialog_layout);
         this.add_product_btn.addClickListener(e -> add_product_dialog.open());
 
@@ -172,7 +189,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
 
     public void updateProductCollection(){
         products_layout.removeAll();
-        ProductCollection collection = new ProductCollection(store_id);
+        this.collection = new ProductCollection(store_id);
         products_layout.add(collection);
     }
 
@@ -187,7 +204,9 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     public TextField getDescription_field() {
         return description_field;
     }
-
+    public TextField getCategory_field() {
+        return category_field;
+    }
     public TextField getBrand_field() {
         return brand_field;
     }
@@ -204,6 +223,10 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         return inventory_field;
     }
 
+    public void NavigateToOfferPage(){
+        this.getUI().ifPresent(ui -> ui.navigate("dash/offers/" + store_id));
+    }
+
     @Override
     public void setParameter(BeforeEvent beforeEvent, String s) {
         try {
@@ -214,6 +237,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
                 products_layout.add(products);
                 if(PermissionHandler.hasPermission(this.store_id, 0)){
                     add_product_btn.setVisible(true);
+                    offer_btn.setVisible(true);
                 }
             } else {
                 System.out.println("Invalid or empty parameter provided.");
@@ -221,5 +245,9 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         } catch (NumberFormatException e) {
             System.out.println("Invalid number format: " + e.getMessage());
         }
+    }
+
+    public void loadResults(List<ProductDTO> productDTOS) {
+        collection.loadProducts(productDTOS);
     }
 }

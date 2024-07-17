@@ -1,8 +1,10 @@
 package org.market.PresentationLayer.presenter;
 
+import com.vaadin.flow.server.VaadinSession;
 import org.market.PresentationLayer.handlers.ErrorHandler;
 import org.market.PresentationLayer.views.components.ProductCollection;
 import org.market.Web.DTOS.ProductDTO;
+import org.market.Web.Requests.ReqStore;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -75,5 +77,27 @@ public class ProductCollectionPresenter {
         return result;
     }
 
+    public void removeProduct(Integer productId) {
+        try{
+            String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
+            String removeUrl = "http://localhost:8080/api/stores/remove-product";
 
+            ReqStore request = new ReqStore();
+            request.setProductId(productId);
+            request.setStoreId(store_id);
+            request.setUsername(username);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<ReqStore> requestEntity = new HttpEntity<>(request, headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(removeUrl, HttpMethod.DELETE, requestEntity, String.class, store_id);
+
+            ErrorHandler.showSuccessNotification("Successfully deleted product");
+
+        }catch (HttpClientErrorException e){
+            ErrorHandler.handleError(e, ()->{});
+        }
+    }
 }

@@ -32,6 +32,8 @@ public class SearchEntity {
         this.category = category;
     }
 
+    public SearchEntity(){}
+
     // Getters and Setters
     public String getSearchBy() {
         return searchBy;

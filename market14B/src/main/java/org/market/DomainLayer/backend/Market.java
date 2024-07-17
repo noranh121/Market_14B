@@ -3,6 +3,7 @@ package org.market.DomainLayer.backend;
 import org.market.DataAccessLayer.DataController;
 import org.market.DomainLayer.SearchEngine;
 
+import org.market.DomainLayer.SearchEngine;
 import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
 import org.market.DomainLayer.backend.API.SupplyExternalService.SupplyService;
 import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
@@ -20,9 +21,13 @@ import org.market.DomainLayer.backend.StorePackage.Discount.Numerical.AT_MOSTDis
 import org.market.DomainLayer.backend.StorePackage.Purchase.*;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.market.DomainLayer.backend.UserPackage.ShoppingCart;
+import org.market.DomainLayer.backend.UserPackage.User;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 import org.market.ServiceLayer.Response;
 import org.market.ServiceLayer.SuspendedException;
+import org.market.Web.DTOS.CartItemDTO;
+import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.Requests.SearchEntity;
@@ -564,6 +569,7 @@ public class Market {
                 throw new SuspendedException("can't remove product, user is suspended");
             }
             String response = storeController.removeProduct(productId, storeId);
+            String res = productController.removeProduct(productId);
             dataController.removeProduct(storeId, productId);
             return response;
         } else {
@@ -623,6 +629,9 @@ public class Market {
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
+        }
+        if(storeController.getStore(storeId) == null){
+            throw new Exception("Store does not exist");
         }
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         StoreDiscount storeDiscount=new StoreDiscount(discountType, discountPercentage,-1);
@@ -1086,10 +1095,10 @@ public class Market {
         int prodid = p.getId();
         return storeController.getProdInfo(prodid);
     }
-    public static double[] findProdInfo(Product p, int storeID) {
-        int prodid = p.getId();
-        return storeController.getProdInfo(prodid,storeID);
-    }
+    // public static double[] findProdInfo(Product p, int storeID) {
+    //     int prodid = p.getId();
+    //     return storeController.getProdInfo(prodid,storeID);
+    // }
 
     public List<Store> getUserStores(String username) throws Exception {
         List<Store> stores = permissions.getUserStores(username);
@@ -1134,6 +1143,138 @@ public class Market {
         }else{
             throw new Exception("User is not registered.");
         }
+    }
+
+    public List<String> getPurchaseHistoryStore(int storeId) throws Exception {
+        List<String> result = new ArrayList<>();
+        if(storeController.getStore(storeId) != null) {
+            List<Purchase> purchases = purchaseHistory.getStorePurchaseHistory(storeId);
+            for(Purchase p : purchases) {
+                result.add(p.FetchInfo());
+            }
+            return result;
+        }else{
+            throw new Exception("Store does not exist.");
+        }
+    }
+
+    public String removePurchaseStore(Integer storeId, Integer purchaseId) throws Exception {
+        if(storeController.getStore(storeId) != null) {
+            return purchaseHistory.removePurchaseFromStore(storeId, purchaseId);
+        }else{
+            throw new Exception("Store does not exist.");
+        }
+    }
+
+    public String removePurchaseUser(String username, Integer purchaseId) throws Exception {
+        if(userController.getUser(username) != null) {
+            return purchaseHistory.removePurchaseFromUser(username, purchaseId);
+        }else{
+            throw new Exception("User is not registered.");
+        }
+    }
+
+    public Integer getCategory(String name) {
+        Category category = categoryController.getCategorybyName(name);
+        if(category == null){
+            return categoryController.addCategory(name);
+        }
+        else{
+            return category.getId();
+        }
+    }
+
+    public boolean hasCategory(String name){
+        return categoryController.getCategorybyName(name) != null;
+    }
+
+    public List<CartItemDTO> getCart(String username) throws Exception {
+        if (permissions.isSuspended(username)) {
+            throw new SuspendedException("can't retrieve cart is suspended");
+        }
+        List<CartItemDTO> result = new ArrayList<>();
+        User user = userController.getUser(username);
+        if (user != null) {
+            ShoppingCart cart = user.getShoppingCart();
+            List<Basket> baskets = cart.getBaskets();
+            for (Basket b : baskets) {
+                for (Map.Entry<Integer, Integer> entry : b.getProducts().entrySet()) {
+                    CartItemDTO item = new CartItemDTO();
+                    item.setProductId(entry.getKey());
+                    item.setQuantity(entry.getValue());
+                    item.setUsername(username);
+                    item.setStoreId(b.getStoreID());
+                    item.setName(productController.getProductName(entry.getKey()));
+                    double[] price_store = findProdInfo(getProduct(entry.getKey()));
+                    if (price_store[0] == -1) {
+                        throw new Exception("Price is Out Of Stock");
+                    }
+                    item.setPrice(price_store[0]);
+                    result.add(item);
+                }
+            }
+            return result;
+        } else {
+            throw new Exception("User does not exist.");
+        }
+    }
+
+    public String approveOffer(String username,String offerName, int storeId, int productId) throws Exception {
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        int i = storeController.approveOffer(permissions.numOfStoreOwners(storeId),offerName, storeId, productId);
+        String message = "";
+        switch (i) {
+            case 1:
+                message = "your offer for " + productId +" was accepted!";
+                break;
+            case -1:
+                message = "your offer for " + productId +" was rejected";
+                break;
+            default:
+                break;
+        }
+        permissions.updateUser(offerName, message);
+        return "approval sent";
+    }
+
+    public String rejectOffer(String username,String offerName, int storeId, int productId) throws Exception {
+        if(!permissions.getPermission(storeId, username).getStoreOwner()){
+            LOGGER.severe(username + " is not store owner");
+            throw new Exception(username + " is not store owner");
+        }
+        int i = storeController.rejectOffer(permissions.numOfStoreOwners(storeId),offerName, storeId, productId);
+        String message = "";
+        switch (i) {
+            case 1:
+                message = "your offer for " + productId +" was accepted!";
+                break;
+            case -1:
+                message = "your offer for " + productId +" was rejected";
+                break;
+            default:
+                break;
+        }
+        permissions.updateUser(offerName, message); 
+        return "rejection sent";
+    }
+
+    public String sendOffer(String username, int storeId, int productId, Double price, Double offerPrice) {
+        String s = storeController.sendOffer(productId,  productController.getProductName(productId) ,username, price , offerPrice,storeId);
+        permissions.updateStoreOwners(storeId,"a new offer was sent");
+        return s;
+    }
+
+    public List<OfferDTO> getOffers(int storeId, String username) {
+        List<OfferDTO> offers = storeController.getStoreOffers(storeId);
+        return offers;
+    }
+
+    public static double[] findProdInfo(Product p, int storeID) {
+        int prodid = p.getId();
+        return storeController.getProdInfo(prodid,storeID);
     }
 
     public List<ProductDTO> search(SearchEntity entity){
