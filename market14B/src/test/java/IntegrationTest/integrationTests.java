@@ -795,29 +795,50 @@ public class integrationTests {
         }
     }
 
-    // @Test
-    // public void testOfferSuccess() {
-    //     try{
-    //         String systemManager = "admin";
-    //         market.getSystemManagers().add(systemManager);
-    //         market.setMarketOnline(systemManager);
-    //         market.EnterAsGuest(18);
-    //         market.EnterAsGuest(18);
-    //         market.Register("ali", "123", 18);
-    //         market.Register("malek", "456", 18);
-    //         market.initStore("ali","name", "d");
-    //         market.addCatagory(0,"meat",systemManager);
-    //         market.initProduct(systemManager,"steak",0,"d","b",5.0);
-    //         market.addProduct(0, 0, 10.0, 10, "ali", 5);
-    //         market.sendOffer("ali",0,0,10.0,9.0);
-    //     }catch(Exception ex){
-    //         fail(ex.getMessage());
-    //     }
-    // }
+    @Test
+    public void testOfferAccepted() {
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.Register("malek", "456", 18);
+            market.initStore("ali","name", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            market.sendOffer("ali",0,0,10.0,9.0);
+            String ans = market.approveOffer(systemManager, "ali", 0, 0, 9);
+            assertTrue(ans.contains("accepted!"));
+            assertTrue(market.cartContains("ali",0));
+        }catch(Exception ex){
+            fail(ex.getMessage());
+        }
+    }
 
     @Test
-    public void testSomething() {
-        Assertions.assertFalse(false);
+    public void testOfferRejected() {
+        try{
+            String systemManager = "admin";
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("ali", "123", 18);
+            market.Register("malek", "456", 18);
+            market.initStore("ali","name", "d");
+            market.addCatagory(0,"meat",systemManager);
+            market.initProduct(systemManager,"steak",0,"d","b",5.0);
+            market.addProduct(0, 0, 10.0, 10, "ali", 5);
+            market.sendOffer("ali",0,0,10.0,9.0);
+            String ans = market.approveOffer(systemManager, "ali", 0, 0, 9);
+            assertTrue(ans.contains("rejected"));
+            assertFalse(market.cartContains("ali",0));
+        }catch(Exception ex){
+            fail(ex.getMessage());
+        }
     }
 
 }

@@ -1230,6 +1230,20 @@ public class Market {
         }
     }
 
+    public boolean cartContains(String username , int productId) {
+        User user = userController.getUser(username);
+        if (user != null) {
+            ShoppingCart cart = user.getShoppingCart();
+            List<Basket> baskets = cart.getBaskets();
+            for (Basket b : baskets) {
+                if (b.getProdOffer().containsKey(productId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public String approveOffer(String username,String offerName, int storeId, int productId, double price) throws Exception {
         if(!permissions.getPermission(storeId, username).getStoreOwner()){
             LOGGER.severe(username + " is not store owner");
