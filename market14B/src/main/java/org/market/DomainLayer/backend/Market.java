@@ -151,8 +151,8 @@ public class Market {
         this.dataController = dataController;
         this.searchEngine = searchEngine;
         try {
-            systemManagers=dataController.getSystemManagers(0);
-            Online=dataController.getOnline();
+            // systemManagers=dataController.getSystemManagers(0);
+            // Online=dataController.getOnline();
             fileHandler= new FileHandler("Market.log",true);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
