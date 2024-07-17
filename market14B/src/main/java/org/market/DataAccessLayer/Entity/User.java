@@ -24,8 +24,7 @@ public class User implements java.io.Serializable{
     private double age;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Basket> baskets = new ArrayList<>();
-
+    private List<Basket> baskets ;
     @Column(name="LoggedIn")
     private Boolean LoggedIn;
 

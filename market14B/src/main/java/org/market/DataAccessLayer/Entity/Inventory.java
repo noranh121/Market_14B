@@ -83,7 +83,7 @@ public class Inventory implements Serializable{
     public void editQuantity(Product product, Integer quantity) {
         for (ProductEntity pe : products) {
             if (pe.getProductID()== product.getProductID()) {
-                pe.setQuantity(pe.getQuantity()-quantity);
+                pe.setQuantity(quantity);
             }
         }
     }

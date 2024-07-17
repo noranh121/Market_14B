@@ -316,6 +316,10 @@ public class DataController {
         Optional<User> optionalUser = userRepository.findById(username);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+            List<Basket> toDel=basketRepository.findstoreIds(username);
+            for (Basket basket : toDel) {
+                basketRepository.delete(basket);
+            }
             List<Basket> baskets = Collections.synchronizedList(new ArrayList<>());
             user.setBaskets(baskets);
             userRepository.save(user);
