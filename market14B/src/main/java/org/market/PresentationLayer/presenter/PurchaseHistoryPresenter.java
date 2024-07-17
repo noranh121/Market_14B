@@ -3,7 +3,7 @@ package org.market.PresentationLayer.presenter;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.server.VaadinSession;
 import org.market.PresentationLayer.handlers.ErrorHandler;
-import org.market.PresentationLayer.views.PurchaseHistoryView;
+import org.market.PresentationLayer.views.components.PurchaseHistory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -14,10 +14,10 @@ import java.util.List;
 
 public class PurchaseHistoryPresenter {
 
-    private PurchaseHistoryView view;
+    private PurchaseHistory view;
     private RestTemplate restTemplate;
 
-    public PurchaseHistoryPresenter(PurchaseHistoryView purchaseHistoryView) {
+    public PurchaseHistoryPresenter(PurchaseHistory purchaseHistoryView) {
         this.view = purchaseHistoryView;
         this.restTemplate = new RestTemplate();
         initView();
@@ -33,22 +33,20 @@ public class PurchaseHistoryPresenter {
     private void onDeleteButtonClick(IntegerField deleteField) {
         if (validateDeleteField(deleteField)) {
             try {
-                String deleteUrl = "http://localhost:8080/api/purchases/delete-purchase";
                 String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
+                String storeUrl = "http://localhost:8080/api/stores/remove-purchase/store={store_id}&purchase={purchase_id}";
+                String userUrl = "http://localhost:8080/api/users/remove-purchase/user={username}&purchase={purchase_id}";
+                String url = view.getStore_id() != -1 ? storeUrl : userUrl;
 
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
 
                 HttpEntity<Integer> requestEntity = new HttpEntity<>(deleteField.getValue(), headers);
 
-                ResponseEntity<String> response = restTemplate.exchange(deleteUrl, HttpMethod.POST, requestEntity, String.class);
+                ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class,
+                        view.getStore_id() != -1 ? view.getStore_id() : username, deleteField.getValue());
 
-                List<String> toresponse = new ArrayList<>();
-                String toenter = response.getBody();
-                toresponse.add(toenter);
-                view.createPurchaseHistoryLayout(toresponse);
-
-                ErrorHandler.showSuccessNotification("Successfully deleted purchase at index " + deleteField.getValue());
+                ErrorHandler.showSuccessNotification("Successfully deleted purchase with id = " + deleteField.getValue());
 
             } catch (HttpClientErrorException e) {
                 ErrorHandler.handleError(e, () -> {
@@ -62,7 +60,6 @@ public class PurchaseHistoryPresenter {
 
         if (deleteField.isEmpty()) {
             deleteField.setInvalid(true);
-            deleteField.setErrorMessage("Index is required");
             isValid = false;
         }
         return isValid;
@@ -71,14 +68,16 @@ public class PurchaseHistoryPresenter {
     public void loadPurchaseHistory() {
         try {
             String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
-            String url = "http://localhost:8080/api/users/purchase-history/{username}";
+            String userUrl = "http://localhost:8080/api/users/purchase-history/{username}";
+            String storeUrl = "http://localhost:8080/api/stores/purchase-history/{store_id}";
+            String url = view.getStore_id() != -1 ? storeUrl : userUrl;
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
-            ResponseEntity<List<String>> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<String>>() {}, username);
+            ResponseEntity<List<String>> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<List<String>>() {}, view.getStore_id() != -1 ? view.getStore_id() : username);
 
             view.createPurchaseHistoryLayout(response.getBody() != null ? response.getBody() : new ArrayList<>());
 
@@ -87,20 +86,5 @@ public class PurchaseHistoryPresenter {
             });
         }
     }
-
-//    public void loadPurchases() {
-//        // Example purchases, replace with actual backend call
-//        purchaseList.add("Purchase 1: Details for purchase 1");
-//        purchaseList.add("Purchase 2: Details for purchase 2");
-//
-//        view.createPurchasesLayout(purchaseList);
-//    }
-//
-//    public void removePurchase(Integer id) {
-//        if (id != null && id >= 0 && id < purchaseList.size()) {
-//            purchaseList.remove(id.intValue());
-//            view.createPurchasesLayout(purchaseList);
-//        }
-//    }
 
 }

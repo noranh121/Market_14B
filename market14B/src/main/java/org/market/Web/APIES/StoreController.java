@@ -3,11 +3,10 @@ package org.market.Web.APIES;
 import org.market.ServiceLayer.ServiceFactory;
 import org.market.ServiceLayer.SuspendedException;
 import org.market.ServiceLayer.TokenService;
+import org.market.Web.DTOS.OfferDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
-import org.market.Web.Requests.AddProductReq;
-import org.market.Web.Requests.AddStoreReq;
-import org.market.Web.Requests.ReqStore;
+import org.market.Web.Requests.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -122,7 +121,8 @@ public class StoreController {
             String tokenValue = token.replace("Bearer ", "");
             String username = jwtUtil.extractUsername(tokenValue);
             if (username != null && jwtUtil.validateToken(tokenValue,username)) {
-                Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),-1,rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
+                Integer category = service.getCategory(rstr.getCategory());
+                Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),category,rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
                 String response2 = service.addProduct(response1, rstr.getStore_id(), rstr.getPrice(), rstr.getInventory(), rstr.getUsername(), rstr.getWeight());
                 return ResponseEntity.ok(response2);
             }
@@ -134,7 +134,7 @@ public class StoreController {
         }
     }
 
-    // TODO
+    // DONE
     @DeleteMapping("/remove-product")
     public ResponseEntity<?> removeProduct(@RequestBody ReqStore rstr) throws Exception{
         try {
@@ -147,7 +147,7 @@ public class StoreController {
         }
     }
 
-    // TODO
+    // DONE
     @PutMapping("/edit-product-price")
     public ResponseEntity<?> EditProducPrice(@RequestBody ReqStore rstr) throws Exception{
         try {
@@ -160,7 +160,7 @@ public class StoreController {
         }
     }
 
-    // TODO
+    // DONE
     @PutMapping("/edit-product-quantity")
     public ResponseEntity<?> EditProductQuantity(@RequestBody ReqStore rstr) throws Exception{
         try {
@@ -212,4 +212,173 @@ public class StoreController {
         }
     }
 
+    // DONE
+    @GetMapping("/purchase-history/{store_id}")
+    public ResponseEntity<?> getPurchaseHistory(@PathVariable("store_id") Integer store_id) {
+        try{
+            List<String> res = service.getStorePurchaseHistory(store_id);
+            return ResponseEntity.ok(res);
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve store purchase history");
+        }
+    }
+
+    @PostMapping("/remove-purchase/store={store_id}&purchase={purchase_id}")
+    public ResponseEntity<?> removePurchaseStore(@PathVariable("store_id") Integer store_id,
+                                                @PathVariable("purchase_id") Integer purchase_id) {
+        try{
+            String res = service.removePurchaseStore(store_id, purchase_id);
+            return ResponseEntity.ok(res);
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to remove store purchase history");
+        }
+    }
+
+    @PostMapping("/add-category-discount")
+    public ResponseEntity<?> addCategoryDiscount(@RequestBody addDiscountReq rdt) {
+        try{
+            String res = service.addCategoryDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getCategoryName(),rdt.getStoreId(),rdt.getUsername(),0);
+            return ResponseEntity.ok(res);
+
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add category discount policy");
+        }
+     }
+
+    @PostMapping("/add-product-discount")
+    public ResponseEntity<?> addProductDiscount(@RequestBody addDiscountReq rdt) {
+        try{
+            String res = service.addProductDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getProductName(),rdt.getStoreId(),rdt.getUsername(),0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add product discount policy");
+        }
+     }
+
+    @PostMapping("/add-store-discount")
+    public ResponseEntity<?> addStoreDiscount(@RequestBody addDiscountReq rdt) {
+        try{
+            String res = service.addStoreDiscountPolicy(true,rdt.getPrice(),rdt.getQuantity(),rdt.getPercentage(),rdt.getStoreId(),rdt.getUsername(),0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add store discount policy");
+        }
+     }
+
+    @PostMapping("/add-logical-discount")
+    public ResponseEntity<?> addLogicalDiscount(@RequestBody addDiscountReq rdt) {
+        try{
+            String res = service.addLogicalDiscountPolicy(rdt.getUsername(),rdt.getStoreId(),rdt.getLogicalRule(),0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add logical discount policy");
+        }
+     }
+
+    @PostMapping("/add-category-purchase")
+    public ResponseEntity<?> addCategoryPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addCategoryPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getCategoryName(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add category purchase policy");
+        }
+     }
+
+    @PostMapping("/add-product-purchase")
+    public ResponseEntity<?> addProductPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addProductPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getProductName(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add product purchase policy");
+        }
+     }
+
+    @PostMapping("/add-shoppingcart-purchase")
+    public ResponseEntity<?> addShoppingCartPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addShoppingCartPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add shopping cart purchase policy");
+        }
+     }
+
+    @PostMapping("/add-user-purchase")
+    public ResponseEntity<?> addUserPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addUserPurchasePolicy(rpt.getQuantity(), rpt.getPrice(), rpt.getDate(), rpt.getAtLeast(), rpt.getWeight(), rpt.getAge(), rpt.getUsername(), rpt.getStoreId(), true, 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add user purchase policy");
+        }
+     }
+
+    @PostMapping("/add-logical-purchase")
+    public ResponseEntity<?> addLogicalPurchasePolicy(@RequestBody addPurchaseReq rpt) {
+        try{
+            String res = service.addLogicalPurchasePolicy(rpt.getUsername(), rpt.getStoreId(), rpt.getLogicalRule(), 0);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to add logical purchase policy");
+        }
+    }
+
+    @GetMapping("/offers/user={username}&store={store_id}")
+    public ResponseEntity<?> getOffers(@PathVariable("username") String username, @PathVariable("store_id") Integer store_id) {
+        try{
+            List<OfferDTO> res = service.getOffers(store_id, username);
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve store offers");
+        }
+    }
+
+    @PostMapping("/approve-offer")
+    public ResponseEntity<?> approveOffer(@RequestBody OfferReq request) {
+        try{
+            String res = service.approveOffer(request.getUsername(), request.getOfferUsername(), request.getStoreId(), request.getProductId(), request.getOffer());
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/reject-offer")
+    public ResponseEntity<?> rejectOffer(@RequestBody OfferReq request) {
+        try{
+            String res = service.rejectOffer(request.getUsername(), request.getOfferUsername(), request.getStoreId(), request.getProductId());
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/send-offer")
+    public ResponseEntity<?> sendOffer(@RequestBody OfferReq request) {
+        try{
+            String res = service.sendOffer(request.getUsername(), request.getStoreId(), request.getProductId(), request.getPrice(), request.getOffer());
+            return ResponseEntity.ok(res);
+        }
+        catch(Exception e){
+            return ResponseEntity.status(404).body("Failed to send offer");
+        }
+    }
 }

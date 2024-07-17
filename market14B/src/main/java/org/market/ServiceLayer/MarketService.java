@@ -100,5 +100,12 @@ public class MarketService {
 
     public PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
         return market.initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+
+    public Integer getCategory(String name) {
+        return market.getCategory(name);
+    }
+
+    public boolean hasCategory(String name) {
+        return market.hasCategory(name);
     }
 }

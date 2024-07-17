@@ -9,6 +9,7 @@ public class AddProductReq {
     private double weight;
     private int inventory;
     private String brand;
+    private String category;
 
     private String username;
 
@@ -88,4 +89,11 @@ public class AddProductReq {
         this.brand = brand;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

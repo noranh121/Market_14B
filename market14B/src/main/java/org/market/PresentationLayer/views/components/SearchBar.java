@@ -2,6 +2,7 @@ package org.market.PresentationLayer.views.components;
 
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.icon.Icon;
@@ -50,42 +51,30 @@ public class SearchBar extends VerticalLayout {
     }
 
     private void openSearchDialog() {
-        Dialog filterdialog = new Dialog();
-        filterdialog.setWidth("300px");
+        Dialog searchdialog = new Dialog();
+        searchdialog.setWidth("300px");
 
-        filterdialog.getElement().getStyle().set("position", "absolute");
+        searchdialog.getElement().getStyle().set("position", "absolute");
 
         VerticalLayout layout = new VerticalLayout();
 
-        ComboBox<String> categoryComboBox = new ComboBox<>("Category");
-        categoryComboBox.setItems("Clothing", "Electronics", "Books", "Furniture");
-
-        TextField minPriceField = new TextField("Min Price");
-        TextField maxPriceField = new TextField("Max Price");
-
-        TextField storeField = new TextField("Store");
-
-        ComboBox<String> ratingComboBox = new ComboBox<>("Rating");
-        ratingComboBox.setItems("1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars");
+        ComboBox<String> categoryComboBox = new ComboBox<>("Search by");
+        categoryComboBox.setItems("Product Name", "Category Name", "Keyword");
 
         HorizontalLayout buttonLayout = new HorizontalLayout();
         Button applyButton = new Button("Apply", event -> {
-            filterdialog.close();
+            searchdialog.close();
         });
         Button resetButton = new Button("Reset", event -> {
             // Reset filter logic here
             categoryComboBox.clear();
-            minPriceField.clear();
-            maxPriceField.clear();
-            storeField.clear();
-            ratingComboBox.clear();
         });
 
         buttonLayout.add(applyButton, resetButton);
 
-        layout.add(categoryComboBox, minPriceField, maxPriceField, storeField, ratingComboBox, buttonLayout);
-        filterdialog.add(layout);
-        filterdialog.open();
+        layout.add(categoryComboBox, buttonLayout);
+        searchdialog.add(layout);
+        searchdialog.open();
     }
 
     private void openFilterDialog(){
@@ -96,16 +85,16 @@ public class SearchBar extends VerticalLayout {
 
         VerticalLayout layout = new VerticalLayout();
 
-        ComboBox<String> categoryComboBox = new ComboBox<>("Category");
-        categoryComboBox.setItems("Clothing", "Electronics", "Books", "Furniture");
-
         TextField minPriceField = new TextField("Min Price");
         TextField maxPriceField = new TextField("Max Price");
 
         TextField storeField = new TextField("Store");
 
-        ComboBox<String> ratingComboBox = new ComboBox<>("Rating");
-        ratingComboBox.setItems("1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars");
+        Checkbox productRatingCheckBox = new Checkbox("Product Rating");
+        Checkbox storeRatingCheckBox = new Checkbox("Store Rating");
+        Checkbox categoryCheckbox = new Checkbox("Category");
+
+
 
         HorizontalLayout buttonLayout = new HorizontalLayout();
         Button applyButton = new Button("Apply", event -> {
@@ -113,16 +102,17 @@ public class SearchBar extends VerticalLayout {
         });
         Button resetButton = new Button("Reset", event -> {
             // Reset filter logic here
-            categoryComboBox.clear();
+            productRatingCheckBox.clear();
             minPriceField.clear();
             maxPriceField.clear();
             storeField.clear();
-            ratingComboBox.clear();
+            storeRatingCheckBox.clear();
+            categoryCheckbox.clear();
         });
 
         buttonLayout.add(applyButton, resetButton);
 
-        layout.add(categoryComboBox, minPriceField, maxPriceField, storeField, ratingComboBox, buttonLayout);
+        layout.add(minPriceField, maxPriceField, storeField, productRatingCheckBox, storeRatingCheckBox, categoryCheckbox, buttonLayout);
         filterdialog.add(layout);
         filterdialog.open();
     }

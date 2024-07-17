@@ -1,5 +1,7 @@
 package org.market.PresentationLayer.views.components;
 
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Image;
@@ -12,6 +14,7 @@ import org.market.Web.DTOS.ProductDTO;
 
 public class ProductCard extends VerticalLayout {
     private boolean buttonClicked = false;
+    private Button close_btn;
 
     public ProductCard(ProductDTO product, boolean editable) {
         addClassName("collection-card");
@@ -41,15 +44,15 @@ public class ProductCard extends VerticalLayout {
         HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidthFull();
 
+        this.close_btn = new Button(VaadinIcon.CLOSE.create());
+        this.close_btn.addClassName("collection-card-remove-button");
+        this.close_btn.addClickListener(e -> {
+            removeCard();
+            buttonClicked = true;
+        });
+
         if(editable && PermissionHandler.hasPermission(product.getStoreid(), 0)) {
-            // Create the close button
-            Button closeButton = new Button(VaadinIcon.CLOSE.create());
-            closeButton.addClassName("collection-card-remove-button");
-            closeButton.addClickListener(e -> {
-                removeCard();
-                buttonClicked = true;
-            });
-            topLayout.add(closeButton);
+            topLayout.add(close_btn);
         }
 
         topLayout.setAlignItems(Alignment.END);
@@ -61,6 +64,10 @@ public class ProductCard extends VerticalLayout {
             }
             buttonClicked = false; // Reset the flag
         });
+    }
+
+    public void setRemoveProductClickEventListener(ComponentEventListener<ClickEvent<Button>> e){
+        this.close_btn.addClickListener(e);
     }
 
     private void removeCard() {
