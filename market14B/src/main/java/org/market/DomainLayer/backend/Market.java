@@ -375,7 +375,7 @@ public class Market {
                 throw new SuspendedException("can't assign store owner, user is suspended");
             }
             String response=userController.AssignStoreOwner(storeId, ownerUserName, username, pType);
-            dataController.AssignStoreOwner(storeId, username);
+            dataController.AssignStoreOwner(storeId, username,ownerUserName,pType);
             return response;
         }finally{
             systemManagersLock.unlock();
@@ -534,6 +534,7 @@ public class Market {
             int storeID = storeController.initStore(userName, name, Description);
             String resposnse = permissions.initStore(storeID, userName);
             dataController.initStore(userName,Description,storeID);
+            dataController.initPermission(storeID, userName);
             return resposnse;
         } else {
             LOGGER.severe(userName + " is not registered");

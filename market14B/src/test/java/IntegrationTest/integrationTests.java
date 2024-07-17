@@ -105,10 +105,17 @@ public class integrationTests {
 
     @Test
     void testviewsystemPurchaseHistorySuccess() throws Exception {
-        userController.getRegUserMap().put(u2.getUsername(), u2);
-        storeController.GetStores().put(0, s1);
-        storeController.addProduct(0, 0, 10, 15, 5);
-        u2.addToCart(0, 0, 5);
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
+        market.EnterAsGuest(18);
+        market.Register("ali", "123", 18);
+        market.Login("0","ali", "123");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager, "steak", 0, "d", "nike", 0);
+        market.initStore("ali","name", "d");
+        market.addProduct(0, 0, 10.0, 10, "ali", 5);
+        market.addToCart("ali", 0, 0, 5);
         market.getSystemManagers().add("ali");
         double sum = userController.Buy(u2.getUsername());
         String result = market.viewSystemPurchaseHistory("ali");
@@ -162,7 +169,7 @@ public class integrationTests {
         market.Register("ali", "123", 18);
         market.Register("malek", "456", 18);
         market.Login("0","malek", "456");
-        market.initStore(u2.getUsername(),"name", "description");
+        market.initStore("ali","name", "description");
         Boolean[] per = new Boolean[] { true, true, true };
         String result = market.AssignStoreOwner(0, u2.getUsername(), u3.getUsername(), per);
         assertEquals("Permission added to store", result);

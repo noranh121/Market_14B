@@ -451,14 +451,27 @@ public class DataController {
 
     }
 
-    public void AssignStoreOwner(Integer storeID, String username) {
+    public void AssignStoreOwner(Integer storeID, String username,String ownerUserName,Boolean[] pType) {
+        initPermission(storeID, username);
         PermissionId permissionId=new PermissionId();
         permissionId.setStoreID(storeID);
-        permissionId.setUsername(username);
+        permissionId.setUsername(ownerUserName);
         EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
-
-        employerPermission.setStoreOwner(true);
-
+        List<EmployerPermission> employerPermissions=employerPermission.getEmployees();
+        if (employerPermissions==null) {
+            employerPermissions=new ArrayList<>();
+        }
+        PermissionId permissionId2=new PermissionId();
+        permissionId.setStoreID(storeID);
+        permissionId.setUsername(username);
+        EmployerPermission malek= employerPermissionRepository.findById(permissionId2).get();
+        employerPermissions.add(malek);
+        malek.setStoreOwner(true);
+        malek.setStoreManager(false);
+        malek.setEditProducts(pType[0]);
+        malek.setAddOrEditDiscountHistory(pType[2]);
+        malek.setAddOrEditPurchaseHistory(pType[1]);
+        malek.setParentusername(ownerUserName);
         employerPermissionRepository.save(employerPermission);
 
         LOGGER.info("user assigned as store owner at the DataBase");
@@ -721,7 +734,7 @@ public class DataController {
         purchasePolicy.setImmediate(immediate);
         Optional<PurchasePolicy> pp = purchaseRepository.findById(parentid);
         if (!pp.isPresent()) {
-            PurchasePolicy newpp=new PurchasePolicy(0, type, store.getStoreID(), quantity, price, type, atLeast, weight, age, userAge, categoryId, productId, username, immediate, purchasePolicy, new ArrayList<>());
+            PurchasePolicy newpp=new PurchasePolicy(0, type, store.getStoreID(), quantity, price, "", atLeast, weight, age, userAge, categoryId, productId, username, immediate, null, new ArrayList<>());
             purchaseRepository.save(newpp);
         }
         PurchasePolicy malek=purchaseRepository.findById(parentid).get();
@@ -773,4 +786,18 @@ public class DataController {
         purchaseHistoryRepository.save(purchaseHistory);
     }
 
+    public void initPermission(Integer storeId,String username){
+        PermissionId permissionId=new PermissionId();
+        permissionId.setStoreID(storeId);
+        permissionId.setUsername(username);
+        EmployerPermission employerPermission = new EmployerPermission();
+        employerPermission.setPermissionId(permissionId);
+        employerPermission.setEmployees(new ArrayList<>());
+        employerPermission.setStoreOwner(true);
+        employerPermission.setStoreManager(true);
+        employerPermission.setEditProducts(true);
+        employerPermission.setAddOrEditDiscountHistory(true);
+        employerPermission.setAddOrEditPurchaseHistory(true);
+        employerPermissionRepository.save(employerPermission);
+    }
 }
