@@ -554,7 +554,11 @@ public class DataController {
         }
         parent.setEmployees(employees);
         employerPermissionRepository.save(parent);
-        employerPermissionRepository.delete(employerUser);
+        PermissionId deluser=new PermissionId();
+        deluser.setStoreID(employerUser.getPermissionId().getStoreID());
+        deluser.setUsername(employerUser.getPermissionId().getUsername());
+        EmployerPermission delemployerUser = employerPermissionRepository.findById(deluser).get();
+        employerPermissionRepository.delete(delemployerUser);
     }
 
     public void suspendUser(String username) {

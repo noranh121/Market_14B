@@ -3,6 +3,7 @@ import org.market.DomainLayer.backend.Permissions;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 import org.market.Application;
@@ -23,6 +24,8 @@ public class ConcurrencyTestImpl {
     @BeforeEach
     void setUp() {
         market=(Market) context.getBean(Market.class);
+        org.market.DataAccessLayer.Entity.Market dataMarket=new org.market.DataAccessLayer.Entity.Market(0,true,new ArrayList<>());
+        Market.getDC().getMarketRepository().save(dataMarket);
     }
     @AfterEach
     void tearDown(){
@@ -40,6 +43,8 @@ public class ConcurrencyTestImpl {
         market.Register("essa","1",18);
         market.Login("0","essa","1");
         market.initStore("essa","name","desc");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0,0,10,1,"essa",18);
         market.EnterAsGuest(18);
         market.EnterAsGuest(18);
@@ -83,6 +88,7 @@ public class ConcurrencyTestImpl {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
+                fail(e.getMessage());
             } finally {
                 doneLatch.countDown(); // Indicate this thread is done
             }
@@ -110,6 +116,8 @@ public class ConcurrencyTestImpl {
         market.Register("essa","1",18);
         market.Login("0","essa","1");
         market.initStore("essa","name","desc");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0,0,10,1,"essa",18);
         market.EnterAsGuest(18);
         market.Register("maged","2",18);
@@ -179,6 +187,8 @@ public class ConcurrencyTestImpl {
         market.Register("essa","1",18);
         market.Login("0","essa","1");
         market.initStore("essa","name","desc");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.EnterAsGuest(18);
         market.EnterAsGuest(18);
         market.Register("maged","2",18);
@@ -319,6 +329,8 @@ public class ConcurrencyTestImpl {
         market.Register("essa","1",18);
         market.Login("0","essa","1");
         market.initStore("essa","name","desc");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0,0,10,1,"essa",5);
         market.EnterAsGuest(18);
         market.Register("maged","2",18);

@@ -105,7 +105,7 @@ public class EmployerPermission implements Serializable{
     public void deleteEmployees(){
         for(EmployerPermission employee : employees){
             employee.deleteEmployees();
-            org.market.DomainLayer.backend.Market.getDC().getEmployerPermissionRepository().delete(employee);
+            org.market.DomainLayer.backend.Market.getDC().resign(permissionId.getStoreID(), employee.getPermissionId().getUsername());
         }
     }
 

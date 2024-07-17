@@ -15,6 +15,8 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.market.DomainLayer.backend.UserPackage.UserController.notfications;
 
+import java.util.ArrayList;
+
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
@@ -26,6 +28,8 @@ public class AccTestImpl extends AcceptanceTests{
     @BeforeEach
     void setUp(){
         market=(Market)context.getBean(Market.class);
+        org.market.DataAccessLayer.Entity.Market dataMarket=new org.market.DataAccessLayer.Entity.Market(0,true,new ArrayList<>());
+        Market.getDC().getMarketRepository().save(dataMarket);
         Real.beforeEach();
     }
     

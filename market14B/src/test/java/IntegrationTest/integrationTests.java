@@ -745,7 +745,8 @@ public class integrationTests {
     public void testUseCase2(){
         try{
             String systemManager = "admin";
-            market.addToSystemManagers(systemManager);
+            market.getSystemManagers().add(systemManager);
+            market.setMarketOnline(systemManager);
             market.setMarketOnline(systemManager);
             market.EnterAsGuest(18);
             market.EnterAsGuest(18);
