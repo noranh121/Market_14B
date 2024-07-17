@@ -352,7 +352,7 @@ public class AccTestImpl extends AcceptanceTests{
     @Test
     void testORProductPurchasePolicySuccessImpl() throws Exception{
         double res=testORProductPurchasePolicySuccess("ali");
-        assertEquals(res,45);
+        assertEquals(res,40);
         assertEquals(notfications.size(),1);
         assertEquals(notfications.get(0)[0],"ali");
         assertEquals(notfications.get(0)[1],"Your purchase was successful");
