@@ -115,7 +115,7 @@ public class ProductView extends VerticalLayout implements HasUrlParameter<Strin
         specificationsList.add(separator1);
         specificationsList.add(new Span("Brand: " + product.getBrand()));
         specificationsList.add(separator2);
-        specificationsList.add(new Span("Category: " + "None"));
+        specificationsList.add(new Span("Category: " + product.getCategory()));
 
         this.specificationsLayout.add(specificationBar);
         this.specificationsLayout.add(specificationsList);

@@ -122,7 +122,7 @@ public class StoreController {
             String tokenValue = token.replace("Bearer ", "");
             String username = jwtUtil.extractUsername(tokenValue);
             if (username != null && jwtUtil.validateToken(tokenValue,username)) {
-                Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),-1,rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
+                Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),rstr.getCategory(),rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
                 String response2 = service.addProduct(response1, rstr.getStore_id(), rstr.getPrice(), rstr.getInventory(), rstr.getUsername(), rstr.getWeight());
                 return ResponseEntity.ok(response2);
             }

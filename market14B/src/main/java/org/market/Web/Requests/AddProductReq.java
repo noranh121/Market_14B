@@ -9,8 +9,16 @@ public class AddProductReq {
     private double weight;
     private int inventory;
     private String brand;
-
+    private String Category;
     private String username;
+    
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
+    }
 
     public AddProductReq(){
 

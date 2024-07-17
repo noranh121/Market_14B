@@ -4,6 +4,13 @@ import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.market.DataAccessLayer.DataController;
+import org.market.DataAccessLayer.Entity.Market;
+import org.market.DataAccessLayer.Entity.User;
+import org.market.DataAccessLayer.Repository.MarketRepository;
 import org.market.ServiceLayer.ServiceFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,9 +37,19 @@ public class Application implements AppShellConfigurator {
     public static void main(String[] args) throws Exception {
         ApplicationContext context = SpringApplication.run(Application.class, args);
         ServiceFactory serviceFactory = context.getBean(ServiceFactory.class);
+        DataController dataController = context.getBean(DataController.class);
+        dataController.clearAll();;
         try {
             serviceFactory.Register("admin", "password", 24);
+            // serviceFactory.addToSystemManagers("admin");
+            Market market = new Market();
+            List<User> sysMngrs = new ArrayList<>();
+            market.setOnline(false);
+            market.setSystemManagers(sysMngrs);
+            context.getBean(MarketRepository.class).save(market);
             serviceFactory.addToSystemManagers("admin");
+            serviceFactory.init();
+            serviceFactory.addCatagory(0, "Perfumes", "admin");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

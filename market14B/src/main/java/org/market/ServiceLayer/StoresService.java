@@ -35,8 +35,9 @@ public class StoresService {
             return result;
     }//@
 
-    public Integer initProduct(String username,String productName, int categoryId, String description, String brand,double weight) throws Exception{
-            int result = market.initProduct(username, productName, categoryId, description, brand,weight);
+    public Integer initProduct(String username,String productName, String categoryId, String description, String brand,double weight) throws Exception{
+            int id = Market.getCC().getCategorybyName(categoryId).getId();
+            int result = market.initProduct(username, productName, id, description, brand,weight);
             StoreController.LOGGER.info(String.valueOf(result));
             return result;
     }

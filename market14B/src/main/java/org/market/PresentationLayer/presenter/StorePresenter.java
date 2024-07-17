@@ -33,7 +33,7 @@ public class StorePresenter {
         this.view.setStoreLayout(store);
         this.view.setApplyButtonClickEventListener(e -> {
                     onApplyAddProductClicked(view.getName_field(), view.getDescription_field(),
-                            view.getBrand_field(), view.getPrice_field(), view.getWeight_field(), view.getInventory_field());
+                            view.getBrand_field(), view.getPrice_field(), view.getWeight_field(), view.getInventory_field(),view.getCategory_field());
                     view.updateProductCollection();
                 }
         );
@@ -155,7 +155,7 @@ public class StorePresenter {
         }
     }
 
-    private void onApplyAddProductClicked(TextField name_field, TextField description_field, TextField brand_field,NumberField price_field, NumberField weight_field, IntegerField inventory_field) {
+    private void onApplyAddProductClicked(TextField name_field, TextField description_field, TextField brand_field,NumberField price_field, NumberField weight_field, IntegerField inventory_field,TextField category) {
         Runnable originalRequest = new Runnable() {
             @Override
             public void run() {
@@ -180,6 +180,7 @@ public class StorePresenter {
                         request.setId(id);
                         request.setUsername(username);
                         request.setStore_id(view.getStore_id());
+                        request.setCategory(category.getValue());
 
                         HttpHeaders headers = new HttpHeaders();
                         headers.setBearerAuth(accessToken);
