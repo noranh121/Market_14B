@@ -841,4 +841,67 @@ public class integrationTests {
         }
     }
 
+    @Test
+    public void testInitFileSuccess() {
+        try{
+            String u1 = "admin";
+            market.getSystemManagers().add(u1);
+            market.setMarketOnline(u1);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("u2","123",18);
+            market.Register("u3","123",18);
+            market.Register("u4","123",18);
+            market.Register("u5","123",18);
+            market.Register("u6","123",18);
+            market.Login("0","u2","123");
+            market.initStore("u2","s1","groceries");
+            market.addCatagory(0,"snacks","u2");
+            market.initProduct("u2","Bamba",0,"peanut-butter flavored","Osem",20);
+            market.addProduct(1,0,30,20,"u2",20);
+            market.AssignStoreManager(0,"u2","u3",new Boolean[]{true,false,false});
+            market.AssignStoreOwner(0,"u2","u4",new Boolean[]{true,false,false}); 
+            market.AssignStoreOwner(0,"u2","u5",new Boolean[]{true,false,false}); 
+            market.Logout("u1");
+            assertTrue(market.getAllStores().size() > 0);
+            assertEquals("s1", market.getStore(0).getName());
+            assertTrue(market.getAllProducts().size() > 0);
+        }catch(Exception ex){
+            fail(ex.getMessage());
+        }
+    }
+
+    @Test
+    public void testInitFileFail() {
+        try{
+            String u1 = "admin";
+            market.getSystemManagers().add(u1);
+            market.setMarketOnline(u1);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.EnterAsGuest(18);
+            market.Register("u2","123",18);
+            market.Register("u3","123",18);
+            market.Register("u4","123",18);
+            market.Register("u5","123",18);
+            market.Register("u6","123",18);
+            market.Login("0","u2","123");
+            market.initStore("u2","s1","groceries");
+            market.addCatagory(0,"snacks","u2");
+            market.initProduct("u2","Bamba",0,"peanut-butter flavored","Osem",20);
+            market.addProduct(1,0,30,20,"u2",20);
+            market.AssignStoreManager(0,"u2","u3",new Boolean[]{true,false,false});
+            //market.AssignStoreOwner(0,"u2","u4",new Boolean[]{true,false,false}); 
+            market.AssignStoreOwner(0,"u4","u5",new Boolean[]{true,false,false}); 
+            fail();
+        }catch(Exception ex){
+            assertEquals("ownerUserName not found", ex.getMessage());
+        }
+    }
+
 }
