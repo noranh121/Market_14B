@@ -184,7 +184,7 @@ public class ServiceFactory {
         return storesService.getInfo(storeId, username);
     }
 
-    public Integer initProduct(String username,String productName, String categoryId, String description, String brand,double weight) throws Exception {
+    public Integer initProduct(String username,String productName, int categoryId, String description, String brand,double weight) throws Exception {
         return storesService.initProduct(username, productName, categoryId, description, brand,weight);
     }
 
@@ -282,9 +282,5 @@ public class ServiceFactory {
 
     private PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
         return marketService.initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
-    }
-
-    public void init(){
-        marketService.init();
-    }
+    } 
 }
