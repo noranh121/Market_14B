@@ -122,7 +122,7 @@ public class Real implements Bridge {
         market.initStore("malek","name", "d");
         market.addCatagory(0,"meat",systemManager);
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
-        market.addProduct(0, 0, 10.0, 20, "malek", 5);
+        market.addProduct(0, 0, 10.0, 10, "malek", 5);
         market.addToCart(username, 0, 0, 5);
         return market.Buy(username,"dollar","123","5","2027","123","Ab2","city","country","434","20444444");
     }
