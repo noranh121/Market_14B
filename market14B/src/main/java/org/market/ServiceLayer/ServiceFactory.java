@@ -190,7 +190,7 @@ public class ServiceFactory {
         return storesService.getInfo(storeId, username);
     }
 
-    public Integer initProduct(String username,String productName, int categoryId, String description, String brand,double weight) throws Exception {
+    public Integer initProduct(String username,String productName, String categoryId, String description, String brand,double weight) throws Exception {
         return storesService.initProduct(username, productName, categoryId, description, brand,weight);
     }
 
@@ -408,4 +408,7 @@ public class ServiceFactory {
         return marketService.search(entity);
     }
 
+    public void init(){
+        marketService.init();
+    }
 }

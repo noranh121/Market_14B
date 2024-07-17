@@ -39,6 +39,7 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
     private TextField category_field;
     private TextField brand_field;
     private TextField description_field;
+    //private TextField Category_field;
     private NumberField price_field;
     private NumberField weight_field;
     private IntegerField inventory_field;
@@ -111,6 +112,10 @@ public class StoreView extends VerticalLayout implements HasUrlParameter<String>
         this.brand_field = new TextField("Brand");
         this.brand_field.setRequired(true);
         this.brand_field.setRequiredIndicatorVisible(true);
+
+        // this.Category_field = new TextField("Category");
+        // this.Category_field.setRequired(true);
+        // this.Category_field.setRequiredIndicatorVisible(true);
 
         this.price_field = new NumberField("Price");
         this.price_field.setRequired(true);

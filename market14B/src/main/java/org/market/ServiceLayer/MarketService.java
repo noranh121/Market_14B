@@ -114,4 +114,7 @@ public class MarketService {
     public List<ProductDTO> search(SearchEntity entity){
         return this.market.search(entity);
     }
+    public void init() {
+        market.init();
+    }
 }

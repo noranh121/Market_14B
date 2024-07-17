@@ -517,6 +517,7 @@ public class Market {
             if(category == null){
                 int catId = categoryController.addCategory("None");
                 category = categoryController.getCategory(catId);
+                //dataController.addCategory(category.getName(), category.getId());
             }
             // I used datacontroller in productController class
             return productController.addProduct(productName, category, description, brand,weight);
@@ -1307,5 +1308,9 @@ public class Market {
             }
         }
         return psdto;
+    }
+    public void init() {
+        systemManagers=dataController.getSystemManagers(0);
+        Online=dataController.getOnline();
     }
 }
