@@ -131,7 +131,7 @@ public class DataController {
         Market market=marketRepository.findById(0).get();
         List<User> systemManagersEntity=market.getSystemManagers();
         for(User user : systemManagersEntity){
-            org.market.DomainLayer.backend.Market.addToSystemManagers(user.getUsername());
+            org.market.DomainLayer.backend.Market.addToSystemManagersBackend(user.getUsername());
         }
         // usercontroller
         List<User> users=new ArrayList<>();
@@ -196,7 +196,7 @@ public class DataController {
             if(maxProductId<product.getProductID())
                 maxProductId=product.getProductID();
             org.market.DomainLayer.backend.ProductPackage.Category category=org.market.DomainLayer.backend.Market.getCC().getCategory(product.getCatagoryID().getCategoryID());
-            org.market.DomainLayer.backend.Market.getPC().addProduct(product.getProductName(), category, product.getDescription(), product.getBrand(), product.getWeight());
+            org.market.DomainLayer.backend.Market.getPC().loudProduct(product.getProductName(), category, product.getDescription(), product.getBrand(), product.getWeight());
         }
         org.market.DomainLayer.backend.Market.getPC().setIdCounter(maxProductId);
 

@@ -201,6 +201,10 @@ public class Market {
         dataController.addSystemManager(admin);
     }
 
+    public static void addToSystemManagersBackend(String admin) {
+        systemManagers.add(admin);
+    }
+
     public boolean getOnline() {
         return Online;
     }
