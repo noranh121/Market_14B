@@ -106,15 +106,11 @@ public class StoresService {
             return result;
     }
 
-    public String addLogicalDiscount(String username,int storeId,String logicalRule,int id){
-        try {
-            String result = market.addLogicalDiscount(username, storeId, logicalRule,id);
-            StoreController.LOGGER.info(result);
-            return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
+    public String addLogicalDiscount(String username,int storeId,DiscountPolicyController.LogicalRule logicalRule,int id) throws Exception{
+        String result = market.addLogicalDiscount(username, storeId, logicalRule,id);
+        StoreController.LOGGER.info(result);
+        return result;
+}
 
     public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age, int categoryId, String username, int storeId, Boolean immediate, int id) throws Exception{
             String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate,id);
@@ -142,9 +138,9 @@ public class StoresService {
     }
 
     public String addLogicalPurchase(String username, int storeId, PurchasePolicyController.LogicalRule logicalRule, int id) throws Exception{
-            String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
-            StoreController.LOGGER.info(result);
-            return result;
+        String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
+        StoreController.LOGGER.info(result);
+        return result;
     }
 
     public ArrayList<StoreDTO> getAllStores() {
@@ -240,19 +236,19 @@ public class StoresService {
     }
 
 
-        public String approveOffer(String username, String offerName, int storeId, int productId, double price) throws Exception {
-                return market.approveOffer(username, offerName, storeId,productId, price);
-        }
-        public String rejectOffer(String username,String offerName, int storeId, int productId) throws Exception {
-                return market.rejectOffer(username,offerName, storeId,productId);
-        }
+    public String approveOffer(String username, String offerName, int storeId, int productId, double price) throws Exception {
+            return market.approveOffer(username, offerName, storeId,productId, price);
+    }
+    public String rejectOffer(String username,String offerName, int storeId, int productId) throws Exception {
+            return market.rejectOffer(username,offerName, storeId,productId);
+    }
 
-        public String sendOffer(String username, int storeId, int productId,Double price, Double offerPrice) {
-                return market.sendOffer(username, storeId, productId, price , offerPrice);
-        }
+    public String sendOffer(String username, int storeId, int productId,Double price, Double offerPrice) {
+            return market.sendOffer(username, storeId, productId, price , offerPrice);
+    }
 
 
-        public List<OfferDTO> getOffers(int storeId, String username) {
-                return market.getOffers(storeId,username);
-        }
+    public List<OfferDTO> getOffers(int storeId, String username) {
+            return market.getOffers(storeId,username);
+    }
 }

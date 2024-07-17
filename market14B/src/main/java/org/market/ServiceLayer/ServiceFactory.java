@@ -253,9 +253,6 @@ public class ServiceFactory {
         return storesService.removePurchaseFromUser(userId, purchaseId);
     }
 
-    private PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
-        return marketService.initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
-    } 
 
     public List<String> getStorePurchaseHistory(int storeId) throws Exception {
         return storesService.getStorePurchaseHistory(storeId);

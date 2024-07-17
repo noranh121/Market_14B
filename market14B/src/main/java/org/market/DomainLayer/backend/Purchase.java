@@ -3,6 +3,7 @@ package org.market.DomainLayer.backend;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Purchase {
     public static final int QUANTITY = 0;

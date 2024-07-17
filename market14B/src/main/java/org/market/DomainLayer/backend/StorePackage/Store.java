@@ -283,6 +283,8 @@ public class Store {
 
     public void updateProductPrice(String username, int productId, double offerPrice) {
         inventory.updateProductPrice(productId,offerPrice);
+    }
+    
     public List<OfferDTO> bringOffers() {
         List<OfferDTO> offersDTOs = new ArrayList<>();
         for (Offer offer : offers) {
