@@ -76,10 +76,10 @@ public class Store {
         return compositePurchasePolicy;
     }
 
-    public void addPurchaseComposite(CompositePurchasePolicy purchasePolicy,int id){
+    public int addPurchaseComposite(CompositePurchasePolicy purchasePolicy,int id){
         purchasePolicy.setId(purchasePolicyIDCounter);
         compositePurchasePolicy.addComposite(purchasePolicy,id);
-        purchasePolicyIDCounter++;
+        return purchasePolicyIDCounter++;
     }
 
     public void removePurchaseComposite(int purchasePolicyId) throws Exception{

@@ -12,13 +12,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductEntity implements Serializable{
+public class ProductScreenShot implements Serializable{
 
-    // @Id
-    // @JoinColumn(name="productID",referencedColumnName = "productID")
-    // private Integer productID;
     @EmbeddedId
-    private ProductEntityId inventoryProductId;
+    private ProductScreenShotId productScreenShotId;
 
     @Column(name="price")
     private double price;
@@ -27,21 +24,21 @@ public class ProductEntity implements Serializable{
     private int quantity;
 
     public Integer getProductID() {
-        return inventoryProductId.getProductID();
+        return productScreenShotId.getProductID();
     }
 
     public void setProductID(Integer productID) {
-        if(inventoryProductId==null){
-            this.inventoryProductId=new ProductEntityId();
+        if(productScreenShotId==null){
+            this.productScreenShotId=new ProductScreenShotId();
         }
-        this.inventoryProductId.setProductID(productID);
+        this.productScreenShotId.setProductID(productID);
     }
 
-    public Integer getInventoryID() {
-        return this.inventoryProductId.getInventoryID();
+    public Integer getPurchaseID() {
+        return this.productScreenShotId.getPurchaseHistoryid();
     }
-    public void setInventoryID(Integer inventoryID) {
-        this.inventoryProductId.setInventoryID(inventoryID);
+    public void setPurchaseID(Integer PurchaseID) {
+        this.productScreenShotId.setPurchaseHistoryid(PurchaseID);
     }
 
     public double getPrice() {

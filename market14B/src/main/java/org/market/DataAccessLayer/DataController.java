@@ -207,7 +207,7 @@ public class DataController {
             if(maxPurcahseHistoryId<purchaseEntity.getPurchaseID())
                 maxPurcahseHistoryId=purchaseEntity.getPurchaseID();
             Map<Integer, double[]> productsMap=new ConcurrentHashMap<>();
-            for(ProductEntity productEntity : purchaseEntity.getProducts()){
+            for(ProductScreenShot productEntity : purchaseEntity.getProducts()){
                 double[] QP={productEntity.getQuantity(),productEntity.getPrice()};
                 productsMap.put(productEntity.getProductID(),QP);
             }
@@ -262,20 +262,20 @@ public class DataController {
         for(PurchasePolicy purchasePolicy : purchasePolicies){
             switch (purchasePolicy.getType()) {
                 case "category":
-                    org.market.DomainLayer.backend.Market.loudCategoryPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    org.market.DomainLayer.backend.Market.loudCategoryPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
                     break;
                 case "product":
-                    org.market.DomainLayer.backend.Market.loudProductPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    org.market.DomainLayer.backend.Market.loudProductPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
                     break;
                 case "shoppingcart":
-                    org.market.DomainLayer.backend.Market.loudShoppingCartPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    org.market.DomainLayer.backend.Market.loudShoppingCartPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
                     break;
                 case "user":
-                    org.market.DomainLayer.backend.Market.loudUserPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    org.market.DomainLayer.backend.Market.loudUserPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
                     break;
             
                 default:
-                    org.market.DomainLayer.backend.Market.loudLogicalPurchase(purchasePolicy.getUsername(),purchasePolicy.getStoreId().getStoreID(),purchasePolicy.getType(),purchasePolicy.getParentPurchase().getProductId());
+                    org.market.DomainLayer.backend.Market.loudLogicalPurchase(purchasePolicy.getUsername(),purchasePolicy.getStoreId(),purchasePolicy.getType(),purchasePolicy.getParentPurchase().getProductId());
                     break;
             }
         }
@@ -700,11 +700,15 @@ public class DataController {
 
     public void addPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,
             double userAge, int categoryId, int productId, String username, int storeId, Boolean immediate,
-            int parentid, String type) {
+            int parentid, String type,int selfid) {
         PurchasePolicy purchasePolicy = new PurchasePolicy();
         purchasePolicy.setQuantity(quantity);
         purchasePolicy.setPrice(price);
-        purchasePolicy.setDate(date.toString());
+        if(date==null){
+            purchasePolicy.setDate("");
+        }else{
+            purchasePolicy.setDate(date.toString());
+        }
         purchasePolicy.setAtLeast(atLeast);
         purchasePolicy.setWeight(weight);
         purchasePolicy.setAge(userAge);
@@ -715,14 +719,20 @@ public class DataController {
         Store store = storeRepository.findById(storeId).get();
         purchasePolicy.setStoreId(store);
         purchasePolicy.setImmediate(immediate);
-        PurchasePolicy pp = purchaseRepository.findById(parentid).get();
-        purchasePolicy.setParentPurchase(pp);
+        Optional<PurchasePolicy> pp = purchaseRepository.findById(parentid);
+        if (!pp.isPresent()) {
+            PurchasePolicy newpp=new PurchasePolicy(0, type, store.getStoreID(), quantity, price, type, atLeast, weight, age, userAge, categoryId, productId, username, immediate, purchasePolicy, new ArrayList<>());
+            purchaseRepository.save(newpp);
+        }
+        PurchasePolicy malek=purchaseRepository.findById(parentid).get();
+        purchasePolicy.setParentPurchase(malek);
         purchasePolicy.setType(type);
+        purchasePolicy.setPurchaseId(selfid);
         purchaseRepository.save(purchasePolicy);
-        List<PurchasePolicy> subPurchasePolicies = pp.getSubPurchases();
+        List<PurchasePolicy> subPurchasePolicies = malek.getSubPurchases();
         subPurchasePolicies.add(purchasePolicy);
-        pp.setSubPurchases(subPurchasePolicies);
-        purchaseRepository.save(pp);
+        malek.setSubPurchases(subPurchasePolicies);
+        purchaseRepository.save(malek);
     }
 
     public void updateQuantity(org.market.DomainLayer.backend.StorePackage.Store store){
@@ -742,6 +752,25 @@ public class DataController {
         users.add(user);
         market.setSystemManagers(users);
         marketRepository.save(market);
+    }
+
+    public void addToPurchaseHistory(Integer purchaseID,Map<Integer,double[]> products,Integer storeId,String username,Integer ovlprice){
+        PurchaseHistory purchaseHistory=new PurchaseHistory();
+        purchaseHistory.setPurchaseID(purchaseID);
+        purchaseHistory.setStoreID(storeId);
+        purchaseHistory.setUsername(username);
+        purchaseHistory.setOvlprice(ovlprice);
+        List<ProductScreenShot> prods=new ArrayList<>();
+        for(Map.Entry<Integer,double[]> prod : products.entrySet()){
+            ProductScreenShot pe=new ProductScreenShot();
+            pe.setProductID(prod.getKey());
+            pe.setPurchaseID(purchaseID);
+            pe.setPrice(prod.getValue()[1]);
+            pe.setQuantity((int)prod.getValue()[0]);
+            prods.add(pe);
+        }
+        purchaseHistory.setProducts(prods);
+        purchaseHistoryRepository.save(purchaseHistory);
     }
 
 }
