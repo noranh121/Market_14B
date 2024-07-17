@@ -84,7 +84,7 @@ public class PurchasePolicy implements java.io.Serializable{
     @JoinColumn(name = "parentPurchaseID")
     private PurchasePolicy parentPurchase;
 
-    @OneToMany(mappedBy = "parentPurchase", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parentPurchase", cascade = CascadeType.ALL ,fetch = FetchType.EAGER)
     private List<PurchasePolicy> subPurchases;
 
     public Integer getPurchaseId() {
