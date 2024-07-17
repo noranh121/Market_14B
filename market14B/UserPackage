@@ -1,0 +1,1814 @@
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: malek, password: 456
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: malek, password: 456
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: malek
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:14:32 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:14:33 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:14:33 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:14:33 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message sent to malek
+Jul 17, 2024 5:14:33 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:18:10 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:18:10 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:18:10 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:18:10 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:18:10 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: malek, password: 456
+Jul 17, 2024 5:18:10 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: malek, password: 456
+Jul 17, 2024 5:18:10 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: malek
+Jul 17, 2024 5:18:10 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:18:11 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:18:11 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 17, 2024 5:18:11 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:18:11 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:18:11 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:18:11 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:18:11 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:18:11 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message sent to malek
+Jul 17, 2024 5:18:11 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:20:42 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:20:42 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:20:42 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:20:42 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:20:42 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: malek, password: 456
+Jul 17, 2024 5:20:42 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: malek, password: 456
+Jul 17, 2024 5:20:42 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: malek
+Jul 17, 2024 5:20:42 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:20:43 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:20:43 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 17, 2024 5:20:43 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:20:43 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:20:43 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:20:43 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:20:43 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:20:43 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message sent to malek
+Jul 17, 2024 5:20:43 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:23:07 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:07 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:07 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:07 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:07 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:07 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:08 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:08 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:08 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:09 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:09 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:10 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:10 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:23:10 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:10 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:10 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:10 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:11 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:11 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:11 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:11 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:23:11 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:23:11 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:12 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:12 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:12 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:13 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:13 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:13 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:13 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:13 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:14 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:14 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:14 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 4
+Jul 17, 2024 5:23:14 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:14 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:14 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:14 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:15 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:15 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:15 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:15 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart processBasket
+SEVERE: purchase failed
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: ali, password: 123
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:16 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:23:17 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:23:18 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:18 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:19 AM org.market.DomainLayer.backend.Permissions deletePermission
+SEVERE: 0 does not exist
+Jul 17, 2024 5:23:19 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:19 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:19 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: malek, password: 456
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: malek
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message sent to malek
+Jul 17, 2024 5:23:20 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:23:21 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:21 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:21 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 1, username: malek, password: 456
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: malek
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 1
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message sent to malek
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController EditPermissions
+INFO: storeID: 0, ownerUserName: ali, userName: malekstoreOwner: true
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message sent to malek
+Jul 17, 2024 5:23:22 AM org.market.DomainLayer.backend.Permissions editPermission
+INFO: Permission added to store
+Jul 17, 2024 5:23:23 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:23 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:23 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: ali, password: 123
+Jul 17, 2024 5:23:23 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:23 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:23 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:23:23 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:23:23 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 17, 2024 5:23:23 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:23:24 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:24 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:25 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: wrong, password: 123
+Jul 17, 2024 5:23:25 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+SEVERE: username or password are incorrect
+Jul 17, 2024 5:23:26 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:26 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:26 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:26 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:26 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:26 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:26 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:27 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:27 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:27 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:27 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:23:27 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:27 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:27 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:27 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:28 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:28 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:28 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:28 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:23:28 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:23:28 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:29 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:29 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:29 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:29 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:29 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreManager
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:23:29 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:23:29 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:23:29 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:23:30 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:30 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:30 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:31 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:31 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:31 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:31 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:32 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:32 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:32 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 4
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:23:33 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:34 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:34 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:34 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:34 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:34 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:34 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:35 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:35 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:35 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:35 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 4
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:23:36 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:37 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:37 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:37 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:37 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:37 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to ali
+Jul 17, 2024 5:23:38 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:38 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:38 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:38 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:39 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:23:39 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:23:39 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:23:39 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:23:39 AM org.market.DomainLayer.backend.Permissions deleteStoreOwner
+INFO: deleted store owner
+Jul 17, 2024 5:23:40 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:40 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:40 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:40 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:41 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:41 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:41 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:41 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:23:42 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: u1, password: 123
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: u2, password: 456
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: u3, password: 789
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: u1
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: u1, username: u2storeOwner: 0
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: u2
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to u2
+Jul 17, 2024 5:23:44 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:23:45 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: u2, username: u3storeOwner: 0
+Jul 17, 2024 5:23:45 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: u3
+Jul 17, 2024 5:23:45 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to u3
+Jul 17, 2024 5:23:45 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:23:45 AM org.market.DomainLayer.backend.Permissions deleteStoreOwner
+INFO: deleted store owner
+Jul 17, 2024 5:23:46 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to ali
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:23:47 AM org.market.DomainLayer.backend.Permissions deletePermission
+INFO: Permission deleted from store
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:23:48 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:49 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:49 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:49 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:49 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:49 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:49 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:50 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:50 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:50 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:50 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:51 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 2
+Jul 17, 2024 5:23:51 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:51 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:51 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:51 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:51 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:51 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:51 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:51 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart processBasket
+SEVERE: purchase failed
+Jul 17, 2024 5:23:52 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:52 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:52 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:52 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:52 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:52 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:53 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:53 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:53 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:53 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:53 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:54 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:23:55 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:23:55 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:23:56 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:56 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:23:56 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:56 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:23:56 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:56 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:56 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:23:57 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:23:57 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:23:57 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:23:58 AM org.market.DomainLayer.backend.Permissions deleteStoreOwner
+INFO: deleted main store owner - store is closed permanently
+Jul 17, 2024 5:23:58 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreManager
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:23:58 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreManager
+SEVERE: ownerUserName not found
+Jul 17, 2024 5:23:59 AM org.market.DomainLayer.backend.UserPackage.UserController EditPermissions
+INFO: storeID: 0, ownerUserName: ali, userName: malekstoreOwner: true
+Jul 17, 2024 5:23:59 AM org.market.DomainLayer.backend.UserPackage.UserController EditPermissions
+SEVERE: ownerUserName not found
+Jul 17, 2024 5:23:59 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: newUser, password: password123
+Jul 17, 2024 5:23:59 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: newUser, password: password123
+Jul 17, 2024 5:24:00 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+SEVERE: username already exists
+Jul 17, 2024 5:24:00 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:24:00 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:24:00 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:24:00 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:24:01 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:24:01 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:24:01 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:24:01 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:24:01 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:24:02 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:03 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addBasket
+INFO: Basket added successfully
+Jul 17, 2024 5:24:03 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:24:03 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: 0
+Jul 17, 2024 5:24:03 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: 0
+Jul 17, 2024 5:24:03 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+SEVERE: invalid cart
+Jul 17, 2024 5:24:03 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: 0
+Jul 17, 2024 5:24:04 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:24:04 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+SEVERE: ownerUserName not found
+Jul 17, 2024 5:24:04 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:24:04 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:24:05 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:05 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:05 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to ali
+Jul 17, 2024 5:24:05 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:24:05 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:24:05 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 2
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:24:06 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:24:07 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:24:07 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:07 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:07 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart processBasket
+SEVERE: purchase failed
+Jul 17, 2024 5:24:07 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: malek
+Jul 17, 2024 5:24:07 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:24:07 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+SEVERE: username not found
+Jul 17, 2024 5:24:07 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+SEVERE: user not found
+Jul 17, 2024 5:24:08 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:24:08 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+SEVERE: username not found
+Jul 17, 2024 5:24:08 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: newUser, password: password123
+Jul 17, 2024 5:24:09 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: existingUser, password: password123
+Jul 17, 2024 5:24:09 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: existingUser, password: password123
+Jul 17, 2024 5:24:09 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+SEVERE: username already exists
+Jul 17, 2024 5:29:53 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:29:53 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:29:53 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:29:53 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:29:54 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreManager
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:29:54 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:29:54 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:29:54 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:30:49 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:30:50 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:30:50 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:30:50 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:30:50 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreManager
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:30:50 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:30:50 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:30:50 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:43:00 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:43:01 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:43:01 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:43:01 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:43:01 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:43:01 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:43:01 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:43:01 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:43:14 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:43:14 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to ali
+Jul 17, 2024 5:43:14 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:43:14 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:43:14 AM org.market.DomainLayer.backend.Permissions deletePermission
+INFO: Permission deleted from store
+Jul 17, 2024 5:45:21 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:45:21 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to ali
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:45:22 AM org.market.DomainLayer.backend.Permissions deletePermission
+INFO: Permission deleted from store
+Jul 17, 2024 5:49:43 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to ali
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:49:44 AM org.market.DomainLayer.backend.Permissions deletePermission
+INFO: Permission deleted from store
+Jul 17, 2024 5:56:07 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:56:08 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:56:08 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:56:08 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:56:08 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:56:08 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:56:08 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:56:08 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:56:08 AM org.market.DomainLayer.backend.Permissions deleteStoreOwner
+INFO: deleted store owner
+Jul 17, 2024 5:58:17 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:17 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:17 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:17 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:17 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:17 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:18 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:18 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:18 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:19 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:19 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:19 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:58:20 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:22 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:22 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:22 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:22 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:22 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:22 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:22 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:23 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:23 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:23 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:24 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 4
+Jul 17, 2024 5:58:24 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:24 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:58:24 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:24 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:24 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:58:24 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:24 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:24 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart processBasket
+SEVERE: purchase failed
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: ali, password: 123
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:25 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:58:26 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:58:27 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:27 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:28 AM org.market.DomainLayer.backend.Permissions deletePermission
+SEVERE: 0 does not exist
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: malek, password: 456
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: malek
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:29 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:30 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:58:30 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:58:30 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message sent to malek
+Jul 17, 2024 5:58:30 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 1, username: malek, password: 456
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: malek
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 1
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message sent to malek
+Jul 17, 2024 5:58:31 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:58:32 AM org.market.DomainLayer.backend.UserPackage.UserController EditPermissions
+INFO: storeID: 0, ownerUserName: ali, userName: malekstoreOwner: true
+Jul 17, 2024 5:58:32 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:58:32 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message sent to malek
+Jul 17, 2024 5:58:32 AM org.market.DomainLayer.backend.Permissions editPermission
+INFO: Permission added to store
+Jul 17, 2024 5:58:33 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:33 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:33 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: ali, password: 123
+Jul 17, 2024 5:58:33 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:33 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:33 AM org.market.DomainLayer.backend.UserPackage.UserController authenticate
+INFO: authenticated
+Jul 17, 2024 5:58:33 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: logged in successfully
+Jul 17, 2024 5:58:33 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: username: 0
+Jul 17, 2024 5:58:33 AM org.market.DomainLayer.backend.UserPackage.UserController GuestExit
+INFO: guest existed successfully
+Jul 17, 2024 5:58:34 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:34 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:35 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+INFO: guest: 0, username: wrong, password: 123
+Jul 17, 2024 5:58:35 AM org.market.DomainLayer.backend.UserPackage.UserController Login
+SEVERE: username or password are incorrect
+Jul 17, 2024 5:58:35 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:35 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:35 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:35 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:36 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:36 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:36 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:36 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:36 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:58:37 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:38 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:39 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:39 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:39 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:39 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreManager
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:58:39 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:58:39 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:58:39 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:58:40 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:40 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:40 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:40 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:41 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:41 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:41 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:41 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:41 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 4
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:58:42 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:43 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:43 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:43 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:44 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:44 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:44 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:44 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:44 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 4
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:45 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:58:46 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:58:46 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:47 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:47 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:47 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:47 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:47 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to ali
+Jul 17, 2024 5:58:47 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:48 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:48 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:48 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:48 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:58:48 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:58:48 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:58:48 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:58:48 AM org.market.DomainLayer.backend.Permissions deleteStoreOwner
+INFO: deleted store owner
+Jul 17, 2024 5:58:49 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:49 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:49 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:49 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:50 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:50 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:50 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:50 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:50 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:58:50 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:50 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:58:50 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:50 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:51 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:58:51 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:51 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:51 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:58:51 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:58:51 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: u1, password: 123
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: u2, password: 456
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: u3, password: 789
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: u1
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: u1, username: u2storeOwner: 0
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: u2
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to u2
+Jul 17, 2024 5:58:52 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:58:53 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: u2, username: u3storeOwner: 0
+Jul 17, 2024 5:58:53 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: u3
+Jul 17, 2024 5:58:53 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to u3
+Jul 17, 2024 5:58:53 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:58:53 AM org.market.DomainLayer.backend.Permissions deleteStoreOwner
+INFO: deleted store owner
+Jul 17, 2024 5:58:55 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:55 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:55 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:55 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:56 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:58:56 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:58:56 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:58:56 AM org.market.DomainLayer.backend.Permissions addPermission
+INFO: Permission added to store
+Jul 17, 2024 5:58:56 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:56 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to ali
+Jul 17, 2024 5:58:56 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:58:56 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to malek
+Jul 17, 2024 5:58:56 AM org.market.DomainLayer.backend.Permissions deletePermission
+INFO: Permission deleted from store
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:58:57 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:58 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:58 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:58:58 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:58:58 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:58:58 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:58:58 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:58:58 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:59 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:59 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:59 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:58:59 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 2
+Jul 17, 2024 5:58:59 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:58:59 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:58:59 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:58:59 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:59:00 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:59:00 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:00 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:00 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart processBasket
+SEVERE: purchase failed
+Jul 17, 2024 5:59:01 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:59:01 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:59:01 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:59:01 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:59:01 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:59:01 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:59:01 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:02 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:02 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:02 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:02 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:59:03 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:04 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:59:04 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:59:04 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:59:05 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:59:05 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:59:05 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:59:05 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:06 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:59:06 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:59:06 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:59:06 AM org.market.DomainLayer.backend.Permissions deleteStoreOwner
+INFO: deleted main store owner - store is closed permanently
+Jul 17, 2024 5:59:07 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreManager
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:59:07 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreManager
+SEVERE: ownerUserName not found
+Jul 17, 2024 5:59:08 AM org.market.DomainLayer.backend.UserPackage.UserController EditPermissions
+INFO: storeID: 0, ownerUserName: ali, userName: malekstoreOwner: true
+Jul 17, 2024 5:59:08 AM org.market.DomainLayer.backend.UserPackage.UserController EditPermissions
+SEVERE: ownerUserName not found
+Jul 17, 2024 5:59:08 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: newUser, password: password123
+Jul 17, 2024 5:59:08 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: newUser, password: password123
+Jul 17, 2024 5:59:09 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+SEVERE: username already exists
+Jul 17, 2024 5:59:09 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:59:09 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:59:09 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:59:09 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:59:09 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:59:09 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:59:10 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:10 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:10 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:10 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 5
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.PurchaseHistory addPurchase
+INFO: Added purchase to user history: User ID ali
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+INFO: Your purchase was successful
+Jul 17, 2024 5:59:11 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:12 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addBasket
+INFO: Basket added successfully
+Jul 17, 2024 5:59:12 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:59:12 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: 0
+Jul 17, 2024 5:59:12 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: 0
+Jul 17, 2024 5:59:12 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart Buy
+SEVERE: invalid cart
+Jul 17, 2024 5:59:12 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: 0
+Jul 17, 2024 5:59:13 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+INFO: ownerUserName: ali, username: malekstoreOwner: 0
+Jul 17, 2024 5:59:13 AM org.market.DomainLayer.backend.UserPackage.UserController AssignStoreOwner
+SEVERE: ownerUserName not found
+Jul 17, 2024 5:59:13 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:59:13 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:59:13 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:13 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:13 AM org.market.DomainLayer.backend.Permissions chooseNotifier
+INFO: message stacked to ali
+Jul 17, 2024 5:59:14 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:59:14 AM org.market.DomainLayer.backend.UserPackage.UserController addToGuestMap
+INFO: guest user added successfully
+Jul 17, 2024 5:59:14 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 5:59:14 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: malek, password: 456
+Jul 17, 2024 5:59:14 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 5:59:14 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.Permissions getPermission
+INFO: Permission found
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.UserPackage.UserController addToCart
+INFO: username: ali, product: 0, quantity: 2
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.Basket addProduct
+INFO: product added successfully
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart addToCart
+INFO: added to cart
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.UserPackage.User addToCart
+INFO: added to cart
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: ali
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:15 AM org.market.DomainLayer.backend.UserPackage.ShoppingCart processBasket
+SEVERE: purchase failed
+Jul 17, 2024 5:59:16 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+INFO: username: malek
+Jul 17, 2024 5:59:16 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: malek
+Jul 17, 2024 5:59:16 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+SEVERE: username not found
+Jul 17, 2024 5:59:16 AM org.market.DomainLayer.backend.UserPackage.UserController Buy
+SEVERE: user not found
+Jul 17, 2024 5:59:17 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+INFO: username: ali
+Jul 17, 2024 5:59:17 AM org.market.DomainLayer.backend.UserPackage.UserController getUser
+SEVERE: username not found
+Jul 17, 2024 5:59:17 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: newUser, password: password123
+Jul 17, 2024 5:59:18 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: existingUser, password: password123
+Jul 17, 2024 5:59:18 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: existingUser, password: password123
+Jul 17, 2024 5:59:18 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+SEVERE: username already exists
+Jul 17, 2024 6:07:41 AM org.market.DomainLayer.backend.UserPackage.UserController Register
+INFO: username: ali, password: 123
+Jul 17, 2024 6:07:42 AM org.market.DomainLayer.backend.UserPackage.UserController isRegistered
+INFO: username: ali
+Jul 17, 2024 6:07:42 AM org.market.DomainLayer.backend.Permissions initStore
+INFO: store added successfully
+Jul 17, 2024 6:07:42 AM org.market.DomainLayer.backend.Permissions deleteStoreOwner
+INFO: deleted main store owner - store is closed permanently

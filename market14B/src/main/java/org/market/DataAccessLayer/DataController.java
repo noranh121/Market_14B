@@ -437,15 +437,31 @@ public class DataController {
 
     }
 
-    public void AssignStoreManager(Integer storeID, String username) {
+    public void AssignStoreManager(Integer storeID, String username,String owner,Boolean[] pType) {
+        initPermission(storeID, username);
         PermissionId permissionId=new PermissionId();
         permissionId.setStoreID(storeID);
-        permissionId.setUsername(username);
+        permissionId.setUsername(owner);
         EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
+        List<EmployerPermission> employerPermissions=employerPermission.getEmployees();
+        if (employerPermissions==null) {
+            employerPermissions=new ArrayList<>();
+        }
+        PermissionId permissionId2=new PermissionId();
+        permissionId2.setStoreID(storeID);
+        permissionId2.setUsername(username);
+        EmployerPermission malek= employerPermissionRepository.findById(permissionId2).get();
+        employerPermissions.add(malek);
+        employerPermission.setEmployees(employerPermissions);
 
-        employerPermission.setStoreManager(true);
-
+        malek.setStoreOwner(false);
+        malek.setStoreManager(true);
+        malek.setEditProducts(pType[0]);
+        malek.setAddOrEditDiscountHistory(pType[2]);
+        malek.setAddOrEditPurchaseHistory(pType[1]);
+        malek.setParentusername(owner);
         employerPermissionRepository.save(employerPermission);
+        employerPermissionRepository.save(malek);
 
         LOGGER.info("user assigned as store manager at the DataBase");
 
@@ -462,10 +478,12 @@ public class DataController {
             employerPermissions=new ArrayList<>();
         }
         PermissionId permissionId2=new PermissionId();
-        permissionId.setStoreID(storeID);
-        permissionId.setUsername(username);
+        permissionId2.setStoreID(storeID);
+        permissionId2.setUsername(username);
         EmployerPermission malek= employerPermissionRepository.findById(permissionId2).get();
         employerPermissions.add(malek);
+        employerPermission.setEmployees(employerPermissions);
+
         malek.setStoreOwner(true);
         malek.setStoreManager(false);
         malek.setEditProducts(pType[0]);
@@ -473,27 +491,70 @@ public class DataController {
         malek.setAddOrEditPurchaseHistory(pType[1]);
         malek.setParentusername(ownerUserName);
         employerPermissionRepository.save(employerPermission);
+        employerPermissionRepository.save(malek);
 
         LOGGER.info("user assigned as store owner at the DataBase");
 
     }
 
-    public void unassignUser(Integer storeID, String username) {
-        PermissionId permissionId=new PermissionId();
-        permissionId.setStoreID(storeID);
-        permissionId.setUsername(username);
-        EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
+    public void unassignUser(Integer storeID, String username,String owner) {
+        PermissionId user=new PermissionId();
+        user.setStoreID(storeID);
+        user.setUsername(username);
+        EmployerPermission employerUser = employerPermissionRepository.findById(user).get();
 
-        employerPermission.deleteEmployees();
-
-        employerPermissionRepository.delete(employerPermission);
+        PermissionId ownerPermission=new PermissionId();
+        ownerPermission.setStoreID(storeID);
+        ownerPermission.setUsername(owner);
+        EmployerPermission employerOwner = employerPermissionRepository.findById(ownerPermission).get();
+        List<EmployerPermission> employees=employerOwner.getEmployees();
+        for(EmployerPermission e : employees){
+            if(e.getPermissionId().getStoreID()==storeID && e.getPermissionId().getUsername().equals(username)){
+                e.deleteEmployees();
+                employees.remove(e);
+                break;
+            }
+        }
+        employerOwner.setEmployees(employees);
+        employerPermissionRepository.save(employerOwner);
+        employerPermissionRepository.delete(employerUser);
 
         LOGGER.info("user unassigned from the DataBase");
 
     }
 
     public void resign(int storeID, String username) {
-        unassignUser(storeID, username);
+        PermissionId user=new PermissionId();
+        user.setStoreID(storeID);
+        user.setUsername(username);
+        EmployerPermission employerUser = employerPermissionRepository.findById(user).get();
+        if(employerUser.getParentusername()==null){
+            List<EmployerPermission> employees=employerUser.getEmployees();
+            for(EmployerPermission e : employees){
+                if(e.getPermissionId().getStoreID()==storeID){
+                    e.deleteEmployees();
+                    employees.remove(e);
+                    break;
+                }
+            }
+            employerPermissionRepository.delete(employerUser);
+            return;
+        }
+        PermissionId ownerPermission=new PermissionId();
+        ownerPermission.setStoreID(storeID);
+        ownerPermission.setUsername(employerUser.getParentusername());
+        EmployerPermission parent = employerPermissionRepository.findById(ownerPermission).get();
+        List<EmployerPermission> employees=parent.getEmployees();
+        for(EmployerPermission e : employees){
+            if(e.getPermissionId().getStoreID()==storeID && e.getPermissionId().getUsername().equals(username)){
+                e.deleteEmployees();
+                employees.remove(e);
+                break;
+            }
+        }
+        parent.setEmployees(employees);
+        employerPermissionRepository.save(parent);
+        employerPermissionRepository.delete(employerUser);
     }
 
     public void suspendUser(String username) {

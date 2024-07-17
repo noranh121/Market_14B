@@ -19,7 +19,7 @@ public class EmployerPermission implements Serializable{
     @JoinColumn(name = "username")
     private String parentusername;
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     private List<EmployerPermission> employees;
 
     @Column(name="storeOwner")

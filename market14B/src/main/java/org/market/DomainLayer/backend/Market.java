@@ -359,7 +359,7 @@ public class Market {
                 throw new SuspendedException("can't assign store manager, user is suspended");
             }
             String response= userController.AssignStoreManager(storeId, ownerUserName, username, pType);
-            dataController.AssignStoreManager(storeId, username);
+            dataController.AssignStoreManager(storeId, username,ownerUserName,pType);
             return response;
         } finally{
             systemManagersLock.unlock();
@@ -392,7 +392,7 @@ public class Market {
                 throw new SuspendedException("can't unassign permissions, user is suspended");
             }
             String response= permissions.deletePermission(storeID, ownerUserName, userName);
-            dataController.unassignUser(storeID, userName);
+            dataController.unassignUser(storeID, userName,ownerUserName);
             return response;
         }finally{
             systemManagersLock.unlock();
