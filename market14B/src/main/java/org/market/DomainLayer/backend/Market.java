@@ -151,8 +151,8 @@ public class Market {
         this.dataController = dataController;
         this.searchEngine = searchEngine;
         try {
-            // systemManagers=dataController.getSystemManagers(0);
-            // Online=dataController.getOnline();
+            systemManagers=dataController.getSystemManagers(0);
+            Online=dataController.getOnline();
             fileHandler= new FileHandler("Market.log",true);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
@@ -204,6 +204,10 @@ public class Market {
     public static void addToSystemManagers(String admin) {
         systemManagers.add(admin);
         dataController.addSystemManager(admin);
+    }
+
+    public static void addToSystemManagersBackend(String admin) {
+        systemManagers.add(admin);
     }
 
     public boolean getOnline() {
@@ -517,7 +521,6 @@ public class Market {
             if(category == null){
                 int catId = categoryController.addCategory("None");
                 category = categoryController.getCategory(catId);
-                //dataController.addCategory(category.getName(), category.getId());
             }
             // I used datacontroller in productController class
             return productController.addProduct(productName, category, description, brand,weight);
