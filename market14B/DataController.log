@@ -1,0 +1,448 @@
+Jul 18, 2024 4:33:26 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:33:27 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:33:27 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:33:27 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:33:27 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:33:27 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:33:28 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:34:59 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:35:00 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:35:00 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:35:00 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:35:26 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:35:30 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:35:33 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:37:19 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:37:20 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:37:20 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:38:39 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:38:39 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:38:39 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:38:40 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:38:40 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:38:40 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:40:46 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:40:46 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:40:46 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:40:47 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:40:53 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:40:55 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:40:57 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:43:00 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:43:01 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:43:01 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:43:01 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:43:01 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:43:01 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:43:01 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:44:26 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:44:26 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:44:27 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:44:27 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:44:27 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:44:27 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:44:27 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:45:24 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:45:24 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:45:24 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:45:24 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:45:25 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:45:25 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:45:25 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:47:59 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:47:59 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:47:59 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:47:59 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:47:59 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:47:59 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:48:45 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:48:45 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:48:45 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:48:45 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:48:46 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:48:46 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:48:46 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:50:04 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:50:04 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:50:04 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:50:05 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:50:05 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:50:05 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:50:05 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:50:52 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:50:52 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:50:52 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:50:52 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:50:52 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:50:53 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:50:53 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:52:58 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:52:58 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:52:59 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:52:59 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:52:59 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:52:59 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:52:59 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:57:32 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:57:32 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:57:32 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:57:32 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:57:32 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:57:32 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:57:33 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 4:59:30 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 4:59:30 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:59:30 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 4:59:30 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 4:59:30 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 4:59:31 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 4:59:31 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 5:00:08 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:00:08 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:00:08 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:00:08 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:00:08 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 5:00:08 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 5:00:09 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 5:01:36 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:01:36 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:01:36 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:01:37 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:01:37 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 5:01:37 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 5:01:37 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 5:03:07 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:03:07 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:03:07 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:03:07 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:03:07 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 5:03:07 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 5:03:08 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 5:04:49 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:04:49 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:04:50 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:04:50 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:04:50 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:04:50 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:04:50 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:04:50 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:05:47 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:05:47 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:05:47 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:05:48 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:05:48 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:05:48 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:05:48 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:05:48 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:30:49 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:30:50 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:30:50 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:30:50 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:30:50 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:30:50 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:30:50 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:31:03 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:32:09 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:32:09 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:32:09 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:32:09 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:32:10 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:32:10 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:32:10 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:32:10 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:33:32 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:33:32 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:33:32 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:33:32 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:33:32 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:33:32 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:33:33 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:33:33 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:33:33 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 5:33:33 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 5:34:54 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:34:55 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:34:55 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:34:55 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:34:55 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:34:56 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:34:56 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:34:56 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:34:56 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 5:34:56 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 5:35:38 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:35:39 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:35:39 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:35:39 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:35:39 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:35:39 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:35:40 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:35:40 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:35:40 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 5:35:40 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 5:36:57 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:36:57 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:36:57 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:36:57 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:36:58 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:36:58 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:36:58 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:36:58 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:36:58 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 5:36:59 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 5:37:12 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 5:37:16 AM org.market.DataAccessLayer.DataController AssignStoreManager
+INFO: user assigned as store manager at the DataBase
+Jul 18, 2024 5:37:18 AM org.market.DataAccessLayer.DataController AssignStoreOwner
+INFO: user assigned as store owner at the DataBase
+Jul 18, 2024 5:37:21 AM org.market.DataAccessLayer.DataController AssignStoreOwner
+INFO: user assigned as store owner at the DataBase
+Jul 18, 2024 5:38:31 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:38:31 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:38:31 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:38:31 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:38:31 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:38:32 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:38:32 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:38:32 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:38:32 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 5:38:32 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 5:38:33 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 5:38:33 AM org.market.DataAccessLayer.DataController AssignStoreManager
+INFO: user assigned as store manager at the DataBase
+Jul 18, 2024 5:38:33 AM org.market.DataAccessLayer.DataController AssignStoreOwner
+INFO: user assigned as store owner at the DataBase
+Jul 18, 2024 5:38:34 AM org.market.DataAccessLayer.DataController AssignStoreOwner
+INFO: user assigned as store owner at the DataBase
+Jul 18, 2024 5:39:58 AM org.market.DataAccessLayer.DataController setMarketOnline
+INFO: market updated to online at DataBase
+Jul 18, 2024 5:39:58 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:39:59 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:39:59 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:39:59 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:39:59 AM org.market.DataAccessLayer.DataController Register
+INFO: user entity added to DataBase
+Jul 18, 2024 5:39:59 AM org.market.DataAccessLayer.DataController Login
+INFO: user is online at the DataBase
+Jul 18, 2024 5:39:59 AM org.market.DataAccessLayer.DataController initStore
+INFO: added store to db
+Jul 18, 2024 5:40:00 AM org.market.DataAccessLayer.DataController addCategory
+INFO: added category to db
+Jul 18, 2024 5:40:00 AM org.market.DataAccessLayer.DataController initProduct
+INFO: added product to db
+Jul 18, 2024 5:40:00 AM org.market.DataAccessLayer.DataController addProduct
+INFO: added product to the store in db
+Jul 18, 2024 5:40:00 AM org.market.DataAccessLayer.DataController AssignStoreManager
+INFO: user assigned as store manager at the DataBase
+Jul 18, 2024 5:40:01 AM org.market.DataAccessLayer.DataController AssignStoreOwner
+INFO: user assigned as store owner at the DataBase
+Jul 18, 2024 5:40:01 AM org.market.DataAccessLayer.DataController AssignStoreOwner
+INFO: user assigned as store owner at the DataBase

@@ -809,10 +809,10 @@ public class integrationTests {
             market.addCatagory(0,"meat",systemManager);
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            market.sendOffer("ali",0,0,10.0,9.0);
-            String ans = market.approveOffer(systemManager, "ali", 0, 0, 9);
+            market.sendOffer("malek",0,0,10.0,9.0);
+            String ans = market.approveOffer("ali", "malek", 0, 0, 9);
             assertTrue(ans.contains("accepted!"));
-            assertTrue(market.cartContains("ali",0));
+            assertTrue(market.cartContains("malek",0));
         }catch(Exception ex){
             fail(ex.getMessage());
         }
@@ -823,7 +823,7 @@ public class integrationTests {
         try{
             String systemManager = "admin";
             market.getSystemManagers().add(systemManager);
-            market.setMarketOnline(systemManager);
+            market.setMarketOnline(systemManager);// no please
             market.EnterAsGuest(18);
             market.EnterAsGuest(18);
             market.Register("ali", "123", 18);
@@ -832,8 +832,8 @@ public class integrationTests {
             market.addCatagory(0,"meat",systemManager);
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            market.sendOffer("ali",0,0,10.0,9.0);
-            String ans = market.approveOffer(systemManager, "ali", 0, 0, 9);
+            market.sendOffer("malek",0,0,10.0,9.0);
+            String ans = market.rejectOffer("ali", "malek", 0, 0);
             assertTrue(ans.contains("rejected"));
             assertFalse(market.cartContains("ali",0));
         }catch(Exception ex){
@@ -859,13 +859,12 @@ public class integrationTests {
             market.Register("u6","123",18);
             market.Login("0","u2","123");
             market.initStore("u2","s1","groceries");
-            market.addCatagory(0,"snacks","u2");
-            market.initProduct("u2","Bamba",0,"peanut-butter flavored","Osem",20);
-            market.addProduct(1,0,30,20,"u2",20);
+            market.addCatagory(0,"snacks",u1);
+            market.initProduct(u1,"Bamba",0,"peanut-butter flavored","Osem",20);
+            market.addProduct(0,0,30,20,"u2",20);
             market.AssignStoreManager(0,"u2","u3",new Boolean[]{true,false,false});
             market.AssignStoreOwner(0,"u2","u4",new Boolean[]{true,false,false}); 
             market.AssignStoreOwner(0,"u2","u5",new Boolean[]{true,false,false}); 
-            market.Logout("u1");
             assertTrue(market.getAllStores().size() > 0);
             assertEquals("s1", market.getStore(0).getName());
             assertTrue(market.getAllProducts().size() > 0);
@@ -900,7 +899,7 @@ public class integrationTests {
             market.AssignStoreOwner(0,"u4","u5",new Boolean[]{true,false,false}); 
             fail();
         }catch(Exception ex){
-            assertEquals("ownerUserName not found", ex.getMessage());
+            assertEquals("u2 is not system manager", ex.getMessage());
         }
     }
 

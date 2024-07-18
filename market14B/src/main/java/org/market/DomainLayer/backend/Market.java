@@ -1263,7 +1263,7 @@ public class Market {
                 break;
         }
         permissions.updateUser(offerName, message);
-        return "approval sent";
+        return message;
     }
 
     public String rejectOffer(String username,String offerName, int storeId, int productId) throws Exception {
@@ -1284,7 +1284,7 @@ public class Market {
                 break;
         }
         permissions.updateUser(offerName, message); 
-        return "rejection sent";
+        return message;
     }
 
     public String sendOffer(String username, int storeId, int productId, Double price, Double offerPrice) {
