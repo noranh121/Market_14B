@@ -9,10 +9,12 @@
 ## Table of Contents
 
 - [Requirements](#requirements)
+- [Dependencies](#dependencies)
 - [Installation and Running the System](#installation-and-running-the-system)
 - [Testing](#testing)
 - [API](#requirements)
 - [init file](#init-file)
+
 
 
 ## Dependencies
@@ -24,7 +26,6 @@
   
 
 ## Requirements
-# prerequisite
 - Java 8 or higher
 - Maven
 - Having an account on azure and connecting to the database
@@ -54,3 +55,6 @@ payment service url="https://damp-lynna-wsep-1984852e.koyeb.app/"
 
 ## init file
 This file describes the initial state of the system as well as a use case for using the system [initFile2.txt](Market_14B\market14B\src\main\resources\initFile2.txt)
+After initializing with this file there will be 6 users in the system ui accordingly. 
+u1 is the admin , u2 is the first owner of store "s1".
+u2 sets u3 to be the manager of his store, and u4 u5 to be the co-owners.
