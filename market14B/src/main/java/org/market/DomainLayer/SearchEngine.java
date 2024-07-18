@@ -64,9 +64,14 @@ public class SearchEngine implements ISearchEngine {
         if(entity.isRange()){
             Double min = entity.getMin();
             Double max = entity.getMax();
-            result = result.stream()
-                           .filter(product -> product.getPrice() >= min && product.getPrice() <= max)
-                           .collect(Collectors.toList());
+            for(ProductDTO pdto : result){
+                if(pdto.getPrice() < min || pdto.getPrice() > max){
+                    result.remove(pdto);
+                }
+            }
+            // result = result.stream()
+            //                .filter(product -> product.getPrice() >= min && product.getPrice() <= max)
+            //                .collect(Collectors.toList());
         }
 
         if(entity.isProdRating()){
