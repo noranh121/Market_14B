@@ -56,12 +56,25 @@ public class CategoryController {
         counterID++;
         return counterID-1;
     }
+     public void addCategorybyId(String name, int id) {
+        Category cat = new Category(id, name);
+        if(!categories.containsKey(id)){
+            categories.put(id, cat);
+        }
+    }
 
     public void addCategory(String name, int parentCategoryID) {
         Category cat = new Category(counterID, name, parentCategoryID);
         categories.get(parentCategoryID).addSubCategory(counterID);
         categories.put(counterID, cat);
         counterID++;
+    }
+    public void loadaddCategory(String name, int parentCategoryID, int id) {
+        Category cat = new Category(id, name, parentCategoryID);
+        categories.get(parentCategoryID).addSubCategory(id);
+        if(!categories.containsKey(id)){
+            categories.put(id, cat);
+        }
     }
 
 }

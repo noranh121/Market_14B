@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import org.market.DataAccessLayer.DataController;
 import org.market.DataAccessLayer.Repository.MarketRepository;
+import org.market.DomainLayer.backend.ProductPackage.Category;
+
 //import org.market.DomainLayer.backend.Market;
 import java.util.List;
 
@@ -22,6 +24,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.market.DomainLayer.backend.UserPackage.*;
 
 /**
  * The entry point of the Spring Boot application.
@@ -42,7 +45,7 @@ public class Application implements AppShellConfigurator {
         ApplicationContext context = SpringApplication.run(Application.class, args);
         ServiceFactory serviceFactory = context.getBean(ServiceFactory.class);
         DataController dataController = context.getBean(DataController.class);
-        dataController.clearAll();;
+        dataController.clearAll();
         try {
             serviceFactory.Register("admin", "password", 24);
             // serviceFactory.addToSystemManagers("admin");

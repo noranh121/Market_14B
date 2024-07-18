@@ -385,6 +385,10 @@ public class Permissions {
 
         return count;
     }
+
+    public Map<Integer, Tree> getStoreOwners() {
+        return storeOwners;
+    }
     
 
 }

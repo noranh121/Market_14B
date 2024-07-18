@@ -68,7 +68,6 @@ public class StoreController {
         // add to database
         Store store = new Store(name, name, Description, idCounter);
         stores.put(id, store);
-        idCounter++;
         LOGGER.info("store added");
         return "store added";
 
