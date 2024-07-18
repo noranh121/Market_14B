@@ -69,6 +69,25 @@ public class PurchaseHistory {
         }
         
     }
+    public synchronized void loadaddPurchase(int id ,int storeId, String userId, Purchase purchase) {
+        purchaseHistoryLock.lock();
+        try{
+                // Add to all history
+            purchase.setID(id);
+            allPurchases.put(purchase.getID(), purchase);
+
+            // Add to store history
+            storeHistory.computeIfAbsent(storeId, k -> Collections.synchronizedList(new ArrayList<>())).add(purchase);
+            StoreController.LOGGER.info("Added purchase to store history: Store ID " + storeId);
+
+            // Add to user history
+            userHistory.computeIfAbsent(userId, k -> Collections.synchronizedList(new ArrayList<>())).add(purchase);
+            UserController.LOGGER.info("Added purchase to user history: User ID " + userId);
+        }finally{
+            purchaseHistoryLock.unlock();
+        }
+        
+    }
 
     public List<Purchase> getStorePurchaseHistory(int storeId) throws InterruptedException {
         while(!purchaseHistoryLock.tryLock()){

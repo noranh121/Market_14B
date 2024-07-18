@@ -127,12 +127,15 @@ public class DataController {
     }
 
     public void loadData() throws Exception {
+        //.
         // system managers
         Market market = marketRepository.findById(0).get();
         List<User> systemManagersEntity = market.getSystemManagers();
         for (User user : systemManagersEntity) {
             org.market.DomainLayer.backend.Market.addToSystemManagersBackend(user.getUsername());
         }
+
+        //.
         // usercontroller
         List<User> users = new ArrayList<>();
         users = userRepository.findAll();
@@ -149,6 +152,8 @@ public class DataController {
             }
         }
 
+
+        //.
         // store controller
         List<Store> stores = new ArrayList<>();
         stores = storeRepository.findAll();
@@ -161,22 +166,25 @@ public class DataController {
         }
         org.market.DomainLayer.backend.Market.getSC().setCounterID(maxStoreId);
 
+
+        //.
         // category controller
         List<Category> categories = categoryRepository.findAll();
         int maxCategoryId = -1;
         for (Category category : categories) {
             if (maxCategoryId < category.getCategoryID())
                 maxCategoryId = category.getCategoryID();
-            org.market.DomainLayer.backend.Market.getCC().addCategory(category.getCategoryName());
+            org.market.DomainLayer.backend.Market.getCC().addCategorybyId(category.getCategoryName(),category.getCategoryID());
             for (Category subCategory : category.getSubCategories()) {
                 if (maxCategoryId < subCategory.getCategoryID())
                     maxCategoryId = subCategory.getCategoryID();
-                org.market.DomainLayer.backend.Market.getCC().addCategory(subCategory.getCategoryName(),
-                        category.getCategoryID());
+                org.market.DomainLayer.backend.Market.getCC().loadaddCategory(subCategory.getCategoryName(),
+                        category.getCategoryID(),subCategory.getCategoryID());
             }
         }
         org.market.DomainLayer.backend.Market.getCC().setCounterID(maxCategoryId);
 
+        //.
         // store inventories
         List<Inventory> inventories = inventoryRepository.findAll();
         for (Inventory inventory : inventories) {
@@ -193,6 +201,7 @@ public class DataController {
             }
         }
 
+        //.
         // product controller
         List<Product> products = productRepository.findAll();
         int maxProductId = -1;
@@ -201,11 +210,13 @@ public class DataController {
                 maxProductId = product.getProductID();
             org.market.DomainLayer.backend.ProductPackage.Category category = org.market.DomainLayer.backend.Market
                     .getCC().getCategory(product.getCatagoryID().getCategoryID());
-            org.market.DomainLayer.backend.Market.getPC().loudProduct(product.getProductName(), category,
+            org.market.DomainLayer.backend.Market.getPC().loudProduct(product.getProductID(),product.getProductName(), category,
                     product.getDescription(), product.getBrand(), product.getWeight());
         }
         org.market.DomainLayer.backend.Market.getPC().setIdCounter(maxProductId);
 
+
+        //.
         // purchase history
         List<PurchaseHistory> purchases = purchaseHistoryRepository.findAll();
         int maxPurcahseHistoryId = -1;
@@ -219,20 +230,22 @@ public class DataController {
             }
             Purchase purchase = new Purchase(purchaseEntity.getUsername(), purchaseEntity.getStoreID(),
                     purchaseEntity.getOvlprice(), productsMap);
-            org.market.DomainLayer.backend.Market.getPH().addPurchase(purchaseEntity.getStoreID(),
+            org.market.DomainLayer.backend.Market.getPH().loadaddPurchase(purchaseEntity.getPurchaseID(),purchaseEntity.getStoreID(),
                     purchaseEntity.getUsername(), purchase);
         }
         org.market.DomainLayer.backend.Market.getPH().setCounterID(maxPurcahseHistoryId);
 
+        //.
         // permissions
         List<EmployerPermission> permissions = employerPermissionRepository.findAll();
         for (EmployerPermission permission : permissions) {
+
             int storeId = permission.getPermissionId().getStoreID();
             List<EmployerPermission> employees = permission.getEmployees();
             if (!org.market.DomainLayer.backend.Market.getP().storeExist(storeId)) {
                 org.market.DomainLayer.backend.Market.getP().initStore(storeId,
                         permission.getPermissionId().getUsername());
-            } else {
+            } else if(org.market.DomainLayer.backend.Market.getP().getStoreOwners().get(storeId).findNode(permission.getPermissionId().getUsername()) == null) {
                 Boolean[] pType = { permission.getEditProducts(), permission.getAddOrEditPurchaseHistory(),
                         permission.getAddOrEditDiscountHistory() };
                 org.market.DomainLayer.backend.Market.getP().addPermission(storeId, permission.getParentusername(),
@@ -248,6 +261,7 @@ public class DataController {
             }
         }
 
+        //.
         // discount policy
         List<DiscountPolicy> discountPolicies = discountRepository.findAll();
         for (DiscountPolicy discountPolicy : discountPolicies) {
@@ -286,6 +300,7 @@ public class DataController {
             }
         }
 
+        //.
         // purchase policy
         List<PurchasePolicy> purchasePolicies = purchaseRepository.findAll();
         for (PurchasePolicy purchasePolicy : purchasePolicies) {
