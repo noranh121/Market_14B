@@ -530,7 +530,7 @@ public class Market {
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add product, user is suspended");
         }
-        if (systemManagers.contains(username)) {
+        //if (systemManagers.contains(username)) {
             Category category = categoryController.getCategory(categoryId);
             if(category == null){
                 int catId = categoryController.addCategory("None");
@@ -538,9 +538,9 @@ public class Market {
             }
             // I used datacontroller in productController class
             return productController.addProduct(productName, category, description, brand,weight);
-        }
-        LOGGER.severe(username + " is not system manager");
-        throw new Exception(username + " is not system manager");
+        //}
+        // LOGGER.severe(username + " is not system manager");
+        // throw new Exception(username + " is not system manager");
         
     }
 
@@ -630,7 +630,7 @@ public class Market {
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         ProductDiscount productDiscount=new ProductDiscount(discountType, discountPercentage,productId,-1);
         int selfid=storeController.getStore(storeId).addDiscountComposite(productDiscount,id);
-        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1,id, storeId, username, id,"product",selfid);
+        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1,productId, storeId, username, id,"product",selfid);
         LOGGER.info("product discount policy added");
         return "product discount policy added";
     }
@@ -738,17 +738,20 @@ public class Market {
         switch (logicalRuleENUM) {
             case AND:
                 ANDDiscountRule andDiscountRule=new ANDDiscountRule(-1);
-                storeController.getStore(storeId).addDiscountComposite(andDiscountRule,id);
+                int selfid1=storeController.getStore(storeId).addDiscountComposite(andDiscountRule,id);
+                dataController.addDiscountPolicy(false, -1, -1, -1,-1, -1, storeId, username, id, "And", selfid1);
                 LOGGER.info("AND discount policy added");
                 return "AND discount policy added";
             case OR:
                 ORDiscountRule orDiscountRule=new ORDiscountRule(-1);
-                storeController.getStore(storeId).addDiscountComposite(orDiscountRule,id);
+                int selfid2=storeController.getStore(storeId).addDiscountComposite(orDiscountRule,id);
+                dataController.addDiscountPolicy(false, -1, -1, -1,-1, -1, storeId, username, id, "Or", selfid2);
                 LOGGER.info("OR discount policy added");
                 return "OR discount policy added";
             case XOR:
                 XORDiscountRule xorDiscountRule=new XORDiscountRule(-1);
-                storeController.getStore(storeId).addDiscountComposite(xorDiscountRule,id);
+                int selfid3=storeController.getStore(storeId).addDiscountComposite(xorDiscountRule,id);
+                dataController.addDiscountPolicy(false, -1, -1, -1,-1, -1, storeId, username, id, "Xor", selfid3);
                 LOGGER.info("XOR discount policy added");
                 return "XOR discount policy added";
             default:
@@ -916,17 +919,20 @@ public class Market {
         switch (logicalRuleENUM) {
             case AND:
                 ANDPurchaseRule andPurchaseRule=new ANDPurchaseRule(-1);
-                storeController.getStore(storeId).addPurchaseComposite(andPurchaseRule,id);
+                int selfid1=storeController.getStore(storeId).addPurchaseComposite(andPurchaseRule,id);
+                dataController.addPurchasePolicy(0, 0, null, 0, 0, 0, 0,0, 0, username, storeId, false, id, logicalRule,selfid1);
                 LOGGER.info("AND purchase policy added");
                 return "AND purchase policy added";
             case OR:
                 ORPurchaseRule orPurchaseRule=new ORPurchaseRule(-1);
-                storeController.getStore(storeId).addPurchaseComposite(orPurchaseRule,id);
+                int selfid2=storeController.getStore(storeId).addPurchaseComposite(orPurchaseRule,id);
+                dataController.addPurchasePolicy(0, 0, null, 0, 0, 0, 0,0, 0, username, storeId, false, id, logicalRule,selfid2);
                 LOGGER.info("OR purchase policy added");
                 return "OR purchase policy added";
             case IF_THEN:
                 IF_THENPurchaseRule if_THENDiscountRule=new IF_THENPurchaseRule(-1);
-                storeController.getStore(storeId).addPurchaseComposite(if_THENDiscountRule,id);
+                int selfid3=storeController.getStore(storeId).addPurchaseComposite(if_THENDiscountRule,id);
+                dataController.addPurchasePolicy(0, 0, null, 0, 0, 0, 0,0, 0, username, storeId, false, id, logicalRule,selfid3);
                 LOGGER.info("IF_THEN discount policy added");
                 return "IF_THEN discount policy added";
             default:

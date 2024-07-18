@@ -670,6 +670,7 @@ public class DataController {
 
     public void initProduct(String productName, int productId, int categoryId, String description, String brand,
             double weight) {
+        // System.out.println("the product id is:"+productId);
         Product product = new Product();
         product.setBrand(brand);
         product.setProductID(productId);

@@ -54,6 +54,27 @@ public class Application implements AppShellConfigurator {
             serviceFactory.addToSystemManagers("admin");
             serviceFactory.init();
             serviceFactory.addCatagory(0, "Perfumes", "admin");
+
+            serviceFactory.setMarketOnline("admin");
+            serviceFactory.EnterAsGuest(18);
+            serviceFactory.EnterAsGuest(18);
+            serviceFactory.EnterAsGuest(18);
+            serviceFactory.EnterAsGuest(18);
+            serviceFactory.EnterAsGuest(18);
+            serviceFactory.Register("u2","123",18);
+            serviceFactory.Register("u3","123",18);
+            serviceFactory.Register("u4","123",18);
+            serviceFactory.Register("u5","123",18);
+            serviceFactory.Register("u6","123",18);
+            serviceFactory.Login("0","u2","123");
+            serviceFactory.initStore("u2","s1","groceries");
+            serviceFactory.addCatagory(0,"snacks","admin");
+            serviceFactory.initProduct("u2","Bamba","snacks","peanut-butter flavored","Osem",20);
+            serviceFactory.addProduct(0,0,30,20,"u2",20);
+            serviceFactory.AssignStoreManager(0,"u2","u3",new Boolean[]{true,false,false});
+            serviceFactory.AssignStoreOnwer(0,"u2","u4",new Boolean[]{true,false,false}); 
+            serviceFactory.AssignStoreOnwer(0,"u2","u5",new Boolean[]{true,false,false}); 
+            serviceFactory.Logout("u2");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

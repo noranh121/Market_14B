@@ -27,7 +27,7 @@ public class Product implements java.io.Serializable {
     @Column(name = "weight")
     private Double weight;
 
-    @OneToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="catagory_",referencedColumnName = "categoryID")
     private Category catagoryID;
 
