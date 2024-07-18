@@ -622,7 +622,7 @@ public class Market {
         Discount discountType=initDiscount(standard, conditionalPrice, conditionalQuantity);
         ProductDiscount productDiscount=new ProductDiscount(discountType, discountPercentage,productId,-1);
         int selfid=storeController.getStore(storeId).addDiscountComposite(productDiscount,id);
-        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1,id, storeId, username, id,"product",selfid);
+        dataController.addDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, -1,productId, storeId, username, id,"product",selfid);
         LOGGER.info("product discount policy added");
         return "product discount policy added";
     }
