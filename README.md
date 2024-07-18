@@ -8,13 +8,11 @@
 
 ## Table of Contents
 
-- [Features](#features)
 - [Requirements](#requirements)
 - [Installation and Running the System](#installation-and-running-the-system)
 - [Testing](#testing)
 - [API](#requirements)
 - [init file](#init-file)
-- [Acknowledgements](#acknowledgements)
 
 
 ## Dependencies
@@ -23,14 +21,7 @@
 * Hibernate: For ORM
 * Vaadin: Web application framework
 * com.microsoft.sqlserver: for database connectivity
-
-## Features
-TODO: Description of features
-
-* Include a list of
-* all the many beautiful
-* web server features
-
+  
 
 ## Requirements
 # prerequisite
@@ -45,9 +36,7 @@ TODO: Description of features
 ```bash
 $ mvn spring-boot:run
 ```
-
 Application will run by default on port `9090`
-
 Configure the port by changing `server.port` in [application.yml](Market_14B\market14B\src\main\resources\application.yml)
 
 ## Configuration Files
@@ -56,13 +45,12 @@ for the database including the URL,username and password are in [application.yml
 note : the project has a README.md file in the bundles directory that helps configure vaadin automatically 
 
 ## Testing
-TODO: Additional instructions for testing the application.
+Tests for the system are in main/tests.
+tests use a different database, configuration details are in [applicatio-tests.yml](
+\application-tests.yml)
 
 ## API
 payment service url="https://damp-lynna-wsep-1984852e.koyeb.app/"
 
 ## init file
-This file describes the initial state of the system as well as a use case for using the system [initFile.txt]()
-
-## Acknowledgements
-TODO: Show folks some love.
+This file describes the initial state of the system as well as a use case for using the system [initFile2.txt](Market_14B\market14B\src\main\resources\initFile2.txt)
