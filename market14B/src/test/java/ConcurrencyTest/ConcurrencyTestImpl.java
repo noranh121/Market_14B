@@ -66,13 +66,14 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
+                double sum=market.Buy("maged","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
                 if (sum==10.0){
                     result[0]=true;
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
+                fail(e.getMessage());
             } finally {
                 doneLatch.countDown(); // Indicate this thread is done
             }
@@ -81,7 +82,7 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
+                double sum=market.Buy("ola","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
                 if (sum==10.0){
                     result[1]=true;
                 }
@@ -135,7 +136,7 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
+                double sum=market.Buy("maged","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
                 if (sum==10.0){
                     result[0]=true;
                 }
@@ -364,7 +365,7 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
+                double sum=market.Buy("maged","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
                 if (sum==10.0){
                     result[1]=true;
                 }

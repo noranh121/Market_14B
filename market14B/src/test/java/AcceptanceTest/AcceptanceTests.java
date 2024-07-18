@@ -90,7 +90,7 @@ public abstract class AcceptanceTests {
     }
 
     public double testORProductPurchasePolicySuccess(String username) throws Exception{
-        return bridge.testProductDiscountPolicySuccess(username);
+        return bridge.testORProductPurchasePolicySuccess(username);
     }
 
     public double testORProductPurchasePolicyFail(String username) throws Exception{

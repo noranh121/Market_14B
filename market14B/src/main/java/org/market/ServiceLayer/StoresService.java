@@ -36,8 +36,9 @@ public class StoresService {
             return result;
     }//@
 
-    public Integer initProduct(String username,String productName, int categoryId, String description, String brand,double weight) throws Exception{
-            int result = market.initProduct(username, productName, categoryId, description, brand,weight);
+    public Integer initProduct(String username,String productName, String categoryId, String description, String brand,double weight) throws Exception{
+            int id = Market.getCC().getCategorybyName(categoryId).getId();
+            int result = market.initProduct(username, productName, id, description, brand,weight);
             StoreController.LOGGER.info(String.valueOf(result));
             return result;
     }
@@ -106,11 +107,31 @@ public class StoresService {
             return result;
     }
 
-    public String addLogicalDiscount(String username,int storeId,DiscountPolicyController.LogicalRule logicalRule,int id) throws Exception{
+    public String addLogicalDiscount(String username,int storeId,String logicalRule,int id) throws Exception{
         String result = market.addLogicalDiscount(username, storeId, logicalRule,id);
         StoreController.LOGGER.info(result);
         return result;
 }
+
+    // public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id){
+    //     try {
+    //         String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate,id);
+    //         StoreController.LOGGER.info(result);
+    //         return result;
+    //     } catch (Exception e) {
+    //         return e.getMessage();
+    //     }
+    // }
+    
+    // public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id){
+    //     try {
+    //         String result = market.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId,immediate,id);
+    //         StoreController.LOGGER.info(result);
+    //         return result;
+    //     } catch (Exception e) {
+    //         return e.getMessage();
+    //     }
+    // }
 
     public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age, int categoryId, String username, int storeId, Boolean immediate, int id) throws Exception{
             String result = market.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId,immediate,id);
@@ -137,10 +158,10 @@ public class StoresService {
             return result;
     }
 
-    public String addLogicalPurchase(String username, int storeId, PurchasePolicyController.LogicalRule logicalRule, int id) throws Exception{
-        String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
-        StoreController.LOGGER.info(result);
-        return result;
+    public String addLogicalPurchase(String username, int storeId, String logicalRule, int id) throws Exception{
+            String result = market.addLogicalPurchase(username, storeId, logicalRule,id);
+            StoreController.LOGGER.info(result);
+            return result;
     }
 
     public ArrayList<StoreDTO> getAllStores() {
@@ -201,6 +222,14 @@ public class StoresService {
         }
         
     }
+
+    // public String getStorePurchaseHistory(int storeId) {
+    //     try{
+    //         return market.getStorePurchaseHistory(storeId);
+    //     }catch(Exception exception){
+    //         return exception.getMessage();
+    //     }
+    // }
 
     public String getUserPurchaseHistory(String userId) {
         try{

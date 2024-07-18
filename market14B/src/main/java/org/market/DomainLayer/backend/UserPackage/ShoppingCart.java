@@ -119,7 +119,7 @@ public class ShoppingCart {
         double[] qp;
         lock.lock();
         while(!store.getLock().tryLock()){
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
         }
         try{
             for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>

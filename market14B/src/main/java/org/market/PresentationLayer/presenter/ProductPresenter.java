@@ -27,7 +27,10 @@ public class ProductPresenter {
     }
 
     private void initView() {
+        try{
+        System.out.println("inting view...");
         ProductDTO product = getProduct(this.view.getProduct_id());
+        System.out.println("got prod dto...");
         this.view.setTopLayout(product);
         this.view.setSpecificationLayout(product);
         this.view.setSaveButtonClickEventListener(e ->{
@@ -44,6 +47,9 @@ public class ProductPresenter {
         });
         this.view.setAddToCartButtonClickEventListener(e -> onAddToCart());
         this.view.setSendOfferButtonClickEventListener(e -> onSendOffer());
+    }catch(Exception e){
+        System.out.println(e.getMessage());
+    }
     }
 
     private ProductDTO getProduct(int product_id) {
@@ -56,7 +62,7 @@ public class ProductPresenter {
             HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
             ResponseEntity<ProductDTO> response = restTemplate.exchange(getProductUrl, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<ProductDTO>() {}, product_id);
-
+            System.out.println("response of prodDTO : " +response.getBody().getName());
             return response.getBody();
 
         }catch (HttpClientErrorException e){

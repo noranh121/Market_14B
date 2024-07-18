@@ -9,9 +9,16 @@ public class AddProductReq {
     private double weight;
     private int inventory;
     private String brand;
-    private String category;
-
+    private String Category;
     private String username;
+    
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
+    }
 
     public AddProductReq(){
 
@@ -89,11 +96,11 @@ public class AddProductReq {
         this.brand = brand;
     }
 
-    public String getCategory() {
-        return category;
-    }
+    // public String getCategory() {
+    //     return category;
+    // }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    // public void setCategory(String category) {
+    //     this.category = category;
+    // }
 }

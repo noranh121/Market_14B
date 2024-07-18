@@ -121,8 +121,9 @@ public class StoreController {
             String tokenValue = token.replace("Bearer ", "");
             String username = jwtUtil.extractUsername(tokenValue);
             if (username != null && jwtUtil.validateToken(tokenValue,username)) {
-                Integer category = service.getCategory(rstr.getCategory());
-                Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),category,rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
+                // Integer category = service.getCategory(rstr.getCategory());
+                // Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),category,rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
+                Integer response1 = service.initProduct(rstr.getUsername(), rstr.getName(),rstr.getCategory(),rstr.getDescription(),rstr.getBrand(),rstr.getWeight());
                 String response2 = service.addProduct(response1, rstr.getStore_id(), rstr.getPrice(), rstr.getInventory(), rstr.getUsername(), rstr.getWeight());
                 return ResponseEntity.ok(response2);
             }
@@ -379,6 +380,19 @@ public class StoreController {
         }
         catch(Exception e){
             return ResponseEntity.status(404).body("Failed to send offer");
+        }
+    }
+
+    @PostMapping("/search-products")
+    public ResponseEntity<?> searchProducts(@RequestBody SearchEntity entity){
+        try{
+            List<ProductDTO> res = service.search(entity);
+            for(ProductDTO p : res){
+                System.out.println(p.getName());
+            }
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            return ResponseEntity.status(404).body("Failed to retrieve search result.");
         }
     }
 }

@@ -10,6 +10,8 @@ import org.market.Web.Requests.SearchEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class MarketService {
 
@@ -94,15 +96,29 @@ public class MarketService {
         return market.isSystemManager(username);
     }
 
-    public List<ProductDTO> search(SearchEntity entity){
-            return this.market.search(entity);
-    }
+    // public List<ProductDTO> search(SearchEntity entity){
+    //         return this.market.search(entity);
+    // }
 
+    // public List<ProductDTO> search(SearchEntity entity){
+    //         return this.market.search(entity);
+    // }
+
+    public PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
+        return market.initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+    }
     public Integer getCategory(String name) {
         return market.getCategory(name);
     }
 
     public boolean hasCategory(String name) {
         return market.hasCategory(name);
+    }
+
+    public List<ProductDTO> search(SearchEntity entity){
+        return this.market.search(entity);
+    }
+    public void init() {
+        market.init();
     }
 }

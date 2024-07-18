@@ -280,4 +280,14 @@ public class StoreController {
         }
         return 0;
     }
+
+    // public double [] getProdInfo(int prodid, int storeid){
+    //     for(Store s: stores.values()){
+    //         if(s.getId() == storeid){
+    //             double [] info = s.bring(prodid);
+    //             if(info[0] != -1) return info;
+    //         }
+    //     }
+    //     return new double[]{-1, -1};
+    // }
 }

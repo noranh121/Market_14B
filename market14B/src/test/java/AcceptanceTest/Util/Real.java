@@ -73,8 +73,13 @@ public class Real implements Bridge {
 
     @Override
     public String testGetInfo(int storeId, String username) throws Exception {
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
         market.Register(username, "12", 18);
         market.initStore(username,"name", "d");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10, 5, username, 5);
         return market.getInfo(storeId, username);
     }
@@ -92,6 +97,8 @@ public class Real implements Bridge {
         market.Login("0", "u", "1");
         market.Login("1", username, "123");
         market.initStore("u","name", "d");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10, 5, "u", 5);
         return market.addToCart(username, product, storeId, quantity);
     }
@@ -105,11 +112,19 @@ public class Real implements Bridge {
 
     @Override
     public double testBuy(String username) throws Exception {
-        userController.getGuestUserMap().put(u2.getUsername(), u2);
-        storeController.GetStores().put(0, s1);
-        storeController.addProduct(0, 0, 10, 15, 5);
-        u2.addToCart(0, 0, 5);
-        return userController.Buy(u2.getUsername());
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
+        market.EnterAsGuest(18);
+        market.EnterAsGuest(18);
+        market.Register(username, "123", 18);
+        market.Register("malek", "456", 18);
+        market.initStore("malek","name", "d");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
+        market.addProduct(0, 0, 10.0, 20, "malek", 5);
+        market.addToCart(username, 0, 0, 5);
+        return market.Buy(username,"dollar","123","5","2027","123","Ab2","city","country","434","20444444");
     }
 
     @Override
@@ -166,6 +181,8 @@ public class Real implements Bridge {
         market.EnterAsGuest(18);
         market.Register(username, "123", 18);
         market.Register("malek", "456", 18);
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.initStore(username,"name", "d");
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",0);
@@ -187,7 +204,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.AND;
-        market.addLogicalDiscount("ali",0,role,0);
+        market.addLogicalDiscount("ali",0,"And",0);
         market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
         market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
         market.addToCart("ali", 0, 0, 5);
@@ -208,7 +225,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.AND;
-        market.addLogicalDiscount("ali",0,role,0);
+        market.addLogicalDiscount("ali",0,"And",0);
         market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
         market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
         market.addToCart("ali", 0, 0, 5);
@@ -229,7 +246,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.XOR;
-        market.addLogicalDiscount("ali",0,role,0);
+        market.addLogicalDiscount("ali",0,"Xor",0);
         market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
         market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
         market.addToCart("ali", 0, 0, 5);
@@ -273,7 +290,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.AND;
-        market.addLogicalPurchase("ali",0,role,0);
+        market.addLogicalPurchase("ali",0,"And",0);
         market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addToCart("ali", 0, 0, 4);
@@ -295,7 +312,7 @@ public class Real implements Bridge {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.AND;
-            market.addLogicalPurchase("ali",0,role,0);
+            market.addLogicalPurchase("ali",0,"And",0);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 4);
@@ -319,7 +336,7 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.OR;
-        market.addLogicalPurchase("ali",0,role,0);
+        market.addLogicalPurchase("ali",0,"Or",0);
         market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addToCart("ali", 0, 0, 4);
@@ -341,7 +358,7 @@ public class Real implements Bridge {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.OR;
-            market.addLogicalPurchase("ali",0,role,0);
+            market.addLogicalPurchase("ali",0,"Or",0);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 2);
@@ -365,11 +382,11 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         DiscountPolicyController.LogicalRule role1=DiscountPolicyController.LogicalRule.AND;
-        market.addLogicalDiscount("ali",0,role1,0);
+        market.addLogicalDiscount("ali",0,"And",0);
         market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
         market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
         DiscountPolicyController.LogicalRule role2=DiscountPolicyController.LogicalRule.OR;
-        market.addLogicalDiscount("ali",0,role2,1);
+        market.addLogicalDiscount("ali",0,"Or",1);
         market.addStoreDiscountPolicy(true, 0, 0, 0.1, 0,  "ali",4);
         market.addToCart("ali", 0, 0, 5);
         return market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
@@ -389,11 +406,11 @@ public class Real implements Bridge {
         market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0, 0, 10.0, 10, "ali", 5);
         PurchasePolicyController.LogicalRule role1=PurchasePolicyController.LogicalRule.AND;
-        market.addLogicalPurchase("ali",0,role1,0);
+        market.addLogicalPurchase("ali",0,"And",0);
         market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
         market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
         PurchasePolicyController.LogicalRule role2=PurchasePolicyController.LogicalRule.OR;
-        market.addLogicalPurchase("ali",0,role2,1);
+        market.addLogicalPurchase("ali",0,"Or",1);
         market.addUserPurchasePolicy(3,-1,null,0,-1,18,19,"ali",0,true,4);
         market.addToCart("ali", 0, 0, 5);
         return market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
@@ -501,12 +518,19 @@ public class Real implements Bridge {
 
     @Override
     public String testViewSystemPurchaseHistory(String username) throws Exception {
-        userController.getGuestUserMap().put(username, u2);
-        storeController.GetStores().put(0, s1);
-        storeController.addProduct(0, 0, 10, 15, 5);
-        u2.addToCart(0, 0, 5);
+        String systemManager = "admin";
+        market.getSystemManagers().add(systemManager);
+        market.setMarketOnline(systemManager);
+        market.EnterAsGuest(18);
+        market.Register("ali", "123", 18);
+        market.Login("0","ali", "123");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager, "steak", 0, "d", "nike", 0);
+        market.initStore("ali","name", "d");
+        market.addProduct(0, 0, 10.0, 10, "ali", 5);
+        market.addToCart("ali", 0, 0, 5);
         market.getSystemManagers().add("ali");
-        double sum = userController.Buy(username);
+        double sum = userController.Buy(u2.getUsername());
         return market.viewSystemPurchaseHistory(username);
     }
 
@@ -538,7 +562,7 @@ public class Real implements Bridge {
     public String testUseCase2() throws Exception {
         try{
             String systemManager = "admin";
-            market.addToSystemManagers(systemManager);
+            market.getSystemManagers().add(systemManager);
             market.setMarketOnline(systemManager);
             market.EnterAsGuest(18);
             market.EnterAsGuest(18);

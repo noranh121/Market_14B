@@ -10,6 +10,11 @@ import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyContro
 import org.market.Web.DTOS.PermissionDTO;
 import org.market.Web.DTOS.ProductDTO;
 import org.market.Web.DTOS.StoreDTO;
+import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
+import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
+import org.market.Web.DTOS.*;
 import org.market.Web.Requests.SearchEntity;
 import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.ProductPackage.Product;
@@ -196,7 +201,7 @@ public class ServiceFactory {
         return storesService.getInfo(storeId, username);
     }
 
-    public Integer initProduct(String username,String productName, int categoryId, String description, String brand,double weight) throws Exception {
+    public Integer initProduct(String username,String productName, String categoryId, String description, String brand,double weight) throws Exception {
         return storesService.initProduct(username, productName, categoryId, description, brand,weight);
     }
 
@@ -232,13 +237,55 @@ public class ServiceFactory {
         return userService.getPurchaseHistory(username);
     }
 
-    public List<ProductDTO> search(SearchEntity entity){
-        return marketService.search(entity);
-    }
+    // public List<ProductDTO> search(SearchEntity entity){
+    //     return marketService.search(entity);
+    // }
+//     public List<ProductDTO> search(SearchEntity entity){
+//         return marketService.search(entity);
+// }
+    // public String addCategoryDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int categoryId,int storeId,String username,int id) throws Exception{
+    //     return storesService.addCategoryDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, categoryId, storeId, username, id);
+    // }
+
+    // public String addProductDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int productId,int storeId,String username,int id) throws Exception{
+    //     return storesService.addProductDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, productId, storeId, username, id);
+    // }
+
+    // public String addStoreDiscountPolicy(Boolean standard,double conditionalPrice,double conditionalQuantity,double discountPercentage,int storeId,String username,int id) throws Exception{
+    //     return storesService.addStoreDiscountPolicy(standard, conditionalPrice, conditionalQuantity, discountPercentage, storeId, username, id);
+    // }    
 
     public String addNmericalDiscount(String username,int storeId,Boolean ADD,int id) throws Exception{
         return storesService.addNmericalDiscount(username, storeId, ADD, id);
     }
+
+    public String addLogicalDiscount(String username,int storeId,String logicalRule,int id) throws Exception{
+        return storesService.addLogicalDiscount(username, storeId, logicalRule, id);
+    }
+
+    // public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int categoryId,String username,int storeId,Boolean immediate,int id){
+    //     return storesService.addCategoryPurchasePolicy(quantity, price, date, atLeast, weight, age, categoryId, username, storeId, immediate, id);
+    // }
+
+    // public String addProductPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,int productId,String username,int storeId,Boolean immediate,int id){
+    //     return storesService.addProductPurchasePolicy(quantity, price, date, atLeast, weight, age, productId, username, storeId, immediate, id);
+    // }
+
+    // public String addShoppingCartPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,String username,int storeId,Boolean immediate,int id){
+    //     return storesService.addShoppingCartPurchasePolicy(quantity, price, date, atLeast, weight, age, username, storeId, immediate, id);
+    // }
+
+    // public String addUserPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,double userAge,String username,int storeId,Boolean immediate,int id){
+    //     return storesService.addUserPurchasePolicy(quantity, price, date, atLeast, weight, age, userAge, username, storeId, immediate, id);
+    // }
+
+    public String addLogicalPurchase(String username,int storeId,String logicalRule,int id) throws Exception{
+        return storesService.addLogicalPurchase(username, storeId, logicalRule, id);
+    }   
+
+    // public String getStorePurchaseHistory(int storeId){
+    //     return storesService.getStorePurchaseHistory(storeId);
+    // }
 
     public String getUserPurchaseHistory(String userId){
         return storesService.getUserPurchaseHistory(userId);
@@ -254,9 +301,17 @@ public class ServiceFactory {
     }
 
 
+    private PurchaseMethod initPurchaseMethod(Boolean immediate, int quantity, double price, LocalDate date, int atLeast, double weight, double age, String username, int storeId){
+        return marketService.initPurchaseMethod(immediate, quantity, price, date, atLeast, weight, age, username, storeId);
+    } 
     public List<String> getStorePurchaseHistory(int storeId) throws Exception {
         return storesService.getStorePurchaseHistory(storeId);
     }
+
+
+
+
+
 
     public String removePurchaseStore(Integer storeId, Integer purchaseId) throws Exception {
         return storesService.removePurchaseStore(storeId, purchaseId);
@@ -302,11 +357,11 @@ public class ServiceFactory {
     }
 
     public String addLogicalDiscountPolicy(String username, int storeId, String logicalRule, int i) throws Exception {
-        DiscountPolicyController.LogicalRule rule = logicalRule.equals("AND") ? DiscountPolicyController.LogicalRule.AND :
-                logicalRule.equals("OR") ? DiscountPolicyController.LogicalRule.OR :
-                        logicalRule.equals("XOR") ? DiscountPolicyController.LogicalRule.XOR :
-                        DiscountPolicyController.LogicalRule.IF_THEN;
-        return storesService.addLogicalDiscount(username, storeId, rule, i);
+        // DiscountPolicyController.LogicalRule rule = logicalRule.equals("AND") ? DiscountPolicyController.LogicalRule.AND :
+        //         logicalRule.equals("OR") ? DiscountPolicyController.LogicalRule.OR :
+        //                 logicalRule.equals("XOR") ? DiscountPolicyController.LogicalRule.XOR :
+        //                 DiscountPolicyController.LogicalRule.IF_THEN;
+        return storesService.addLogicalDiscount(username, storeId, logicalRule, i);
     }
 
     public String addCategoryPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age, String categoryName, String username, int storeId, boolean b, int i) throws Exception {
@@ -341,11 +396,11 @@ public class ServiceFactory {
     }
 
     public String addLogicalPurchasePolicy(String username, int storeId, String logicalRule, int i) throws Exception {
-        PurchasePolicyController.LogicalRule rule = logicalRule.equals("AND") ? PurchasePolicyController.LogicalRule.AND :
-                logicalRule.equals("OR") ? PurchasePolicyController.LogicalRule.OR :
-                        logicalRule.equals("XOR") ? PurchasePolicyController.LogicalRule.OR :
-                                PurchasePolicyController.LogicalRule.IF_THEN;
-        return storesService.addLogicalPurchase(username, storeId, rule, i);
+        // PurchasePolicyController.LogicalRule rule = logicalRule.equals("AND") ? PurchasePolicyController.LogicalRule.AND :
+        //         logicalRule.equals("OR") ? PurchasePolicyController.LogicalRule.OR :
+        //                 logicalRule.equals("XOR") ? PurchasePolicyController.LogicalRule.OR :
+        //                         PurchasePolicyController.LogicalRule.IF_THEN;
+        return storesService.addLogicalPurchase(username, storeId, logicalRule, i);
     }
 
     public List<OfferDTO> getOffers(int storeId, String username) {
@@ -364,4 +419,11 @@ public class ServiceFactory {
         return storesService.sendOffer(username, storeId,productId,price, offerPrice);
     }
 
+    public List<ProductDTO> search(SearchEntity entity){
+        return marketService.search(entity);
+    }
+
+    public void init(){
+        marketService.init();
+    }
 }

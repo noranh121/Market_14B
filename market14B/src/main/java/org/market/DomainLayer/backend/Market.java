@@ -2,6 +2,8 @@ package org.market.DomainLayer.backend;
 
 import org.market.DataAccessLayer.DataController;
 import org.market.DomainLayer.SearchEngine;
+
+import org.market.DomainLayer.SearchEngine;
 import org.market.DomainLayer.backend.API.PaymentExternalService.PaymentService;
 import org.market.DomainLayer.backend.API.SupplyExternalService.SupplyService;
 import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
@@ -149,8 +151,8 @@ public class Market {
         this.dataController = dataController;
         this.searchEngine = searchEngine;
         try {
-            systemManagers=dataController.getSystemManagers(0);
-            Online=dataController.getOnline();
+            // systemManagers=dataController.getSystemManagers(0);
+            // Online=dataController.getOnline();
             fileHandler= new FileHandler("Market.log",true);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
@@ -202,6 +204,10 @@ public class Market {
     public static void addToSystemManagers(String admin) {
         systemManagers.add(admin);
         dataController.addSystemManager(admin);
+    }
+
+    public static void addToSystemManagersBackend(String admin) {
+        systemManagers.add(admin);
     }
 
     public boolean getOnline() {
@@ -320,7 +326,13 @@ public class Market {
             throw new SuspendedException("can't add to cart user is suspended");
         }
         String response= userController.addToCart(username, product, storeId, quantity);
-        dataController.addToCart(username, storeId, product, quantity);
+        try{
+            dataController.addToCart(username, storeId, product, quantity);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return ex.getMessage();
+        }
+        
         return response;
     }
 
@@ -576,6 +588,7 @@ public class Market {
                 throw new SuspendedException("can't remove product, user is suspended");
             }
             String response = storeController.removeProduct(productId, storeId);
+            String res = productController.removeProduct(productId);
             dataController.removeProduct(storeId, productId);
             return response;
         } else {
@@ -697,7 +710,7 @@ public class Market {
         }
     }
 
-    public String addLogicalDiscount(String username, int storeId, DiscountPolicyController.LogicalRule logicalRule,int id) throws Exception{
+    public String addLogicalDiscount(String username, int storeId, String logicalRule,int id) throws Exception{
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add logical discount, user is suspended");
         }
@@ -705,7 +718,24 @@ public class Market {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
+        DiscountPolicyController.LogicalRule logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
         switch (logicalRule) {
+            case "And":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
+                break;
+            case "Xor":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.XOR;
+                break;
+
+            case "Or":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.OR;
+                break;
+        
+            default:
+                break;
+        }
+
+        switch (logicalRuleENUM) {
             case AND:
                 ANDDiscountRule andDiscountRule=new ANDDiscountRule(-1);
                 storeController.getStore(storeId).addDiscountComposite(andDiscountRule,id);
@@ -859,7 +889,7 @@ public class Market {
         storeController.getStore(storeId).addPurchaseComposite(userPurchase,id);
     }
 
-    public String addLogicalPurchase(String username, int storeId, PurchasePolicyController.LogicalRule logicalRule,int id) throws Exception{
+    public String addLogicalPurchase(String username, int storeId, String logicalRule,int id) throws Exception{
         if (permissions.isSuspended(username)) {
             throw new SuspendedException("can't add logical purchase, user is suspended");
         }
@@ -867,7 +897,23 @@ public class Market {
             LOGGER.severe(username + " is not store owner");
             throw new Exception(username + " is not store owner");
         }
+        DiscountPolicyController.LogicalRule logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
         switch (logicalRule) {
+            case "And":
+                logicalRuleENUM=DiscountPolicyController.LogicalRule.AND;
+                break;
+            case "Or":
+            logicalRuleENUM=DiscountPolicyController.LogicalRule.OR;
+            break;
+
+            case "If-Then":
+            logicalRuleENUM=DiscountPolicyController.LogicalRule.IF_THEN;
+            break;
+        
+            default:
+                break;
+        }
+        switch (logicalRuleENUM) {
             case AND:
                 ANDPurchaseRule andPurchaseRule=new ANDPurchaseRule(-1);
                 storeController.getStore(storeId).addPurchaseComposite(andPurchaseRule,id);
@@ -1063,10 +1109,10 @@ public class Market {
         int prodid = p.getId();
         return storeController.getProdInfo(prodid);
     }
-    public static double[] findProdInfo(Product p, int storeID) {
-        int prodid = p.getId();
-        return storeController.getProdInfo(prodid,storeID);
-    }
+    // public static double[] findProdInfo(Product p, int storeID) {
+    //     int prodid = p.getId();
+    //     return storeController.getProdInfo(prodid,storeID);
+    // }
 
     public List<Store> getUserStores(String username) throws Exception {
         List<Store> stores = permissions.getUserStores(username);
@@ -1113,36 +1159,36 @@ public class Market {
         }
     }
 
-    public List<ProductDTO> search(SearchEntity entity){
-        return this.searchEngine.HandleSearch(entity);
-    }
+    // public List<ProductDTO> search(SearchEntity entity){
+    //     return this.searchEngine.HandleSearch(entity);
+    // }
 
-    public static List<ProductDTO> convertProds(List<Product> prods){
-        List<ProductDTO> psdto = new ArrayList<>();
-        for(Product p : prods){
-            double [] price_store = findProdInfo(p);
-            if(price_store[0] != -1){
-                if(storeController.getStore(((int)price_store[1])).isActive()) {
-                    ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
-                    psdto.add(pdto);
-                }
-            }
-        }
-        return psdto;
-    }
-    public static List<ProductDTO> convertProds(List<Product> result, int storeID) {
-        List<ProductDTO> psdto = new ArrayList<>();
-        for(Product p : result){
-            double [] price_store = findProdInfo(p,storeID);
-            if(price_store[0] != -1){
-                if(storeController.getStore(((int)price_store[1])).isActive()){
-                    ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
-                    psdto.add(pdto);
-                }
-            }
-        }
-        return psdto;
-    }
+    // public static List<ProductDTO> convertProds(List<Product> prods){
+    //     List<ProductDTO> psdto = new ArrayList<>();
+    //     for(Product p : prods){
+    //         double [] price_store = findProdInfo(p);
+    //         if(price_store[0] != -1){
+    //             if(storeController.getStore(((int)price_store[1])).isActive()) {
+    //                 ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+    //                 psdto.add(pdto);
+    //             }
+    //         }
+    //     }
+    //     return psdto;
+    // }
+    // public static List<ProductDTO> convertProds(List<Product> result, int storeID) {
+    //     List<ProductDTO> psdto = new ArrayList<>();
+    //     for(Product p : result){
+    //         double [] price_store = findProdInfo(p,storeID);
+    //         if(price_store[0] != -1){
+    //             if(storeController.getStore(((int)price_store[1])).isActive()){
+    //                 ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+    //                 psdto.add(pdto);
+    //             }
+    //         }
+    //     }
+    //     return psdto;
+    // }
 
     public List<String> getPurchaseHistoryStore(int storeId) throws Exception {
         List<String> result = new ArrayList<>();
@@ -1296,5 +1342,45 @@ public class Market {
     public List<OfferDTO> getOffers(int storeId, String username) {
         List<OfferDTO> offers = storeController.getStoreOffers(storeId);
         return offers;
+    }
+
+    public static double[] findProdInfo(Product p, int storeID) {
+        int prodid = p.getId();
+        return storeController.getProdInfo(prodid,storeID);
+    }
+
+    public List<ProductDTO> search(SearchEntity entity){
+        return this.searchEngine.HandleSearch(entity);
+    }
+
+    public static List<ProductDTO> convertProds(List<Product> prods){
+        List<ProductDTO> psdto = new ArrayList<>();
+        for(Product p : prods){
+            double [] price_store = findProdInfo(p);
+            if(price_store[0] != -1){
+                if(storeController.getStore(((int)price_store[1])).isActive()) {
+                    ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+                    psdto.add(pdto);
+                }
+            }
+        }
+        return psdto;
+    }
+    public static List<ProductDTO> convertProds(List<Product> result, int storeID) {
+        List<ProductDTO> psdto = new ArrayList<>();
+        for(Product p : result){
+            double [] price_store = findProdInfo(p,storeID);
+            if(price_store[0] != -1){
+                if(storeController.getStore(((int)price_store[1])).isActive()){
+                    ProductDTO pdto = new ProductDTO(p, price_store[0], (int) price_store[1]);
+                    psdto.add(pdto);
+                }
+            }
+        }
+        return psdto;
+    }
+    public void init() {
+        systemManagers=dataController.getSystemManagers(0);
+        Online=dataController.getOnline();
     }
 }

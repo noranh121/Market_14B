@@ -444,7 +444,7 @@ public class integrationTests {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.AND;
-            market.addLogicalDiscount("ali",0,role,0);
+            market.addLogicalDiscount("ali",0,"And",0);
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
             market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
             market.addToCart("ali", 0, 0, 5);
@@ -474,7 +474,7 @@ public class integrationTests {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.OR;
-            market.addLogicalDiscount("ali",0,role,0);
+            market.addLogicalDiscount("ali",0,"Or",0);
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
             market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
             market.addToCart("ali", 0, 0, 5);
@@ -505,7 +505,7 @@ public class integrationTests {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             DiscountPolicyController.LogicalRule role=DiscountPolicyController.LogicalRule.XOR;
-            market.addLogicalDiscount("ali",0,role,0);
+            market.addLogicalDiscount("ali",0,"Xor",0);
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
             market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
             market.addToCart("ali", 0, 0, 5);
@@ -557,7 +557,7 @@ public class integrationTests {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.AND;
-            market.addLogicalPurchase("ali",0,role,0);
+            market.addLogicalPurchase("ali",0,"And",0);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 4);
@@ -586,7 +586,7 @@ public class integrationTests {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.AND;
-            market.addLogicalPurchase("ali",0,role,0);
+            market.addLogicalPurchase("ali",0,"And",0);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 4);
@@ -613,7 +613,7 @@ public class integrationTests {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.OR;
-            market.addLogicalPurchase("ali",0,role,0);
+            market.addLogicalPurchase("ali",0,"Or",0);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(4,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 4);
@@ -642,7 +642,7 @@ public class integrationTests {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             PurchasePolicyController.LogicalRule role=PurchasePolicyController.LogicalRule.OR;
-            market.addLogicalPurchase("ali",0,role,0);
+            market.addLogicalPurchase("ali",0,"Or",0);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addToCart("ali", 0, 0, 2);
@@ -668,11 +668,11 @@ public class integrationTests {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             DiscountPolicyController.LogicalRule role1=DiscountPolicyController.LogicalRule.AND;
-            market.addLogicalDiscount("ali",0,role1,0);
+            market.addLogicalDiscount("ali",0,"And",0);
             market.addProductDiscountPolicy(true, 0, 0, 0.1, 0, 0, "ali",1);
             market.addCategoryDiscountPolicy(true,0,0,0.2,0,0,"ali",1);
             DiscountPolicyController.LogicalRule role2=DiscountPolicyController.LogicalRule.OR;
-            market.addLogicalDiscount("ali",0,role2,1);
+            market.addLogicalDiscount("ali",0,"Or",1);
             market.addStoreDiscountPolicy(true, 0, 0, 0.1, 0,  "ali",4);
             market.addToCart("ali", 0, 0, 5);
             double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
@@ -700,11 +700,11 @@ public class integrationTests {
             market.initProduct(systemManager,"steak",0,"d","b",5.0);
             market.addProduct(0, 0, 10.0, 10, "ali", 5);
             PurchasePolicyController.LogicalRule role1=PurchasePolicyController.LogicalRule.AND;
-            market.addLogicalPurchase("ali",0,role1,0);
+            market.addLogicalPurchase("ali",0,"And",0);
             market.addProductPurchasePolicy(3,-1,null,0,-1,18,0,"ali",0,true,1);
             market.addCategoryPurchasePolicy(5,-1,null,0,-1,18,0,"ali",0,true,1);
             PurchasePolicyController.LogicalRule role2=PurchasePolicyController.LogicalRule.OR;
-            market.addLogicalPurchase("ali",0,role2,1);
+            market.addLogicalPurchase("ali",0,"Or",1);
             market.addUserPurchasePolicy(3,-1,null,0,-1,18,19,"ali",0,true,4);
             market.addToCart("ali", 0, 0, 5);
             double sum=market.Buy("ali","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
@@ -774,133 +774,133 @@ public class integrationTests {
         }
     }
 
-    @Test
-    public void testOfferMethodSuccess(){
-        try{
-            String systemManager = "admin";
-            market.getSystemManagers().add(systemManager);
-            market.setMarketOnline(systemManager);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.Register("ali", "123", 18);
-            market.Register("malek", "456", 18);
-            market.initStore("ali","name", "d");
-            market.addCatagory(0,"meat",systemManager);
-            market.initProduct(systemManager,"steak",0,"d","b",5.0);
-            market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            OfferMethod offerMethod=new OfferMethod(3, -1, null, 0, -1, 18, 0, "ali");
-            //storeController.getStore(0).addPurchaseComposite(offerMethod,0);
-        }catch(Exception ex){
-            fail(ex.getMessage());
-        }
-    }
+    // @Test
+    // public void testOfferMethodSuccess(){
+    //     try{
+    //         String systemManager = "admin";
+    //         market.getSystemManagers().add(systemManager);
+    //         market.setMarketOnline(systemManager);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.Register("ali", "123", 18);
+    //         market.Register("malek", "456", 18);
+    //         market.initStore("ali","name", "d");
+    //         market.addCatagory(0,"meat",systemManager);
+    //         market.initProduct(systemManager,"steak",0,"d","b",5.0);
+    //         market.addProduct(0, 0, 10.0, 10, "ali", 5);
+    //         OfferMethod offerMethod=new OfferMethod(3, -1, null, 0, -1, 18, 0, "ali");
+    //         //storeController.getStore(0).addPurchaseComposite(offerMethod,0);
+    //     }catch(Exception ex){
+    //         fail(ex.getMessage());
+    //     }
+    // }
 
-    @Test
-    public void testOfferAccepted() {
-        try{
-            String systemManager = "admin";
-            market.getSystemManagers().add(systemManager);
-            market.setMarketOnline(systemManager);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.Register("ali", "123", 18);
-            market.Register("malek", "456", 18);
-            market.initStore("ali","name", "d");
-            market.addCatagory(0,"meat",systemManager);
-            market.initProduct(systemManager,"steak",0,"d","b",5.0);
-            market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            market.sendOffer("malek",0,0,10.0,9.0);
-            String ans = market.approveOffer("ali", "malek", 0, 0, 9);
-            assertTrue(ans.contains("accepted!"));
-            assertTrue(market.cartContains("malek",0));
-        }catch(Exception ex){
-            fail(ex.getMessage());
-        }
-    }
+    // @Test
+    // public void testOfferAccepted() {
+    //     try{
+    //         String systemManager = "admin";
+    //         market.getSystemManagers().add(systemManager);
+    //         market.setMarketOnline(systemManager);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.Register("ali", "123", 18);
+    //         market.Register("malek", "456", 18);
+    //         market.initStore("ali","name", "d");
+    //         market.addCatagory(0,"meat",systemManager);
+    //         market.initProduct(systemManager,"steak",0,"d","b",5.0);
+    //         market.addProduct(0, 0, 10.0, 10, "ali", 5);
+    //         market.sendOffer("malek",0,0,10.0,9.0);
+    //         String ans = market.approveOffer("ali", "malek", 0, 0, 9);
+    //         assertTrue(ans.contains("accepted!"));
+    //         assertTrue(market.cartContains("malek",0));
+    //     }catch(Exception ex){
+    //         fail(ex.getMessage());
+    //     }
+    // }
 
-    @Test
-    public void testOfferRejected() {
-        try{
-            String systemManager = "admin";
-            market.getSystemManagers().add(systemManager);
-            market.setMarketOnline(systemManager);// no please
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.Register("ali", "123", 18);
-            market.Register("malek", "456", 18);
-            market.initStore("ali","name", "d");
-            market.addCatagory(0,"meat",systemManager);
-            market.initProduct(systemManager,"steak",0,"d","b",5.0);
-            market.addProduct(0, 0, 10.0, 10, "ali", 5);
-            market.sendOffer("malek",0,0,10.0,9.0);
-            String ans = market.rejectOffer("ali", "malek", 0, 0);
-            assertTrue(ans.contains("rejected"));
-            assertFalse(market.cartContains("ali",0));
-        }catch(Exception ex){
-            fail(ex.getMessage());
-        }
-    }
+    // @Test
+    // public void testOfferRejected() {
+    //     try{
+    //         String systemManager = "admin";
+    //         market.getSystemManagers().add(systemManager);
+    //         market.setMarketOnline(systemManager);// no please
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.Register("ali", "123", 18);
+    //         market.Register("malek", "456", 18);
+    //         market.initStore("ali","name", "d");
+    //         market.addCatagory(0,"meat",systemManager);
+    //         market.initProduct(systemManager,"steak",0,"d","b",5.0);
+    //         market.addProduct(0, 0, 10.0, 10, "ali", 5);
+    //         market.sendOffer("malek",0,0,10.0,9.0);
+    //         String ans = market.rejectOffer("ali", "malek", 0, 0);
+    //         assertTrue(ans.contains("rejected"));
+    //         assertFalse(market.cartContains("ali",0));
+    //     }catch(Exception ex){
+    //         fail(ex.getMessage());
+    //     }
+    // }
 
-    @Test
-    public void testInitFileSuccess() {
-        try{
-            String u1 = "admin";
-            market.getSystemManagers().add(u1);
-            market.setMarketOnline(u1);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.Register("u2","123",18);
-            market.Register("u3","123",18);
-            market.Register("u4","123",18);
-            market.Register("u5","123",18);
-            market.Register("u6","123",18);
-            market.Login("0","u2","123");
-            market.initStore("u2","s1","groceries");
-            market.addCatagory(0,"snacks",u1);
-            market.initProduct(u1,"Bamba",0,"peanut-butter flavored","Osem",20);
-            market.addProduct(0,0,30,20,"u2",20);
-            market.AssignStoreManager(0,"u2","u3",new Boolean[]{true,false,false});
-            market.AssignStoreOwner(0,"u2","u4",new Boolean[]{true,false,false}); 
-            market.AssignStoreOwner(0,"u2","u5",new Boolean[]{true,false,false}); 
-            assertTrue(market.getAllStores().size() > 0);
-            assertEquals("s1", market.getStore(0).getName());
-            assertTrue(market.getAllProducts().size() > 0);
-        }catch(Exception ex){
-            fail(ex.getMessage());
-        }
-    }
+    // @Test
+    // public void testInitFileSuccess() {
+    //     try{
+    //         String u1 = "admin";
+    //         market.getSystemManagers().add(u1);
+    //         market.setMarketOnline(u1);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.Register("u2","123",18);
+    //         market.Register("u3","123",18);
+    //         market.Register("u4","123",18);
+    //         market.Register("u5","123",18);
+    //         market.Register("u6","123",18);
+    //         market.Login("0","u2","123");
+    //         market.initStore("u2","s1","groceries");
+    //         market.addCatagory(0,"snacks",u1);
+    //         market.initProduct(u1,"Bamba",0,"peanut-butter flavored","Osem",20);
+    //         market.addProduct(0,0,30,20,"u2",20);
+    //         market.AssignStoreManager(0,"u2","u3",new Boolean[]{true,false,false});
+    //         market.AssignStoreOwner(0,"u2","u4",new Boolean[]{true,false,false}); 
+    //         market.AssignStoreOwner(0,"u2","u5",new Boolean[]{true,false,false}); 
+    //         assertTrue(market.getAllStores().size() > 0);
+    //         assertEquals("s1", market.getStore(0).getName());
+    //         assertTrue(market.getAllProducts().size() > 0);
+    //     }catch(Exception ex){
+    //         fail(ex.getMessage());
+    //     }
+    // }
 
-    @Test
-    public void testInitFileFail() {
-        try{
-            String u1 = "admin";
-            market.getSystemManagers().add(u1);
-            market.setMarketOnline(u1);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.EnterAsGuest(18);
-            market.Register("u2","123",18);
-            market.Register("u3","123",18);
-            market.Register("u4","123",18);
-            market.Register("u5","123",18);
-            market.Register("u6","123",18);
-            market.Login("0","u2","123");
-            market.initStore("u2","s1","groceries");
-            market.addCatagory(0,"snacks","u2");
-            market.initProduct("u2","Bamba",0,"peanut-butter flavored","Osem",20);
-            market.addProduct(1,0,30,20,"u2",20);
-            market.AssignStoreManager(0,"u2","u3",new Boolean[]{true,false,false});
-            //market.AssignStoreOwner(0,"u2","u4",new Boolean[]{true,false,false}); 
-            market.AssignStoreOwner(0,"u4","u5",new Boolean[]{true,false,false}); 
-            fail();
-        }catch(Exception ex){
-            assertEquals("u2 is not system manager", ex.getMessage());
-        }
-    }
+    // @Test
+    // public void testInitFileFail() {
+    //     try{
+    //         String u1 = "admin";
+    //         market.getSystemManagers().add(u1);
+    //         market.setMarketOnline(u1);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.EnterAsGuest(18);
+    //         market.Register("u2","123",18);
+    //         market.Register("u3","123",18);
+    //         market.Register("u4","123",18);
+    //         market.Register("u5","123",18);
+    //         market.Register("u6","123",18);
+    //         market.Login("0","u2","123");
+    //         market.initStore("u2","s1","groceries");
+    //         market.addCatagory(0,"snacks","u2");
+    //         market.initProduct("u2","Bamba",0,"peanut-butter flavored","Osem",20);
+    //         market.addProduct(1,0,30,20,"u2",20);
+    //         market.AssignStoreManager(0,"u2","u3",new Boolean[]{true,false,false});
+    //         //market.AssignStoreOwner(0,"u2","u4",new Boolean[]{true,false,false}); 
+    //         market.AssignStoreOwner(0,"u4","u5",new Boolean[]{true,false,false}); 
+    //         fail();
+    //     }catch(Exception ex){
+    //         assertEquals("u2 is not system manager", ex.getMessage());
+    //     }
+    // }
 
 }

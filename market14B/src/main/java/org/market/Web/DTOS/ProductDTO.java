@@ -2,6 +2,8 @@ package org.market.Web.DTOS;
 
 import org.market.DomainLayer.backend.ProductPackage.Product;
 
+import com.vaadin.flow.component.Component;
+
 public class ProductDTO {
 
     private int id;
@@ -39,10 +41,6 @@ public class ProductDTO {
         if(product.getCategory() != null){
             this.category = product.getCategory().getName();
         }
-    }
-
-    public String getCategory(){
-        return this.category;
     }
 
     public ProductDTO(){}
@@ -108,6 +106,10 @@ public class ProductDTO {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getCategory() {
+        return this.category;
     }
 
 }

@@ -51,12 +51,12 @@ public class DataController {
     private DiscountRepository discountRepository;
     @Autowired
     private ProductEntityRepository productEntityRepository;
-   @Autowired
-   private EmployerPermissionRepository employerPermissionRepository;
+    @Autowired
+    private EmployerPermissionRepository employerPermissionRepository;
 
     public EmployerPermissionRepository getEmployerPermissionRepository() {
-    return employerPermissionRepository;
-}
+        return employerPermissionRepository;
+    }
 
     private FileHandler fileHandler;
 
@@ -126,156 +126,203 @@ public class DataController {
         return systemManagers;
     }
 
-    public void loadData() throws Exception{
+    public void loadData() throws Exception {
         // system managers
-        Market market=marketRepository.findById(0).get();
-        List<User> systemManagersEntity=market.getSystemManagers();
-        for(User user : systemManagersEntity){
-            org.market.DomainLayer.backend.Market.addToSystemManagers(user.getUsername());
+        Market market = marketRepository.findById(0).get();
+        List<User> systemManagersEntity = market.getSystemManagers();
+        for (User user : systemManagersEntity) {
+            org.market.DomainLayer.backend.Market.addToSystemManagersBackend(user.getUsername());
         }
         // usercontroller
-        List<User> users=new ArrayList<>();
-        users=userRepository.findAll();
-        for(User user : users){
-            org.market.DomainLayer.backend.Market.getUC().loudUser(user.getUsername(), user.getPassword(), user.getAge());
-            List<Basket> baskets=user.getBaskets();
-            for(Basket basket : baskets){
-                List<ProductBasket> productEntities=basket.getProducts();
-                for(ProductBasket productEntity : productEntities){
-                    org.market.DomainLayer.backend.Market.getUC().getUser(user.getUsername()).addToCart(productEntity.getProductID(),basket.getStoreID(),productEntity.getQuantity());
+        List<User> users = new ArrayList<>();
+        users = userRepository.findAll();
+        for (User user : users) {
+            org.market.DomainLayer.backend.Market.getUC().loudUser(user.getUsername(), user.getPassword(),
+                    user.getAge());
+            List<Basket> baskets = user.getBaskets();
+            for (Basket basket : baskets) {
+                List<ProductBasket> productEntities = basket.getProducts();
+                for (ProductBasket productEntity : productEntities) {
+                    org.market.DomainLayer.backend.Market.getUC().getUser(user.getUsername())
+                            .addToCart(productEntity.getProductID(), basket.getStoreID(), productEntity.getQuantity());
                 }
             }
         }
 
         // store controller
-        List<Store> stores=new ArrayList<>();
-        stores=storeRepository.findAll();
-        Integer maxStoreId=-1;
-        for(Store store : stores){
-            if(maxStoreId<store.getStoreID())
-                maxStoreId=store.getStoreID();
-            org.market.DomainLayer.backend.Market.getSC().loudStore(store.getStoreID(),store.getFirstOwner().getUsername(),store.getName(),store.getDesciption());
+        List<Store> stores = new ArrayList<>();
+        stores = storeRepository.findAll();
+        Integer maxStoreId = -1;
+        for (Store store : stores) {
+            if (maxStoreId < store.getStoreID())
+                maxStoreId = store.getStoreID();
+            org.market.DomainLayer.backend.Market.getSC().loudStore(store.getStoreID(),
+                    store.getFirstOwner().getUsername(), store.getName(), store.getDesciption());
         }
         org.market.DomainLayer.backend.Market.getSC().setCounterID(maxStoreId);
 
         // category controller
-        List<Category> categories=categoryRepository.findAll();
-        int maxCategoryId=-1;
-        for(Category category : categories){
-            if(maxCategoryId<category.getCategoryID())
-                maxCategoryId=category.getCategoryID();
+        List<Category> categories = categoryRepository.findAll();
+        int maxCategoryId = -1;
+        for (Category category : categories) {
+            if (maxCategoryId < category.getCategoryID())
+                maxCategoryId = category.getCategoryID();
             org.market.DomainLayer.backend.Market.getCC().addCategory(category.getCategoryName());
-            for(Category subCategory : category.getSubCategories()){
-                if(maxCategoryId<subCategory.getCategoryID())
-                    maxCategoryId=subCategory.getCategoryID();
-                org.market.DomainLayer.backend.Market.getCC().addCategory(subCategory.getCategoryName(), category.getCategoryID());
+            for (Category subCategory : category.getSubCategories()) {
+                if (maxCategoryId < subCategory.getCategoryID())
+                    maxCategoryId = subCategory.getCategoryID();
+                org.market.DomainLayer.backend.Market.getCC().addCategory(subCategory.getCategoryName(),
+                        category.getCategoryID());
             }
         }
         org.market.DomainLayer.backend.Market.getCC().setCounterID(maxCategoryId);
 
         // store inventories
-        List<Inventory> inventories=inventoryRepository.findAll();
-        for(Inventory inventory : inventories){
+        List<Inventory> inventories = inventoryRepository.findAll();
+        for (Inventory inventory : inventories) {
             // Integer storeId=inventory.getStoreID();
-            List<ProductEntity> productEntities=inventory.getProducts();
-            for(ProductEntity productEntity : productEntities){
+            List<ProductEntity> productEntities = inventory.getProducts();
+            for (ProductEntity productEntity : productEntities) {
                 // int productId, int storeId, double price, int quantity,double weight
-                int productId=productEntity.getProductID();
-                int storeID=inventory.getStoreID();
-                double price=productEntity.getPrice();
-                int quantity=productEntity.getQuantity();
-                double weight=productRepository.findById(productEntity.getProductID()).get().getWeight();
+                int productId = productEntity.getProductID();
+                int storeID = inventory.getStoreID();
+                double price = productEntity.getPrice();
+                int quantity = productEntity.getQuantity();
+                double weight = productRepository.findById(productEntity.getProductID()).get().getWeight();
                 org.market.DomainLayer.backend.Market.getSC().addProduct(productId, storeID, price, quantity, weight);
             }
         }
 
         // product controller
-        List<Product> products=productRepository.findAll();
-        int maxProductId=-1;
-        for(Product product : products){
-            if(maxProductId<product.getProductID())
-                maxProductId=product.getProductID();
-            org.market.DomainLayer.backend.ProductPackage.Category category=org.market.DomainLayer.backend.Market.getCC().getCategory(product.getCatagoryID().getCategoryID());
-            org.market.DomainLayer.backend.Market.getPC().addProduct(product.getProductName(), category, product.getDescription(), product.getBrand(), product.getWeight());
+        List<Product> products = productRepository.findAll();
+        int maxProductId = -1;
+        for (Product product : products) {
+            if (maxProductId < product.getProductID())
+                maxProductId = product.getProductID();
+            org.market.DomainLayer.backend.ProductPackage.Category category = org.market.DomainLayer.backend.Market
+                    .getCC().getCategory(product.getCatagoryID().getCategoryID());
+            org.market.DomainLayer.backend.Market.getPC().loudProduct(product.getProductName(), category,
+                    product.getDescription(), product.getBrand(), product.getWeight());
         }
         org.market.DomainLayer.backend.Market.getPC().setIdCounter(maxProductId);
 
         // purchase history
-        List<PurchaseHistory> purchases=purchaseHistoryRepository.findAll();
-        int maxPurcahseHistoryId=-1;
-        for(PurchaseHistory purchaseEntity : purchases){
-            if(maxPurcahseHistoryId<purchaseEntity.getPurchaseID())
-                maxPurcahseHistoryId=purchaseEntity.getPurchaseID();
-            Map<Integer, double[]> productsMap=new ConcurrentHashMap<>();
-            for(ProductScreenShot productEntity : purchaseEntity.getProducts()){
-                double[] QP={productEntity.getQuantity(),productEntity.getPrice()};
-                productsMap.put(productEntity.getProductID(),QP);
+        List<PurchaseHistory> purchases = purchaseHistoryRepository.findAll();
+        int maxPurcahseHistoryId = -1;
+        for (PurchaseHistory purchaseEntity : purchases) {
+            if (maxPurcahseHistoryId < purchaseEntity.getPurchaseID())
+                maxPurcahseHistoryId = purchaseEntity.getPurchaseID();
+            Map<Integer, double[]> productsMap = new ConcurrentHashMap<>();
+            for (ProductScreenShot productEntity : purchaseEntity.getProducts()) {
+                double[] QP = { productEntity.getQuantity(), productEntity.getPrice() };
+                productsMap.put(productEntity.getProductID(), QP);
             }
-            Purchase purchase=new Purchase(purchaseEntity.getUsername(),purchaseEntity.getStoreID(), purchaseEntity.getOvlprice(), productsMap); 
-            org.market.DomainLayer.backend.Market.getPH().addPurchase(purchaseEntity.getStoreID(), purchaseEntity.getUsername(), purchase);
+            Purchase purchase = new Purchase(purchaseEntity.getUsername(), purchaseEntity.getStoreID(),
+                    purchaseEntity.getOvlprice(), productsMap);
+            org.market.DomainLayer.backend.Market.getPH().addPurchase(purchaseEntity.getStoreID(),
+                    purchaseEntity.getUsername(), purchase);
         }
         org.market.DomainLayer.backend.Market.getPH().setCounterID(maxPurcahseHistoryId);
 
         // permissions
-        List<EmployerPermission> permissions=employerPermissionRepository.findAll();
-        for(EmployerPermission permission : permissions){
-            int storeId=permission.getPermissionId().getStoreID();
-            List<EmployerPermission> employees=permission.getEmployees();
-            if(!org.market.DomainLayer.backend.Market.getP().storeExist(storeId)){
-                org.market.DomainLayer.backend.Market.getP().initStore(storeId, permission.getPermissionId().getUsername());
+        List<EmployerPermission> permissions = employerPermissionRepository.findAll();
+        for (EmployerPermission permission : permissions) {
+            int storeId = permission.getPermissionId().getStoreID();
+            List<EmployerPermission> employees = permission.getEmployees();
+            if (!org.market.DomainLayer.backend.Market.getP().storeExist(storeId)) {
+                org.market.DomainLayer.backend.Market.getP().initStore(storeId,
+                        permission.getPermissionId().getUsername());
+            } else {
+                Boolean[] pType = { permission.getEditProducts(), permission.getAddOrEditPurchaseHistory(),
+                        permission.getAddOrEditDiscountHistory() };
+                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, permission.getParentusername(),
+                        permission.getPermissionId().getUsername(), permission.getStoreOwner(),
+                        permission.getStoreManager(), pType);
             }
-            else{
-                Boolean[] pType={permission.getEditProducts(),permission.getAddOrEditPurchaseHistory(),permission.getAddOrEditDiscountHistory()};
-                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, permission.getParentusername(), permission.getPermissionId().getUsername(), permission.getStoreOwner(), permission.getStoreManager(), pType);
-            }
-            for(EmployerPermission employee : employees){
-                Boolean[] pType={employee.getEditProducts(),employee.getAddOrEditPurchaseHistory(),employee.getAddOrEditDiscountHistory()};
-                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, employee.getParentusername(), employee.getPermissionId().getUsername(), employee.getStoreOwner(), employee.getStoreManager(), pType);
+            for (EmployerPermission employee : employees) {
+                Boolean[] pType = { employee.getEditProducts(), employee.getAddOrEditPurchaseHistory(),
+                        employee.getAddOrEditDiscountHistory() };
+                org.market.DomainLayer.backend.Market.getP().addPermission(storeId, employee.getParentusername(),
+                        employee.getPermissionId().getUsername(), employee.getStoreOwner(), employee.getStoreManager(),
+                        pType);
             }
         }
 
         // discount policy
-        List<DiscountPolicy> discountPolicies=discountRepository.findAll();
-        for(DiscountPolicy discountPolicy : discountPolicies){
+        List<DiscountPolicy> discountPolicies = discountRepository.findAll();
+        for (DiscountPolicy discountPolicy : discountPolicies) {
             switch (discountPolicy.getType()) {
                 case "category":
-                    org.market.DomainLayer.backend.Market.loudCategoryDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudCategoryDiscountPolicy(discountPolicy.getStandard(),
+                            discountPolicy.getConditionalPrice(), discountPolicy.getConditionalQuantity(),
+                            discountPolicy.getDiscountPercentage(), discountPolicy.getCategoryId(),
+                            discountPolicy.getStoreId(), discountPolicy.getUsername(),
+                            discountPolicy.getParentDiscount().getDiscountId());
                     break;
                 case "product":
-                    org.market.DomainLayer.backend.Market.loudProductDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudProductDiscountPolicy(discountPolicy.getStandard(),
+                            discountPolicy.getConditionalPrice(), discountPolicy.getConditionalQuantity(),
+                            discountPolicy.getDiscountPercentage(), discountPolicy.getCategoryId(),
+                            discountPolicy.getStoreId(), discountPolicy.getUsername(),
+                            discountPolicy.getParentDiscount().getDiscountId());
                     break;
                 case "store":
-                    org.market.DomainLayer.backend.Market.loudStoreDiscountPolicy(discountPolicy.getStandard(),discountPolicy.getConditionalPrice(),discountPolicy.getConditionalQuantity(),discountPolicy.getDiscountPercentage(),discountPolicy.getCategoryId(),discountPolicy.getStoreId(),discountPolicy.getUsername(),discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudStoreDiscountPolicy(discountPolicy.getStandard(),
+                            discountPolicy.getConditionalPrice(), discountPolicy.getConditionalQuantity(),
+                            discountPolicy.getDiscountPercentage(), discountPolicy.getCategoryId(),
+                            discountPolicy.getStoreId(), discountPolicy.getUsername(),
+                            discountPolicy.getParentDiscount().getDiscountId());
                     break;
                 case "add":
-                    org.market.DomainLayer.backend.Market.loudNmericalDiscount(discountPolicy.getUsername(),discountPolicy.getStoreId(),true,discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudNmericalDiscount(discountPolicy.getUsername(),
+                            discountPolicy.getStoreId(), true, discountPolicy.getParentDiscount().getDiscountId());
                     break;
-                
+
                 default:
-                    org.market.DomainLayer.backend.Market.loudLogicalDiscount(discountPolicy.getUsername(), discountPolicy.getStoreId(), discountPolicy.getType(), discountPolicy.getParentDiscount().getDiscountId());
+                    org.market.DomainLayer.backend.Market.loudLogicalDiscount(discountPolicy.getUsername(),
+                            discountPolicy.getStoreId(), discountPolicy.getType(),
+                            discountPolicy.getParentDiscount().getDiscountId());
                     break;
             }
         }
 
         // purchase policy
-        List<PurchasePolicy> purchasePolicies=purchaseRepository.findAll();
-        for(PurchasePolicy purchasePolicy : purchasePolicies){
+        List<PurchasePolicy> purchasePolicies = purchaseRepository.findAll();
+        for (PurchasePolicy purchasePolicy : purchasePolicies) {
             switch (purchasePolicy.getType()) {
                 case "category":
-                    org.market.DomainLayer.backend.Market.loudCategoryPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    org.market.DomainLayer.backend.Market.loudCategoryPurchasePolicy(purchasePolicy.getQuantity(),
+                            purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(),
+                            purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(),
+                            purchasePolicy.getUsername(), purchasePolicy.getStoreId(), purchasePolicy.getImmediate(),
+                            purchasePolicy.getParentPurchase().getPurchaseId());
                     break;
                 case "product":
-                    org.market.DomainLayer.backend.Market.loudProductPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    org.market.DomainLayer.backend.Market.loudProductPurchasePolicy(purchasePolicy.getQuantity(),
+                            purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(),
+                            purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(),
+                            purchasePolicy.getUsername(), purchasePolicy.getStoreId(), purchasePolicy.getImmediate(),
+                            purchasePolicy.getParentPurchase().getPurchaseId());
                     break;
                 case "shoppingcart":
-                    org.market.DomainLayer.backend.Market.loudShoppingCartPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    org.market.DomainLayer.backend.Market.loudShoppingCartPurchasePolicy(purchasePolicy.getQuantity(),
+                            purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(),
+                            purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(),
+                            purchasePolicy.getUsername(), purchasePolicy.getStoreId(), purchasePolicy.getImmediate(),
+                            purchasePolicy.getParentPurchase().getPurchaseId());
                     break;
                 case "user":
-                    org.market.DomainLayer.backend.Market.loudUserPurchasePolicy(purchasePolicy.getQuantity(), purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(), purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(), purchasePolicy.getUsername(), purchasePolicy.getStoreId(),purchasePolicy.getImmediate(), purchasePolicy.getParentPurchase().getPurchaseId());
+                    org.market.DomainLayer.backend.Market.loudUserPurchasePolicy(purchasePolicy.getQuantity(),
+                            purchasePolicy.getPrice(), LocalDate.now(), purchasePolicy.getAtLeast(),
+                            purchasePolicy.getWeight(), purchasePolicy.getAge(), purchasePolicy.getCategoryId(),
+                            purchasePolicy.getUsername(), purchasePolicy.getStoreId(), purchasePolicy.getImmediate(),
+                            purchasePolicy.getParentPurchase().getPurchaseId());
                     break;
-            
+
                 default:
-                    org.market.DomainLayer.backend.Market.loudLogicalPurchase(purchasePolicy.getUsername(),purchasePolicy.getStoreId(),purchasePolicy.getType(),purchasePolicy.getParentPurchase().getProductId());
+                    org.market.DomainLayer.backend.Market.loudLogicalPurchase(purchasePolicy.getUsername(),
+                            purchasePolicy.getStoreId(), purchasePolicy.getType(),
+                            purchasePolicy.getParentPurchase().getProductId());
                     break;
             }
         }
@@ -316,6 +363,12 @@ public class DataController {
         Optional<User> optionalUser = userRepository.findById(username);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+            List<Basket> toDel = user.getBaskets();
+            // List<Basket> toDel=basketRepository.findstoreIds(username);
+            basketRepository.deleteAll(toDel);
+            // for (Basket basket : toDel) {
+            // basketRepository.delete(basket);
+            // }
             List<Basket> baskets = Collections.synchronizedList(new ArrayList<>());
             user.setBaskets(baskets);
             userRepository.save(user);
@@ -330,6 +383,21 @@ public class DataController {
             // get the user if registered
             User user = optionalUser.get();
 
+            BasketId id = new BasketId();
+            id.setUsername(user);
+            id.setStoreID(storeRepository.findById(storeID).get());
+            Optional<Basket> updated = basketRepository.findById(id);
+
+            if (updated.isPresent()) {
+                for (ProductBasket pBasket : updated.get().getProducts()) {
+                    if (pBasket.getProductID() == productID && pBasket.getStoreID() == storeID) {
+                        pBasket.setQuantity(quantity);
+                        basketRepository.save(updated.get());
+                        return;
+                    }
+                }
+            }
+
             // init product entity to add it to the relevant basket
             double price = inventoryRepository.findById(storeID).get().getProdPrice(productID);
             ProductBasket productEntity = new ProductBasket();
@@ -341,7 +409,7 @@ public class DataController {
             productEntity.setPrice(price);
             // init basket with the same id to find it in the list of baskets
             Basket newBasket = new Basket();
-            BasketId bID=new BasketId();
+            BasketId bID = new BasketId();
             newBasket.setBasketId(bID);
             newBasket.setUsername(userRepository.findById(username).get());
             newBasket.setStoreID(storeRepository.findById(storeID).get());
@@ -358,13 +426,18 @@ public class DataController {
                 List<ProductBasket> products = existedBasket.getProducts();
                 products.add(productEntity);
                 existedBasket.setProducts(products);
-                basketRepository.save(existedBasket);
+                // basketRepository.save(existedBasket);
+                user.setBaskets(baskets);
+                userRepository.save(user);
+
             } else {
                 // if not; init new basket and add it to the baskets
                 List<ProductBasket> products = Collections.synchronizedList(new ArrayList<>());
                 products.add(productEntity);
                 newBasket.setProducts(products);
-                basketRepository.save(newBasket);
+                // basketRepository.save(newBasket);
+                user.getBaskets().add(newBasket);
+                userRepository.save(user);
             }
             LOGGER.info("product added to " + username + "'s cart at the DataBase");
         }
@@ -420,7 +493,7 @@ public class DataController {
 
     public void EditPermissions(Integer storeID, String username, Boolean storeOwner, Boolean storeManager,
             Boolean editProducts, Boolean addOrEditPurchaseHistory, Boolean addOrEditDiscountHistory) {
-        PermissionId permissionId=new PermissionId();
+        PermissionId permissionId = new PermissionId();
         permissionId.setStoreID(storeID);
         permissionId.setUsername(username);
         EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
@@ -437,20 +510,20 @@ public class DataController {
 
     }
 
-    public void AssignStoreManager(Integer storeID, String username,String owner,Boolean[] pType) {
+    public void AssignStoreManager(Integer storeID, String username, String owner, Boolean[] pType) {
         initPermission(storeID, username);
-        PermissionId permissionId=new PermissionId();
+        PermissionId permissionId = new PermissionId();
         permissionId.setStoreID(storeID);
         permissionId.setUsername(owner);
         EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
-        List<EmployerPermission> employerPermissions=employerPermission.getEmployees();
-        if (employerPermissions==null) {
-            employerPermissions=new ArrayList<>();
+        List<EmployerPermission> employerPermissions = employerPermission.getEmployees();
+        if (employerPermissions == null) {
+            employerPermissions = new ArrayList<>();
         }
-        PermissionId permissionId2=new PermissionId();
+        PermissionId permissionId2 = new PermissionId();
         permissionId2.setStoreID(storeID);
         permissionId2.setUsername(username);
-        EmployerPermission malek= employerPermissionRepository.findById(permissionId2).get();
+        EmployerPermission malek = employerPermissionRepository.findById(permissionId2).get();
         employerPermissions.add(malek);
         employerPermission.setEmployees(employerPermissions);
 
@@ -467,20 +540,20 @@ public class DataController {
 
     }
 
-    public void AssignStoreOwner(Integer storeID, String username,String ownerUserName,Boolean[] pType) {
+    public void AssignStoreOwner(Integer storeID, String username, String ownerUserName, Boolean[] pType) {
         initPermission(storeID, username);
-        PermissionId permissionId=new PermissionId();
+        PermissionId permissionId = new PermissionId();
         permissionId.setStoreID(storeID);
         permissionId.setUsername(ownerUserName);
         EmployerPermission employerPermission = employerPermissionRepository.findById(permissionId).get();
-        List<EmployerPermission> employerPermissions=employerPermission.getEmployees();
-        if (employerPermissions==null) {
-            employerPermissions=new ArrayList<>();
+        List<EmployerPermission> employerPermissions = employerPermission.getEmployees();
+        if (employerPermissions == null) {
+            employerPermissions = new ArrayList<>();
         }
-        PermissionId permissionId2=new PermissionId();
+        PermissionId permissionId2 = new PermissionId();
         permissionId2.setStoreID(storeID);
         permissionId2.setUsername(username);
-        EmployerPermission malek= employerPermissionRepository.findById(permissionId2).get();
+        EmployerPermission malek = employerPermissionRepository.findById(permissionId2).get();
         employerPermissions.add(malek);
         employerPermission.setEmployees(employerPermissions);
 
@@ -497,19 +570,19 @@ public class DataController {
 
     }
 
-    public void unassignUser(Integer storeID, String username,String owner) {
-        PermissionId user=new PermissionId();
+    public void unassignUser(Integer storeID, String username, String owner) {
+        PermissionId user = new PermissionId();
         user.setStoreID(storeID);
         user.setUsername(username);
         EmployerPermission employerUser = employerPermissionRepository.findById(user).get();
 
-        PermissionId ownerPermission=new PermissionId();
+        PermissionId ownerPermission = new PermissionId();
         ownerPermission.setStoreID(storeID);
         ownerPermission.setUsername(owner);
         EmployerPermission employerOwner = employerPermissionRepository.findById(ownerPermission).get();
-        List<EmployerPermission> employees=employerOwner.getEmployees();
-        for(EmployerPermission e : employees){
-            if(e.getPermissionId().getStoreID()==storeID && e.getPermissionId().getUsername().equals(username)){
+        List<EmployerPermission> employees = employerOwner.getEmployees();
+        for (EmployerPermission e : employees) {
+            if (e.getPermissionId().getStoreID() == storeID && e.getPermissionId().getUsername().equals(username)) {
                 e.deleteEmployees();
                 employees.remove(e);
                 break;
@@ -517,21 +590,25 @@ public class DataController {
         }
         employerOwner.setEmployees(employees);
         employerPermissionRepository.save(employerOwner);
-        employerPermissionRepository.delete(employerUser);
+        PermissionId deluser = new PermissionId();
+        deluser.setStoreID(employerUser.getPermissionId().getStoreID());
+        deluser.setUsername(employerUser.getPermissionId().getUsername());
+        EmployerPermission delemployerUser = employerPermissionRepository.findById(deluser).get();
+        employerPermissionRepository.delete(delemployerUser);
 
         LOGGER.info("user unassigned from the DataBase");
 
     }
 
     public void resign(int storeID, String username) {
-        PermissionId user=new PermissionId();
+        PermissionId user = new PermissionId();
         user.setStoreID(storeID);
         user.setUsername(username);
         EmployerPermission employerUser = employerPermissionRepository.findById(user).get();
-        if(employerUser.getParentusername()==null){
-            List<EmployerPermission> employees=employerUser.getEmployees();
-            for(EmployerPermission e : employees){
-                if(e.getPermissionId().getStoreID()==storeID){
+        if (employerUser.getParentusername() == null) {
+            List<EmployerPermission> employees = employerUser.getEmployees();
+            for (EmployerPermission e : employees) {
+                if (e.getPermissionId().getStoreID() == storeID) {
                     e.deleteEmployees();
                     employees.remove(e);
                     break;
@@ -540,13 +617,13 @@ public class DataController {
             employerPermissionRepository.delete(employerUser);
             return;
         }
-        PermissionId ownerPermission=new PermissionId();
+        PermissionId ownerPermission = new PermissionId();
         ownerPermission.setStoreID(storeID);
         ownerPermission.setUsername(employerUser.getParentusername());
         EmployerPermission parent = employerPermissionRepository.findById(ownerPermission).get();
-        List<EmployerPermission> employees=parent.getEmployees();
-        for(EmployerPermission e : employees){
-            if(e.getPermissionId().getStoreID()==storeID && e.getPermissionId().getUsername().equals(username)){
+        List<EmployerPermission> employees = parent.getEmployees();
+        for (EmployerPermission e : employees) {
+            if (e.getPermissionId().getStoreID() == storeID && e.getPermissionId().getUsername().equals(username)) {
                 e.deleteEmployees();
                 employees.remove(e);
                 break;
@@ -554,7 +631,7 @@ public class DataController {
         }
         parent.setEmployees(employees);
         employerPermissionRepository.save(parent);
-        PermissionId deluser=new PermissionId();
+        PermissionId deluser = new PermissionId();
         deluser.setStoreID(employerUser.getPermissionId().getStoreID());
         deluser.setUsername(employerUser.getPermissionId().getUsername());
         EmployerPermission delemployerUser = employerPermissionRepository.findById(deluser).get();
@@ -742,7 +819,7 @@ public class DataController {
 
     public void addDiscountPolicy(Boolean standard, double conditionalPrice, double conditionalQuantity,
             double discountPercentage, int categoryId, int productId, int storeId, String username, int parentid,
-            String type,int selfid) {
+            String type, int selfid) {
         DiscountPolicy discountPolicy = new DiscountPolicy();
         discountPolicy.setStandard(standard);
         discountPolicy.setConditionalPrice(conditionalPrice);
@@ -756,35 +833,36 @@ public class DataController {
         Optional<DiscountPolicy> dp = discountRepository.findById(parentid);
         if (!dp.isPresent()) {
             // false, -1, -1, -1, -1, -1, storeId, username, id, "xor
-            DiscountPolicy newdp = new DiscountPolicy(0, "And", true, -1.0, -1.0, 0.0, storeId, username, categoryId, -1,
+            DiscountPolicy newdp = new DiscountPolicy(0, "And", true, -1.0, -1.0, 0.0, storeId, username, categoryId,
+                    -1,
                     null, new ArrayList<>());
             discountRepository.save(newdp);
 
         }
-            DiscountPolicy malek=discountRepository.findById(parentid).get();
-            discountPolicy.setParentDiscount(malek);
-            discountPolicy.setType(type);
-            discountPolicy.setDiscountId(selfid);
-            discountRepository.save(discountPolicy);
-            List<DiscountPolicy> subDiscountPolicies = malek.getSubDiscounts();
-            if (subDiscountPolicies==null) {
-                subDiscountPolicies=new ArrayList<>();
-            }
-            subDiscountPolicies.add(discountPolicy);
-            malek.setSubDiscounts(subDiscountPolicies);
-            discountRepository.save(malek);
-        
+        DiscountPolicy malek = discountRepository.findById(parentid).get();
+        discountPolicy.setParentDiscount(malek);
+        discountPolicy.setType(type);
+        discountPolicy.setDiscountId(selfid);
+        discountRepository.save(discountPolicy);
+        List<DiscountPolicy> subDiscountPolicies = malek.getSubDiscounts();
+        if (subDiscountPolicies == null) {
+            subDiscountPolicies = new ArrayList<>();
+        }
+        subDiscountPolicies.add(discountPolicy);
+        malek.setSubDiscounts(subDiscountPolicies);
+        discountRepository.save(malek);
+
     }
 
     public void addPurchasePolicy(int quantity, double price, LocalDate date, int atLeast, double weight, double age,
             double userAge, int categoryId, int productId, String username, int storeId, Boolean immediate,
-            int parentid, String type,int selfid) {
+            int parentid, String type, int selfid) {
         PurchasePolicy purchasePolicy = new PurchasePolicy();
         purchasePolicy.setQuantity(quantity);
         purchasePolicy.setPrice(price);
-        if(date==null){
+        if (date == null) {
             purchasePolicy.setDate("");
-        }else{
+        } else {
             purchasePolicy.setDate(date.toString());
         }
         purchasePolicy.setAtLeast(atLeast);
@@ -799,10 +877,11 @@ public class DataController {
         purchasePolicy.setImmediate(immediate);
         Optional<PurchasePolicy> pp = purchaseRepository.findById(parentid);
         if (!pp.isPresent()) {
-            PurchasePolicy newpp=new PurchasePolicy(0, type, store.getStoreID(), quantity, price, "", atLeast, weight, age, userAge, categoryId, productId, username, immediate, null, new ArrayList<>());
+            PurchasePolicy newpp = new PurchasePolicy(0, type, store.getStoreID(), quantity, price, "", atLeast, weight,
+                    age, userAge, categoryId, productId, username, immediate, null, new ArrayList<>());
             purchaseRepository.save(newpp);
         }
-        PurchasePolicy malek=purchaseRepository.findById(parentid).get();
+        PurchasePolicy malek = purchaseRepository.findById(parentid).get();
         purchasePolicy.setParentPurchase(malek);
         purchasePolicy.setType(type);
         purchasePolicy.setPurchaseId(selfid);
@@ -813,46 +892,47 @@ public class DataController {
         purchaseRepository.save(malek);
     }
 
-    public void updateQuantity(org.market.DomainLayer.backend.StorePackage.Store store){
-        Inventory inv=inventoryRepository.findById(store.getId()).get();
-        org.market.DomainLayer.backend.ProductPackage.Inventory inventory=store.getInventory();
-        for(Map.Entry<Integer, double[]> entry:inventory.getProducts().entrySet()){
-            Product proc=productRepository.findById(entry.getKey()).get();
-            inv.editQuantity(proc, (int)entry.getValue()[0]);
+    public void updateQuantity(org.market.DomainLayer.backend.StorePackage.Store store) {
+        Inventory inv = inventoryRepository.findById(store.getId()).get();
+        org.market.DomainLayer.backend.ProductPackage.Inventory inventory = store.getInventory();
+        for (Map.Entry<Integer, double[]> entry : inventory.getProducts().entrySet()) {
+            Product proc = productRepository.findById(entry.getKey()).get();
+            inv.editQuantity(proc, (int) entry.getValue()[0]);
         }
         inventoryRepository.save(inv);
     }
 
-    public void addSystemManager(String username){
-        User user=userRepository.findById(username).get();
+    public void addSystemManager(String username) {
+        User user = userRepository.findById(username).get();
         Market market = marketRepository.findById(0).get();
-        List<User> users=market.getSystemManagers();
+        List<User> users = market.getSystemManagers();
         users.add(user);
         market.setSystemManagers(users);
         marketRepository.save(market);
     }
 
-    public void addToPurchaseHistory(Integer purchaseID,Map<Integer,double[]> products,Integer storeId,String username,Integer ovlprice){
-        PurchaseHistory purchaseHistory=new PurchaseHistory();
+    public void addToPurchaseHistory(Integer purchaseID, Map<Integer, double[]> products, Integer storeId,
+            String username, Integer ovlprice) {
+        PurchaseHistory purchaseHistory = new PurchaseHistory();
         purchaseHistory.setPurchaseID(purchaseID);
         purchaseHistory.setStoreID(storeId);
         purchaseHistory.setUsername(username);
         purchaseHistory.setOvlprice(ovlprice);
-        List<ProductScreenShot> prods=new ArrayList<>();
-        for(Map.Entry<Integer,double[]> prod : products.entrySet()){
-            ProductScreenShot pe=new ProductScreenShot();
+        List<ProductScreenShot> prods = new ArrayList<>();
+        for (Map.Entry<Integer, double[]> prod : products.entrySet()) {
+            ProductScreenShot pe = new ProductScreenShot();
             pe.setProductID(prod.getKey());
             pe.setPurchaseID(purchaseID);
             pe.setPrice(prod.getValue()[1]);
-            pe.setQuantity((int)prod.getValue()[0]);
+            pe.setQuantity((int) prod.getValue()[0]);
             prods.add(pe);
         }
         purchaseHistory.setProducts(prods);
         purchaseHistoryRepository.save(purchaseHistory);
     }
 
-    public void initPermission(Integer storeId,String username){
-        PermissionId permissionId=new PermissionId();
+    public void initPermission(Integer storeId, String username) {
+        PermissionId permissionId = new PermissionId();
         permissionId.setStoreID(storeId);
         permissionId.setUsername(username);
         EmployerPermission employerPermission = new EmployerPermission();

@@ -1,5 +1,12 @@
 package org.market.DomainLayer;
 
+import org.market.DomainLayer.backend.ISearchEngine;
+import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.Web.DTOS.ProductDTO;
+import org.market.Web.Requests.SearchEntity;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -82,13 +89,13 @@ public class SearchEngine implements ISearchEngine {
         List<ProductDTO> prodsDTO = new ArrayList<>();
         if(entity.isInStore()){
             int storeID = entity.getStoreID();
-            prodsDTO = Market.getSC().getStoreProducts(storeID); 
+            prodsDTO = Market.getSC().getStoreProducts(storeID);
         }else{
-        List<Product> result = Market.getPC().getProducts()
-        .stream()
-            .filter(product -> product.getName().contains(prodName))
-            .collect(Collectors.toList());
-        prodsDTO = Market.convertProds(result);
+            List<Product> result = Market.getPC().getProducts()
+                    .stream()
+                    .filter(product -> product.getName().contains(prodName))
+                    .collect(Collectors.toList());
+            prodsDTO = Market.convertProds(result);
         }
         return prodsDTO;
     }
@@ -103,6 +110,7 @@ public class SearchEngine implements ISearchEngine {
         }
         return pdtos;
     }
+
     public List<ProductDTO> searchbyKeyWord(String KeyWord,SearchEntity entity){
         List<ProductDTO> pdtos = new ArrayList<>();
         List<Product> result = Market.getPC().getProductsByIDs(keyword_srch.get(KeyWord));
