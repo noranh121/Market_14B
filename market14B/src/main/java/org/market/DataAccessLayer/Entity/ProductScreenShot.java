@@ -38,6 +38,9 @@ public class ProductScreenShot implements Serializable{
         return this.productScreenShotId.getPurchaseHistoryid();
     }
     public void setPurchaseID(Integer PurchaseID) {
+        if(productScreenShotId==null){
+            this.productScreenShotId=new ProductScreenShotId();
+        }
         this.productScreenShotId.setPurchaseHistoryid(PurchaseID);
     }
 

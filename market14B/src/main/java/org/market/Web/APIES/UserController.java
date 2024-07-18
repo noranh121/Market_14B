@@ -168,6 +168,7 @@ public class UserController {
         }catch(SuspendedException e){
             return ResponseEntity.status(403).body(e.getMessage());
         }catch(Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(404).body("Failed to remove cart item.");
         }
     }

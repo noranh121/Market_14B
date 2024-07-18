@@ -147,7 +147,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s;
   width: 200px; /* Increased width for better layout */
-  height: 250px; /* Increased height for better layout */
+  height: 350px; /* Increased height for better layout */
   text-align: center;
   background-color: gray;
   cursor: pointer;

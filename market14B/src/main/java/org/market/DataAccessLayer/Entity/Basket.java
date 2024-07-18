@@ -50,6 +50,9 @@ public class Basket implements java.io.Serializable{
     }
 
     public void setUsername(User username) {
+        if (this.basketId==null) {
+            this.basketId=new BasketId();
+        }
         this.basketId.setUsername(username);
     }
 
@@ -58,6 +61,9 @@ public class Basket implements java.io.Serializable{
     }
 
     public void setStoreID(Store storeID) {
+        if (this.basketId==null) {
+            this.basketId=new BasketId();
+        }
         this.basketId.setStoreID(storeID);
     }
 

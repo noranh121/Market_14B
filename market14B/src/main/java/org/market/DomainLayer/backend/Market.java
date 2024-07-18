@@ -326,7 +326,13 @@ public class Market {
             throw new SuspendedException("can't add to cart user is suspended");
         }
         String response= userController.addToCart(username, product, storeId, quantity);
-        dataController.addToCart(username, storeId, product, quantity);
+        try{
+            dataController.addToCart(username, storeId, product, quantity);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return ex.getMessage();
+        }
+        
         return response;
     }
 

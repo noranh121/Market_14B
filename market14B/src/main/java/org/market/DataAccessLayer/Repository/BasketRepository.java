@@ -13,8 +13,4 @@ import org.market.DataAccessLayer.Entity.BasketId;
 @Repository
 public interface BasketRepository extends JpaRepository<Basket,BasketId>{
 
-    @Query(value = "SELECT * FROM Basket WHERE username = ?",nativeQuery = true)
-    public List<Basket> findstoreIds(String username);
-    //List<Basket> findstoreIds(String username);
-
 }
