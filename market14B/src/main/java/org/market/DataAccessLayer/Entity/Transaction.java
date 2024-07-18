@@ -1,8 +1,19 @@
 package org.market.DataAccessLayer.Entity;
-import javax.persistence.*;
+// import javax.persistence.*;
+
+
+
+import jakarta.persistence.*;
+
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class Transaction {
+@Table(name = "transactions")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Transaction  implements java.io.Serializable{
     
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="username",referencedColumnName = "username")

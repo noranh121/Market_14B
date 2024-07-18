@@ -2,7 +2,7 @@ package org.market.DomainLayer.backend.StorePackage.Discount;
 
 import java.util.Map;
 
-import org.market.DomainLayer.backend.ProductPackage.ProductController;
+import org.market.DomainLayer.backend.Market;
 
 public class CategoryDiscount extends DiscountPolicy{
 
@@ -21,7 +21,7 @@ public class CategoryDiscount extends DiscountPolicy{
             productId=entry.getKey();
             arr[0]=entry.getValue()[0];
             arr[2]=entry.getValue()[2];
-            if(ProductController.getInstance().getProductCategory((int)productId)==categoryId){
+            if(Market.getPC().getProductCategory((int)productId)==categoryId){
                 arr[1]=discountType.calculateDiscount(discountPercentage,entry.getValue()[1],entry.getValue()[0]);
             }
             else{
@@ -30,6 +30,18 @@ public class CategoryDiscount extends DiscountPolicy{
             products.put(entry.getKey(),arr);
         }
         return products;
+    }
+
+    @Override
+    public void addComposite(CompositeDiscountPolicy composite, int id) {
+        // TODO Auto-generated method stub
+        // throw new UnsupportedOperationException("not discount policy controller");
+    }
+
+    @Override
+    public void removeComposite(int id) {
+        // TODO Auto-generated method stub
+        // throw new UnsupportedOperationException("not discount policy controller");
     }
 
 }

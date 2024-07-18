@@ -1,154 +1,139 @@
 package org.market.ServiceLayer;
 
 import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.market.Web.DTOS.CartItemDTO;
+import org.market.Web.DTOS.StoreDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Component
 public class UserService {
-    private Market market = Market.getInstance();
 
-    public String EnterAsGuest(double age) {
-        try {
+
+    @Autowired
+    private Market market;// = Market.getInstance();
+
+    public String EnterAsGuest(double age) throws Exception {
             String result = market.EnterAsGuest(age);
             UserController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String GuestExit(String username) {
-        try {
+    public String GuestExit(String username) throws Exception {
             String result = market.GuestExit(username);
             UserController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String Login(String guest, String username, String password) {
-        try {
+    public String Login(String guest, String username, String password) throws Exception {
             String result = market.Login(guest, username, password);
             UserController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public String Logout(String username) {
-        try {
+    public String Logout(String username) throws Exception {
             String result = market.Logout(username);
             UserController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
     }
 
-    public Response<String> Register(String username, String password,double age) {
-        try {
+    public String Register(String username, String password,double age) throws Exception {
             String result = market.Register(username, password,age);
             UserController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> Buy(String username,String currency,String card_number,int month,int year,String ccv,
-    String address, String city, String country, int zip) {
-        try {
-            double sum = market.Buy(username, currency, card_number, month, year, ccv, address, city, country, zip);
+    public String Buy(String username,String currency,String card_number,int month,int year,String ccv,
+    String address, String city, String country, int zip,String id) throws Exception{
+            double sum = market.Buy(username, currency, card_number, String.valueOf(month), String.valueOf(year), ccv, address, city, country, String.valueOf(zip),id);
             // result = payment method TODO
             // LOGGER.info(result);
             // return result;
-            return Response.successRes("Buying process completed successfully!, " + "sum: " + sum);
-        } catch (Exception e) {
-            return  Response.failRes(e.getMessage());
-        }
+        return "Buying process completed successfully!, " + "sum: " + sum;
     }
 
-    public Response<String> addToCart(String username, Integer product, int storeId, int quantity) {
-        try {
+    public String addToCart(String username, Integer product, int storeId, int quantity) throws Exception {
             String result = market.addToCart(username, product, storeId, quantity);
             UserController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> inspectCart(String username) {
-        try {
+//     public String addToCartOffer(String username, Integer product, int storeId, int price) throws Exception {
+//         String result = market.addToCartOffer(username, product, storeId, price);
+//         UserController.LOGGER.info(result);
+//         return result;
+//         }
+
+    public String inspectCart(String username)throws Exception {
             String result = market.inspectCart(username);
             UserController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> removeCartItem(String username, int storeId, int product) {
-        try {
+    public String removeCartItem(String username, int storeId, int product)throws Exception {
             String result = market.removeCartItem(username, storeId, product);
             UserController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
+    public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
             Boolean storeManager, Boolean[] pType) throws Exception {
-        try {
             String result = market.EditPermissions(storeID, ownerUserName, userName, storeOwner, storeManager, pType);
             UserController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> AssignStoreManager(int storeId, String ownerUserName, String username, Boolean[] pType)
+    public String AssignStoreManager(int storeId, String ownerUserName, String username, Boolean[] pType)
             throws Exception {
-        try {
             String result = market.AssignStoreManager(storeId, ownerUserName, username, pType);
             UserController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> AssignStoreOnwer(int storeId, String ownerUserName, String username, Boolean[] pType)
+    public String AssignStoreOnwer(int storeId, String ownerUserName, String username, Boolean[] pType)
             throws Exception {
-        try {
             String result = market.AssignStoreOwner(storeId, ownerUserName, username, pType);
             UserController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
-    public Response<String> unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
-        try {
+    public String unassignUser(int storeID, String ownerUserName, String userName) throws Exception {
             String result = market.unassignUser(storeID, ownerUserName, userName);
             UserController.LOGGER.info(result);
-            return Response.successRes(result);
-        } catch (Exception e) {
-            return Response.failRes(e.getMessage());
-        }
+            return result;
     }
 
     public String resign(int storeID, String username) throws Exception {
-        try {
             String result = market.resign(storeID, username);
             UserController.LOGGER.info(result);
             return result;
-        } catch (Exception e) {
-            return e.getMessage();
+    }
+
+    public List<StoreDTO> user_stores(String username) throws Exception {
+        List<StoreDTO> sdtos = new ArrayList<>();
+        List<Store> stores = market.getUserStores(username);
+        for(Store s: stores){
+            StoreDTO sdto = new StoreDTO(s);
+            sdtos.add(sdto);
         }
+        return sdtos;
+    }
+
+    public List<String> getPurchaseHistory(String username) throws Exception {
+        return market.getPurchaseHistoryUser(username);
+    }
+
+    public String removePurchaseUser(String username, Integer purchaseId) throws Exception {
+        return market.removePurchaseUser(username, purchaseId);
+    }
+
+    public List<CartItemDTO> getCart(String username) throws Exception {
+        return market.getCart(username);
     }
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.market.DomainLayer.backend.Market;
+
 public class Category {
     private int id;
     private String name;
@@ -102,14 +104,14 @@ public class Category {
     public void addProduct(int productID) {
         products.add(productID);
         if (parentCategoryID != -1) {
-            CategoryController.getinstance().getCategory(parentCategoryID).addProduct(productID);
+            Market.getCC().getCategory(parentCategoryID).addProduct(productID);
         }
     }
 
     public void removeProduct(int productID) {
         products.remove(productID);
         for (Integer categoryID : subCategories) {
-            CategoryController.getinstance().getCategory(categoryID).removeProduct(productID);
+            Market.getCC().getCategory(categoryID).removeProduct(productID);
         }
     }
 

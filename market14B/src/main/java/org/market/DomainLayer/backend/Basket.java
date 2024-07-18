@@ -1,6 +1,4 @@
 package org.market.DomainLayer.backend;
-
-import org.market.DomainLayer.backend.ProductPackage.ProductController;
 import org.market.DomainLayer.backend.UserPackage.UserController;
 
 import java.util.Map;
@@ -10,11 +8,14 @@ public class Basket {
     private String username;
     private int storeID;
     private Map<Integer, Integer> products; //-> <productId,quantity>
+    private Map<Integer, Double> prodOffer; //-> <productId,price>
+
 
     public Basket(String username, int storeID) {
         this.username = username;
         this.storeID = storeID;
         this.products = new ConcurrentHashMap<>();
+        this.prodOffer = new ConcurrentHashMap<>();
     }
 
     public String getUsername() {
@@ -57,7 +58,7 @@ public class Basket {
             for (Map.Entry<Integer, Integer> entry : products.entrySet()) {
                 Integer productId = entry.getKey();
                 Integer quantity = entry.getValue();
-                String name = ProductController.getInstance().getProductName(productId);
+                String name = Market.getPC().getProductName(productId);
                 output.append("  Product: ").append(name).append(", Quantity: ").append(quantity).append("\n");
             }
         }
@@ -70,7 +71,24 @@ public class Basket {
             UserController.LOGGER.info("item removed successfully");
             return "item removed successfully";
         }
+        else if (prodOffer.containsKey(product)) {
+            prodOffer.remove(product);
+        }
         UserController.LOGGER.severe("couldn't find item");
         return "couldn't find item";
     }
+
+    public void addOfferPrice(int productId, double price) {
+        prodOffer.put(productId,price);
+    }
+
+    public double getOfferPrice(int product) {
+        return prodOffer.get(product);
+    }
+
+    public Map<Integer, Double> getProdOffer() {
+        return prodOffer;
+    }
+
+    
 }

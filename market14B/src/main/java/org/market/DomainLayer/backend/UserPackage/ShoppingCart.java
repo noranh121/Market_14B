@@ -1,5 +1,10 @@
 package org.market.DomainLayer.backend.UserPackage;
 
+import org.market.DomainLayer.backend.Basket;
+import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.Purchase;
+import org.market.DomainLayer.backend.StorePackage.Store;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,14 +12,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import org.market.DataAccessLayer.DataController;
-import org.market.DomainLayer.backend.Basket;
-import org.market.DomainLayer.backend.Market;
-import org.market.DomainLayer.backend.Purchase;
-import org.market.DomainLayer.backend.PurchaseHistory;
-import org.market.DomainLayer.backend.StorePackage.Store;
-import org.market.DomainLayer.backend.StorePackage.StoreController;
 
 public class ShoppingCart {
     private List<Basket> baskets;
@@ -44,6 +41,12 @@ public class ShoppingCart {
         UserController.LOGGER.info("added to cart");
     }
 
+    public void addToCartOffer(String username, Integer product,double price, int storeId) throws Exception {
+        Basket basket = getBasket(username, storeId);
+        basket.addOfferPrice(product, price);
+        UserController.LOGGER.info("added to cart");
+    }
+
     public Basket getBasket(String username, int storeId) {
         for (Basket basket : baskets) {
             if (basket.getStoreID() == storeId) {
@@ -56,17 +59,17 @@ public class ShoppingCart {
     }
 
     public String inspectCart(String username) {
-        if (baskets.isEmpty()) {
-            List<org.market.DataAccessLayer.Entity.Basket> basketsEntities = DataController.getinstance().inspectCart(username);
-            if (basketsEntities.isEmpty()) {
-                UserController.LOGGER.info("Your shopping cart is empty.");
-                return "<Empty>";
-            }
-            for (org.market.DataAccessLayer.Entity.Basket basket: basketsEntities) {
-                Basket b = new Basket(username, basket.getStoreID().getStoreID());
-                baskets.add(b);
-            }
-        }
+//        if (baskets.isEmpty()) {
+//            List<org.market.DataAccessLayer.Entity.Basket> basketsEntities = DataController.getinstance().inspectCart(username);
+//            if (basketsEntities.isEmpty()) {
+//                UserController.LOGGER.info("Your shopping cart is empty.");
+//                return "<Empty>";
+//            }
+//            for (org.market.DataAccessLayer.Entity.Basket basket: basketsEntities) {
+//                Basket b = new Basket(username, basket.getStoreID().getStoreID());
+//                baskets.add(b);
+//            }
+//        }
         StringBuilder output = new StringBuilder();
         for (Basket basket : baskets) {
             output.append(basket.inspectBasket());
@@ -86,11 +89,11 @@ public class ShoppingCart {
 
     public double Buy(String username) throws Exception {
         double sum = 0;
-        StoreController storeController = StoreController.getInstance();
+        //StoreController storeController = StoreController.getInstance();
         Store store;
 
         for (Basket basket : baskets) {
-            store = storeController.getStore(basket.getStoreID());
+            store = Market.getSC().getStore(basket.getStoreID());
             if (store.check(basket.getProducts())) { // policies
                 sum += processBasket(basket, store, username);
             }
@@ -104,6 +107,7 @@ public class ShoppingCart {
         // cancelPurchase();
         //}
         UserController.LOGGER.info("Your purchase was successful");
+        Market.getIND().send(username,"Your purchase was successful");
         return sum;
     }
 
@@ -111,40 +115,46 @@ public class ShoppingCart {
 
     private double processBasket(Basket basket, Store store, String username) throws Exception {
         double basketSum = 0;
-        PurchaseHistory purchaseHistory = PurchaseHistory.getInstance();
         Map<Integer, double[]> purchases = new ConcurrentHashMap<>(); // prodid ==> {quantity, price,weight}
         double[] qp;
         lock.lock();
         while(!store.getLock().tryLock()){
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
         }
         try{
             for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>
                 int productId = entry.getKey();
                 int quantity = entry.getValue();
-                double price = store.getProdPrice(productId);
+                double price;
+                if (basket.getProdOffer().containsKey(productId)) {
+                    price = basket.getOfferPrice(productId);
+                }
+                price = store.getProdPrice(productId);
                 double weight=store.getProdWeight(productId);
                 // basketSum += price * quantity;
                 store.subQuantity(productId, quantity);
                 qp = new double[]{quantity,price,weight};
                 purchases.put(productId, qp);
             }
+            
         }finally{
             lock.unlock();
             store.getLock().unlock();
         }
         // purchase after that discount
-        double age= UserController.getInstance().getUser(username).getAge();
+        double age= Market.getUC().getUser(username).getAge();
         if(store.purchase(purchases,age)){
             basketSum=store.calculateDiscount(purchases);
-            while(!Market.getInstance().getSystemManagersLock().tryLock()){
+            while(!Market.getSystemManagersLock().tryLock()){
                 Thread.sleep(1000);
             }
             try{
                 Purchase purchase = new Purchase(basket, basketSum, purchases);
-                purchaseHistory.addPurchase(basket.getStoreID(), username, purchase);
+                Market.getPH().addPurchase(basket.getStoreID(), username, purchase);
+                //id , list products ,  storeid , username ,
+                Market.getDC().addToPurchaseHistory(purchase.getID(), purchases, store.getId(), username, (int)basketSum);
             }finally{
-                Market.getInstance().getSystemManagersLock().unlock();
+                Market.getSystemManagersLock().unlock();
             }
             
         }
@@ -153,13 +163,14 @@ public class ShoppingCart {
             UserController.LOGGER.severe("purchase failed");
             throw new Exception("purchase failed");
         }
+        Market.getDC().updateQuantity(store);
         return basketSum;
     }
 
     private void cancelPurchase() throws Exception {
-        StoreController storeController = StoreController.getInstance();
+        //StoreController storeController = StoreController.getInstance();
         for (Basket basket : baskets) {
-            Store store = storeController.getStore(basket.getStoreID());
+            Store store = Market.getSC().getStore(basket.getStoreID());
             for (Map.Entry<Integer, Integer> entry : basket.getProducts().entrySet()) { // <prod,quan>
                 int productId = entry.getKey();
                 int quantity = entry.getValue();

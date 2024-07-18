@@ -2,8 +2,7 @@ package org.market.DomainLayer.backend.StorePackage.Purchase;
 
 import java.time.LocalDate;
 
-import org.market.DomainLayer.backend.Permissions;
-import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.market.DomainLayer.backend.Market;
 
 public class OfferMethod extends PurchaseMethodData implements PurchaseMethod {
 
@@ -18,12 +17,15 @@ public class OfferMethod extends PurchaseMethodData implements PurchaseMethod {
 
     @Override
     public Boolean purchase(int productId, int quantity, double price, double weight, double age) throws Exception {
-        if(this.price!=price){
-            double offer=Permissions.getInstance().reviewOffer(this.storeId,this.price,productId);
-            if(offer==this.price)
+        double offerPrice=Market.getUC().getUser(username).offerPrice(username,this.storeId,price,productId);
+        if(offerPrice!=price){
+            double offer=Market.getP().reviewOffer(this.storeId,offerPrice,productId);
+            if(offer==offerPrice){
+                Market.getSC().getStore(storeId).updateProductPrice(username,productId,offerPrice);
                 return true;
+            }
             else
-                return UserController.getInstance().reviewOffer(offer,this.username);
+                return Market.getUC().reviewOffer(offer,this.username);
         }
         else
             return true;

@@ -1,8 +1,10 @@
 package AcceptanceTest.Util;
 
+import org.market.DomainLayer.backend.Market;
+import org.springframework.context.ApplicationContext;
+
 public class Proxy implements Bridge{
     public Bridge real=new Real();
-
     @Override
     public void testSetMarketOnline(String username) throws Exception {
         real.testSetMarketOnline(username);
@@ -69,6 +71,61 @@ public class Proxy implements Bridge{
     }
 
     @Override
+    public double testProductDiscountPolicySuccess(String username) throws Exception {
+        return real.testProductDiscountPolicySuccess(username);
+    }
+
+    @Override
+    public double testANDDiscountPolicySuccess(String username) throws Exception {
+        return real.testANDDiscountPolicySuccess(username);
+    }
+
+    @Override
+    public double testORDiscountPolicySuccess(String username) throws Exception {
+        return real.testORDiscountPolicySuccess(username);
+    }
+
+    @Override
+    public double testXORDiscountPolicySuccess(String username) throws Exception {
+        return real.testXORDiscountPolicySuccess(username);
+    }
+
+    @Override
+    public double testProductPurchasePolicySuccess(String username) throws Exception {
+        return real.testProductPurchasePolicySuccess(username);
+    }
+
+    @Override
+    public double testANDProductPurchasePolicySuccess(String username) throws Exception {
+        return real.testANDProductPurchasePolicySuccess(username);
+    }
+
+    @Override
+    public double testANDProductPurchasePolicyFail(String username) throws Exception {
+        return real.testANDProductPurchasePolicyFail(username);
+    }
+
+    @Override
+    public double testORProductPurchasePolicySuccess(String username) throws Exception {
+        return real.testORProductPurchasePolicySuccess(username);
+    }
+
+    @Override
+    public double testORProductPurchasePolicyFail(String username) throws Exception {
+        return real.testORProductPurchasePolicyFail(username);
+    }
+
+    @Override
+    public double testComplexDiscountPolicySuccess(String username) throws Exception {
+        return real.testComplexDiscountPolicySuccess(username);
+    }
+
+    @Override
+    public double testComplexPurchasePolicySuccess(String username) throws Exception {
+        return real.testComplexPurchasePolicySuccess(username);
+    }
+
+    @Override
     public String testLogout(String username) {
         return real.testLogout(username);
     }
@@ -115,12 +172,22 @@ public class Proxy implements Bridge{
     }
 
     @Override
-    public String testCloseStore(int storeId, String username) {
+    public String testCloseStore(int storeId, String username) throws Exception {
         return real.testCloseStore(storeId, username);
     }
 
     @Override
     public String testViewSystemPurchaseHistory(String username) throws Exception {
         return real.testViewSystemPurchaseHistory(username);
+    }
+
+    @Override
+    public double testUseCase1() throws Exception {
+        return real.testUseCase1();
+    }
+
+    @Override
+    public String testUseCase2() throws Exception {
+        return real.testUseCase2();
     }
 }

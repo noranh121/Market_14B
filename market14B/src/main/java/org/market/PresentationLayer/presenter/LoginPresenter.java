@@ -1,10 +1,12 @@
 package org.market.PresentationLayer.presenter;
 
 import com.vaadin.flow.server.VaadinSession;
+import org.market.PresentationLayer.handlers.ErrorHandler;
+import org.market.PresentationLayer.handlers.PermissionHandler;
 import org.market.PresentationLayer.models.AuthResponse;
 import org.market.PresentationLayer.views.LoginView;
 import org.market.Web.Requests.ReqUser;
-import org.springframework.http.HttpHeaders;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 public class LoginPresenter {
@@ -28,9 +30,12 @@ public class LoginPresenter {
 
         if (validateInput(username, password)) {
             try {
+                String guest = (String) VaadinSession.getCurrent().getAttribute("guest-user");
+
                 ReqUser authRequest = new ReqUser();
                 authRequest.setUsername(username);
                 authRequest.setPassword(password);
+                authRequest.setGuest(guest);
                 String loginUrl = "http://localhost:8080/api/users/login";
 
                 AuthResponse response = restTemplate.postForObject(loginUrl, authRequest, AuthResponse.class);
@@ -44,24 +49,26 @@ public class LoginPresenter {
                 System.out.println(response.getAccess_token());
                 System.out.println(response.getRefresh_token());
 
-                view.showSuccessNotification("Successful Login");
+                ErrorHandler.showSuccessNotification("Successful Login");
+
+                VaadinSession.getCurrent().setAttribute("guest-user", null);
+                VaadinSession.getCurrent().setAttribute("isManager", response.isManager());
+
+                // load user permissions
+                PermissionHandler.loadPermissions();
+
                 view.NavigateToHomepage();
                 
-            } catch (Exception e) {
-                view.showErrorNotification(e.getMessage());
+            } catch (HttpClientErrorException e) {
+                ErrorHandler.handleError(e, ()->{});
+                view.enableLogin();
             }
         } else {
-            view.showErrorNotification("Incorrect Username or Password!");
+            ErrorHandler.showErrorNotification("Incorrect Username or Password!");
         }
     }
 
     private boolean validateInput(String username, String password) {
         return username != null && !username.isEmpty() && password != null && !password.isEmpty();
-    }
-
-    private HttpHeaders createAuthHeader(String token) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(token);
-        return headers;
     }
 }

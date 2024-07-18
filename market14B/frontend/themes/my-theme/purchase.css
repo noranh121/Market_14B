@@ -1,0 +1,65 @@
+.purchase-view {
+    overflow-y: auto;
+    scrollbar-width: thin; /* Thin scrollbar (supported in Firefox) */
+    scrollbar-color: #999999 #f0f0f0; /* Scrollbar track and thumb colors */
+    max-height: 80vh; /* Adjust based on your layout */
+    padding: 10px;
+}
+
+
+.purchase-separator {
+    width: 100%;
+    border: none;
+    height: 1px;
+    background-color: #dcdcdc;
+    margin-bottom: 10px;
+}
+
+.purchase-top-bar {
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #f8f8f8;
+    padding: 15px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.delete-purchase-btn {
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    background: #ff6666;
+    color: white;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.delete-purchase-btn:hover {
+    background-color: #ff4d4d;
+    color: #ffffff;
+}
+
+.purchase-item-layout {
+    background-color: #f1f1f5;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.purchase-item-layout:hover {
+    background-color: #e0e0eb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.purchase-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}

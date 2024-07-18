@@ -1,17 +1,39 @@
 package UnitTest;
+import org.market.Application;
+import org.market.DataAccessLayer.Entity.Store;
 import org.market.DomainLayer.backend.Market;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+
+import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+
+@SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
 public class MarketUnitTest {
+    @Autowired
+    private ApplicationContext context;
     Market market;
     @BeforeEach
     public void setUp() {
-        market=Market.getInstance();
+        //Market.getDC().clearAll();
+        market=(Market) context.getBean(Market.class);
+        org.market.DataAccessLayer.Entity.Market dataMarket=new org.market.DataAccessLayer.Entity.Market(0,true,new ArrayList<>());
+        Market.getDC().getMarketRepository().save(dataMarket);
     }
 
     @AfterEach
     void tearDown() {
-        market.setToNull();
+        market.clear();
+        Market.getDC().clearAll();
     }
     @Test
     public void testSetMarketOnlineSuccess() throws Exception {
@@ -19,6 +41,7 @@ public class MarketUnitTest {
         market.getSystemManagers().add(systemManager);
         market.setMarketOnline(systemManager);
         assertTrue(market.getOnline());
+        assertTrue(Market.getDC().getOnline());
     }
 
     @Test
@@ -30,6 +53,7 @@ public class MarketUnitTest {
             market.setMarketOnline(nonSystemManager);
         });
         assertEquals("only system managers can change market's activity", exception.getMessage());
+        assertTrue(Market.getDC().getOnline());
     }
 
     @Test
@@ -38,6 +62,7 @@ public class MarketUnitTest {
         market.getSystemManagers().add(systemManager);
         market.setMarketOFFLINE(systemManager);
         assertFalse(market.getOnline());
+        assertFalse(Market.getDC().getOnline());
     }
 
     @Test
@@ -55,8 +80,11 @@ public class MarketUnitTest {
     public void testInitStore() {
         try {
             market.Register("ali","123",18);
-            String result = market.initStore("ali", "Store Description");
+            String result = market.initStore("ali", "stroe name","Store Description");
             assertEquals("store added successfully", result);
+            Store s=Market.getDC().getStore(0);
+            assertEquals(s.getStoreID(), 0);
+            assertEquals(s.getName(),"store name");
         } catch (Exception e) {
             fail("Exception thrown: " + e.getMessage());
         }
@@ -72,6 +100,8 @@ public class MarketUnitTest {
             market.Register("ali", "123", 18);
             String result=market.suspendUser("admin", "ali");
             assertEquals("suspended successfully", result);
+            boolean ans=Market.getDC().getUserRepository().findById("ali").get().getSuspended();
+            assertTrue(ans);
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
         }
@@ -89,6 +119,7 @@ public class MarketUnitTest {
             fail();
         }catch(Exception e){
             assertEquals(e.getMessage(),"bob not a system manager");
+            assertNull(Market.getDC().getUserRepository().findById("ali").get().getSuspended());
         }
     }
 
@@ -119,6 +150,7 @@ public class MarketUnitTest {
             fail();
         }catch(Exception e){
             assertEquals(e.getMessage(),"bob not a system manager");
+            assertNull(Market.getDC().getUserRepository().findById("ali").get().getSuspended());
         }
     }
 
@@ -133,6 +165,7 @@ public class MarketUnitTest {
             market.suspendUser("admin", "ali");
             String result=market.resumeUser(systemManager, "ali");
             assertEquals(result, "ali unsuspended");
+            assertFalse(Market.getDC().getUserRepository().findById("ali").get().getSuspended());
         }catch(Exception e){
             fail(("Exception thrown: " + e.getMessage()));
         }

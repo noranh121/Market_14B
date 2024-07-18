@@ -1,5 +1,8 @@
 package org.market.DomainLayer.backend.ProductPackage;
 
+import org.market.DomainLayer.backend.Market;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -8,6 +11,10 @@ public class Inventory {
     public static final int PRICE = 1;
     public static final int WEIGHT = 2;
     private Map<Integer, double[]> products; // prodiD ==> {quant,price}
+
+    public Map<Integer, double[]> getProducts() {
+        return products;
+    }
 
     public Inventory() {
         this.products = new ConcurrentHashMap<>();
@@ -76,5 +83,19 @@ public class Inventory {
                     .append(", Price: $").append(price).append("\n");
         }
         return description.toString();
+    }
+
+    public Map<Product, Double> gatherProds() {
+        Map<Product, Double> map = new HashMap<>();
+        for(Map.Entry<Integer, double[]> entry: products.entrySet()){
+            Product p = Market.getPC().getProductbyID(entry.getKey());
+            double price = entry.getValue()[1];
+            map.put(p, price);
+        }
+        return map;
+    }
+
+    public void updateProductPrice(int productId, double offerPrice) {
+        products.get(productId)[1]=offerPrice;
     }
 }

@@ -1,50 +1,77 @@
 package org.market.DataAccessLayer.Entity;
 
-import javax.persistence.*;
+// import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.*;
+
 
 @Entity
-@Table(name="Basket",catalog = "Market")
-@IdClass(BasketId.class)
+//@Table(name="Basket",catalog = "Market")
+@Table(name = "Basket")
+//@IdClass(BasketId.class)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Basket implements java.io.Serializable{
 
-    @Id
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user",referencedColumnName = "username")
-    private User username; //this should maybe be the object itself (User user)
+    // @Id
+    // @ManyToOne(fetch=FetchType.LAZY)
+    // @JoinColumn(name="user",referencedColumnName = "username")
+    // //private User username; //this should maybe be the object itself (User user)
 
-    @Id
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="store",referencedColumnName = "storeID")
-    private Store storeID;
+    // @Id
+    // @ManyToOne(fetch=FetchType.LAZY)
+    // @JoinColumn(name="store",referencedColumnName = "storeID")
+    // private Store storeID;
+    @EmbeddedId
+    private BasketId basketId;
+
 
     @Column(name = "products")
-    private List<ProductEntity> products = new ArrayList<>(); //<product,quantity>
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ProductBasket> products = new ArrayList<>(); //<product,quantity>
 
-    public User getUsername() {
-        return username;
+    public BasketId getBasketId() {
+        return basketId;
+    }
+
+    public void setBasketId(BasketId basketId) {
+        this.basketId = basketId;
+    }
+
+    public String getUsername() {
+        return basketId.getUsername();
     }
 
     public void setUsername(User username) {
-        this.username = username;
+        if (this.basketId==null) {
+            this.basketId=new BasketId();
+        }
+        this.basketId.setUsername(username);
     }
 
-    public Store getStoreID() {
-        return storeID;
+    public Integer getStoreID() {
+        return basketId.getStoreID();
     }
 
     public void setStoreID(Store storeID) {
-        this.storeID = storeID;
+        if (this.basketId==null) {
+            this.basketId=new BasketId();
+        }
+        this.basketId.setStoreID(storeID);
     }
 
-    public List<ProductEntity> getProducts() {
+    public List<ProductBasket> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductEntity> products) {
+    public void setProducts(List<ProductBasket> products) {
         this.products = products;
     }
 
@@ -52,8 +79,8 @@ public class Basket implements java.io.Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Basket basket = (Basket) o;
-        return Objects.equals(username, basket.username) &&
-                Objects.equals(storeID, basket.storeID);
+        return Objects.equals(basketId.getUsername() , basket.getUsername()) &&
+                Objects.equals(basketId.getStoreID(), basket.getStoreID());
     }
 
 }

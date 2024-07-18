@@ -1,10 +1,16 @@
 package org.market.DataAccessLayer.Entity;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="User",catalog = "Market")
+@Table(name="Users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements java.io.Serializable{
 
     @Id
@@ -17,14 +23,16 @@ public class User implements java.io.Serializable{
     @Column(name="age")
     private double age;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "User")
-    private List<Basket> baskets;
-
+    @OneToMany(mappedBy = "basketId.username" ,cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Basket> baskets ;
     @Column(name="LoggedIn")
     private Boolean LoggedIn;
 
     @Column(name="suspended")
     private Boolean suspended;
+
+    @Column(name = "systemManager")
+    private Boolean flag;
     
     public Boolean getSuspended() {
         return suspended;
@@ -65,5 +73,12 @@ public class User implements java.io.Serializable{
     public void setBaskets(List<Basket> baskets) {
         this.baskets = baskets;
     }
+    public Boolean getFlag() {
+        return flag;
+    }
+    public void setFlag(Boolean flag) {
+        this.flag = flag;
+    }
+    
 
 }

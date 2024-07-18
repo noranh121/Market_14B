@@ -1,5 +1,9 @@
 package org.market.DomainLayer.backend.ProductPackage;
 
+import org.market.DataAccessLayer.DataController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -7,30 +11,26 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import org.market.DataAccessLayer.DataController;
 
-
-
+@Component("BackendProductController")
 public class ProductController {
     private static final Logger LOGGER = Logger.getLogger(ProductController.class.getName());
 
-    private static ProductController instance;
+   @Autowired
+   private DataController dataController;
 
     private Map<Integer, Product> products;
     private int idCounter;
 
-    public static synchronized ProductController getInstance() {
-        if (instance == null) {
-            instance = new ProductController();
-        }
-        return instance;
+    public void setIdCounter(int idCounter) {
+        this.idCounter = idCounter;
     }
 
     private ProductController() {
         products = new ConcurrentHashMap<>();
     }
 
-    public synchronized String addProduct(String name, Category category, String description, String brand,double weight) throws Exception {
+    public synchronized int addProduct(String name, Category category, String description, String brand,double weight) throws Exception {
         for(Product product : products.values()){
             if(product.getName().equals(name)){
                 LOGGER.severe("product already exits in the system");
@@ -42,14 +42,53 @@ public class ProductController {
         prod.setId(id);
         category.addProduct(prod.getId());
         products.put(prod.getId(), prod);
-        DataController.getinstance().initProduct(name, id,category.getId(), description, brand, weight);
+        dataController.initProduct(name, id,category.getId(), description, brand, weight);
         LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system");
-        return "Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system";
+        return id;
+    }
+
+    public synchronized int loudProduct(int id,String name, Category category, String description, String brand,double weight) throws Exception {
+        for(Product product : products.values()){
+            if(product.getName().equals(name)){
+                LOGGER.severe("product already exits in the system");
+                throw new Exception("product already exits in the system");
+            }
+        }
+        Product prod = new Product(name, description, brand, category,weight);
+        //int id = idCounter++;
+        prod.setId(id);
+        category.addProduct(prod.getId());
+        products.put(prod.getId(), prod);
+        // dataController.initProduct(name, id,category.getId(), description, brand, weight);
+        // LOGGER.info("Product of ID " + prod.getId() + " ,Name: " + prod.getName() + " Added succeffuly to the system");
+        return id;
+    }
+
+    public synchronized int loadProduct(String name, Category category, String description, String brand,double weight) throws Exception {
+        for(Product product : products.values()){
+            if(product.getName().equals(name)){
+                LOGGER.severe("product already exits in the system");
+                throw new Exception("product already exits in the system");
+            }
+        }
+        Product prod = new Product(name, description, brand, category,weight);
+        int id = idCounter++;
+        prod.setId(id);
+        category.addProduct(prod.getId());
+        products.put(prod.getId(), prod);
+        return id;
     }
 
     // private boolean contains(String name, Category category) {
         
     // }
+
+
+    //this is for tesing
+    public void clear(){
+        products.clear();
+        idCounter=0;
+    }
 
     public synchronized String removeProduct(int productID) throws Exception {
         if (products.containsKey(productID)) {
@@ -90,6 +129,7 @@ public class ProductController {
     }
 
     public Collection<Product> getProducts(){
+        //needs to connect to data, getprod(id){checks map then gets from database if needed}
         return this.products.values();
     }
 
@@ -98,6 +138,11 @@ public class ProductController {
                 .map(products::get)
                 .filter(product -> product != null)
                 .collect(Collectors.toList());
+    }
+
+    public Product getProductbyID(int prodId){
+        //should check if exists and if not check if exists in database and retrive it
+        return products.get(prodId);
     }
 
 }

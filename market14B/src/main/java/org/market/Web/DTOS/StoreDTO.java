@@ -6,6 +6,9 @@ public class StoreDTO {
     private int id;
     private String name;
     private String description;
+    private boolean isActive;
+    private String firstOwner;
+
 
 
     public int getId() {
@@ -34,10 +37,19 @@ public class StoreDTO {
 
     public StoreDTO(Store store){
         this.id = store.getId();
-        this.name = store.getFirstOwnerName() + "'s Store";
+        this.name = store.getName();
         this.description = store.getDescription();
+        this.isActive = store.isActive();
+        this.firstOwner = store.getFirstOwnerName();
     }
 
     public StoreDTO(){}
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }

@@ -4,25 +4,47 @@ import java.io.Serializable;
 
 import jakarta.persistence.*;
 
+// import javax.persistence.*;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductEntity implements Serializable{
 
-    @Id
-    @JoinColumn(name="productID",referencedColumnName = "productID")
-    private Product productID;
+    // @Id
+    // @JoinColumn(name="productID",referencedColumnName = "productID")
+    // private Integer productID;
+    @EmbeddedId
+    private ProductEntityId inventoryProductId;
 
     @Column(name="price")
     private double price;
 
     @Column(name="quantity")
-    private double quantity;
+    private int quantity;
 
-    public Product getProductID() {
-        return productID;
+    public Integer getProductID() {
+        return inventoryProductId.getProductID();
     }
 
-    public void setProductID(Product productID) {
-        this.productID = productID;
+    public void setProductID(Integer productID) {
+        if(inventoryProductId==null){
+            this.inventoryProductId=new ProductEntityId();
+        }
+        this.inventoryProductId.setProductID(productID);
+    }
+
+    public Integer getInventoryID() {
+        return this.inventoryProductId.getInventoryID();
+    }
+    public void setInventoryID(Integer inventoryID) {
+        if(inventoryProductId==null){
+            this.inventoryProductId=new ProductEntityId();
+        }
+        this.inventoryProductId.setInventoryID(inventoryID);
     }
 
     public double getPrice() {
@@ -33,11 +55,11 @@ public class ProductEntity implements Serializable{
         this.price = price;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

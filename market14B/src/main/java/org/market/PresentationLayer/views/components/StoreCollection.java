@@ -1,7 +1,6 @@
 package org.market.PresentationLayer.views.components;
 
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import org.market.PresentationLayer.presenter.StoreCard;
 import org.market.PresentationLayer.presenter.StoreCollectionPresenter;
 import org.market.Web.DTOS.StoreDTO;
 

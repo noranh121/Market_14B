@@ -1,5 +1,9 @@
 package org.market.DomainLayer.backend;
 
+import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,13 +12,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.market.DomainLayer.backend.StorePackage.StoreController;
-import org.market.DomainLayer.backend.UserPackage.UserController;
-
+@Component
 public class PurchaseHistory {
 
     private static PurchaseHistory instance;
     private static int counterID;
+
+    public static void setCounterID(int counterID) {
+        PurchaseHistory.counterID = counterID;
+    }
 
     private Map<Integer, List<Purchase>> storeHistory; // storeid ==> purchases
     private Map<String, List<Purchase>> userHistory; // userid ==> purchases
@@ -35,12 +41,39 @@ public class PurchaseHistory {
         return instance;
     }
 
+    //this is for testing
+    public void clear(){
+        storeHistory.clear();
+        userHistory.clear();
+        allPurchases.clear();
+        counterID=0;
+    }
+
     // id's should be checked in an earlier stage
     public synchronized void addPurchase(int storeId, String userId, Purchase purchase) {
         purchaseHistoryLock.lock();
         try{
                 // Add to all history
             purchase.setID(counterID++);
+            allPurchases.put(purchase.getID(), purchase);
+
+            // Add to store history
+            storeHistory.computeIfAbsent(storeId, k -> Collections.synchronizedList(new ArrayList<>())).add(purchase);
+            StoreController.LOGGER.info("Added purchase to store history: Store ID " + storeId);
+
+            // Add to user history
+            userHistory.computeIfAbsent(userId, k -> Collections.synchronizedList(new ArrayList<>())).add(purchase);
+            UserController.LOGGER.info("Added purchase to user history: User ID " + userId);
+        }finally{
+            purchaseHistoryLock.unlock();
+        }
+        
+    }
+    public synchronized void loadaddPurchase(int id ,int storeId, String userId, Purchase purchase) {
+        purchaseHistoryLock.lock();
+        try{
+                // Add to all history
+            purchase.setID(id);
             allPurchases.put(purchase.getID(), purchase);
 
             // Add to store history
@@ -76,10 +109,9 @@ public class PurchaseHistory {
         try{
             UserController.LOGGER.info("userId: " + userId);
             return userHistory.getOrDefault(userId, Collections.synchronizedList(new ArrayList<>()));
-        }finally{
+        }finally {
             purchaseHistoryLock.unlock();
         }
-        
     }
 
     public synchronized String removePurchaseFromStore(int storeId, int purchaseId) throws Exception {

@@ -1,0 +1,64 @@
+.manager-settings-view {
+    width: 100%;
+    padding: 10px;
+    overflow-y: scroll;
+    scrollbar-width: thin; /* Thin scrollbar (supported in Firefox) */
+    scrollbar-color: #999999 #f0f0f0; /* Scrollbar track and thumb colors */
+}
+
+.manager-settings-top-bar {
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 10px;
+
+}
+
+.manager-settings-main-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.manager-settings-role-section, .manager-settings-permission-section {
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.manager-settings-role-section {
+    width: 45%;
+}
+
+.manager-settings-permission-section {
+    width: 50%;
+    height: 400px;
+    overflow-y: auto;
+}
+
+
+.manager-setting-role-layout{
+    display: flex;
+    flex-flow: row;
+    align-items: flex-end;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.manager-setting-btn-layout{
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+}
+
+
+.manager-setting-btn{
+    border: solid;
+    border-radius: 6px;
+    background: transparent;
+}

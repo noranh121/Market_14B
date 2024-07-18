@@ -1,0 +1,19 @@
+vaadin-text-field,
+vaadin-combo-box,
+vaadin-number-field {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+vaadin-button {
+    margin-top: 20px;
+}
+
+.payment-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+}

@@ -1,11 +1,26 @@
 package UnitTest;
+import org.market.Application;
+import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.ProductPackage.Category;
 import org.market.DomainLayer.backend.ProductPackage.Product;
 import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+
+import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.checkerframework.checker.units.qual.t;
+
+
+@SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
+//@Transactional
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class StoreUnitTest {
     private StoreController storeController ;
     Store s1;
@@ -16,9 +31,9 @@ public class StoreUnitTest {
     Category c2;
     @BeforeEach
     public void setUp() {
-        storeController = StoreController.getInstance();
-        s1=new Store("store1","decs1",0);
-        s2=new Store("store2","decs2",1);
+        storeController = Market.getSC();
+        s1=new Store("ali","store1","decs1",0);
+        s2=new Store("ali","store2","decs2",1);
         c1=new Category(0,"c1");
         c2=new Category(1,"c2");
         p1=new Product("product1","desc1","brand1",c1,5);
@@ -27,7 +42,7 @@ public class StoreUnitTest {
 
     @AfterEach
     void tearDown(){
-        storeController.setToNull();
+        storeController.clear();
     }
 
     @Test
@@ -147,34 +162,51 @@ public class StoreUnitTest {
 
     @Test
     public void testCloseStoreSuccess() {
+        try{
         storeController.GetStores().put(s1.getId(), s1);
+        storeController.GetStores().get(s1.getId()).OpenStore();
         String result = storeController.closeStore(s1.getId());
         assertEquals("Store Closed Successfuly", result);
         assertFalse(s1.isActive());
+        }catch(Exception ex){
+            fail(ex.getMessage());
+        }
     }
 
     @Test
     public void testCloseStoreFail() {
+        try{
         storeController.GetStores().put(s1.getId(), s1);
         String result = storeController.closeStore(5);
         assertEquals(storeController.GetStores().size() ,1);
         assertEquals(storeController.GetStores().get(s1.getId()).isActive(),false);
+        }catch(Exception ex){
+            fail(ex.getMessage());
+        }
     }
 
     @Test
     public void testOpenStoreSuccess() {
+        try{
         storeController.GetStores().put(s1.getId(), s1);
         String result = storeController.openStore(s1.getId());
         assertEquals("Store Opened Successfuly", result);
         assertTrue(s1.isActive());
+        }catch(Exception ex){
+            fail(ex.getMessage());
+        }
     }
 
     @Test
     public void testOpenStoreFail() {
+        try{
         storeController.GetStores().put(s1.getId(), s1);
         String result = storeController.openStore(5);
         assertEquals(storeController.GetStores().size() ,1);
         assertEquals(storeController.GetStores().get(s1.getId()).isActive(),false );
+        }catch(Exception ex){
+            fail(ex.getMessage());
+        }
     }
 
     @Test

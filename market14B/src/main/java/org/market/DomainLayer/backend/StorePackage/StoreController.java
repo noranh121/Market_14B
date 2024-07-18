@@ -1,5 +1,13 @@
 package org.market.DomainLayer.backend.StorePackage;
 
+import org.market.DomainLayer.backend.ProductPackage.Product;
+import org.market.DomainLayer.backend.StorePackage.Purchase.Offer;
+import org.market.Web.DTOS.OfferDTO;
+import org.market.Web.DTOS.ProductDTO;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.FileHandler;
@@ -7,21 +15,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-import org.market.DataAccessLayer.DataController;
-
+@Component("BackendStoreController")
 public class StoreController {
-    private static StoreController instance;
+    //private static StoreController instance;
+//    @Autowired
+//    private DataController dataController;
     public static final Logger LOGGER = Logger.getLogger(StoreController.class.getName());
 
     private Map<Integer, Store> stores;
     private int idCounter;
 
-    public static synchronized StoreController getInstance() {
-        if (instance == null) {
-            instance = new StoreController();
-        }
-        return instance;
-    }
 
     private StoreController() {
         idCounter = 0;
@@ -41,9 +44,9 @@ public class StoreController {
         if (!stores.containsKey(storeID)) {
             // check and get from dataBase
             // if exists add Store to Map and return Store;
-            org.market.DataAccessLayer.Entity.Store storeEntity = DataController.getinstance().getStore(storeID);
-            Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
-            stores.put(storeEntity.getStoreID(),store);
+//            org.market.DataAccessLayer.Entity.Store storeEntity = dataController.getStore(storeID);
+//            Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
+//            stores.put(storeEntity.getStoreID(),store);
             // else:
             LOGGER.severe("Trying to retrieve A non existing StoreID");
             return null;
@@ -51,14 +54,27 @@ public class StoreController {
         return stores.get(storeID);
     }
 
-    public String addStore(String name, String Description) {
+    public String addStore(String username, String name, String Description) {
         // add to database
-        Store store = new Store(name, Description, idCounter);
+        Store store = new Store(name, name, Description, idCounter);
         stores.put(idCounter, store);
         idCounter++;
         LOGGER.info("store added");
         return "store added";
 
+    }
+
+    public String loudStore(Integer id, String username, String name, String Description) {
+        // add to database
+        Store store = new Store(name, name, Description, idCounter);
+        stores.put(id, store);
+        LOGGER.info("store added");
+        return "store added";
+
+    }
+
+    public void setCounterID(Integer id){
+        idCounter=id;
     }
 
     public String removeStore(int id) throws Exception {
@@ -123,22 +139,28 @@ public class StoreController {
         return "Product's Quantity Modified in store Successfully";
     }
 
-    public String closeStore(int storeId) {
+    public String closeStore(int storeId) throws Exception {
         // checkStore(storeID)
         LOGGER.info("storeId: " + storeId);
         Store store = getStore(storeId);
         if (store != null) {
+            if(!store.isActive()){
+                throw new Exception("Store is already closed.");
+            }
             store.CloseStore();
             LOGGER.info("Store Closed Successfuly");
         }
         return "Store Closed Successfuly";
     }
 
-    public String openStore(int storeId) {
+    public String openStore(int storeId) throws Exception {
         // checkStore(storeID)
         LOGGER.info("storeId: " + storeId);
         Store store = getStore(storeId);
         if (store != null) {
+            if(store.isActive()){
+                throw new Exception("Store is already opened.");
+            }
             store.OpenStore();
             LOGGER.info("Store Opened Successfuly");
         }
@@ -168,10 +190,10 @@ public class StoreController {
         return "No such store!";
     }
 
-    public int initStore(String userName, String Description) {
+    public int initStore(String userName, String name, String Description) {
         LOGGER.info("userName: " + userName + ", Description: " + Description);
         int id = idCounter;
-        Store newStore = new Store(userName, userName, idCounter);
+        Store newStore = new Store(userName, name, Description, idCounter);
         stores.put(id, newStore);
         // database
         idCounter++;
@@ -185,9 +207,86 @@ public class StoreController {
     }
 
     // this is for testing
-    public void setToNull() {
-        instance = null;
+    public void clear() {
+        //instance = null;
         stores.clear();
+        idCounter=0;
     }
 
+//    public List<Store> getAllStores() {
+//        List<org.market.DataAccessLayer.Entity.Store> dalstrs =  DataController.getinstance().getAllStores();
+//        List<Store> storesToReturn = new ArrayList<>();
+//        for(org.market.DataAccessLayer.Entity.Store storeEntity: dalstrs){
+//            Store store = new Store(storeEntity.getName(),storeEntity.getDesciption(),storeEntity.getStoreID());
+//            storesToReturn.add(store);
+//        }
+//        return storesToReturn;
+//    }
+
+    public List<Store> getAllStores() {
+        return new ArrayList<Store>(stores.values());
+    }
+
+    public double [] getProdInfo(int prodid){
+        for(Store s: stores.values()){
+            double [] info = s.bring(prodid);
+            if(info[0] != -1) return info;
+        }
+        return new double[]{-1, -1};
+    }
+
+    public double [] getProdInfo(int prodid, int storeid){
+        for(Store s: stores.values()){
+            if(s.getId() == storeid){
+                double [] info = s.bring(prodid);
+                if(info[0] != -1) return info;
+            }
+        }
+        return new double[]{-1, -1};
+    }
+
+    public List<ProductDTO> getStoreProducts(int store_id) {
+        if(stores.containsKey(store_id)){
+            return stores.get(store_id).bringProds();
+        }
+        return new ArrayList<>();
+    }
+
+    public List<OfferDTO> getStoreOffers(int storeId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).bringOffers();
+        }
+        return new ArrayList<>();
+    }
+
+    public String sendOffer(int productId, String productName ,String username, Double price, Double offerPrice, int storeId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).sendOffer(productId, productName ,username, price, offerPrice);
+        }
+        return "No such store!";
+    }
+
+    public int approveOffer(int num , String username, int storeId, int productId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).approveOffer(num, username,productId);
+        }
+        return 0;
+    }
+
+    public int rejectOffer(int numOfStoreOwners, String username, int storeId, int productId) {
+        if(stores.containsKey(storeId)){
+            return stores.get(storeId).rejectOffer(numOfStoreOwners, username,productId);
+        }
+        return 0;
+    }
+
+    // public double [] getProdInfo(int prodid, int storeid){
+    //     for(Store s: stores.values()){
+    //         if(s.getId() == storeid){
+    //             double [] info = s.bring(prodid);
+    //             if(info[0] != -1) return info;
+    //         }
+    //     }
+    //     return new double[]{-1, -1};
+    // }
 }

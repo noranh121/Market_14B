@@ -18,4 +18,8 @@ public abstract class CompositePurchasePolicy {
 
     // products.entry = <productId,[quantity,price,weight]>
     public abstract Boolean purchase(Map<Integer, double[]> products, double age) throws Exception;
+
+    public abstract void addComposite(CompositePurchasePolicy compositePurchasePolicy,int id);
+
+    public abstract void removeComposite(int id);
 }

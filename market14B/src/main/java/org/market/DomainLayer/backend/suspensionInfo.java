@@ -16,11 +16,11 @@ public class suspensionInfo {
 
     public String toString() {
         if (durationInSeconds == 0) {
-            return "suspension startd at: " + start.toString() + '\n'
-                    + "supension is permanent";
+            return "suspension started at: " + start.toString() + " - "
+                    + "suspension is permanent";
         }
-        return "suspenstion startd at: " + start.toString() + '\n'
-                + "suspension ends at: " + end.toString() + '\n'
+        return "suspension started at: " + start.toString() + " - "
+                + "suspension ends at: " + end.toString() + " - "
                 + "duration is: " + durationInSeconds;
     }
 

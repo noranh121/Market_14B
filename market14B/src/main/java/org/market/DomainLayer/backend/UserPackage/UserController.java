@@ -1,7 +1,14 @@
 package org.market.DomainLayer.backend.UserPackage;
 
 import org.market.DomainLayer.backend.AuthenticatorPackage.Authenticator;
+import org.market.DomainLayer.backend.Market;
+import org.market.DomainLayer.backend.Permissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.FileHandler;
@@ -9,15 +16,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+@Component("BackendUserController")
 public class UserController {
     public static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
-    private static UserController instance;
 
-    public static synchronized UserController getInstance() {
-        if (instance == null)
-            instance= new UserController();
-        return instance;
-    }
+    @Lazy
+    @Autowired
+    private Permissions permissions;
+    public static List<String[]> notfications=new ArrayList<String[]>();
+
 
     private UserController() {
         try {
@@ -34,10 +41,18 @@ public class UserController {
     private int idCounter = 0;
     private Map<String, User> RegUserMap = new ConcurrentHashMap<>();
 
+    //this is for testing
+    public void clear(){
+        GuestMap.clear();
+        RegUserMap.clear();
+        idCounter=0;
+        notfications.clear();
+    }
+
     // Guest
     public String EnterAsGuest(double age) throws Exception {
         User guest = new GuestUser(idCounter,age);
-        idCounter++; 
+        idCounter++;
         return addToGuestMap(guest);
     }
 
@@ -45,7 +60,7 @@ public class UserController {
         GuestMap.put(guest.getUsername(), guest);
         guest.setLoggedIn(true);
         LOGGER.info("guest user added successfully");
-        return "guest user added successfully";
+        return guest.getUsername();
     }
 
     public String GuestExit(String username) throws Exception {
@@ -54,6 +69,7 @@ public class UserController {
             LOGGER.severe("guest user cannot be deleted");
             throw new Exception("guest user cannot be deleted");
         }
+
         LOGGER.info("guest existed successfully");
         return "guest existed successfully";
     }
@@ -64,8 +80,14 @@ public class UserController {
         if (user == null || !authenticate(username, password)) {
             LOGGER.severe("username or password are incorrect");
             throw new Exception("username or password are incorrect");
-        } else {
+        }
+        else if(user.isLoggedIn()){
+            LOGGER.severe("Failed to login");
+            throw new Exception("Failed to login");
+        }
+        else {
             LOGGER.info("logged in successfully");
+            user.setLoggedIn(true);
             GuestExit(guest);
             return "logged in successfully";
         }
@@ -83,15 +105,21 @@ public class UserController {
     }
 
     // Registered user
-    private String addToRegUserMap(User reg) throws Exception {
+    private String addToRegUserMap(User reg,String newPass) throws Exception {
         RegUserMap.put(reg.getUsername(), reg);
-        return "guest user added successfully";
+        Market.getDC().Register(reg.getUsername(), newPass,reg.getAge());
+        return "User registered successfully";
     }
 
     public String Logout(String username) throws Exception {
         // save data - DATA SERVICE
         RegUserMap.get(username).setLoggedIn(false);
         return EnterAsGuest(RegUserMap.get(username).getAge());
+    }
+
+    public void loudUser(String username, String password,double age) throws Exception {
+        User reg = new RegisteredUser(username, password,age);
+        RegUserMap.put(reg.getUsername(), reg);
     }
 
     // both
@@ -103,7 +131,7 @@ public class UserController {
             throw new Exception("username already exists");
         }
         User reg = new RegisteredUser(username, newPass,age);
-        return addToRegUserMap(reg);
+        return addToRegUserMap(reg,newPass);
     }
 
     public double Buy(String username) throws Exception {
@@ -130,6 +158,11 @@ public class UserController {
         return getUser(username).addToCart(product, storeId, quantity);
     }
 
+    public String addToCartOffer(String username, Integer product, double price, int storeId) throws Exception {
+        LOGGER.info("username: " + username + ", product: " + product + ", price: " + price);
+        return getUser(username).addToCartOffer(product, storeId, price);
+    }
+
     public String inspectCart(String username) {
         LOGGER.info("username: " + username);
         return getUser(username).inspectCart();
@@ -141,12 +174,13 @@ public class UserController {
     }
 
     public String EditPermissions(int storeID, String ownerUserName, String userName, Boolean storeOwner,
-            Boolean storeManager, Boolean[] pType) throws Exception {
+                                  Boolean storeManager, Boolean[] pType) throws Exception {
         LOGGER.info("storeID: " + storeID + ", ownerUserName: " + ownerUserName + ", userName: " + userName
                 + "storeOwner: " + storeOwner);
         if (RegUserMap.containsKey(ownerUserName)) {
             RegisteredUser owner = (RegisteredUser) (RegUserMap.get(ownerUserName));
-            return owner.EditPermissions(storeID, userName, storeOwner, storeManager, pType);
+            return permissions.editPermission(storeID, owner.getUsername(), userName, storeOwner, storeManager,
+                    pType);
         } else {
             LOGGER.severe("ownerUserName not found");
             throw new Exception("ownerUserName not found");
@@ -158,7 +192,7 @@ public class UserController {
         LOGGER.info("ownerUserName: " + ownerUserName + ", username: " + username + "storeOwner: " + storeId);
         if (RegUserMap.containsKey(ownerUserName)) {
             RegisteredUser owner = (RegisteredUser) (RegUserMap.get(ownerUserName));
-            return owner.AssignStoreManager(storeId, username, pType);
+            return permissions.addPermission(storeId, owner.getUsername(), username, false, true, pType);
         } else {
             LOGGER.severe("ownerUserName not found");
             throw new Exception("ownerUserName not found");
@@ -170,7 +204,7 @@ public class UserController {
         LOGGER.info("ownerUserName: " + ownerUserName + ", username: " + username + "storeOwner: " + storeId);
         if (RegUserMap.containsKey(ownerUserName)) {
             RegisteredUser owner = (RegisteredUser) (RegUserMap.get(ownerUserName));
-            return owner.AssignStoreOwner(storeId, username, pType);
+            return permissions.addPermission(storeId, owner.getUsername(), username, true, false, pType);
         } else {
             LOGGER.severe("ownerUserName not found");
             throw new Exception("ownerUserName not found");
@@ -195,10 +229,6 @@ public class UserController {
         return GuestMap;
     }
 
-    // this is for testing
-    public void setToNull() {
-        instance = null;
-    }
 
     public Boolean reviewOffer(double offer, String username) throws Exception {
         LOGGER.info("offer: " + offer);

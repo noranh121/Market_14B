@@ -1,17 +1,16 @@
 package org.market.DomainLayer.backend;
 
-import org.market.DomainLayer.backend.NotificationPackage.BaseNotifier;
 import org.market.DomainLayer.backend.NotificationPackage.DelayedNotifierDecorator;
 import org.market.DomainLayer.backend.NotificationPackage.ImmediateNotifierDecorator;
-import org.market.DomainLayer.backend.NotificationPackage.Notifier;
+import org.market.DomainLayer.backend.StorePackage.Store;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
 import org.market.DomainLayer.backend.UserPackage.User;
 import org.market.DomainLayer.backend.UserPackage.UserController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -20,26 +19,33 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.market.DataAccessLayer.DataController;
+//import org.market.DataAccessLayer.DataController;
 
+@Component
 public class Permissions {
     private Map<Integer, Tree> storeOwners = new ConcurrentHashMap<>();
     private Map<String, suspensionInfo> suspendedUsers = new ConcurrentHashMap<>();
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private BaseNotifier baseNotifier = new BaseNotifier();
-    private Notifier ImmediateNotifier = new ImmediateNotifierDecorator(baseNotifier);
-    private Notifier DelayerNotifier = new DelayedNotifierDecorator(baseNotifier);
 
-    private static Permissions instance = null;
+    @Autowired
+    private ImmediateNotifierDecorator ImmediateNotifier;
 
-    private Permissions() {
+    @Autowired
+    private DelayedNotifierDecorator DelayerNotifier;
+
+    // this is for testing
+    public void clear() {
+        storeOwners.clear();
+        suspendedUsers.clear();
     }
 
-    public static synchronized Permissions getInstance() {
-        if (instance == null)
-            instance = new Permissions();
-        return instance;
-    }
+    // @Autowired
+    // private DataController dataController;
+    @Autowired
+    private StoreController storeController;
+
+    @Autowired
+    private UserController userController;
 
     public String initStore(int storeID, String userName) throws Exception {
         if (!storeOwners.containsKey(storeID)) {
@@ -58,11 +64,15 @@ public class Permissions {
         }
     }
 
+    public Boolean storeExist(int storeID){
+        return storeOwners.containsKey(storeID);
+    }
+
     public Permission getPermission(int storeID, String userName) throws Exception {
-        while(!deleteLock.tryLock()){
+        while (!deleteLock.tryLock()) {
             Thread.sleep(1000);
         }
-        try{
+        try {
             if (storeOwners.containsKey(storeID)) {
                 Node permissionNode = storeOwners.get(storeID).findNode(userName);
                 if (permissionNode != null) {
@@ -76,33 +86,33 @@ public class Permissions {
                 UserController.LOGGER.severe(storeID + " does not exist");
                 throw new Exception(storeID + " does not exist");
             }
-        }finally{
+        } finally {
             deleteLock.unlock();
         }
-        
+
     }
-    
+
     private final Lock addLock = new ReentrantLock();
 
     public String addPermission(int storeID, String ownerUserName, String userName, Boolean storeOwner,
-        Boolean storeManager, Boolean[] pType) throws Exception {
+            Boolean storeManager, Boolean[] pType) throws Exception {
         Permission permission = new Permission(userName, storeOwner, storeManager, pType);
         Node permissionNode = new Node(permission);
         if (storeOwners.containsKey(storeID)) {
-            if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
+            if ((storeOwners.get(storeID).findNode(ownerUserName)!=null)&&(storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner())) {
                 addLock.lock();
-                try{
+                try {
                     if (storeOwners.get(storeID).findNode(userName) == null) {
                         updateUser(userName, "you have an updated permission");
                         storeOwners.get(storeID).findNode(ownerUserName).addChild(permissionNode);
                         UserController.LOGGER.info("Permission added to store");
                         return "Permission added to store";
-    
+
                     } else {
                         UserController.LOGGER.severe(userName + " already exists");
                         throw new Exception(userName + " already exists");
                     }
-                }finally{
+                } finally {
                     addLock.unlock();
                 }
             } else {
@@ -123,7 +133,7 @@ public class Permissions {
         if (storeOwners.containsKey(storeID)) {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 editLock.lock();
-                try{
+                try {
                     if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)) {
                         storeOwners.get(storeID).findNode(userName).edit(permission);
                         updateUser(userName, "edited your permission");
@@ -133,7 +143,7 @@ public class Permissions {
                         UserController.LOGGER.severe(userName + " is not employed by " + ownerUserName);
                         throw new Exception(userName + " is not employed by " + ownerUserName);
                     }
-                }finally{
+                } finally {
                     editLock.unlock();
                 }
             } else {
@@ -153,21 +163,21 @@ public class Permissions {
             if (storeOwners.get(storeID).findNode(ownerUserName).getData().getStoreOwner()) {
                 if (storeOwners.get(storeID).findNode(userName) != null) {
                     deleteLock.lock();
-                    try{
+                    try {
                         if (storeOwners.get(storeID).findNode(ownerUserName).isChild(userName)
-                            || ownerUserName.equals(userName)) {
-                        updateUsers(storeID, ownerUserName , "deleted your permission");
-                        storeOwners.get(storeID).deleteNode(userName);
-                        UserController.LOGGER.info("Permission deleted from store");
-                        return "Permission deleted from store";
+                                || ownerUserName.equals(userName)) {
+                            updateUsers(storeID, ownerUserName, "deleted your permission");
+                            storeOwners.get(storeID).deleteNode(userName);
+                            UserController.LOGGER.info("Permission deleted from store");
+                            return "Permission deleted from store";
                         } else {
                             UserController.LOGGER.severe(userName + " is not employed by " + ownerUserName);
                             throw new Exception(userName + " is not employed by " + ownerUserName);
                         }
-                    }finally{
+                    } finally {
                         deleteLock.unlock();
                     }
-                    
+
                 } else {
                     UserController.LOGGER.severe(userName + " already exists");
                     throw new Exception(userName + " already exists");
@@ -185,12 +195,12 @@ public class Permissions {
     private final Lock ownerLock = new ReentrantLock();
 
     public String deleteStoreOwner(int storeID, String userName) throws Exception {
-        StoreController storeController = StoreController.getInstance();
+        // StoreController storeController = StoreController.getInstance();
         if (storeOwners.containsKey(storeID)) {
             Tree currTree = storeOwners.get(storeID);
             if (currTree.findNode(userName).getData().getStoreOwner()) {
                 ownerLock.lock();
-                try{
+                try {
                     if (currTree.isRoot(storeOwners.get(storeID).findNode(userName))) {
                         storeController.deleteStore(storeID);
                         storeOwners.remove(storeID);
@@ -200,10 +210,10 @@ public class Permissions {
                     storeOwners.get(storeID).deleteNode(userName);
                     UserController.LOGGER.info("deleted store owner");
                     return "deleted store owner";
-                }finally{
+                } finally {
                     ownerLock.unlock();
                 }
-                
+
             } else {
                 UserController.LOGGER.severe(userName + " not a store owner");
                 throw new Exception(userName + " not a store owner");
@@ -247,34 +257,34 @@ public class Permissions {
     }
 
     public String viewSuspended() {
-        if(suspendedUsers.isEmpty()){
-            ArrayList<String> suspended=(ArrayList<String>)DataController.getinstance().viewSuspended();
-            if (suspended.isEmpty()) {
-                UserController.LOGGER.info("no suspended users");
-                return "<Empty>";
-            }
-            for(String name : suspended){
-                suspendedUsers.put(name,new suspensionInfo(null, 0));
-            }
-        }
+        // if(suspendedUsers.isEmpty()){
+        // ArrayList<String>
+        // suspended=(ArrayList<String>)DataController.getinstance().viewSuspended();
+        // if (suspended.isEmpty()) {
+        // UserController.LOGGER.info("no suspended users");
+        // return "<Empty>";
+        // }
+        // for(String name : suspended){
+        // suspendedUsers.put(name,new suspensionInfo(null, 0));
+        // }
+        // }
         StringBuilder result = new StringBuilder();
         for (Entry<String, suspensionInfo> entry : suspendedUsers.entrySet()) {
-            result.append(entry.getKey());
+            result.append(entry.getKey()).append(": ");
             result.append(entry.getValue().toString());
+            result.append("\n");
         }
         return result.toString();
     }
 
-
-    //notifier
+    // notifier
     public void updateStoreOwners(int storeId, String updateMessage) {
         if (storeOwners.containsKey(storeId)) {
             Tree tree = storeOwners.get(storeId);
             for (String username : tree) {
-                chooseNotifier(username,updateMessage);
+                chooseNotifier(username, updateMessage);
             }
-        }
-        else {
+        } else {
             UserController.LOGGER.severe("store " + storeId + " does not exist");
         }
     }
@@ -288,50 +298,97 @@ public class Permissions {
         }
     }
 
-    public void updateUser(String username, String updateMessage){
-        chooseNotifier(username,updateMessage);
+    public void updateUser(String username, String updateMessage) {
+        chooseNotifier(username, updateMessage);
     }
 
     private void chooseNotifier(String username, String message) {
-        UserController userController = UserController.getInstance();
         User user = userController.getUser(username);
         if (user.isLoggedIn()) {
             ImmediateNotifier.send(username, message);
             UserController.LOGGER.info("message sent to " + username);
-        }
-        else {
+        } else {
             DelayerNotifier.send(username, message);
             UserController.LOGGER.info("message stacked to " + username);
         }
     }
 
-
-    // this is for testing
-    public void setToNull() {
-        instance = null;
-    }
-
     public double reviewOffer(int storeId, double price, int productId) throws Exception {
-        if(storeOwners.containsKey(storeId)){
-            String rootUserName=storeOwners.get(storeId).getRoot().getData().getUserName();
+        if (storeOwners.containsKey(storeId)) {
+            String rootUserName = storeOwners.get(storeId).getRoot().getData().getUserName();
             updateUsers(storeId, rootUserName, "review this offer");
             Iterator<String> iterator = storeOwners.get(storeId).subtreeIterator(rootUserName);
-            Boolean response=true;
+            Boolean response = true;
             if (iterator != null) {
                 while (iterator.hasNext()) {
-                    response&=UserController.getInstance().reviewOffer(price, iterator.next());
+                    response &= userController.reviewOffer(price, iterator.next());
                 }
             }
-            if(response)
+            if (response)
                 return price;
-            else{
-                return StoreController.getInstance().getStore(storeId).getProdPrice(productId);
+            else {
+                return storeController.getStore(storeId).getProdPrice(productId);
             }
-        }
-        else{
+        } else {
             UserController.LOGGER.severe(storeId + " does not exist");
             throw new Exception(storeId + " does not exist");
         }
     }
+
+    public List<Store> getUserStores(String username) throws Exception {
+        List<Store> stores = new ArrayList<>();
+        for (int strId : storeOwners.keySet()) {
+            if (storeOwners.get(strId).findNode(username) != null) {
+                Permission permission = getPermission(strId, username);
+                if (permission.getStoreManager() || permission.getStoreOwner()) {
+                    stores.add(storeController.getStore(strId));
+                }
+            }
+        }
+        return stores;
+    }
+
+    public Map<Integer, Permission> getUserPermissions(String username) throws Exception {
+        Map<Integer, Permission> map = new HashMap<>();
+        for (int strId : storeOwners.keySet()) {
+            if (storeOwners.get(strId).findNode(username) != null) {
+                Permission permission = getPermission(strId, username);
+                map.put(strId, permission);
+            }
+        }
+        return map;
+    }
+
+    public int numOfStoreOwners(int storeId) throws Exception {
+        if (!storeOwners.containsKey(storeId)) {
+            UserController.LOGGER.severe("Store ID " + storeId + " does not exist");
+            throw new Exception("Store ID " + storeId + " does not exist");
+        }
+
+        Tree tree = storeOwners.get(storeId);
+        return countStoreOwnersInTree(tree.getRoot());
+    }
+
+    private int countStoreOwnersInTree(Node node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int count = 0;
+        if (node.getData().getStoreOwner()) {
+            count++;
+        }
+
+        for (Node child : node.getChildren()) {
+            count += countStoreOwnersInTree(child);
+        }
+
+        return count;
+    }
+
+    public Map<Integer, Tree> getStoreOwners() {
+        return storeOwners;
+    }
+    
 
 }

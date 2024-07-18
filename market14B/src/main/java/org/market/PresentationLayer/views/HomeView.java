@@ -59,22 +59,50 @@ public class HomeView extends HorizontalLayout implements RouterLayout, AfterNav
         accountLink.add("Account");
         accountLink.addClassName("drawer-link");
 
+        RouterLink manageLink = new RouterLink("", SuspendView.class);
+        Icon manageIcon = new Icon(VaadinIcon.STOP);
+        manageIcon.getStyle().set("width", "20px").set("height", "20px").set("margin", "10px");
+        manageLink.add(manageIcon);
+        manageLink.add("Suspensions");
+        manageLink.addClassName("drawer-link");
+
+        RouterLink purchaseHistoryLink = new RouterLink("", PurchaseHistoryView.class);
+        Icon purchaseHistoryIcon = new Icon(VaadinIcon.ARCHIVE);
+        purchaseHistoryIcon.getStyle().set("width", "20px").set("height", "20px").set("margin", "10px");
+        purchaseHistoryLink.add(purchaseHistoryIcon);
+        purchaseHistoryLink.add("Purchase History");
+        purchaseHistoryLink.addClassName("drawer-link");
+
         drawerLinks.add(marketLink);
         drawerLinks.add(storesLink);
         drawerLinks.add(mystoresLink);
         drawerLinks.add(cartLink);
         drawerLinks.add(accountLink);
+        drawerLinks.add(manageLink);
+        drawerLinks.add(purchaseHistoryLink);
 
         VerticalLayout drawer = new VerticalLayout(marketLink, storesLink);
 
-        if(VaadinSession.getCurrent().getAttribute("current-user") != null){
+        String username = (String) VaadinSession.getCurrent().getAttribute("current-user");
+
+        if(username != null){
             drawer.add(mystoresLink);
         }
 
         drawer.add(cartLink);
 
-        if(VaadinSession.getCurrent().getAttribute("current-user") != null){
+        if(username != null){
             drawer.add(accountLink);
+        }
+
+        if(username != null){
+            drawer.add(purchaseHistoryLink);
+        }
+
+        var isManager = VaadinSession.getCurrent().getAttribute("isManager");
+
+        if(isManager != null && (Boolean) isManager && username != null){
+            drawer.add(manageLink);
         }
 
         drawer.setWidth("200px");
@@ -82,7 +110,6 @@ public class HomeView extends HorizontalLayout implements RouterLayout, AfterNav
 
         add(drawer);
 
-        this.getUI().ifPresent(ui -> ui.navigate("/dash/market"));
     }
 
     @Override

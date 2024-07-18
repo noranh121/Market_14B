@@ -2,7 +2,6 @@ package org.market.PresentationLayer.views;
 
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -13,8 +12,6 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
 import org.market.PresentationLayer.presenter.InitPresenter;
 import org.market.PresentationLayer.views.components.UserMenu;
-import org.market.Web.Requests.ReqUser;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,22 +35,8 @@ public class MainLayout extends AppLayout implements AfterNavigationObserver {
     private InitPresenter presenter;
 
     public MainLayout() {
-        Button send = new Button("send", e -> sendMessage());
-        addToNavbar(send);
         addToNavbar(createTopBar());
         this.presenter = new InitPresenter(this);
-    }
-
-    private void sendMessage() {
-        String loginUrl = "http://localhost:8080/api/users/send-message";
-
-        RestTemplate restTemplate = new RestTemplate();
-        ReqUser user = new ReqUser();
-        user.setGuest("ssss");
-        user.setPassword("ssss");
-        user.setAge(20.4);
-        user.setUsername("sassa");
-        Boolean response = restTemplate.postForObject(loginUrl, user, Boolean.class);
     }
 
     private HorizontalLayout createTopBar() {

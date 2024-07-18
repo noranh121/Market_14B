@@ -1,45 +1,43 @@
 package org.market.PresentationLayer.views;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RoutePrefix;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
-import org.market.PresentationLayer.models.Product;
+import org.market.PresentationLayer.presenter.CartPresenter;
 import org.market.PresentationLayer.views.components.CartItem;
+import org.market.Web.DTOS.CartItemDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Route(value = "cart", layout = HomeView.class)
 @RoutePrefix("dash")
-@AnonymousAllowed
-public class CartView extends VerticalLayout {
-    private List<Product> products = new ArrayList<>();
+public class CartView extends VerticalLayout implements BeforeEnterObserver {
+    private Span subtitle;
+    private List<CartItemDTO> items = new ArrayList<>();
     private VerticalLayout productsLayout;
     private Span totalPrice;
     private Button checkoutButton;
+    private CartPresenter presenter;
 
     public CartView() {
-
-        products.add(new Product("6 Blade Starter Kit", 10.0, 1));
-        products.add(new Product("6 Blade Starter Kit", 10.0, 1));
-        products.add(new Product("6 Blade Starter Kit", 10.0, 1));
-        products.add(new Product("6 Blade Starter Kit", 10.0, 1));
-        products.add(new Product("6 Blade Starter Kit", 10.0, 1));
 
         Span title = new Span("Your cart");
         title.addClassName("cart-title");
 
-        Span subtitle = new Span(products.size() + " items at checkout");
+        this.subtitle = new Span(items.size() + " items at checkout");
+
         subtitle.addClassName("cart-subtitle");
 
         add(title, subtitle);
 
         productsLayout = new VerticalLayout();
         productsLayout.addClassName("cart-items-layout");
-        updateProducts();
 
         totalPrice = new Span();
         updateTotalPriceSpan();
@@ -47,6 +45,7 @@ public class CartView extends VerticalLayout {
 
         checkoutButton = new Button("Checkout");
         checkoutButton.addClassName("checkout-button");
+        checkoutButton.addClickListener(e -> UI.getCurrent().navigate("dash/cart/payment"));
 
         VerticalLayout summaryLayout = new VerticalLayout();
         summaryLayout.add(new Span("Summary"), totalPrice, checkoutButton);
@@ -60,29 +59,36 @@ public class CartView extends VerticalLayout {
         addClassName("cart-view");
     }
 
-    private void updateProducts() {
-        productsLayout.removeAll();
-        for (Product product : products) {
-            productsLayout.add(new CartItem(product, this::updateTotalPriceSpan, () -> {
-                products.remove(product); // onDelete action
-                updateProducts();
-                updateTotalPriceSpan();
-            }));
-        }
-    }
-
-    private void updateTotalPriceSpan(Product product) {
-        updateTotalPriceSpan();
-    }
-
     private void updateTotalPriceSpan() {
         double totalPrice = calculateTotalPrice();
         this.totalPrice.setText(String.format("Balance: $%.2f", totalPrice));
     }
 
     private double calculateTotalPrice() {
-        return products.stream()
-                .mapToDouble(product -> product.getPrice() * product.getQuantity())
+        return this.items.stream()
+                .mapToDouble(item -> item.getPrice() * item.getQuantity())
                 .sum();
+    }
+
+    public void loadCart(ArrayList<CartItemDTO> items) {
+        this.items = items;
+        checkoutButton.setEnabled(!items.isEmpty());
+        this.subtitle.setText(items.size() + " items at checkout");
+        updateTotalPriceSpan();
+        productsLayout.removeAll();
+        for (CartItemDTO item : items) {
+            CartItem card = new CartItem(item, e -> {
+                presenter.updateCartItemQuantity(e);
+                updateTotalPriceSpan();
+            }, e -> {
+                presenter.removeCartItem(e);
+            });
+            productsLayout.add(card);
+        }
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+        this.presenter = new CartPresenter(this);
     }
 }

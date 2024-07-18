@@ -1,6 +1,6 @@
 package org.market.PresentationLayer.presenter;
 
-import org.market.PresentationLayer.errors.ErrorHandler;
+import org.market.PresentationLayer.handlers.ErrorHandler;
 import org.market.PresentationLayer.views.components.StoreCollection;
 import org.market.Web.DTOS.StoreDTO;
 import org.springframework.core.ParameterizedTypeReference;

@@ -3,6 +3,7 @@ package org.market.PresentationLayer.models;
 public class AuthResponse {
     private String access_token;
     private String refresh_token;
+    private boolean isManager;
 
     public AuthResponse(){
 
@@ -22,5 +23,13 @@ public class AuthResponse {
 
     public void setRefresh_token(String refresh_token) {
         this.refresh_token = refresh_token;
+    }
+
+    public boolean isManager() {
+        return isManager;
+    }
+
+    public void setManager(boolean manager) {
+        isManager = manager;
     }
 }

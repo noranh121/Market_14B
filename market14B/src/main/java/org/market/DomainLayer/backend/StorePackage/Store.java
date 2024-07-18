@@ -1,19 +1,26 @@
 package org.market.DomainLayer.backend.StorePackage;
 
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import org.market.DomainLayer.backend.ProductPackage.Inventory;
+import org.market.DomainLayer.backend.ProductPackage.Product;
 import org.market.DomainLayer.backend.StorePackage.Discount.CompositeDiscountPolicy;
 import org.market.DomainLayer.backend.StorePackage.Discount.DiscountPolicyController;
 import org.market.DomainLayer.backend.StorePackage.Discount.Logical.ANDDiscountRule;
 import org.market.DomainLayer.backend.StorePackage.Purchase.ANDPurchaseRule;
 import org.market.DomainLayer.backend.StorePackage.Purchase.CompositePurchasePolicy;
+import org.market.DomainLayer.backend.StorePackage.Purchase.Offer;
 import org.market.DomainLayer.backend.StorePackage.Purchase.PurchasePolicyController;
+import org.market.Web.DTOS.OfferDTO;
+import org.market.Web.DTOS.ProductDTO;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Store {
     private int id;
+    private String name;
     private Inventory inventory;
     private String firstOwnerName;
     private boolean active;
@@ -22,13 +29,15 @@ public class Store {
     private DiscountPolicyController compositeDiscountPolicy;
     private PurchasePolicyController compositePurchasePolicy;
     private final Lock storeLock = new ReentrantLock();
+    private List<Offer> offers;
 
     private int discountPolicyIDCounter;
     private int purchasePolicyIDCounter;
 
-    public Store(String name, String Description, int id) {
+    public Store(String username, String name, String Description, int id) {
         this.id = id;
-        this.firstOwnerName = name;
+        this.name = name;
+        this.firstOwnerName = username;
         this.description = Description;
         active = false;
         inventory = new Inventory();
@@ -39,6 +48,7 @@ public class Store {
         compositePurchasePolicy=new ANDPurchaseRule(purchasePolicyIDCounter);
         discountPolicyIDCounter++;
         purchasePolicyIDCounter++;
+        offers = new ArrayList<>();
     }
     
     // Discount Policy
@@ -46,10 +56,10 @@ public class Store {
         return compositeDiscountPolicy;
     }
 
-    public void addDiscountComposite(CompositeDiscountPolicy discountPolicy){
+    public int addDiscountComposite(CompositeDiscountPolicy discountPolicy,int id){
         discountPolicy.setId(discountPolicyIDCounter);
-        compositeDiscountPolicy.addComposite(discountPolicy);
-        discountPolicyIDCounter++;
+        compositeDiscountPolicy.addComposite(discountPolicy,id);
+        return discountPolicyIDCounter++;
     }
 
     public void removeDiscountComposite(int discountPolicyId) throws Exception{
@@ -66,10 +76,10 @@ public class Store {
         return compositePurchasePolicy;
     }
 
-    public void addPurchaseComposite(CompositePurchasePolicy purchasePolicy){
+    public int addPurchaseComposite(CompositePurchasePolicy purchasePolicy,int id){
         purchasePolicy.setId(purchasePolicyIDCounter);
-        compositePurchasePolicy.addComposite(purchasePolicy);
-        purchasePolicyIDCounter++;
+        compositePurchasePolicy.addComposite(purchasePolicy,id);
+        return purchasePolicyIDCounter++;
     }
 
     public void removePurchaseComposite(int purchasePolicyId) throws Exception{
@@ -79,6 +89,15 @@ public class Store {
     public Boolean purchase(Map<Integer, double[]> products, double age) throws Exception{
         return compositePurchasePolicy.purchase(products, age);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     // Getter and Setter for rating
     public double getRating() {
@@ -236,6 +255,95 @@ public class Store {
 
     public String getInfo() {
         return this.inventory.fetchInfo();
+    }
+
+    public double[] bring(int prodid) {
+        double [] info = new double[2];
+        double price = inventory.getPrice(prodid);
+        if(price == -1){
+            info[0] = -1;
+            info[1] = -1;
+        }else{
+            info[0] = price;
+            info[1] = this.id;
+        }
+        return info;
+    }
+
+    public List<ProductDTO> bringProds() {
+        List<ProductDTO> prods = new ArrayList<>();
+        Map<Product,Double> map = inventory.gatherProds();
+        for(Map.Entry<Product, Double> entry: map.entrySet()){
+            double price = entry.getValue();
+            ProductDTO pdto = new ProductDTO(entry.getKey(),price , this.id);
+            prods.add(pdto);
+        }
+        return prods;
+    }
+
+    public void updateProductPrice(String username, int productId, double offerPrice) {
+        inventory.updateProductPrice(productId,offerPrice);
+    }
+    
+    public List<OfferDTO> bringOffers() {
+        List<OfferDTO> offersDTOs = new ArrayList<>();
+        for (Offer offer : offers) {
+            OfferDTO dto = new OfferDTO();
+            dto.setName(offer.getProductName());
+            dto.setOffer(offer.getOfferPrice());
+            dto.setPrice(offer.getPrice());
+            dto.setProductId(offer.getProductId());
+            dto.setUsername(offer.getUsername());
+            offersDTOs.add(dto);
+        }
+        return offersDTOs;
+    }
+
+    public String sendOffer(int productId, String productName ,String username, Double price, Double offerPrice) {
+        Offer offer = new Offer(productId, productName ,username, price, offerPrice, this.id);
+        offers.add(offer);
+        return "sent";
+    }
+
+    public Offer getOffer(String username, int productId) {
+        for (Offer offer: offers) {
+            if (offer.getUsername().equals(username) && offer.getProductId() == productId) {
+                return offer;
+            }
+        }
+        return null;
+    }
+
+    public int approveOffer(int num, String username, int productId) {
+        Offer offer = getOffer(username, productId);
+        offer.addNumOfApprovals();
+        if (offer.getVotes() == num) {
+            if (offer.getNumOfApprovals() == offer.getVotes()) {
+                offers.remove(offer);
+                return 1; // the offer was accepted by everyone
+            }
+            else {
+                offers.remove(offer);
+                return -1; // the offer was regected by some
+            }
+        }
+        return 0; // not everyone voted yet
+    }
+
+    public int rejectOffer(int num, String username, int productId) {
+        Offer offer = getOffer(username, productId);
+        offer.addnumOfRejections();
+        if (offer.getVotes() == num) {
+            if (offer.getnumOfRejections() == offer.getVotes()) {
+                offers.remove(offer);
+                return -1; // the offer was accepted by everyone
+            }
+            else{
+                offers.remove(offer);
+                return 1; // the offer was rejected by some
+            }
+        }
+        return 0; // not everyone voted yet
     }
 
 }

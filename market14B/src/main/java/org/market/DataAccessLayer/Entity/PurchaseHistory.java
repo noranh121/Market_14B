@@ -1,31 +1,31 @@
 package org.market.DataAccessLayer.Entity;
-import javax.persistence.*;
+
+import java.util.List;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="PurchaseHistory",catalog = "Market")
-public class PurchaseHistory {
+@Table(name="PurchaseHistory")
+@NoArgsConstructor
+@AllArgsConstructor
+public class PurchaseHistory implements java.io.Serializable {
 
     @Id
     @Column(name = "purchaseID")
     private Integer purchaseID;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="product",referencedColumnName = "productID")
-    private Integer productID;
+    @Column(name = "products")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ProductScreenShot> products;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="store",referencedColumnName = "storeID")
+    @JoinColumn(name="storeID")
     private Integer storeID;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user",referencedColumnName = "username")
+    @JoinColumn(name="username")
     private String username;
 
-    @Column(name = "quantity")
-    private Integer quantity;
-
-    @Column(name = "price")
-    private Integer price;
 
     @Column(name = "ovlprice")
     private Integer ovlprice;
@@ -36,14 +36,6 @@ public class PurchaseHistory {
 
     public void setPurchaseID(Integer purchaseID) {
         this.purchaseID = purchaseID;
-    }
-
-    public Integer getProductID() {
-        return productID;
-    }
-
-    public void setProductID(Integer productID) {
-        this.productID = productID;
     }
 
     public Integer getStoreID() {
@@ -62,22 +54,6 @@ public class PurchaseHistory {
         this.username = username;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
     public Integer getOvlprice() {
         return ovlprice;
     }
@@ -86,5 +62,11 @@ public class PurchaseHistory {
         this.ovlprice = ovlprice;
     }
 
-    
+    public List<ProductScreenShot> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductScreenShot> products) {
+        this.products = products;
+    }    
 }

@@ -58,6 +58,12 @@ public abstract class User {
         return "added to cart";
     }
 
+    public String addToCartOffer(Integer product, int storeId, double price) throws Exception {
+        shoppingCart.addToCartOffer(this.username, product, price, storeId);
+        UserController.LOGGER.info("added to cart");
+        return "added to cart";
+    }
+
     /**
      * extract cart baskets and items ....
      * 
@@ -79,7 +85,7 @@ public abstract class User {
     }
 
     protected Boolean reviewOffer(double offer) throws Exception{
-        wait(10000);
+        wait(1000);
         return true;
     }
 
@@ -93,5 +99,9 @@ public abstract class User {
 
     public void cleanShoppingCart() {
         shoppingCart.clean();
+    }
+
+    public double offerPrice(String username, int storeId, double price, int productId) {
+        return price-10;
     }
 }

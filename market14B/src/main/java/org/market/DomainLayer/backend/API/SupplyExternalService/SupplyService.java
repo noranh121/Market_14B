@@ -1,7 +1,10 @@
 package org.market.DomainLayer.backend.API.SupplyExternalService;
 
 import org.market.ServiceLayer.Response;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class SupplyService{
 
     private SupplyBridge proxySupply;
@@ -32,7 +35,7 @@ public class SupplyService{
         }
     }
 
-    public Response<Integer> supply(String name, String address, String city, String country, int zip) {
+    public Response<Integer> supply(String name, String address, String city, String country, String zip) {
         try{
             Integer trasnsaction_id=proxySupply.supply(name, address, city, country, zip);
             if(trasnsaction_id!=-1){

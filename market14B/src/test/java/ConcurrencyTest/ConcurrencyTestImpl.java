@@ -3,19 +3,34 @@ import org.market.DomainLayer.backend.Permissions;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
+
+import org.market.Application;
 import org.market.DomainLayer.backend.Market;
 import org.market.DomainLayer.backend.StorePackage.StoreController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ActiveProfiles;
 
+
+@SpringBootTest(classes = Application.class)
+@ActiveProfiles("test")
 public class ConcurrencyTestImpl {
+    @Autowired
+    private ApplicationContext context;
     Market market;
     @BeforeEach
     void setUp() {
-        market=Market.getInstance();
+        market=(Market) context.getBean(Market.class);
+        org.market.DataAccessLayer.Entity.Market dataMarket=new org.market.DataAccessLayer.Entity.Market(0,true,new ArrayList<>());
+        Market.getDC().getMarketRepository().save(dataMarket);
     }
     @AfterEach
     void tearDown(){
-        market.setToNull();
+        market.clear();
+        Market.getDC().clearAll();
     }
 
     //2 users try to but the same last product at the same time
@@ -27,7 +42,9 @@ public class ConcurrencyTestImpl {
         market.EnterAsGuest(18);
         market.Register("essa","1",18);
         market.Login("0","essa","1");
-        market.initStore("essa","desc");
+        market.initStore("essa","name","desc");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0,0,10,1,"essa",18);
         market.EnterAsGuest(18);
         market.EnterAsGuest(18);
@@ -49,13 +66,14 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("maged","dollar","123",5,2027,"123","Ab2","city","country",434);
+                double sum=market.Buy("maged","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
                 if (sum==10.0){
                     result[0]=true;
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
+                fail(e.getMessage());
             } finally {
                 doneLatch.countDown(); // Indicate this thread is done
             }
@@ -64,13 +82,14 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("ola","dollar","123",5,2027,"123","Ab2","city","country",434);
+                double sum=market.Buy("ola","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
                 if (sum==10.0){
                     result[1]=true;
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (Exception e) {
+                fail(e.getMessage());
             } finally {
                 doneLatch.countDown(); // Indicate this thread is done
             }
@@ -85,7 +104,7 @@ public class ConcurrencyTestImpl {
 
         assertTrue(result[0] || result[1]);
         assertFalse(result[0] && result[1]);
-        assertEquals(StoreController.getInstance().getStore(0).getInventory().getQuantity(0),0);
+        assertEquals(Market.getSC().getStore(0).getInventory().getQuantity(0),0);
     }
 
     //store owner tries to delete a product while a user tries to buy it
@@ -97,7 +116,9 @@ public class ConcurrencyTestImpl {
         market.EnterAsGuest(18);
         market.Register("essa","1",18);
         market.Login("0","essa","1");
-        market.initStore("essa","desc");
+        market.initStore("essa","name","desc");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0,0,10,1,"essa",18);
         market.EnterAsGuest(18);
         market.Register("maged","2",18);
@@ -115,7 +136,7 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("maged","dollar","123",5,2027,"123","Ab2","city","country",434);
+                double sum=market.Buy("maged","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
                 if (sum==10.0){
                     result[0]=true;
                 }
@@ -151,7 +172,7 @@ public class ConcurrencyTestImpl {
 
         assertTrue((result[0] && result[1])||(!result[0] && result[1]));
         try {
-            assertNull(StoreController.getInstance().getStore(0).getInventory().getQuantity(0));
+            assertNull(Market.getSC().getStore(0).getInventory().getQuantity(0));
         }catch (Exception e){
             assertTrue(e.getMessage().contains("is null"));
         }
@@ -166,7 +187,9 @@ public class ConcurrencyTestImpl {
         market.EnterAsGuest(18);
         market.Register("essa","1",18);
         market.Login("0","essa","1");
-        market.initStore("essa","desc");
+        market.initStore("essa","name","desc");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.EnterAsGuest(18);
         market.EnterAsGuest(18);
         market.Register("maged","2",18);
@@ -223,8 +246,8 @@ public class ConcurrencyTestImpl {
 
         assertTrue(result[0] || result[1]);
         assertFalse(result[0] && result[1]);
-        assertEquals(Permissions.getInstance().getPermission(0,"ola").getUserName(),"ola");
-        assertTrue(Permissions.getInstance().getPermission(0,"ola").getStoreOwner());
+        assertEquals(Market.getP().getPermission(0,"ola").getUserName(),"ola");
+        assertTrue(Market.getP().getPermission(0,"ola").getStoreOwner());
     }
 
     //2 store owners try to assign the same user to store mager at the same time
@@ -236,7 +259,7 @@ public class ConcurrencyTestImpl {
         market.EnterAsGuest(18);
         market.Register("essa","1",18);
         market.Login("0","essa","1");
-        market.initStore("essa","desc");
+        market.initStore("essa","name","desc");
         market.EnterAsGuest(18);
         market.EnterAsGuest(18);
         market.Register("maged","2",18);
@@ -293,8 +316,8 @@ public class ConcurrencyTestImpl {
 
         assertTrue(result[0] || result[1]);
         assertFalse(result[0] && result[1]);
-        assertEquals(Permissions.getInstance().getPermission(0,"ola").getUserName(),"ola");
-        assertTrue(Permissions.getInstance().getPermission(0,"ola").getStoreManager());
+        assertEquals(Market.getP().getPermission(0,"ola").getUserName(),"ola");
+        assertTrue(Market.getP().getPermission(0,"ola").getStoreManager());
     }
 
     //store owners try to close the store and a user and tries to buy from the store at the same time
@@ -306,12 +329,15 @@ public class ConcurrencyTestImpl {
         market.EnterAsGuest(18);
         market.Register("essa","1",18);
         market.Login("0","essa","1");
-        market.initStore("essa","desc");
+        market.initStore("essa","name","desc");
+        market.addCatagory(0,"meat",systemManager);
+        market.initProduct(systemManager,"steak",0,"d","b",5.0);
         market.addProduct(0,0,10,1,"essa",5);
         market.EnterAsGuest(18);
         market.Register("maged","2",18);
         market.Login("1","maged","2");
         market.addToCart("maged",0,0,1);
+        market.OpenStore(0, "essa");
         boolean[] result=new boolean[2];
         result[0]=false;
         result[1]=false;
@@ -339,7 +365,7 @@ public class ConcurrencyTestImpl {
             try {
                 readyLatch.countDown(); // Indicate this thread is ready
                 startLatch.await(); // Wait for the start signal
-                double sum=market.Buy("maged","dollar","123",5,2027,"123","Ab2","city","country",434);
+                double sum=market.Buy("maged","dollar","123","5","2027","123","Ab2","city","country","434","20444444");
                 if (sum==10.0){
                     result[1]=true;
                 }
@@ -360,10 +386,10 @@ public class ConcurrencyTestImpl {
 
         assertTrue((result[0] && result[1])||(!result[1] && result[0]));
         if ((result[0] && result[1])){
-            assertEquals(StoreController.getInstance().getStore(0).getInventory().getQuantity(0),0);
-            assertFalse(StoreController.getInstance().getStore(0).isActive());
+            assertEquals(Market.getSC().getStore(0).getInventory().getQuantity(0),0);
+            assertFalse(Market.getSC().getStore(0).isActive());
         }else {
-            assertFalse(StoreController.getInstance().getStore(0).isActive());
+            assertFalse(Market.getSC().getStore(0).isActive());
         }
     }
 

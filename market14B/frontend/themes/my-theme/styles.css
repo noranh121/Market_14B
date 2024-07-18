@@ -10,6 +10,9 @@
 @import "stores.css";
 @import "product.css";
 @import "search-bar.css";
+@import "manager-setting.css";
+@import "purchase.css";
+
 
 
 /* Example: CSS class name to center align the content . */
@@ -137,13 +140,14 @@
 }
 
 .collection-card {
+  position: relative;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s;
   width: 200px; /* Increased width for better layout */
-  height: 250px; /* Increased height for better layout */
+  height: 350px; /* Increased height for better layout */
   text-align: center;
   background-color: gray;
   cursor: pointer;
@@ -159,6 +163,19 @@
   gap: 15px;
   justify-content: center;
   padding: 5px;
+}
+
+.collection-card-remove-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  border: solid;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .scrollable-layout {

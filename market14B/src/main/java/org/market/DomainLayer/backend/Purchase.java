@@ -15,12 +15,19 @@ public class Purchase {
     private int purchaseid;
 
     public Purchase(Basket basket, double calculatedPrice, Map<Integer, double[]> purchases) {
-        purchases = new ConcurrentHashMap<>();
         this.username = basket.getUsername(); // method in basket
         this.storeId = basket.getStoreID(); // method in basket
         this.Ovlprice = calculatedPrice; // calculate price in basket!
         this.purchases = purchases;
         StoreController.LOGGER.info("Purchase captured!");
+    }
+
+    public Purchase(String username,int storeId,double calculatedPrice, Map<Integer, double[]> purchases){
+        purchases = new ConcurrentHashMap<>();
+        this.username =username;
+        this.storeId = storeId;
+        this.Ovlprice = calculatedPrice; 
+        this.purchases = purchases;
     }
 
     public void setID(int purchaseid) {
@@ -33,6 +40,7 @@ public class Purchase {
 
     public String FetchInfo() {
         StringBuilder info = new StringBuilder();
+        info.append("Purchase ID: ").append(purchaseid).append("\n");
         info.append("Username: ").append(username).append("\n");
         info.append("Store ID: ").append(storeId).append("\n");
         info.append("Overall Price: ").append(Ovlprice).append("\n");
