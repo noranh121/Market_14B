@@ -14,7 +14,6 @@ initStore("u2","s1","groceries");
 addCatagory(0,"snacks","admin");
 initProduct("u2","Bamba",0,"peanut-butter flavored","Osem",20);
 addProduct(1,0,30,20,"u2",20);
-getAllProducts();
 AssignStoreManager(0,"u2","u3",new Boolean[]{true,false,false});
 AssignStoreOwner(0,"u2","u4",new Boolean[]{true,false,false}); 
 AssignStoreOwner(0,"u2","u5",new Boolean[]{true,false,false}); 
